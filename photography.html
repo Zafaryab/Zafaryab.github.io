@@ -52,21 +52,21 @@
       <div class="col-md-4 col-sm-6">
         <a href="images/photo1.jpg" data-lightbox="gallery" data-title="Sunset Vibes">
           <div class="square-box">
-            <img src="images/photo1.jpg" class="img-fluid" alt="Photo 1" />
+            <img src="images/photo1.jpg" class="img-fluid rounded shadow-sm" alt="Photo 1" />
           </div>
         </a>
       </div>
       <div class="col-md-4 col-sm-6">
         <a href="images/photo2.jpg" data-lightbox="gallery" data-title="Street Scene">
           <div class="square-box">
-            <img src="images/photo2.jpg" class="img-fluid" alt="Photo 2" />
+            <img src="images/photo2.jpg" class="img-fluid rounded shadow-sm" alt="Photo 2" />
           </div>
         </a>
       </div>
       <div class="col-md-4 col-sm-6">
         <a href="images/photo3.jpg" data-lightbox="gallery" data-title="Quiet Moments">
           <div class="square-box">
-            <img src="images/photo3.jpg" class="img-fluid" alt="Photo 3" />
+            <img src="images/photo3.jpg" class="img-fluid rounded shadow-sm" alt="Photo 3" />
           </div>
         </a>
       </div>
@@ -81,6 +81,7 @@
       .then(res => res.text())
       .then(data => {
         document.getElementById("footer-placeholder").innerHTML = data;
+        if (window.lightbox) lightbox.init();
       });
   </script>
 
