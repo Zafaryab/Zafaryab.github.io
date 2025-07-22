@@ -48,23 +48,6 @@
 
   <!-- Photography Gallery Section -->
   <section class="container py-5">
-  <h2 class="text-center mb-4">My Photography</h2>
-  <div class="row g-3">
-    {% assign gallery = site.static_files | where_exp:"f","f.path contains '/images/'" %}
-    {% for img in gallery %}
-      <div class="col-6 col-md-4">
-        <a href="{{ img.path | relative_url }}" data-lightbox="gallery" data-title="{{ img.name }}">
-          <div class="square-box">
-            <img src="{{ img.path | relative_url }}"
-                 class="img-fluid rounded shadow-sm"
-                 alt="{{ img.name }}">
-          </div>
-        </a>
-      </div>
-    {% endfor %}
-  </div>
-</section>
-<!--   <section class="container py-5">
     <h2 class="text-center mb-4">
       <a href="https://instagram.com/zhaider_lens" target="_blank" class="text-dark mx-2">
         <i class="fab fa-instagram fa-lg"></i>
@@ -91,10 +74,10 @@
             <img src="images/photo3.jpg" class="img-fluid rounded shadow-sm" alt="Photo 3" />
           </div>
         </a>
-      </div> -->
+      </div>
       <!-- Add more image blocks here -->
-<!--     </div>
-  </section> -->
+    </div>
+  </section>
 
   <!-- Footer Placeholder (Modular) -->
   <div id="footer-placeholder"></div>
