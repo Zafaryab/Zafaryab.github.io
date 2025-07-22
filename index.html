@@ -8,21 +8,19 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <style>
-    .scrolling-cards {
+    .carousel-inner {
       display: flex;
-      overflow-x: auto;
-      gap: 1rem;
-      scroll-snap-type: x mandatory;
-      padding: 1rem 0;
     }
-    .scrolling-cards::-webkit-scrollbar {
-      display: none;
+    .carousel-item {
+      flex: 0 0 33.3333%;
+      padding: 0 15px;
     }
-    .scrolling-cards .card {
-      min-width: 300px;
-      max-width: 300px;
-      scroll-snap-align: center;
-      flex-shrink: 0;
+    .carousel-control-prev,
+    .carousel-control-next {
+      width: 5%;
+    }
+    .card {
+      height: 100%;
     }
   </style>
 </head>
@@ -53,64 +51,100 @@
       </div>
       <div class="col-md-8">
         <h1 class="display-4">Hi, I'm Zafaryab</h1>
-        <p class="lead">Ph.D. student in Electrical and Computer Engineering at the University of Maine, with a passion for advancing AI and ensuring its security.</p>
-        <p>I specialize in Large Language Models (LLMs), AI security, and cryptography. I’ve taught a range of computer science courses and led innovative research projects tackling real-world problems. I'm an experienced educator and researcher, passionate about blending technology with human impact.</p>
-        <p>When I'm not immersed in research, I find joy behind the lens. Explore my <a href="photography.html">photography portfolio</a> to see how I capture life through my camera.</p>
+        <p class="lead">Ph.D. student in Electrical and Computer Engineering at the University of Maine, with a passion for secure, intelligent systems.</p>
+        <p>My expertise spans Large Language Models (LLMs), AI security, cryptography, and hardware systems. I've worked extensively with FPGAs, Raspberry Pi, Verilog, and custom OS development. As a Teaching and Research Assistant, I have led labs in Microprocessors, Sequential Logic, and mentored student-led innovation across continents.</p>
+        <p>My work bridges cutting-edge AI research and hands-on engineering. Outside of academia, I enjoy photography — a visual counterpart to my analytical world. Explore my <a href="photography.html">photography portfolio</a>.</p>
       </div>
     </div>
   </section>
 
-  <!-- Courses Taught Cards -->
-  <section class="container py-5">
-    <h2 class="text-center mb-4">Courses I've Taught</h2>
-    <div class="scrolling-cards">
-      <div class="card p-3">
-        <h5>[COC4010] Information Security</h5>
-        <p>Focused on key security principles, cryptographic systems, and network threats.</p>
-      </div>
-      <div class="card p-3">
-        <h5>[COA3600] Data Structures</h5>
-        <p>Covered efficient data organization, storage, and manipulation techniques.</p>
-      </div>
-      <div class="card p-3">
-        <h5>[COE0431] Internet Tools</h5>
-        <p>Introduced tools and technologies powering the modern web and its architecture.</p>
-      </div>
-      <div class="card p-3">
-        <h5>[COA1910] C Programming</h5>
-        <p>Developed foundational programming skills in C with practical labs.</p>
-      </div>
-      <div class="card p-3">
-        <h5>[COC0203] OOP</h5>
-        <p>Focused on concepts of classes, objects, inheritance and design principles in Java/C++.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Projects Cards -->
+  <!-- Projects Carousel -->
   <section class="container py-5">
     <h2 class="text-center mb-4">Notable Projects</h2>
-    <div class="scrolling-cards">
-      <div class="card p-3">
-        <h5>Consensus-Based Reward System</h5>
-        <p>A framework to counter malicious feedback in LLM reinforcement training.</p>
+    <div id="projectsCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="card p-3">
+            <h5>Consensus-Based Reward System</h5>
+            <p>A framework to counter malicious feedback in LLM reinforcement training.</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="card p-3">
+            <h5>Whale Call Classification</h5>
+            <p>Applied deep learning to detect endangered whale calls in underwater audio.</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="card p-3">
+            <h5>Breast Cancer Detection (BEITv2)</h5>
+            <p>Used masked image modeling to improve medical image classification accuracy.</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="card p-3">
+            <h5>Assistive Stick</h5>
+            <p>Designed a smart stick that detects obstacles and converts text to speech.</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="card p-3">
+            <h5>Custom OS Game</h5>
+            <p>Built a Pong game using custom kernel-level system call handling.</p>
+          </div>
+        </div>
       </div>
-      <div class="card p-3">
-        <h5>Whale Call Classification</h5>
-        <p>Applied deep learning to detect endangered whale calls in underwater audio.</p>
+      <button class="carousel-control-prev" type="button" data-bs-target="#projectsCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#projectsCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </button>
+    </div>
+  </section>
+
+  <!-- Courses Taught Carousel -->
+  <section class="container py-5">
+    <h2 class="text-center mb-4">Courses I've Taught</h2>
+    <div id="coursesCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="card p-3">
+            <h5>Information Security</h5>
+            <p>Focused on security fundamentals, encryption, and systems protection.</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="card p-3">
+            <h5>Data Structures</h5>
+            <p>Covered efficient data organization, searching, and sorting algorithms.</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="card p-3">
+            <h5>Internet Tools</h5>
+            <p>Introduced networking protocols and web application fundamentals.</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="card p-3">
+            <h5>C Programming</h5>
+            <p>Explored low-level programming and memory management through hands-on labs.</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="card p-3">
+            <h5>Object Oriented Programming</h5>
+            <p>Taught design principles using Java and C++, including polymorphism and inheritance.</p>
+          </div>
+        </div>
       </div>
-      <div class="card p-3">
-        <h5>Breast Cancer Detection (BEITv2)</h5>
-        <p>Used masked image modeling to improve medical image classification accuracy.</p>
-      </div>
-      <div class="card p-3">
-        <h5>Assistive Stick</h5>
-        <p>Designed a smart stick that detects obstacles and converts text to speech.</p>
-      </div>
-      <div class="card p-3">
-        <h5>Custom OS Game</h5>
-        <p>Built a Pong game using custom kernel-level system call handling.</p>
-      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#coursesCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#coursesCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </button>
     </div>
   </section>
 
