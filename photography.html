@@ -1,25 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Zafaryab | Photography</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet" />
   <style>
     .square-box {
       width: 100%;
       aspect-ratio: 1 / 1;
       overflow: hidden;
+      border-radius: 10px;
     }
-    
+
     .square-box img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: transform 0.3s ease;
     }
 
+    .square-box img:hover {
+      transform: scale(1.05);
+    }
   </style>
 </head>
 <body>
@@ -33,48 +38,43 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item"><a class="nav-link" href="index.html">About Me</a></li>
-<!--           <li class="nav-item"><a class="nav-link" href="work.html">My Work</a></li> -->
           <li class="nav-item"><a class="nav-link active" href="photography.html">Photography</a></li>
           <li class="nav-item"><a class="nav-link" href="resume.html">Resume</a></li>
         </ul>
       </div>
     </div>
   </nav>
-  
 
-
-  <!-- Photography Gallery -->
   <!-- Photography Gallery Section -->
   <section class="container py-5">
     <h2 class="text-center mb-4">My Photography</h2>
     <div class="row g-3">
-      <div class="col-md-4">
-        <a href="images/photo1.jpg" data-lightbox="photogallery" data-title="Sunset Vibes">
-          <div class="square-box overflow-hidden">
-            <img src="images/photo1.jpg" class="img-fluid" alt="Photo 1">
+      <div class="col-md-4 col-sm-6">
+        <a href="images/photo1.jpg" data-lightbox="gallery" data-title="Sunset Vibes">
+          <div class="square-box">
+            <img src="images/photo1.jpg" class="img-fluid" alt="Photo 1" />
           </div>
         </a>
       </div>
-      <div class="col-md-4">
-        <a href="images/photo2.jpg" data-lightbox="photogallery" data-title="Street Scene">
-          <div class="square-box overflow-hidden">
-            <img src="images/photo2.jpg" class="img-fluid" alt="Photo 2">
+      <div class="col-md-4 col-sm-6">
+        <a href="images/photo2.jpg" data-lightbox="gallery" data-title="Street Scene">
+          <div class="square-box">
+            <img src="images/photo2.jpg" class="img-fluid" alt="Photo 2" />
           </div>
         </a>
       </div>
-      <div class="col-md-4">
-        <a href="images/photo3.jpg" data-lightbox="photogallery" data-title="Quiet Moments">
-          <div class="square-box overflow-hidden">
-            <img src="images/photo3.jpg" class="img-fluid" alt="Photo 3">
+      <div class="col-md-4 col-sm-6">
+        <a href="images/photo3.jpg" data-lightbox="gallery" data-title="Quiet Moments">
+          <div class="square-box">
+            <img src="images/photo3.jpg" class="img-fluid" alt="Photo 3" />
           </div>
         </a>
       </div>
-      <!-- Add more images following the same pattern -->
+      <!-- Add more image blocks here -->
     </div>
   </section>
 
-
-  <!--   footer -->
+  <!-- Footer Placeholder (Modular) -->
   <div id="footer-placeholder"></div>
   <script>
     fetch("footer.html")
@@ -84,7 +84,7 @@
       });
   </script>
 
-
+  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
 </body>
