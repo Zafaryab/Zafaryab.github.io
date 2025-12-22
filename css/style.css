@@ -1,6 +1,6 @@
-/* =========================
-   1) Design tokens / theme
-========================= */
+/* =========================================
+   Global theme tokens + base
+========================================= */
 :root{
   --ink: #0f172a;
   --muted: #475569;
@@ -8,6 +8,7 @@
   --card: #ffffff;
   --border: rgba(15, 23, 42, .10);
   --brand: #2563eb;
+  --brand2: #22c55e;
   --shadow: 0 10px 30px rgba(2, 6, 23, .10);
 }
 
@@ -20,22 +21,9 @@ body{
               #ffffff;
 }
 
-/* =========================
-   2) Navbar (shared)
-========================= */
-.navbar{
-  backdrop-filter: blur(10px);
-  background: rgba(15, 23, 42, .92) !important;
-}
-.navbar .nav-link{ opacity: .9; }
-.navbar .nav-link:hover{ opacity: 1; }
-.navbar .nav-link.active{ opacity: 1; font-weight: 600; }
-
-/* =========================
-   3) Shared components
-========================= */
-.section{ padding: 2rem 0 3rem; }
-
+/* =========================================
+   Shared components
+========================================= */
 .kicker{
   display: inline-flex;
   align-items: center;
@@ -54,14 +42,19 @@ body{
   font-weight: 800;
 }
 
-.hero-card{
-  background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.78));
-  border: 1px solid var(--border);
-  border-radius: 1.25rem;
-  box-shadow: var(--shadow);
-  overflow: hidden;
-}
+.hero-muted{ color: var(--muted); }
+.lead{ color: var(--muted); }
 
+/* Navbar (shared) */
+.navbar{
+  backdrop-filter: blur(10px);
+  background: rgba(15, 23, 42, .92) !important;
+}
+.navbar .nav-link{ opacity: .9; }
+.navbar .nav-link:hover{ opacity: 1; }
+.navbar .nav-link.active{ opacity: 1; font-weight: 600; }
+
+/* Buttons */
 .btn-brand{
   background: var(--brand);
   border-color: var(--brand);
@@ -74,6 +67,7 @@ body{
   color: var(--ink);
 }
 
+/* Social pill (Photography CTA) */
 .social-pill{
   display: inline-flex;
   align-items: center;
@@ -91,20 +85,49 @@ body{
   box-shadow: 0 10px 20px rgba(2,6,23,.10);
 }
 
-/* =========================
-   4) Index page (scoped)
-========================= */
-.page-index .hero{ padding: 3.5rem 0 2rem; }
-
-.page-index .hero-left{
-  padding: 2.25rem 2rem;
+/* Icon social buttons (Index + Resume) */
+.social a{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.75);
+  color: var(--ink);
+  text-decoration: none;
+  transition: transform .12s ease, box-shadow .12s ease;
 }
+.social a:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(2,6,23,.10);
+}
+
+/* =========================================
+   INDEX (page-index) — preserves your current look
+========================================= */
+.page-index .hero{
+  padding: 3.5rem 0 2rem;
+}
+
+.page-index .hero-card{
+  background: linear-gradient(180deg, rgba(255,255,255,.90), rgba(255,255,255,.75));
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.page-index .hero-left{ padding: 2.25rem 2rem; }
+
 .page-index .hero-right{
   padding: 2.25rem 2rem;
   background: linear-gradient(135deg, rgba(37,99,235,.08), rgba(34,197,94,.06));
   border-left: 1px solid var(--border);
 }
 
+/* bigger avatar on index */
 .page-index .about-photo{
   width: 168px;
   height: 168px;
@@ -114,15 +137,87 @@ body{
   box-shadow: 0 10px 25px rgba(2,6,23,.15);
 }
 
-/* =========================
-   5) Photography page (scoped)
-========================= */
+.page-index .section{
+  padding: 3rem 0;
+}
+.page-index .section-title{
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.25rem;
+}
+.page-index .section-subtitle{
+  color: var(--muted);
+  margin-top: -.5rem;
+  margin-bottom: 1.75rem;
+}
+
+.page-index .pro-card{
+  height: 100%;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  background: var(--card);
+  box-shadow: 0 10px 20px rgba(2,6,23,.06);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.page-index .pro-card:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(2,6,23,.10);
+}
+.page-index .pro-card .icon{
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(37,99,235,.10);
+  border: 1px solid rgba(37,99,235,.18);
+  color: var(--brand);
+}
+.page-index .pro-card p{ color: var(--muted); margin: 0; }
+
+@media (max-width: 767.98px){
+  .page-index .scroll-row{
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 82%;
+    gap: 1rem;
+    overflow-x: auto;
+    padding-bottom: .5rem;
+    scroll-snap-type: x mandatory;
+  }
+  .page-index .scroll-row > *{
+    scroll-snap-align: start;
+  }
+}
+
+.page-index .band{
+  background: linear-gradient(180deg, rgba(241,245,249,.75), rgba(241,245,249,.35));
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.page-index #footer-placeholder{ margin-top: 2rem; }
+
+/* =========================================
+   PHOTOGRAPHY (page-photography) — preserves your current look
+========================================= */
 .page-photography .page-hero{ padding: 3.25rem 0 1.25rem; }
+
+.page-photography .hero-card{
+  background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.78));
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
 
 .page-photography .hero-inner{
   padding: 2rem 1.75rem;
   background: linear-gradient(135deg, rgba(37,99,235,.08), rgba(34,197,94,.06));
 }
+
+.page-photography .section{ padding: 2rem 0 3rem; }
 
 .page-photography .gallery-card{
   position: relative;
@@ -138,6 +233,7 @@ body{
   transform: translateY(-2px);
   box-shadow: 0 14px 30px rgba(2,6,23,.10);
 }
+
 .page-photography .photo-window{
   aspect-ratio: 4 / 3;
   width: 100%;
@@ -148,15 +244,26 @@ body{
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transform: scale(1.001);
   transition: transform .25s ease;
   display: block;
 }
 .page-photography .gallery-card:hover .photo-window img{
   transform: scale(1.05);
 }
-.page-photography .caption{ padding: .9rem 1rem 1rem; }
-.page-photography .caption .title{ font-weight: 700; margin: 0 0 .2rem; }
-.page-photography .caption .sub{ margin: 0; color: var(--muted); font-size: .95rem; }
+
+.page-photography .caption{
+  padding: .9rem 1rem 1rem;
+}
+.page-photography .caption .title{
+  font-weight: 700;
+  margin: 0 0 .2rem;
+}
+.page-photography .caption .sub{
+  margin: 0;
+  color: var(--muted);
+  font-size: .95rem;
+}
 
 .page-photography .tag{
   position: absolute;
@@ -172,15 +279,124 @@ body{
   backdrop-filter: blur(10px);
 }
 
-/* =========================
-   6) Resume page (scoped) - simple base
-   (We can add your full resume card styles next)
-========================= */
+.page-photography .lb-data .lb-caption{
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* =========================================
+   RESUME (page-resume) — preserves your current look
+========================================= */
 .page-resume .page-hero{ padding: 3.25rem 0 1.25rem; }
 
-/* =========================
-   7) Footer (shared)
-========================= */
+.page-resume .hero-card{
+  background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.78));
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.page-resume .hero-inner{
+  padding: 2rem 1.75rem;
+  background: linear-gradient(135deg, rgba(37,99,235,.08), rgba(34,197,94,.06));
+}
+
+.page-resume .section{ padding: 1.5rem 0 3rem; }
+
+.page-resume .profile-card{
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  background: rgba(255,255,255,.9);
+  box-shadow: 0 10px 20px rgba(2,6,23,.06);
+  overflow: hidden;
+  position: sticky;
+  top: 88px;
+}
+
+.page-resume .profile-top{
+  padding: 1.5rem 1.25rem 1rem;
+  background: linear-gradient(135deg, rgba(37,99,235,.08), rgba(34,197,94,.06));
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+}
+
+/* smaller avatar on resume (keeps your original) */
+.page-resume .about-photo{
+  width: 128px;
+  height: 128px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid rgba(255,255,255,.9);
+  box-shadow: 0 10px 25px rgba(2,6,23,.15);
+  margin-bottom: .75rem;
+}
+
+.page-resume .profile-body{ padding: 1.25rem; }
+.page-resume .mini{ color: var(--muted); font-size: .95rem; margin-bottom: .25rem; }
+
+.page-resume .contact-list{
+  list-style: none;
+  padding: 0;
+  margin: .75rem 0 0;
+  display: grid;
+  gap: .5rem;
+}
+.page-resume .contact-list a{ color: var(--ink); text-decoration: none; }
+.page-resume .contact-list a:hover{ text-decoration: underline; }
+
+.page-resume .content-card{
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  background: rgba(255,255,255,.92);
+  box-shadow: 0 10px 20px rgba(2,6,23,.06);
+  overflow: hidden;
+}
+.page-resume .content-card .card-head{
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  background: rgba(241,245,249,.65);
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+}
+.page-resume .content-card .card-head .icon{
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(37,99,235,.10);
+  border: 1px solid rgba(37,99,235,.18);
+  color: var(--brand);
+  flex: 0 0 auto;
+}
+.page-resume .content-card .card-body{ padding: 1.25rem; }
+.page-resume .content-card h3{
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  font-size: 1.05rem;
+}
+.page-resume .muted{ color: var(--muted); }
+.page-resume .tight ul{ margin-bottom: 0; }
+.page-resume .tight li{ margin-bottom: .45rem; }
+
+.page-resume .badge-soft{
+  background: rgba(37,99,235,.10);
+  border: 1px solid rgba(37,99,235,.18);
+  color: var(--ink);
+  font-weight: 600;
+}
+
+@media (max-width: 991.98px){
+  .page-resume .profile-card{ position: static; }
+}
+
+/* =========================================
+   Footer (shared) — your existing footer styling
+========================================= */
 .site-footer{
   background: rgba(15, 23, 42, .95);
   border-top: 1px solid rgba(255,255,255,.10);
