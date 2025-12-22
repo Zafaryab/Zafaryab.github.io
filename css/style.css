@@ -1,4 +1,186 @@
-/* Footer */
+/* =========================
+   1) Design tokens / theme
+========================= */
+:root{
+  --ink: #0f172a;
+  --muted: #475569;
+  --soft: #f1f5f9;
+  --card: #ffffff;
+  --border: rgba(15, 23, 42, .10);
+  --brand: #2563eb;
+  --shadow: 0 10px 30px rgba(2, 6, 23, .10);
+}
+
+html { scroll-behavior: smooth; }
+
+body{
+  color: var(--ink);
+  background: radial-gradient(1200px 600px at 15% -10%, rgba(37,99,235,.12), transparent 55%),
+              radial-gradient(900px 500px at 85% 0%, rgba(34,197,94,.10), transparent 55%),
+              #ffffff;
+}
+
+/* =========================
+   2) Navbar (shared)
+========================= */
+.navbar{
+  backdrop-filter: blur(10px);
+  background: rgba(15, 23, 42, .92) !important;
+}
+.navbar .nav-link{ opacity: .9; }
+.navbar .nav-link:hover{ opacity: 1; }
+.navbar .nav-link.active{ opacity: 1; font-weight: 600; }
+
+/* =========================
+   3) Shared components
+========================= */
+.section{ padding: 2rem 0 3rem; }
+
+.kicker{
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .4rem .75rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: .9rem;
+  color: var(--muted);
+  background: rgba(255,255,255,.7);
+}
+
+.display-title{
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  font-weight: 800;
+}
+
+.hero-card{
+  background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.78));
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.btn-brand{
+  background: var(--brand);
+  border-color: var(--brand);
+}
+.btn-brand:hover{ filter: brightness(.95); }
+
+.btn-soft{
+  background: rgba(37,99,235,.10);
+  border: 1px solid rgba(37,99,235,.20);
+  color: var(--ink);
+}
+
+.social-pill{
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .55rem .9rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.7);
+  color: var(--ink);
+  text-decoration: none;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.social-pill:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(2,6,23,.10);
+}
+
+/* =========================
+   4) Index page (scoped)
+========================= */
+.page-index .hero{ padding: 3.5rem 0 2rem; }
+
+.page-index .hero-left{
+  padding: 2.25rem 2rem;
+}
+.page-index .hero-right{
+  padding: 2.25rem 2rem;
+  background: linear-gradient(135deg, rgba(37,99,235,.08), rgba(34,197,94,.06));
+  border-left: 1px solid var(--border);
+}
+
+.page-index .about-photo{
+  width: 168px;
+  height: 168px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid rgba(255,255,255,.9);
+  box-shadow: 0 10px 25px rgba(2,6,23,.15);
+}
+
+/* =========================
+   5) Photography page (scoped)
+========================= */
+.page-photography .page-hero{ padding: 3.25rem 0 1.25rem; }
+
+.page-photography .hero-inner{
+  padding: 2rem 1.75rem;
+  background: linear-gradient(135deg, rgba(37,99,235,.08), rgba(34,197,94,.06));
+}
+
+.page-photography .gallery-card{
+  position: relative;
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+  background: var(--card);
+  box-shadow: 0 10px 20px rgba(2,6,23,.06);
+  overflow: hidden;
+  transition: transform .12s ease, box-shadow .12s ease;
+  height: 100%;
+}
+.page-photography .gallery-card:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(2,6,23,.10);
+}
+.page-photography .photo-window{
+  aspect-ratio: 4 / 3;
+  width: 100%;
+  overflow: hidden;
+  background: #0b1220;
+}
+.page-photography .photo-window img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .25s ease;
+  display: block;
+}
+.page-photography .gallery-card:hover .photo-window img{
+  transform: scale(1.05);
+}
+.page-photography .caption{ padding: .9rem 1rem 1rem; }
+.page-photography .caption .title{ font-weight: 700; margin: 0 0 .2rem; }
+.page-photography .caption .sub{ margin: 0; color: var(--muted); font-size: .95rem; }
+
+.page-photography .tag{
+  position: absolute;
+  top: .75rem;
+  left: .75rem;
+  z-index: 2;
+  padding: .25rem .6rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(15,23,42,.55);
+  color: rgba(255,255,255,.92);
+  font-size: .85rem;
+  backdrop-filter: blur(10px);
+}
+
+/* =========================
+   6) Resume page (scoped) - simple base
+   (We can add your full resume card styles next)
+========================= */
+.page-resume .page-hero{ padding: 3.25rem 0 1.25rem; }
+
+/* =========================
+   7) Footer (shared)
+========================= */
 .site-footer{
   background: rgba(15, 23, 42, .95);
   border-top: 1px solid rgba(255,255,255,.10);
