@@ -1,23 +1,232 @@
+<!-- resume.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Zafaryab Haider | Resume</title>
+  <meta name="description" content="Zafaryab Haider — Ph.D. Candidate (ECE, UMaine). Research: LLMs, Safe & Trustworthy AI, Security." />
 
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+
+  <!-- Bootstrap + Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css" />
+
+  <style>
+    :root{
+      --ink: #0f172a;
+      --muted: #475569;
+      --soft: #f1f5f9;
+      --card: #ffffff;
+      --border: rgba(15, 23, 42, .10);
+      --brand: #2563eb;
+      --shadow: 0 10px 30px rgba(2, 6, 23, .10);
+    }
+
+    html { scroll-behavior: smooth; }
+    body{
+      color: var(--ink);
+      background: radial-gradient(1200px 600px at 15% -10%, rgba(37,99,235,.12), transparent 55%),
+                  radial-gradient(900px 500px at 85% 0%, rgba(34,197,94,.10), transparent 55%),
+                  #ffffff;
+    }
+
+    /* Navbar */
+    .navbar{
+      backdrop-filter: blur(10px);
+      background: rgba(15, 23, 42, .92) !important;
+    }
+    .navbar .nav-link{ opacity: .9; }
+    .navbar .nav-link:hover{ opacity: 1; }
+    .navbar .nav-link.active{ opacity: 1; font-weight: 600; }
+
+    /* Hero */
+    .page-hero{ padding: 3.25rem 0 1.25rem; }
+    .hero-card{
+      background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.78));
+      border: 1px solid var(--border);
+      border-radius: 1.25rem;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .hero-inner{
+      padding: 2rem 1.75rem;
+      background: linear-gradient(135deg, rgba(37,99,235,.08), rgba(34,197,94,.06));
+    }
+    .kicker{
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .4rem .75rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: .9rem;
+      color: var(--muted);
+      background: rgba(255,255,255,.7);
+    }
+    .display-title{
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      font-weight: 800;
+    }
+    .hero-muted{ color: var(--muted); }
+
+    /* Layout */
+    .section{ padding: 1.5rem 0 3rem; }
+
+    /* Left profile card */
+    .profile-card{
+      border: 1px solid var(--border);
+      border-radius: 1.25rem;
+      background: rgba(255,255,255,.9);
+      box-shadow: 0 10px 20px rgba(2,6,23,.06);
+      overflow: hidden;
+      position: sticky;
+      top: 88px; /* below navbar */
+    }
+    .profile-top{
+      padding: 1.5rem 1.25rem 1rem;
+      background: linear-gradient(135deg, rgba(37,99,235,.08), rgba(34,197,94,.06));
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+    .about-photo{
+      width: 128px;
+      height: 128px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid rgba(255,255,255,.9);
+      box-shadow: 0 10px 25px rgba(2,6,23,.15);
+      margin-bottom: .75rem;
+    }
+    .profile-body{ padding: 1.25rem; }
+    .mini{
+      color: var(--muted);
+      font-size: .95rem;
+      margin-bottom: .25rem;
+    }
+    .contact-list{
+      list-style: none;
+      padding: 0;
+      margin: .75rem 0 0;
+      display: grid;
+      gap: .5rem;
+    }
+    .contact-list a{
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .contact-list a:hover{ text-decoration: underline; }
+
+    .social a{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.75);
+      color: var(--ink);
+      text-decoration: none;
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+    .social a:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(2,6,23,.10);
+    }
+
+    .btn-brand{
+      background: var(--brand);
+      border-color: var(--brand);
+    }
+    .btn-brand:hover{ filter: brightness(.95); }
+
+    /* Content cards */
+    .content-card{
+      border: 1px solid var(--border);
+      border-radius: 1.25rem;
+      background: rgba(255,255,255,.92);
+      box-shadow: 0 10px 20px rgba(2,6,23,.06);
+      overflow: hidden;
+    }
+    .content-card .card-head{
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(241,245,249,.65);
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+    }
+    .content-card .card-head .icon{
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(37,99,235,.10);
+      border: 1px solid rgba(37,99,235,.18);
+      color: var(--brand);
+      flex: 0 0 auto;
+    }
+    .content-card .card-body{
+      padding: 1.25rem;
+    }
+    .content-card h3{
+      margin: 0;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      font-size: 1.05rem;
+    }
+    .muted{ color: var(--muted); }
+
+    .tight ul{ margin-bottom: 0; }
+    .tight li{ margin-bottom: .45rem; }
+
+    .badge-soft{
+      background: rgba(37,99,235,.10);
+      border: 1px solid rgba(37,99,235,.18);
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    @media (max-width: 991.98px){
+      .profile-card{ position: static; }
+    }
+  </style>
 </head>
 
-<body class="page-resume">
-  <div id="header-placeholder"></div>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-semibold" href="index.html">Zafaryab Haider</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+          <li class="nav-item"><a class="nav-link" href="index.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="photography.html">Photography</a></li>
+          <li class="nav-item"><a class="nav-link active" href="resume.html" aria-current="page">Resume</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
   <main>
+    <!-- Hero -->
     <section class="page-hero">
       <div class="container">
         <div class="hero-card">
-          <div class="p-4 p-lg-5" style="background: linear-gradient(135deg, rgba(37,99,235,.08), rgba(34,197,94,.06));">
+          <div class="hero-inner">
             <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-3">
               <div>
                 <div class="kicker mb-3">
@@ -25,41 +234,315 @@
                   <span>Curriculum Vitae</span>
                 </div>
                 <h1 class="display-6 display-title mb-2">Resume</h1>
-                <p class="text-secondary mb-0">Download the latest PDF or browse below.</p>
+                <p class="hero-muted mb-0">
+                  Ph.D. Candidate (ECE, UMaine) · Large Language Models · Safe &amp; Trustworthy AI
+                </p>
               </div>
 
-              <a class="btn btn-brand text-white" href="assets/pdf/resume.pdf" target="_blank" rel="noopener">
-                <i class="fa-solid fa-download me-2"></i>Download PDF
-              </a>
+              <!-- Put your PDF in the same folder as resume.html, or update the path -->
+              <div class="d-flex gap-2 flex-wrap">
+                <a class="btn btn-brand text-white" href="zafaryab_resume.pdf" target="_blank" rel="noopener">
+                  <i class="fa-solid fa-download me-2"></i>Download PDF
+                </a>
+                <a class="btn btn-outline-dark" href="#publications">
+                  <i class="fa-solid fa-book-open me-2"></i>Publications
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Keep your existing resume content here -->
+    <!-- Body -->
     <section class="section">
       <div class="container">
-        <div class="alert alert-light border">
-          Paste your latest resume sections here (Education / Publications / Experience etc).
-          If you want, I can format the whole resume page into professional cards next.
-        </div>
+        <div class="row g-4 align-items-start">
+          <!-- Left profile -->
+          <div class="col-12 col-lg-4">
+            <aside class="profile-card">
+              <div class="profile-top">
+                <img src="images/profile.jpg" alt="Portrait of Zafaryab Haider" class="about-photo" />
+                <h2 class="h4 fw-bold mb-1">Zafaryab Haider</h2>
+                <div class="mini">Ph.D. Candidate · ECE</div>
+                <div class="mini">University of Maine, Orono, ME</div>
+              </div>
 
-        <!-- Example publication with PDF link -->
-        <h2 class="h4 fw-bold mt-4">Selected Publication</h2>
-        <ul>
-          <li>
-            BLADE (arXiv) —
-            <a href="assets/pdf/publications/BLADE_Arxiv.pdf" target="_blank" rel="noopener">PDF</a>
-          </li>
-        </ul>
+              <div class="profile-body">
+                <div class="d-flex gap-2 flex-wrap mb-2">
+                  <span class="badge badge-soft rounded-pill"><i class="fa-solid fa-shield-halved me-1"></i> Safe AI</span>
+                  <span class="badge badge-soft rounded-pill"><i class="fa-solid fa-brain me-1"></i> LLMs</span>
+                  <span class="badge badge-soft rounded-pill"><i class="fa-solid fa-lock me-1"></i> AI Security</span>
+                </div>
+
+                <ul class="contact-list">
+                  <li><i class="fa-solid fa-envelope me-2"></i><a href="mailto:zafaryab.haider@maine.edu">zafaryab.haider@maine.edu</a></li>
+                  <!-- Keep your real link here (your site already uses linkedin.com/in/zafaryab elsewhere) -->
+                  <li><i class="fa-brands fa-linkedin me-2"></i><a href="https://linkedin.com/in/zafaryab" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+                </ul>
+
+                <div class="social d-flex gap-2 mt-3">
+                  <a href="https://linkedin.com/in/zafaryab" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                  <a href="https://instagram.com/zhaider_lens" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                  <a href="https://facebook.com/zaffuyab" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                </div>
+
+                <hr class="my-3" style="border-color: rgba(15,23,42,.10);" />
+
+                <div class="small muted">
+                  <div class="fw-semibold text-dark mb-1">Professional Bodies</div>
+                  <div>IEEE Member (100018946)</div>
+                </div>
+              </div>
+            </aside>
+          </div>
+
+          <!-- Right content -->
+          <div class="col-12 col-lg-8">
+            <div class="d-grid gap-3">
+
+              <!-- Research Interests -->
+              <section class="content-card">
+                <div class="card-head">
+                  <div class="icon"><i class="fa-solid fa-compass"></i></div>
+                  <h3>Interests</h3>
+                </div>
+                <div class="card-body">
+                  <p class="mb-0 muted">Large Language Models (LLMs), Safe and Trustworthy Artificial Intelligence.</p>
+                </div>
+              </section>
+
+              <!-- Education -->
+              <section class="content-card" id="education">
+                <div class="card-head">
+                  <div class="icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                  <h3>Education</h3>
+                </div>
+                <div class="card-body tight">
+                  <ul>
+                    <li><strong>University of Maine (UMaine), Orono, ME, USA</strong> — Ph.D. in Electrical and Computer Engineering (Pursuing) <span class="badge badge-soft rounded-pill ms-2">Aug 2022 – Present</span></li>
+                    <li><strong>Aligarh Muslim University (AMU), Aligarh, UP, India</strong> — M.Tech. in Computer Engineering (GPA 9.33/10.0, Hons.) <span class="badge badge-soft rounded-pill ms-2">Aug 2011 – Jul 2013</span></li>
+                    <li><strong>UP Technical University (now AKTU), Noida, UP, India</strong> — B.Tech. in Computer Science and Engineering (76.2%, Hons.) <span class="badge badge-soft rounded-pill ms-2">Aug 2007 – Jul 2011</span></li>
+                  </ul>
+                </div>
+              </section>
+
+              <!-- Publications -->
+              <section class="content-card" id="publications">
+                <div class="card-head">
+                  <div class="icon"><i class="fa-solid fa-book"></i></div>
+                  <h3>Research Papers</h3>
+                </div>
+                <div class="card-body tight">
+                  <div class="fw-semibold mb-2">Published</div>
+                  <ul class="mb-3">
+                    <li>Rahman, M.H., Haider, Z., Rizvee, M.M., Shomaji, S., Chakraborty, P. “ILASH: A Predictive Neural Architecture Search Framework for Multi-Task Applications,” <em>IEEE Access</em>, 2025. (doi: 10.1109/ACCESS.2025.3592039)</li>
+                    <li>Rahman, M.H., Haider, Z., Chakraborty, P. “An Automated Multi-Parameter Neural Architecture Discovery Framework using ChatGPT in the Backend,” <em>Nature Scientific Reports</em>, 2025.</li>
+                    <li>Haider, Z., Rahman, H., Devabhaktuni, V., Moeykens, S., Chakraborty, P. “CoBRa: Consensus Based Reward System for Mitigating Malicious Human-in-the-Loop Feedback in LLM,” <em>Nature Scientific Reports</em>, 2025.</li>
+                    <li>Aqeel, S., Haider, Z., Khan, W. “Towards digital diagnosis of malaria: How far have we reached?,” <em>Journal of Microbiological Methods</em>, 2023.</li>
+                    <li>Khan, D.A., Zamir, M.A., Umar, M.S., Haider, Z. “Assistive Stick for Visually Impaired People,” <em>IEEE IMPACT</em>, 2022.</li>
+                  </ul>
+
+                  <div class="fw-semibold mb-2">Submitted</div>
+                  <ul class="mb-3">
+                    <li>Haider, Z., Rahaman, M.H., Moeykens, S., Devabhaktuni, V., Chakraborty, P. “How a Bit Becomes a Story: Semantic Steering via Differentiable Fault Injection,” <em>CVPR</em> (Denver, CO), June 2026.</li>
+                    <li>Nafi, A.A.N., Rahaman, H., Haider, Z., et al. “DAASH: A Meta-Attack Framework for Synthesizing Effective and Stealthy Adversarial Examples,” arXiv:2508.13309, 2025 (CVPR 2026).</li>
+                  </ul>
+
+                  <div class="fw-semibold mb-2">Abstract Accepted</div>
+                  <ul class="mb-0">
+                    <li>“North Atlantic Right Whale Calls Monitoring: Signal Processing Meets Deep Learning,” Acoustical Society of America (184th Meeting), Chicago, IL, May 9, 2023.</li>
+                  </ul>
+                </div>
+              </section>
+
+              <!-- Patents -->
+              <section class="content-card" id="patents">
+                <div class="card-head">
+                  <div class="icon"><i class="fa-solid fa-lightbulb"></i></div>
+                  <h3>Patents Filed</h3>
+                </div>
+                <div class="card-body tight">
+                  <ul class="mb-0">
+                    <li><strong>BIT-FLIP INDUCED SEMANTIC DRIFT IN MULTIMODAL TRANSFORMER MODELS</strong> — U.S. Provisional Patent App. No. 63/930,131</li>
+                    <li><strong>FRAMEWORK FOR MITIGATING MALICIOUS RLHF FEEDBACK IN LLM TRAINING USING CONSENSUS BASED REWARD</strong> — U.S. Provisional Patent App. No. 63/768,361</li>
+                    <li><strong>METHODS AND SYSTEMS FOR THE AUTOMATED GENERATION OF NEURAL NETWORK ARCHITECTURES</strong> — U.S. Provisional Patent App. No. 63/627,621</li>
+                  </ul>
+                </div>
+              </section>
+
+              <!-- Scholarships -->
+              <section class="content-card" id="scholarships">
+                <div class="card-head">
+                  <div class="icon"><i class="fa-solid fa-award"></i></div>
+                  <h3>Scholarships &amp; Fellowships</h3>
+                </div>
+                <div class="card-body tight">
+                  <ul class="mb-0">
+                    <li>Graduate Aptitude Test in Engineering (GATE) Scholarship</li>
+                    <li>Maulana Azad National Fellowship (MANF)</li>
+                    <li>Teaching and Research Assistantship by TEQIP-II</li>
+                    <li>Graduate Assistantship @ UMaine</li>
+                  </ul>
+                </div>
+              </section>
+
+              <!-- Talks / Posters -->
+              <section class="content-card" id="talks">
+                <div class="card-head">
+                  <div class="icon"><i class="fa-solid fa-microphone"></i></div>
+                  <h3>Invited Lectures · Research Talks · Posters</h3>
+                </div>
+                <div class="card-body tight">
+                  <ul class="mb-0">
+                    <li><strong>BLADE</strong>: Bit-level FauLt Analysis via Differentiable Estimation — Poster, 3rd Nelms Annual IoT Conference (UF, Gainesville, FL), Dec 2025</li>
+                    <li>Enhancing RLHF Robustness with Multi-Agent Consensus Rewarding — Demo, 3rd Nelms Annual IoT Conference (UF), Dec 2025</li>
+                    <li>A framework for mitigating malicious RLHF feedback in LLM training using consensus based reward — UMaine, Apr 2025</li>
+                    <li>AI and its use cases — Chanakya National Law University (CNLU), Bihar, India, Apr 2025</li>
+                    <li>COBRA: Mitigating Malicious RLHF Feedback… — WHiSPerS, UNH, USA, Mar 2025</li>
+                    <li>AI Security — UMaine, Mar 2024</li>
+                    <li>LLMs and Security — CNLU, Bihar, India, 2024</li>
+                    <li>Trainer: Google Tech (Sayid Hamid Senior Secondary School)</li>
+                    <li>Invited by UGC-HRDC to speak on MOOCs</li>
+                    <li>Delivered educational lectures for SWAYAM course</li>
+                  </ul>
+                </div>
+              </section>
+
+              <!-- Employment -->
+              <section class="content-card" id="experience">
+                <div class="card-head">
+                  <div class="icon"><i class="fa-solid fa-briefcase"></i></div>
+                  <h3>Employments</h3>
+                </div>
+                <div class="card-body tight">
+                  <ul class="mb-0">
+                    <li><strong>University of Maine</strong> (Orono, ME, USA) — <span class="badge badge-soft rounded-pill">Aug 2022 – Present</span>
+                      <ul class="mt-2">
+                        <li>Graduate Assistant, ARCSIM: AI and Machine Learning consultant</li>
+                        <li>Research Assistant, ECE: Cybersecurity Education, Security of AI</li>
+                        <li>Teaching Assistant, ECE: Sequential Logic Lab (ECE275) and Microprocessor Lab (ECE473)</li>
+                      </ul>
+                    </li>
+                    <li class="mt-2"><strong>Aligarh Muslim University</strong> (Aligarh, UP, India) — Assistant Professor, ZHCET <span class="badge badge-soft rounded-pill ms-2">Jan 2015 – Aug 2022</span></li>
+                    <li><strong>Aligarh Muslim University</strong> — Guest Faculty, ZHCET <span class="badge badge-soft rounded-pill ms-2">Aug 2013 – Feb 2014</span></li>
+                    <li><strong>Aligarh Muslim University</strong> — Teaching Assistant, CE <span class="badge badge-soft rounded-pill ms-2">Aug 2011 – 2013</span>
+                      <ul class="mt-2">
+                        <li>Data Structure Lab (CO291), Minor Project Lab (CO395), Software Lab-II (CO494)</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </section>
+
+              <!-- Teaching -->
+              <section class="content-card" id="teaching">
+                <div class="card-head">
+                  <div class="icon"><i class="fa-solid fa-chalkboard-user"></i></div>
+                  <h3>Teaching Experiences</h3>
+                </div>
+                <div class="card-body tight">
+                  <ul class="mb-0">
+                    <li>[COC4010] Information Security — 2020–2021</li>
+                    <li>[COA3600] Data Structures — 2020–2022</li>
+                    <li>[COE0431] Internet Tools — 2015–2019</li>
+                    <li>[COA1910] C Programming — 2015–2022</li>
+                    <li>[COA446N] Selected Topics in Computer Engineering-I — 2015–2019</li>
+                    <li>[COA447N] Selected Topics in Computer Engineering-II — 2013</li>
+                    <li>[COC0203] Object Oriented Programming — 2013</li>
+                  </ul>
+                </div>
+              </section>
+
+              <!-- Projects -->
+              <section class="content-card" id="projects">
+                <div class="card-head">
+                  <div class="icon"><i class="fa-solid fa-diagram-project"></i></div>
+                  <h3>Projects</h3>
+                </div>
+                <div class="card-body tight">
+                  <ul class="mb-0">
+                    <li><strong>Game graphics for Custom Operating System</strong> (2023) — Pong game in user space with PS/2 keyboard via kernel integration.</li>
+                    <li><strong>Detecting and Classifying Northern Right Whale calls via Deep Learning</strong> (2022) — Spectrogram preprocessing + self-supervised deep learning to address imbalance/distortion.</li>
+                    <li><strong>BEiT v2 for Breast Cancer Images</strong> (2022) — Evaluated self-supervised masked image modeling; ImageNet pretraining achieved strong accuracy and convergence.</li>
+                    <li><strong>Data Science project on Healthcare</strong> (AMU, collaborating with M Lab) — CDSS literature review; shift to infected cell detection in blood smear reports. <span class="badge badge-soft rounded-pill ms-2">On-halt</span></li>
+                    <li><strong>Extension to Lex and YACC Guide</strong> (2012) — PASCAL-like interface for Lex/YACC code authoring.</li>
+                  </ul>
+                </div>
+              </section>
+
+              <!-- Mentoring -->
+              <section class="content-card" id="mentoring">
+                <div class="card-head">
+                  <div class="icon"><i class="fa-solid fa-user-group"></i></div>
+                  <h3>Mentoring Experience</h3>
+                </div>
+                <div class="card-body tight">
+                  <ul class="mb-0">
+                    <li><strong>Human Activity Recognition Using Smartphone Sensors</strong> (2019–20)</li>
+                    <li><strong>Disease Risk Prediction</strong> (2018–19)</li>
+                    <li><strong>2π Surveillance System</strong> (2017–18)</li>
+                    <li><strong>Hajj Guide via Offline GPS</strong> (2016–17)</li>
+                    <li><strong>SyncWorld</strong> (2012–13) — File storage and synchronization service</li>
+                  </ul>
+                </div>
+              </section>
+
+              <!-- Skills -->
+              <section class="content-card" id="skills">
+                <div class="card-head">
+                  <div class="icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                  <h3>Technical Skills</h3>
+                </div>
+                <div class="card-body">
+                  <div class="mb-2"><strong>Programming &amp; Scripting:</strong> C, C++, Java, Python, JavaScript, SQL, HTML, CSS, Shell Scripting</div>
+                  <div class="mb-2"><strong>Parsing &amp; Compiler Tools:</strong> Lex, YACC</div>
+                  <div class="mb-2"><strong>Operating Systems:</strong> Windows, Linux</div>
+                  <div class="mb-2"><strong>Tools/IDEs:</strong> LaTeX, NetBeans, Eclipse, VSCode, Google Colab, Kaggle, Jupyter Notebook, Cursor</div>
+                  <div class="mb-2"><strong>Databases:</strong> Oracle, MySQL, SQLite</div>
+                  <div class="mb-2"><strong>Frameworks &amp; Libraries:</strong> ReactJS, scikit-learn, PyTorch, Pandas, NumPy, Matplotlib</div>
+                  <div class="mb-0"><strong>Embedded &amp; Hardware:</strong> Raspberry Pi, Verilog, VCU118 FPGA, Vivado, Vitis, Quartus</div>
+                </div>
+              </section>
+
+              <!-- References -->
+              <section class="content-card" id="references">
+                <div class="card-head">
+                  <div class="icon"><i class="fa-solid fa-address-card"></i></div>
+                  <h3>References</h3>
+                </div>
+                <div class="card-body tight">
+                  <ul class="mb-0">
+                    <li><strong>Dr. Prabuddha Chakraborty</strong>, Assistant Professor, ECE, UMaine — <a href="mailto:prabuddha@maine.edu">prabuddha@maine.edu</a></li>
+                    <li><strong>Dr. Vijay Devabhaktuni</strong>, Professor and Founding Chair, ECE, ILSTU — <a href="mailto:vdevabh@ilstu.edu">vdevabh@ilstu.edu</a></li>
+                    <li><strong>Dr. Shane Moeykens</strong>, Director, UMaine ARCSIM and EPSCoR — <a href="mailto:shane.moeykens@maine.edu">shane.moeykens@maine.edu</a></li>
+                  </ul>
+
+                  <hr class="my-3" style="border-color: rgba(15,23,42,.10);" />
+                  <div class="d-flex flex-column flex-md-row justify-content-between gap-2 muted">
+                    <div><strong>Date:</strong> December 15, 2025</div>
+                    <div><strong>Place:</strong> Orono, ME, USA</div>
+                  </div>
+                </div>
+              </section>
+
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   </main>
 
+  <!-- Footer Placeholder (Modular) -->
   <div id="footer-placeholder"></div>
+  <script>
+    fetch("footer.html")
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("footer-placeholder").innerHTML = data;
+      });
+  </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="js/includes.js"></script>
 </body>
 </html>

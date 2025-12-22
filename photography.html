@@ -4,17 +4,199 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Zafaryab Haider | Photography</title>
+  <meta name="description" content="Photography portfolio of Zafaryab Haider — landscapes, street, and moments." />
 
+  <link rel="stylesheet" href="css/style.css">
+
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+  <link rel="preconnect" href="https://code.jquery.com" />
+
+  <!-- Bootstrap + Icons + Lightbox -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css" />
+
+  <style>
+    :root{
+      --ink: #0f172a;
+      --muted: #475569;
+      --soft: #f1f5f9;
+      --card: #ffffff;
+      --border: rgba(15, 23, 42, .10);
+      --brand: #2563eb;
+      --shadow: 0 10px 30px rgba(2, 6, 23, .10);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body{
+      color: var(--ink);
+      background: radial-gradient(1200px 600px at 15% -10%, rgba(37,99,235,.12), transparent 55%),
+                  radial-gradient(900px 500px at 85% 0%, rgba(34,197,94,.10), transparent 55%),
+                  #ffffff;
+    }
+
+    /* Navbar (consistent with index) */
+    .navbar{
+      backdrop-filter: blur(10px);
+      background: rgba(15, 23, 42, .92) !important;
+    }
+    .navbar .nav-link{ opacity: .9; }
+    .navbar .nav-link:hover{ opacity: 1; }
+    .navbar .nav-link.active{
+      opacity: 1;
+      font-weight: 600;
+    }
+
+    /* Page hero */
+    .page-hero{
+      padding: 3.25rem 0 1.25rem;
+    }
+    .hero-card{
+      background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.78));
+      border: 1px solid var(--border);
+      border-radius: 1.25rem;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .hero-inner{
+      padding: 2rem 1.75rem;
+      background: linear-gradient(135deg, rgba(37,99,235,.08), rgba(34,197,94,.06));
+    }
+    .kicker{
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .4rem .75rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: .9rem;
+      color: var(--muted);
+      background: rgba(255,255,255,.7);
+    }
+    .display-title{
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      font-weight: 800;
+    }
+    .hero-muted{ color: var(--muted); }
+
+    /* Gallery cards */
+    .gallery-card{
+      position: relative;
+      border-radius: 1rem;
+      border: 1px solid var(--border);
+      background: var(--card);
+      box-shadow: 0 10px 20px rgba(2,6,23,.06);
+      overflow: hidden;
+      transition: transform .12s ease, box-shadow .12s ease;
+      height: 100%;
+    }
+    .gallery-card:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(2,6,23,.10);
+    }
+
+    /* Use a consistent photo window ratio */
+    .photo-window{
+      aspect-ratio: 4 / 3; /* change to 3/2 or 16/9 if you prefer */
+      width: 100%;
+      overflow: hidden;
+      background: #0b1220;
+    }
+    .photo-window img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.001);
+      transition: transform .25s ease;
+      display: block;
+    }
+    .gallery-card:hover .photo-window img{
+      transform: scale(1.05);
+    }
+
+    .caption{
+      padding: .9rem 1rem 1rem;
+    }
+    .caption .title{
+      font-weight: 700;
+      margin: 0 0 .2rem;
+    }
+    .caption .sub{
+      margin: 0;
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    /* Small overlay tag */
+    .tag{
+      position: absolute;
+      top: .75rem;
+      left: .75rem;
+      z-index: 2;
+      padding: .25rem .6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(15,23,42,.55);
+      color: rgba(255,255,255,.92);
+      font-size: .85rem;
+      backdrop-filter: blur(10px);
+    }
+
+    /* Lightbox tweaks (subtle) */
+    .lb-data .lb-caption{
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    /* Section spacing */
+    .section{ padding: 2rem 0 3rem; }
+
+    /* Optional: make the Instagram icon button match */
+    .social-pill{
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .55rem .9rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.7);
+      color: var(--ink);
+      text-decoration: none;
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+    .social-pill:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(2,6,23,.10);
+    }
+  </style>
 </head>
 
-<body class="page-photography">
-  <div id="header-placeholder"></div>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-semibold" href="index.html">Zafaryab Haider</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+          <li class="nav-item"><a class="nav-link" href="index.html">About</a></li>
+          <li class="nav-item"><a class="nav-link active" href="photography.html" aria-current="page">Photography</a></li>
+          <li class="nav-item"><a class="nav-link" href="resume.html">Resume</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
   <main>
+    <!-- Hero -->
     <section class="page-hero">
       <div class="container">
         <div class="hero-card">
@@ -26,10 +208,15 @@
                   <span>Photography Portfolio</span>
                 </div>
                 <h1 class="display-6 display-title mb-2">My Photography</h1>
-                <p class="text-secondary mb-0">A curated selection of moments, landscapes, and street frames.</p>
+                <p class="hero-muted mb-0">
+                  A curated selection of moments, landscapes, and street frames.
+                </p>
               </div>
 
-              <a class="social-pill" href="https://instagram.com/zhaider_lens" target="_blank" rel="noopener noreferrer">
+              <a class="social-pill"
+                 href="https://instagram.com/zhaider_lens"
+                 target="_blank"
+                 rel="noopener noreferrer">
                 <i class="fa-brands fa-instagram"></i>
                 <span>Follow on Instagram</span>
                 <i class="fa-solid fa-arrow-up-right-from-square ms-1"></i>
@@ -40,9 +227,11 @@
       </div>
     </section>
 
+    <!-- Gallery -->
     <section class="section">
       <div class="container">
         <div class="row g-3 g-lg-4">
+          <!-- Card 1 -->
           <div class="col-12 col-sm-6 col-lg-4">
             <a href="images/photo1.jpg" data-lightbox="gallery" data-title="Sunset Vibes" class="text-decoration-none">
               <article class="gallery-card">
@@ -58,6 +247,7 @@
             </a>
           </div>
 
+          <!-- Card 2 -->
           <div class="col-12 col-sm-6 col-lg-4">
             <a href="images/photo2.jpg" data-lightbox="gallery" data-title="Street Scene" class="text-decoration-none">
               <article class="gallery-card">
@@ -73,6 +263,7 @@
             </a>
           </div>
 
+          <!-- Card 3 -->
           <div class="col-12 col-sm-6 col-lg-4">
             <a href="images/photo3.jpg" data-lightbox="gallery" data-title="Quiet Moments" class="text-decoration-none">
               <article class="gallery-card">
@@ -87,16 +278,44 @@
               </article>
             </a>
           </div>
+
+          <!-- Add more cards by copying one of the blocks above -->
         </div>
       </div>
     </section>
   </main>
 
+  <!-- Footer Placeholder (Modular) -->
   <div id="footer-placeholder"></div>
+  <script>
+    fetch("footer.html")
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("footer-placeholder").innerHTML = data;
+      });
+  </script>
 
+  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
-  <script src="js/includes.js"></script>
+
+  <!-- Lightbox settings (optional but nicer) -->
+  <script>
+    if (window.lightbox) {
+      lightbox.option({
+        resizeDuration: 200,
+        wrapAround: true,
+        fadeDuration: 200,
+        imageFadeDuration: 200,
+        showImageNumberLabel: false,
+        alwaysShowNavOnTouchDevices: true
+      });
+    }
+  </script>
 </body>
 </html>
+
+
+
+

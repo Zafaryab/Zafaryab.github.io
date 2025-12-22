@@ -1,23 +1,228 @@
+<!-- index.html (About Me) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Zafaryab Haider | About</title>
+  <meta name="description" content="Zafaryab Haider — Research Candidate (ECE), Graduate AI Consultant, and Assistant Professor. Interests: LLM security, computer vision, embedded AI." />
 
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+
+  <!-- Bootstrap + Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css" />
+
+  <style>
+    :root{
+      --ink: #0f172a;         /* slate-900-ish */
+      --muted: #475569;       /* slate-600-ish */
+      --soft: #f1f5f9;        /* slate-100-ish */
+      --card: #ffffff;
+      --border: rgba(15, 23, 42, .10);
+      --brand: #2563eb;       /* blue-600-ish */
+      --brand2: #22c55e;      /* green-500-ish */
+      --shadow: 0 10px 30px rgba(2, 6, 23, .10);
+    }
+
+    html { scroll-behavior: smooth; }
+    body{
+      color: var(--ink);
+      background: radial-gradient(1200px 600px at 15% -10%, rgba(37,99,235,.12), transparent 55%),
+                  radial-gradient(900px 500px at 85% 0%, rgba(34,197,94,.10), transparent 55%),
+                  #ffffff;
+    }
+
+    /* Navbar */
+    .navbar{
+      backdrop-filter: blur(10px);
+      background: rgba(15, 23, 42, .92) !important;
+    }
+    .navbar .nav-link{ opacity: .9; }
+    .navbar .nav-link:hover{ opacity: 1; }
+    .navbar .nav-link.active{
+      opacity: 1;
+      font-weight: 600;
+    }
+
+    /* Hero */
+    .hero{
+      padding: 3.5rem 0 2rem;
+    }
+    .hero-card{
+      background: linear-gradient(180deg, rgba(255,255,255,.90), rgba(255,255,255,.75));
+      border: 1px solid var(--border);
+      border-radius: 1.25rem;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .hero-left{
+      padding: 2.25rem 2rem;
+    }
+    .hero-right{
+      padding: 2.25rem 2rem;
+      background: linear-gradient(135deg, rgba(37,99,235,.08), rgba(34,197,94,.06));
+      border-left: 1px solid var(--border);
+    }
+
+    .about-photo{
+      width: 168px;
+      height: 168px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid rgba(255,255,255,.9);
+      box-shadow: 0 10px 25px rgba(2,6,23,.15);
+    }
+
+    .kicker{
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .4rem .75rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: .9rem;
+      color: var(--muted);
+      background: rgba(255,255,255,.7);
+    }
+
+    .display-title{
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      font-weight: 800;
+    }
+    .lead{ color: var(--muted); }
+
+    .social a{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.75);
+      color: var(--ink);
+      text-decoration: none;
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+    .social a:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(2,6,23,.10);
+    }
+
+    .btn-brand{
+      background: var(--brand);
+      border-color: var(--brand);
+    }
+    .btn-brand:hover{
+      filter: brightness(.95);
+    }
+    .btn-soft{
+      background: rgba(37,99,235,.10);
+      border: 1px solid rgba(37,99,235,.20);
+      color: var(--ink);
+    }
+
+    /* Section styling */
+    .section{
+      padding: 3rem 0;
+    }
+    .section-title{
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.25rem;
+    }
+    .section-subtitle{
+      color: var(--muted);
+      margin-top: -.5rem;
+      margin-bottom: 1.75rem;
+    }
+
+    /* Cards */
+    .pro-card{
+      height: 100%;
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      background: var(--card);
+      box-shadow: 0 10px 20px rgba(2,6,23,.06);
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+    .pro-card:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(2,6,23,.10);
+    }
+    .pro-card .icon{
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(37,99,235,.10);
+      border: 1px solid rgba(37,99,235,.18);
+      color: var(--brand);
+    }
+    .pro-card p{ color: var(--muted); margin: 0; }
+
+    /* Better horizontal scrolling on small screens (optional) */
+    @media (max-width: 767.98px){
+      .scroll-row{
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: 82%;
+        gap: 1rem;
+        overflow-x: auto;
+        padding-bottom: .5rem;
+        scroll-snap-type: x mandatory;
+      }
+      .scroll-row > *{
+        scroll-snap-align: start;
+      }
+    }
+
+    /* Divider band */
+    .band{
+      background: linear-gradient(180deg, rgba(241,245,249,.75), rgba(241,245,249,.35));
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* Footer placeholder spacing if footer is minimal */
+    #footer-placeholder{ margin-top: 2rem; }
+  </style>
 </head>
 
-<body class="page-index">
-  <div id="header-placeholder"></div>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-semibold" href="index.html">Zafaryab Haider</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+          <li class="nav-item"><a class="nav-link active" href="index.html" aria-current="page">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="photography.html">Photography</a></li>
+          <li class="nav-item"><a class="nav-link" href="resume.html">Resume</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
   <main>
+    <!-- Hero / About -->
     <section class="hero">
       <div class="container">
         <div class="hero-card">
           <div class="row g-0">
+            <!-- Left: identity -->
             <div class="col-lg-4 hero-left text-center text-lg-start">
               <img src="images/profile.jpg" alt="Portrait of Zafaryab Haider" class="about-photo mb-3" />
               <div class="kicker mb-3 justify-content-center justify-content-lg-start">
@@ -32,9 +237,11 @@
               </p>
               <p class="text-secondary mb-4">
                 Assistant Professor<br />
-                ZHCET, Aligarh Muslim University, UP, India
+                Zakir Husain College of Engineering &amp; Technology (ZHCET)<br />
+                Aligarh Muslim University, UP, India
               </p>
 
+              <!-- CTAs (edit links as needed) -->
               <div class="d-flex flex-wrap gap-2 justify-content-center justify-content-lg-start">
                 <a class="btn btn-brand text-white" href="resume.html">
                   <i class="fa-solid fa-file-lines me-2"></i>View Resume
@@ -43,24 +250,313 @@
                   <i class="fa-solid fa-camera me-2"></i>Photography
                 </a>
               </div>
+
+              <!-- Social (uncomment + add your real URLs) -->
+              <div class="social d-flex gap-2 mt-4 justify-content-center justify-content-lg-start">
+                <!--
+                <a href="mailto:zafaryab.haider@maine.edu" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+                <a href="https://linkedin.com/in/zafaryab" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="https://www.instagram.com/zhaider_lens/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://facebook.com/zaffuyab" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                -->
+              </div>
             </div>
 
+            <!-- Right: narrative -->
             <div class="col-lg-8 hero-right">
               <h2 class="display-6 display-title mb-3">Assalāmu ʿalaikum</h2>
-              <p class="text-secondary mb-0">
+
+              <p class="lead mb-3">
                 I’m currently a Research Candidate in Electrical and Computer Engineering at the University of Maine,
-                exploring the intersections of AI, security, and embedded systems.
+                where I explore the intersections of AI, security, and embedded systems.
+              </p>
+
+              <p class="mb-3">
+                After completing my B.Tech. in Computer Science and Engineering (2011) and M.Tech. in Software Engineering (2013)
+                with honors, I joined the Department of Computer Engineering at ZHCET, Aligarh Muslim University. As an Assistant Professor
+                and Incharge of the Interactive Instructional Resource Unit, I contributed to both teaching and research development.
+              </p>
+
+              <p class="mb-3">
+                I’ve taught a wide range of core computer science subjects. In parallel, I’ve supervised numerous student projects
+                on Android app development, machine learning, networking, and image processing.
+              </p>
+
+              <p class="mb-3">
+                My current research focuses on enhancing the reliability and security of Large Language Models (LLMs),
+                with broader interests in computer vision and multimodal human activity recognition.
+                I combine AI techniques with sensor-based hardware systems like FPGAs and embedded boards—bridging deep learning and edge computing.
+              </p>
+
+              <p class="mb-0">
+                Outside the lab, I’m a passionate photographer—capturing fleeting moments and serene landscapes.
+                Explore my work on my <a href="photography.html" class="fw-semibold text-decoration-none">photography portfolio</a>.
               </p>
             </div>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- Featured Projects -->
+    <section class="section band" id="projects">
+      <div class="container">
+        <div class="text-center">
+          <h2 class="section-title">Featured Projects</h2>
+          <p class="section-subtitle">A few highlights across LLM security, vision, and embedded systems.</p>
+        </div>
+
+        <div class="row g-3 d-none d-md-flex">
+          <div class="col-md-6 col-lg-4">
+            <div class="pro-card p-4">
+              <div class="d-flex align-items-start gap-3">
+                <div class="icon"><i class="fa-solid fa-people-group"></i></div>
+                <div>
+                  <h3 class="h5 mb-1 fw-bold">Consensus-Based Reward</h3>
+                  <p>Mitigating malicious RLHF in LLM training via consensus reward strategies.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="pro-card p-4">
+              <div class="d-flex align-items-start gap-3">
+                <div class="icon"><i class="fa-solid fa-wave-square"></i></div>
+                <div>
+                  <h3 class="h5 mb-1 fw-bold">Whale Call Classifier</h3>
+                  <p>Detecting endangered whale calls using deep spectrogram-based models.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="pro-card p-4">
+              <div class="d-flex align-items-start gap-3">
+                <div class="icon"><i class="fa-solid fa-microscope"></i></div>
+                <div>
+                  <h3 class="h5 mb-1 fw-bold">BEiT v2 for Cancer Imaging</h3>
+                  <p>Pre-trained masked image models for breast cancer diagnostics.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="pro-card p-4">
+              <div class="d-flex align-items-start gap-3">
+                <div class="icon"><i class="fa-solid fa-person-cane"></i></div>
+                <div>
+                  <h3 class="h5 mb-1 fw-bold">Assistive Stick</h3>
+                  <p>Smart stick for visually impaired: object detection, text-to-audio conversion.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="pro-card p-4">
+              <div class="d-flex align-items-start gap-3">
+                <div class="icon"><i class="fa-solid fa-microchip"></i></div>
+                <div>
+                  <h3 class="h5 mb-1 fw-bold">Custom OS Pong Game</h3>
+                  <p>Kernel/user-mode system calls with PS/2 hardware support.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile scroll row -->
+        <div class="scroll-row d-md-none">
+          <div class="pro-card p-4">
+            <div class="d-flex align-items-start gap-3">
+              <div class="icon"><i class="fa-solid fa-people-group"></i></div>
+              <div>
+                <h3 class="h5 mb-1 fw-bold">Consensus-Based Reward</h3>
+                <p>Mitigating malicious RLHF in LLM training via consensus reward strategies.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pro-card p-4">
+            <div class="d-flex align-items-start gap-3">
+              <div class="icon"><i class="fa-solid fa-wave-square"></i></div>
+              <div>
+                <h3 class="h5 mb-1 fw-bold">Whale Call Classifier</h3>
+                <p>Detecting endangered whale calls using deep spectrogram-based models.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pro-card p-4">
+            <div class="d-flex align-items-start gap-3">
+              <div class="icon"><i class="fa-solid fa-microscope"></i></div>
+              <div>
+                <h3 class="h5 mb-1 fw-bold">BEiT v2 for Cancer Imaging</h3>
+                <p>Pre-trained masked image models for breast cancer diagnostics.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pro-card p-4">
+            <div class="d-flex align-items-start gap-3">
+              <div class="icon"><i class="fa-solid fa-person-cane"></i></div>
+              <div>
+                <h3 class="h5 mb-1 fw-bold">Assistive Stick</h3>
+                <p>Smart stick for visually impaired: object detection, text-to-audio conversion.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pro-card p-4">
+            <div class="d-flex align-items-start gap-3">
+              <div class="icon"><i class="fa-solid fa-microchip"></i></div>
+              <div>
+                <h3 class="h5 mb-1 fw-bold">Custom OS Pong Game</h3>
+                <p>Kernel/user-mode system calls with PS/2 hardware support.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Graduate Teaching Assistant Roles -->
+    <section class="section" id="ta-roles">
+      <div class="container">
+        <div class="text-center">
+          <h2 class="section-title">Graduate Teaching Assistant Roles</h2>
+          <p class="section-subtitle">Support roles focused on hardware, logic design, and security learning.</p>
+        </div>
+
+        <div class="row g-3">
+          <div class="col-md-6 col-lg-4">
+            <div class="pro-card p-4">
+              <div class="d-flex align-items-start gap-3">
+                <div class="icon"><i class="fa-solid fa-computer"></i></div>
+                <div>
+                  <h3 class="h5 mb-1 fw-bold">Microprocessor Lab</h3>
+                  <p>Supported x86/ARM programming and hardware I/O design.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="pro-card p-4">
+              <div class="d-flex align-items-start gap-3">
+                <div class="icon"><i class="fa-solid fa-sitemap"></i></div>
+                <div>
+                  <h3 class="h5 mb-1 fw-bold">Sequential Logic Lab</h3>
+                  <p>Guided Verilog/VHDL simulation and synthesis for digital systems.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="pro-card p-4">
+              <div class="d-flex align-items-start gap-3">
+                <div class="icon"><i class="fa-solid fa-lock"></i></div>
+                <div>
+                  <h3 class="h5 mb-1 fw-bold">Cybersecurity Education</h3>
+                  <p>Helped design hands-on exercises and conceptual lectures in secure systems.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Courses Taught -->
+    <section class="section band" id="courses">
+      <div class="container">
+        <div class="text-center">
+          <h2 class="section-title">Courses Taught</h2>
+          <p class="section-subtitle">Core CS foundations + security and software development.</p>
+        </div>
+
+        <div class="row g-3">
+          <div class="col-md-6 col-lg-4">
+            <div class="pro-card p-4">
+              <div class="d-flex align-items-start gap-3">
+                <div class="icon"><i class="fa-solid fa-shield"></i></div>
+                <div>
+                  <h3 class="h5 mb-1 fw-bold">Information Security</h3>
+                  <p>Encryption, threats, and network defense fundamentals.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="pro-card p-4">
+              <div class="d-flex align-items-start gap-3">
+                <div class="icon"><i class="fa-solid fa-diagram-project"></i></div>
+                <div>
+                  <h3 class="h5 mb-1 fw-bold">Data Structures</h3>
+                  <p>Arrays, trees, graphs, heaps, and classic algorithms.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="pro-card p-4">
+              <div class="d-flex align-items-start gap-3">
+                <div class="icon"><i class="fa-solid fa-globe"></i></div>
+                <div>
+                  <h3 class="h5 mb-1 fw-bold">Internet Tools</h3>
+                  <p>Protocols, client–server models, and API integration.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="pro-card p-4">
+              <div class="d-flex align-items-start gap-3">
+                <div class="icon"><i class="fa-solid fa-code"></i></div>
+                <div>
+                  <h3 class="h5 mb-1 fw-bold">C Programming</h3>
+                  <p>Pointers, memory, debugging, and procedural design.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="pro-card p-4">
+              <div class="d-flex align-items-start gap-3">
+                <div class="icon"><i class="fa-solid fa-cubes"></i></div>
+                <div>
+                  <h3 class="h5 mb-1 fw-bold">Object-Oriented Programming</h3>
+                  <p>Java/C++ design, polymorphism, and software architecture.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
   </main>
 
+  <!-- Footer (kept from your original approach) -->
   <div id="footer-placeholder"></div>
+  <script>
+    fetch("footer.html")
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("footer-placeholder").innerHTML = data;
+      });
+  </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="js/includes.js"></script>
 </body>
 </html>
+
