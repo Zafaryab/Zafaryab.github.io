@@ -1,8 +1,50 @@
-body {
-  scroll-behavior: smooth;
+/* Footer */
+.site-footer{
+  background: rgba(15, 23, 42, .95);
+  border-top: 1px solid rgba(255,255,255,.10);
 }
-h1, h2 {
-  font-family: 'Segoe UI', sans-serif;
+.footer-brand{ letter-spacing: -0.01em; }
+.footer-muted{ color: rgba(255,255,255,.72); }
+
+.footer-list{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: .6rem;
+  color: rgba(255,255,255,.85);
+}
+.footer-list a{
+  color: rgba(255,255,255,.92);
+  text-decoration: none;
+}
+.footer-list a:hover{ text-decoration: underline; }
+
+.footer-social a{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.08);
+  color: #fff;
+  text-decoration: none;
+  transition: transform .12s ease, background .12s ease;
+}
+.footer-social a:hover{
+  transform: translateY(-2px);
+  background: rgba(255,255,255,.12);
 }
 
+.footer-divider{
+  border-color: rgba(255,255,255,.12);
+  opacity: 1;
+}
 
+.footer-top{
+  color: rgba(255,255,255,.85);
+  text-decoration: none;
+}
+.footer-top:hover{ text-decoration: underline; }
