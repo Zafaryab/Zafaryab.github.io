@@ -28,70 +28,29 @@ function renderCollections() {
 
   const row = document.getElementById("collectionsRow");
   row.innerHTML = collections.map(name => {
-    const count = PHOTOS.filter(p => (name === "All") ? true : (p.collections || []).includes(name)).length;
-    const isActive = name === activeCollection;
-
-    return `
-      <div class="col-12 col-sm-6 col-lg-3">
-        <button type="button"
-          class="collection-card ${isActive ? "is-active" : ""}"
-          data-collection="${escapeHtml(name)}">
-          <div class="d-flex align-items-start justify-content-between gap-2">
-            <div>
-              <div class="fw-bold">${escapeHtml(name)}</div>
-              <div class="collection-muted">${count} photo${count === 1 ? "" : "s"}</div>
-            </div>
-            <div class="collection-icon"><i class="fa-solid fa-layer-group"></i></div>
-          </div>
-        </button>
-      </div>
-    `;
+    const active = (name === activeCollection) ? "is-active" : "";
+    return `<button type="button" class="filter-pill ${active}" data-collection="${escapeHtml(name)}">${escapeHtml(name)}</button>`;
   }).join("");
 
-  row.addEventListener("click", (e) => {
+  row.onclick = (e) => {
     const btn = e.target.closest("[data-collection]");
     if (!btn) return;
     activeCollection = btn.dataset.collection;
     renderAll();
-  }, { once: true });
-}
-
-function renderCategories() {
-  const cats = uniqSorted(PHOTOS.map(p => p.category));
-  const buttons = ["all", ...cats];
-
-  const wrap = document.getElementById("categoryFilters");
-  wrap.innerHTML = buttons.map(c => {
-    const label = CATEGORY_LABELS[c] || (c.charAt(0).toUpperCase() + c.slice(1));
-    const active = c === activeCategory ? "active" : "";
-    return `
-      <button type="button" class="btn btn-outline-dark btn-sm ${active}" data-category="${c}">
-        ${escapeHtml(label)}
-      </button>
-    `;
-  }).join("");
-
-  wrap.onclick = (e) => {
-    const btn = e.target.closest("[data-category]");
-    if (!btn) return;
-    activeCategory = btn.dataset.category;
-    renderAll();
   };
 }
 
+
 function renderTags() {
   const tags = uniqSorted(PHOTOS.flatMap(p => p.tags || []));
-  const list = ["all", ...tags];
+  const limited = tags.slice(0, 10); // show max 10 tags
+  const list = ["all", ...limited];
 
   const wrap = document.getElementById("tagFilters");
   wrap.innerHTML = list.map(t => {
     const label = t === "all" ? "All" : t.replace(/-/g, " ");
     const active = t === activeTag ? "is-active" : "";
-    return `
-      <button type="button" class="tag-pill ${active}" data-tag="${t}">
-        <i class="fa-solid fa-tag me-2"></i>${escapeHtml(label)}
-      </button>
-    `;
+    return `<button type="button" class="tag-pill ${active}" data-tag="${t}">${escapeHtml(label)}</button>`;
   }).join("");
 
   wrap.onclick = (e) => {
@@ -102,6 +61,7 @@ function renderTags() {
   };
 }
 
+
 function renderGrid() {
   const grid = document.getElementById("galleryGrid");
   const meta = document.getElementById("galleryMeta");
@@ -111,6 +71,7 @@ function renderGrid() {
   grid.innerHTML = items.map(p => {
     const tagLabel = (p.tags && p.tags.length) ? p.tags[0] : p.category;
     const icon = pickIcon(tagLabel);
+    const thumbSrc = p.thumb || p.full;
 
     return `
       <div class="col-12 col-sm-6 col-lg-4">
@@ -118,7 +79,7 @@ function renderGrid() {
           <article class="gallery-card">
             <div class="tag"><i class="fa-solid ${icon} me-1"></i> ${escapeHtml(tagLabel)}</div>
             <div class="photo-window">
-              <img src="${p.thumb}" alt="${escapeHtml(p.title)}" loading="lazy" />
+              <img src="${thumbSrc}" alt="${escapeHtml(p.title)}" loading="lazy" onerror="this.onerror=null;this.src='${p.full}';" />
             </div>
             <div class="caption">
               <h3 class="h6 title">${escapeHtml(p.title)}</h3>

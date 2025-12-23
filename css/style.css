@@ -502,3 +502,22 @@ body{
   border-color: rgba(37,99,235,.35);
   background: rgba(37,99,235,.10);
 }
+
+/* Photography: compact pills */
+.page-photography .filter-pill{
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.85);
+  border-radius: 999px;
+  padding: .4rem .75rem;
+  font-size: .95rem;
+  color: var(--ink);
+  transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+}
+.page-photography .filter-pill:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 10px 18px rgba(2,6,23,.08);
+}
+.page-photography .filter-pill.is-active{
+  background: rgba(37,99,235,.10);
+  border-color: rgba(37,99,235,.35);
+}
