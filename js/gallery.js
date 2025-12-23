@@ -1,89 +1,80 @@
 // js/gallery.js
 let PHOTOS = [];
 let activeCollection = "All";
-let activeCategory = "all";
-let activeTag = "all";
-
-const CATEGORY_LABELS = {
-  all: "All",
-  birds: "Birds",
-  landscapes: "Landscapes",
-  people: "People / Groups"
-};
+let activeTag = "All";
 
 function uniqSorted(arr) {
   return Array.from(new Set(arr)).sort((a, b) => a.localeCompare(b));
 }
 
+function escapeHtml(str) {
+  return String(str ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function pickIcon(tag) {
+  const t = (tag || "").toLowerCase();
+  if (t.includes("sunset")) return "fa-sun";
+  if (t.includes("snow") || t.includes("winter")) return "fa-snowflake";
+  if (t.includes("rain")) return "fa-cloud-rain";
+  if (t.includes("fall") || t.includes("autumn")) return "fa-leaf";
+  if (t.includes("bird")) return "fa-dove";
+  if (t.includes("campus")) return "fa-building-columns";
+  if (t.includes("sky")) return "fa-cloud";
+  if (t.includes("people")) return "fa-people-group";
+  return "fa-camera";
+}
+
+function inCollection(photo) {
+  if (activeCollection === "All") return true;
+  return (photo.collections || []).includes(activeCollection);
+}
+
 function matches(photo) {
-  const okCollection = (activeCollection === "All") || (photo.collections || []).includes(activeCollection);
-  const okCategory = (activeCategory === "all") || (photo.category === activeCategory);
-  const okTag = (activeTag === "all") || (photo.tags || []).includes(activeTag);
-  return okCollection && okCategory && okTag;
+  const okCollection = inCollection(photo);
+  const okTag = (activeTag === "All") || (photo.tags || []).includes(activeTag);
+  return okCollection && okTag;
 }
 
-function renderCollections() {
+function renderCollectionSelect() {
+  const select = document.getElementById("collectionSelect");
+  if (!select) return;
+
   const allCollections = uniqSorted(PHOTOS.flatMap(p => p.collections || []));
-  const collections = ["All", ...allCollections];
+  const options = ["All", ...allCollections];
 
-  const row = document.getElementById("collectionsRow");
-  if (!row) return;
-  row.innerHTML = collections.map(name => {
-    const active = (name === activeCollection) ? "is-active" : "";
-    return `<button type="button" class="filter-pill ${active}" data-collection="${escapeHtml(name)}">${escapeHtml(name)}</button>`;
-  }).join("");
+  select.innerHTML = options
+    .map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`)
+    .join("");
 
-  row.onclick = (e) => {
-    const btn = e.target.closest("[data-collection]");
-    if (!btn) return;
-    activeCollection = btn.dataset.collection;
-    renderAll();
-  };
+  select.value = activeCollection;
 }
 
+function renderTagSelect() {
+  const select = document.getElementById("tagSelect");
+  if (!select) return;
 
-function renderTags() {
-  const tags = uniqSorted(PHOTOS.flatMap(p => p.tags || []));
-  const limited = tags.slice(0, 10); // show max 10 tags
-  const list = ["all", ...limited];
+  // Tags only from photos in the currently selected collection
+  const scoped = PHOTOS.filter(inCollection);
+  const tags = uniqSorted(scoped.flatMap(p => p.tags || []));
 
-  const wrap = document.getElementById("tagFilters");
-  if (!wrap) return;
-  wrap.innerHTML = list.map(t => {
-    const label = t === "all" ? "All" : t.replace(/-/g, " ");
-    const active = t === activeTag ? "is-active" : "";
-    return `<button type="button" class="tag-pill ${active}" data-tag="${t}">${escapeHtml(label)}</button>`;
-  }).join("");
+  const options = ["All", ...tags];
 
-  wrap.onclick = (e) => {
-    const btn = e.target.closest("[data-tag]");
-    if (!btn) return;
-    activeTag = btn.dataset.tag;
-    renderAll();
-  };
+  select.innerHTML = options
+    .map(t => `<option value="${escapeHtml(t)}">${escapeHtml(t)}</option>`)
+    .join("");
+
+  // If current tag not available anymore, reset it
+  if (!options.includes(activeTag)) activeTag = "All";
+  select.value = activeTag;
+
+  // Disable tag dropdown if there are no tags
+  select.disabled = (options.length <= 1);
 }
-
-function renderCategories() {
-  const wrap = document.getElementById("categoryFilters");
-  if (!wrap) return;
-
-  const cats = uniqSorted(PHOTOS.map(p => p.category).filter(Boolean));
-  const buttons = ["all", ...cats];
-
-  wrap.innerHTML = buttons.map(c => {
-    const label = CATEGORY_LABELS[c] || (c.charAt(0).toUpperCase() + c.slice(1));
-    const active = (c === activeCategory) ? "active" : "";
-    return `<button type="button" class="btn btn-outline-dark btn-sm ${active}" data-category="${c}">${escapeHtml(label)}</button>`;
-  }).join("");
-
-  wrap.onclick = (e) => {
-    const btn = e.target.closest("[data-category]");
-    if (!btn) return;
-    activeCategory = btn.dataset.category;
-    renderAll();
-  };
-}
-
 
 function renderGrid() {
   const grid = document.getElementById("galleryGrid");
@@ -93,17 +84,18 @@ function renderGrid() {
   const items = PHOTOS.filter(matches);
 
   grid.innerHTML = items.map(p => {
-    const tagLabel = (p.tags && p.tags.length) ? p.tags[0] : p.category;
-    const icon = pickIcon(tagLabel);
+    const badgeLabel = (p.tags && p.tags.length) ? p.tags[0] : (p.collections?.[0] || "photo");
+    const icon = pickIcon(badgeLabel);
     const thumbSrc = p.thumb || p.full;
 
     return `
       <div class="col-12 col-sm-6 col-lg-4">
         <a href="${p.full}" data-lightbox="gallery" data-title="${escapeHtml(p.title)}" class="text-decoration-none">
           <article class="gallery-card">
-            <div class="tag"><i class="fa-solid ${icon} me-1"></i> ${escapeHtml(tagLabel)}</div>
+            <div class="tag"><i class="fa-solid ${icon} me-1"></i> ${escapeHtml(badgeLabel)}</div>
             <div class="photo-window">
-              <img src="${thumbSrc}" alt="${escapeHtml(p.title)}" loading="lazy" onerror="this.onerror=null;this.src='${p.full}';" />
+              <img src="${thumbSrc}" alt="${escapeHtml(p.title)}" loading="lazy"
+                   onerror="this.onerror=null;this.src='${p.full}';" />
             </div>
             <div class="caption">
               <h3 class="h6 title">${escapeHtml(p.title)}</h3>
@@ -116,56 +108,46 @@ function renderGrid() {
   }).join("");
 
   const parts = [];
-  if (activeCollection !== "All") parts.push(`Collection: <strong>${escapeHtml(activeCollection)}</strong>`);
-  if (activeCategory !== "all") parts.push(`Category: <strong>${escapeHtml(activeCategory)}</strong>`);
-  if (activeTag !== "all") parts.push(`Tag: <strong>${escapeHtml(activeTag)}</strong>`);
-  const filterText = parts.length ? ` · ${parts.join(" · ")}` : "";
+  if (activeCollection !== "All") parts.push(`Collection: ${escapeHtml(activeCollection)}`);
+  if (activeTag !== "All") parts.push(`Tag: ${escapeHtml(activeTag)}`);
 
-  meta.innerHTML = `<span class="fw-semibold">${items.length}</span> photo${items.length === 1 ? "" : "s"} shown${filterText}`;
+  meta.innerHTML = `${items.length} photo${items.length === 1 ? "" : "s"}${parts.length ? " · " + parts.join(" · ") : ""}`;
 }
 
 function renderAll() {
-  // re-render collections so active state updates
-  renderCollections();
-  renderCategories();
-  renderTags();
+  renderCollectionSelect();
+  renderTagSelect();
   renderGrid();
-  wireClearButton();
 }
 
-function wireClearButton() {
-  const btn = document.getElementById("clearFiltersBtn");
-  btn.onclick = () => {
-    activeCollection = "All";
-    activeCategory = "all";
-    activeTag = "all";
+function wireEvents() {
+  const collectionSelect = document.getElementById("collectionSelect");
+  const tagSelect = document.getElementById("tagSelect");
+  const clearBtn = document.getElementById("clearFiltersBtn");
+
+  collectionSelect?.addEventListener("change", () => {
+    activeCollection = collectionSelect.value;
+    activeTag = "All";          // reset tag when collection changes
     renderAll();
-  };
-}
+  });
 
-function pickIcon(tag) {
-  const t = (tag || "").toLowerCase();
-  if (t.includes("sunset")) return "fa-sun";
-  if (t.includes("snow") || t.includes("winter")) return "fa-snowflake";
-  if (t.includes("rain")) return "fa-cloud-rain";
-  if (t.includes("fall") || t.includes("autumn")) return "fa-leaf";
-  if (t.includes("bird")) return "fa-dove";
-  if (t.includes("street") || t.includes("people")) return "fa-city";
-  return "fa-camera";
-}
+  tagSelect?.addEventListener("change", () => {
+    activeTag = tagSelect.value;
+    renderGrid();
+  });
 
-function escapeHtml(str) {
-  return String(str ?? "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
+  clearBtn?.addEventListener("click", () => {
+    activeCollection = "All";
+    activeTag = "All";
+    renderAll();
+  });
 }
 
 async function initGallery() {
   const res = await fetch("data/photos.json");
   PHOTOS = await res.json();
+
+  wireEvents();
   renderAll();
 }
 

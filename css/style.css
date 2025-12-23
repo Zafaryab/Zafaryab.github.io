@@ -521,3 +521,37 @@ body{
   background: rgba(37,99,235,.10);
   border-color: rgba(37,99,235,.35);
 }
+
+/* Photography: compact filter bar */
+.page-photography .filter-bar{
+  display: flex;
+  align-items: end;
+  gap: .75rem;
+  flex-wrap: wrap;
+  padding: .75rem 0 1rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 1rem;
+}
+
+.page-photography .filter-item{
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+  min-width: 180px;
+}
+
+.page-photography .filter-label{
+  font-size: .85rem;
+  color: var(--muted);
+  margin: 0;
+}
+
+.page-photography .filter-meta{
+  margin-left: auto;
+  font-size: .95rem;
+  padding-bottom: .3rem;
+}
+
+/* tighter spacing overall so more photos show */
+.page-photography .page-hero{ padding: 2.25rem 0 1rem; }
+.page-photography .section{ padding: 1.25rem 0 1.75rem; }
