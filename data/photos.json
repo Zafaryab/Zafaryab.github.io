@@ -1,0 +1,42 @@
+[
+  {
+    "id": "fall_001",
+    "title": "Fall Colors",
+    "category": "landscapes",
+    "tags": ["fall", "autumn", "landscape"],
+    "collections": ["Fall", "Landscapes"],
+    "thumb": "images/gallery/thumbs/fall_001.jpg",
+    "full": "images/gallery/full/fall_001.jpg",
+    "subtitle": "Autumn tones and crisp light."
+  },
+  {
+    "id": "univ_001",
+    "title": "Dorm Under Colorful Clouds",
+    "category": "landscapes",
+    "tags": ["university", "campus", "clouds", "sky"],
+    "collections": ["University Series", "Campus Colors"],
+    "thumb": "images/gallery/thumbs/univ_001.jpg",
+    "full": "images/gallery/full/univ_001.jpg",
+    "subtitle": "A dorm framed by a dramatic, colorful sky."
+  },
+  {
+    "id": "univ_002",
+    "title": "Campus Lawn, Same Sky",
+    "category": "landscapes",
+    "tags": ["university", "campus", "lawn", "sky", "clouds"],
+    "collections": ["University Series", "Campus Colors"],
+    "thumb": "images/gallery/thumbs/univ_002.jpg",
+    "full": "images/gallery/full/univ_002.jpg",
+    "subtitle": "Open lawn with the same painted clouds overhead."
+  },
+  {
+    "id": "univ_003",
+    "title": "Red Berries (Soft Background)",
+    "category": "landscapes",
+    "tags": ["university", "campus", "berries", "macro", "bokeh"],
+    "collections": ["University Series", "Details"],
+    "thumb": "images/gallery/thumbs/univ_003.jpg",
+    "full": "images/gallery/full/univ_003.jpg",
+    "subtitle": "Red berries in focus with a blurred, colorful backdrop."
+  }
+]
