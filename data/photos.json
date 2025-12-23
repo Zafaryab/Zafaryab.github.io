@@ -1,14 +1,5 @@
 [
-  {
-    "id": "fall_001",
-    "title": "Fall Colors",
-    "category": "landscapes",
-    "tags": ["fall"],
-    "collections": ["Fall"],
-    "thumb": "images/gallery/thumbs/fall_001.jpg",
-    "full": "images/gallery/full/fall_001.jpg",
-    "subtitle": "Autumn tones and crisp light."
-  },
+  
   {
     "id": "univ_001",
     "title": "Dorm Under Colorful Clouds",
@@ -38,5 +29,15 @@
     "thumb": "images/gallery/thumbs/univ_003.jpg",
     "full": "images/gallery/full/univ_003.jpg",
     "subtitle": "Berries in focus with a blurred backdrop."
+  },
+  {
+    "id": "fall_001",
+    "title": "Fall Colors",
+    "category": "landscapes",
+    "tags": ["fall"],
+    "collections": ["Fall"],
+    "thumb": "images/gallery/thumbs/fall_001.jpg",
+    "full": "images/gallery/full/fall_001.jpg",
+    "subtitle": "Autumn tones and crisp light."
   }
 ]
