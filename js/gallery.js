@@ -27,6 +27,7 @@ function renderCollections() {
   const collections = ["All", ...allCollections];
 
   const row = document.getElementById("collectionsRow");
+  if (!row) return;
   row.innerHTML = collections.map(name => {
     const active = (name === activeCollection) ? "is-active" : "";
     return `<button type="button" class="filter-pill ${active}" data-collection="${escapeHtml(name)}">${escapeHtml(name)}</button>`;
@@ -47,6 +48,7 @@ function renderTags() {
   const list = ["all", ...limited];
 
   const wrap = document.getElementById("tagFilters");
+  if (!wrap) return;
   wrap.innerHTML = list.map(t => {
     const label = t === "all" ? "All" : t.replace(/-/g, " ");
     const active = t === activeTag ? "is-active" : "";
@@ -61,10 +63,32 @@ function renderTags() {
   };
 }
 
+function renderCategories() {
+  const wrap = document.getElementById("categoryFilters");
+  if (!wrap) return;
+
+  const cats = uniqSorted(PHOTOS.map(p => p.category).filter(Boolean));
+  const buttons = ["all", ...cats];
+
+  wrap.innerHTML = buttons.map(c => {
+    const label = CATEGORY_LABELS[c] || (c.charAt(0).toUpperCase() + c.slice(1));
+    const active = (c === activeCategory) ? "active" : "";
+    return `<button type="button" class="btn btn-outline-dark btn-sm ${active}" data-category="${c}">${escapeHtml(label)}</button>`;
+  }).join("");
+
+  wrap.onclick = (e) => {
+    const btn = e.target.closest("[data-category]");
+    if (!btn) return;
+    activeCategory = btn.dataset.category;
+    renderAll();
+  };
+}
+
 
 function renderGrid() {
   const grid = document.getElementById("galleryGrid");
   const meta = document.getElementById("galleryMeta");
+  if (!grid || !meta) return;
 
   const items = PHOTOS.filter(matches);
 
