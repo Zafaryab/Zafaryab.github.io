@@ -63,61 +63,33 @@
       </div>
     </section>
 
-    <!-- Featured Collections (Option C) -->
-    <!-- <section class="section pt-0">
-      <div class="container-xl">
-        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
-          <h2 class="h5 fw-bold mb-0">Featured Collections</h2>
-          <button class="btn btn-sm btn-outline-dark" id="clearFiltersBtn" type="button">
-            <i class="fa-solid fa-filter-circle-xmark me-2"></i>Clear filters
-          </button>
-        </div>
-
-        <div class="row g-3" id="collectionsRow">
-        </div>
-      </div>
-    </section> -->
-    
-    <!-- Collections (Compact) -->
+    <!-- Compact Filter Bar -->
     <section class="section pt-0">
       <div class="container-xl">
-        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2">
-          <h2 class="h6 fw-bold mb-0">Collections</h2>
+        <div class="filter-bar">
+          <div class="filter-item">
+            <label class="filter-label" for="collectionSelect">Collection</label>
+            <select id="collectionSelect" class="form-select form-select-sm"></select>
+          </div>
+
+          <div class="filter-item">
+            <label class="filter-label" for="tagSelect">Tag</label>
+            <select id="tagSelect" class="form-select form-select-sm"></select>
+          </div>
+
           <button class="btn btn-sm btn-outline-dark" id="clearFiltersBtn" type="button">
-            Clear
+            Reset
           </button>
-        </div>
 
-        <div class="d-flex flex-wrap gap-2" id="collectionsRow"></div>
-      </div>
-    </section>
-
-
-    <!-- Filters -->
-    <section class="section pt-0">
-      <div class="container-xl">
-        <div class="d-flex flex-wrap gap-2 align-items-center mb-3">
-          <div class="me-2 fw-semibold text-secondary">Category:</div>
-          <div class="btn-group flex-wrap" role="group" aria-label="Category filters" id="categoryFilters">
-            <!-- JS renders category buttons here -->
-          </div>
-        </div>
-
-        <div class="d-flex flex-wrap gap-2 align-items-center mb-4">
-          <div class="me-2 fw-semibold text-secondary">Tags:</div>
-          <div class="d-flex flex-wrap gap-2" id="tagFilters">
-            <!-- JS renders tag pills here -->
-          </div>
+          <div class="filter-meta text-secondary" id="galleryMeta"></div>
         </div>
 
         <!-- Gallery Grid -->
-        <div class="row g-3 g-lg-4" id="galleryGrid">
-          <!-- JS renders photo cards here -->
-        </div>
-
-        <div class="text-center mt-4 text-secondary" id="galleryMeta"></div>
+        <div class="row g-3 g-lg-4" id="galleryGrid"></div>
       </div>
     </section>
+
+
   </main>
 
   <div id="footer-placeholder"></div>
