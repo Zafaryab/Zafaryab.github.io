@@ -1,5 +1,4 @@
 [
-  
   {
     "id": "univ_001",
     "title": "Dorm Under Colorful Clouds",
@@ -39,5 +38,86 @@
     "thumb": "images/gallery/thumbs/fall_001.JPG",
     "full": "images/gallery/full/fall_001.JPG",
     "subtitle": "Autumn tones in the leaves."
+  },
+
+  {
+    "id": "univ_winter_001",
+    "title": "Raymond H. Fogler Library",
+    "category": "landscapes",
+    "tags": ["campus", "winter", "architecture"],
+    "collections": ["University", "Winter"],
+    "thumb": "images/gallery/thumbs/univ_winter_001.jpeg",
+    "full": "images/gallery/full/univ_winter_001.jpeg",
+    "subtitle": "Raymond H. Fogler Library in winter."
+  },
+  {
+    "id": "univ_winter_002",
+    "title": "Winslow Agriculture Department",
+    "category": "landscapes",
+    "tags": ["campus", "winter", "architecture"],
+    "collections": ["University", "Winter"],
+    "thumb": "images/gallery/thumbs/univ_winter_002.jpeg",
+    "full": "images/gallery/full/univ_winter_002.jpeg",
+    "subtitle": "Winslow Agriculture building during winter."
+  },
+  {
+    "id": "univ_winter_003",
+    "title": "Winter Campus Building",
+    "category": "landscapes",
+    "tags": ["campus", "winter", "architecture"],
+    "collections": ["University", "Winter"],
+    "thumb": "images/gallery/thumbs/univ_winter_003.jpeg",
+    "full": "images/gallery/full/univ_winter_003.jpeg",
+    "subtitle": "A quiet campus building in winter light."
+  },
+  {
+    "id": "univ_winter_004",
+    "title": "Memorial Gym",
+    "category": "landscapes",
+    "tags": ["campus", "winter", "architecture"],
+    "collections": ["University", "Winter"],
+    "thumb": "images/gallery/thumbs/univ_winter_004.jpeg",
+    "full": "images/gallery/full/univ_winter_004.jpeg",
+    "subtitle": "Memorial Gym surrounded by winter atmosphere."
+  },
+  {
+    "id": "univ_winter_005",
+    "title": "Memorial Union View",
+    "category": "landscapes",
+    "tags": ["campus", "winter", "wide"],
+    "collections": ["University", "Winter"],
+    "thumb": "images/gallery/thumbs/univ_winter_005.jpeg",
+    "full": "images/gallery/full/univ_winter_005.jpeg",
+    "subtitle": "A wide winter view featuring Memorial Union."
+  },
+  {
+    "id": "univ_winter_006",
+    "title": "Bench at University Mall (Williams Hall)",
+    "category": "landscapes",
+    "tags": ["campus", "winter", "details"],
+    "collections": ["University", "Winter"],
+    "thumb": "images/gallery/thumbs/univ_winter_006.jpeg",
+    "full": "images/gallery/full/univ_winter_006.jpeg",
+    "subtitle": "A seating bench at the University Mall in front of Williams Hall."
+  },
+  {
+    "id": "univ_winter_007",
+    "title": "A-Frame Picnic Table (University Park)",
+    "category": "landscapes",
+    "tags": ["park", "winter", "wood"],
+    "collections": ["University", "Winter"],
+    "thumb": "images/gallery/thumbs/univ_winter_007.jpeg",
+    "full": "images/gallery/full/univ_winter_007.jpeg",
+    "subtitle": "An A-frame wooden picnic table at a University park."
+  },
+  {
+    "id": "univ_winter_008",
+    "title": "Evening Bench (Park View)",
+    "category": "landscapes",
+    "tags": ["park", "winter", "evening"],
+    "collections": ["University", "Winter"],
+    "thumb": "images/gallery/thumbs/univ_winter_008.jpeg",
+    "full": "images/gallery/full/univ_winter_008.jpeg",
+    "subtitle": "Evening view of a bench from behind at a park."
   }
 ]
