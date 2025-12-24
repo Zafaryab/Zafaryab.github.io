@@ -30,17 +30,6 @@
     "subtitle": "Berries in focus with a blurred backdrop."
   },
   {
-    "id": "fall_001",
-    "title": "Fall Colors",
-    "category": "landscapes",
-    "tags": ["fall"],
-    "collections": ["Fall"],
-    "thumb": "images/gallery/thumbs/fall_001.JPG",
-    "full": "images/gallery/full/fall_001.JPG",
-    "subtitle": "Autumn tones in the leaves."
-  },
-
-  {
     "id": "univ_winter_001",
     "title": "Raymond H. Fogler Library",
     "category": "landscapes",
@@ -119,5 +108,15 @@
     "thumb": "images/gallery/thumbs/univ_winter_008.jpeg",
     "full": "images/gallery/full/univ_winter_008.jpeg",
     "subtitle": "Evening view of a bench from behind at a park."
+  },
+  {
+    "id": "fall_001",
+    "title": "Fall Colors",
+    "category": "landscapes",
+    "tags": ["fall"],
+    "collections": ["Fall"],
+    "thumb": "images/gallery/thumbs/fall_001.JPG",
+    "full": "images/gallery/full/fall_001.JPG",
+    "subtitle": "Autumn tones in the leaves."
   }
 ]
