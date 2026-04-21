@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User-Driven Neural Network Design</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg0: #07090d;
+      --bg1: #0d1117;
+      --panel: rgba(255,255,255,0.05);
+      --panel2: rgba(255,255,255,0.025);
+      --border: rgba(255,255,255,0.10);
+      --text: rgba(248,250,252,0.96);
+      --muted: rgba(255,255,255,0.66);
+      --faint: rgba(255,255,255,0.34);
+
+      --green: #91f2ba;
+      --blue: #85dcff;
+      --purple: #ccbaff;
+      --amber: #ffd98c;
+      --red: #ff9ca8;
+      --cyan: #7aefff;
+      --lime: #c9f85e;
+
+      --shadow: 0 28px 80px rgba(0,0,0,0.42);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      overflow: hidden;
+      font-family: "DM Sans", system-ui, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 18% 12%, rgba(122,239,255,0.10), transparent 24%),
+        radial-gradient(circle at 82% 10%, rgba(201,248,94,0.10), transparent 24%),
+        radial-gradient(circle at 50% 100%, rgba(204,186,255,0.06), transparent 30%),
+        linear-gradient(160deg, var(--bg0) 0%, var(--bg1) 62%, #07080b 100%);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      z-index: 0;
+    }
+
+    .glow {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(90px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.65;
+    }
+
+    .glow.a {
+      width: 440px; height: 440px;
+      top: -100px; right: -80px;
+      background: rgba(201,248,94,0.12);
+    }
+
+    .glow.b {
+      width: 360px; height: 360px;
+      bottom: -100px; left: -60px;
+      background: rgba(122,239,255,0.12);
+    }
+
+    .slide {
+      position: relative;
+      z-index: 2;
+      width: 100vw;
+      height: 100vh;
+      padding: 34px 42px 28px;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 14px;
+    }
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+    }
+
+    .eyebrow {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      opacity: 0;
+      animation: fadeInUp .8s ease forwards;
+      animation-delay: .08s;
+    }
+
+    .legend {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeInUp .8s ease forwards;
+      animation-delay: .18s;
+    }
+
+    .legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.8);
+    }
+
+    .legend .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      gap: 28px;
+      align-items: center;
+      min-height: 0;
+    }
+
+    .left {
+      padding-left: 6px;
+    }
+
+    .title {
+      margin: 0;
+      font-family: "Instrument Serif", Georgia, serif;
+      font-size: clamp(2.8rem, 5.4vw, 4.9rem);
+      line-height: 0.97;
+      letter-spacing: -0.05em;
+      max-width: 18ch;
+      opacity: 0;
+      animation: fadeInUp .95s cubic-bezier(.2,.7,.2,1) forwards;
+      animation-delay: .28s;
+    }
+
+    .title .accent {
+      background: linear-gradient(120deg, var(--lime) 0%, var(--cyan) 55%, var(--purple) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .sub {
+      margin-top: 18px;
+      max-width: 650px;
+      color: var(--muted);
+      font-size: 1.02rem;
+      line-height: 1.65;
+      opacity: 0;
+      animation: fadeInUp .85s ease forwards;
+      animation-delay: .48s;
+    }
+
+    .chips {
+      margin-top: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      opacity: 0;
+      animation: fadeInUp .85s ease forwards;
+      animation-delay: .62s;
+    }
+
+    .chip {
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.82);
+    }
+
+    .note {
+      margin-top: 24px;
+      max-width: 720px;
+      padding: 15px 18px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: linear-gradient(90deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      color: rgba(255,255,255,0.84);
+      font-size: 0.98rem;
+      line-height: 1.55;
+      opacity: 0;
+      animation: fadeInUp .85s ease forwards;
+      animation-delay: 2.45s;
+    }
+
+    .visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 0;
+    }
+
+    .board {
+      position: relative;
+      width: min(100%, 760px);
+      height: min(72vh, 620px);
+      min-height: 480px;
+      border-radius: 30px;
+      overflow: hidden;
+      background: linear-gradient(165deg, var(--panel), var(--panel2));
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(6px);
+    }
+
+    .board::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 34px 34px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,.76), transparent 96%);
+      pointer-events: none;
+    }
+
+    .board-title {
+      position: absolute;
+      top: 22px;
+      left: 24px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      z-index: 4;
+      opacity: 0;
+      animation: fadeOnly .6s ease forwards;
+      animation-delay: .7s;
+    }
+
+    .center-rings {
+      position: absolute;
+      left: 50%;
+      top: 54%;
+      width: 300px;
+      height: 300px;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.08);
+      opacity: 0;
+      transform: scale(.7);
+      animation: ringPulse 2.8s ease-out infinite;
+    }
+
+    .ring.r1 { animation-delay: .95s; }
+    .ring.r2 { animation-delay: 1.35s; }
+    .ring.r3 { animation-delay: 1.75s; }
+
+    .center-card {
+      position: absolute;
+      left: 50%;
+      top: 54%;
+      transform: translate(-50%, -50%) scale(.92);
+      width: 290px;
+      padding: 25px 20px;
+      text-align: center;
+      border-radius: 24px;
+      background:
+        linear-gradient(160deg, rgba(201,248,94,0.16), rgba(122,239,255,0.09));
+      border: 1px solid rgba(201,248,94,0.22);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.04),
+        0 22px 52px rgba(0,0,0,0.34),
+        0 0 40px rgba(201,248,94,0.06);
+      z-index: 4;
+      opacity: 0;
+      animation: centerEnter .9s cubic-bezier(.2,.7,.2,1) forwards;
+      animation-delay: .9s;
+    }
+
+    .center-card h3 {
+      margin: 0;
+      font-family: "Instrument Serif", Georgia, serif;
+      font-size: 2rem;
+      line-height: 1;
+      letter-spacing: -.04em;
+    }
+
+    .center-card p {
+      margin: 10px 0 0;
+      color: rgba(255,255,255,0.78);
+      font-size: 0.86rem;
+      line-height: 1.5;
+    }
+
+    svg.paths {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .path-base {
+      fill: none;
+      stroke: rgba(255,255,255,0.10);
+      stroke-width: 2;
+      stroke-linecap: round;
+    }
+
+    .path-glow {
+      fill: none;
+      stroke-width: 3.5;
+      stroke-linecap: round;
+      stroke-dasharray: 40 260;
+      stroke-dashoffset: 300;
+      filter: drop-shadow(0 0 8px currentColor);
+      opacity: 0;
+      animation: travel 2.1s linear infinite;
+    }
+
+    .g1 { color: var(--amber); stroke: var(--amber); animation-delay: 1.15s; }
+    .g2 { color: var(--green); stroke: var(--green); animation-delay: 1.35s; }
+    .g3 { color: var(--blue); stroke: var(--blue); animation-delay: 1.55s; }
+    .g4 { color: var(--purple); stroke: var(--purple); animation-delay: 1.75s; }
+    .g5 { color: var(--red); stroke: var(--red); animation-delay: 1.95s; }
+    .g6 { color: var(--cyan); stroke: var(--cyan); animation-delay: 2.15s; }
+
+    .card {
+      position: absolute;
+      width: 182px;
+      padding: 13px 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.11);
+      background: rgba(255,255,255,0.05);
+      box-shadow: 0 16px 36px rgba(0,0,0,0.24);
+      z-index: 5;
+      opacity: 0;
+      transform: scale(.94);
+      animation: cardReveal .7s cubic-bezier(.2,.7,.2,1) forwards;
+    }
+
+    .card .row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.93);
+    }
+
+    .card .icon {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex: 0 0 auto;
+    }
+
+    .card .meta {
+      margin-top: 5px;
+      padding-left: 20px;
+      color: var(--muted);
+      font-size: 0.76rem;
+      line-height: 1.35;
+    }
+
+    .domain   { top: 80px;  left: 54px;  animation-delay: 1.08s; }
+    .accuracy { top: 82px;  right: 48px; animation-delay: 1.28s; }
+    .latency  { top: 246px; right: 18px; animation-delay: 1.48s; }
+    .size     { top: 248px; left: 18px;  animation-delay: 1.68s; }
+    .energy   { bottom: 84px; left: 98px; animation-delay: 1.88s; }
+    .deploy   { bottom: 84px; right: 86px; animation-delay: 2.08s; }
+
+    .domain .icon   { background: var(--amber); }
+    .accuracy .icon { background: var(--green); }
+    .latency .icon  { background: var(--blue); }
+    .size .icon     { background: var(--purple); }
+    .energy .icon   { background: var(--red); }
+    .deploy .icon   { background: var(--cyan); }
+
+    .footer-tag {
+      position: absolute;
+      right: 24px;
+      bottom: 18px;
+      z-index: 6;
+      font-size: 0.68rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--faint);
+      opacity: 0;
+      animation: fadeOnly .8s ease forwards;
+      animation-delay: 2.5s;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeOnly {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes centerEnter {
+      0% { opacity: 0; transform: translate(-50%, -50%) scale(.9); }
+      60% { opacity: 1; transform: translate(-50%, -50%) scale(1.03); }
+      100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    }
+
+    @keyframes cardReveal {
+      from {
+        opacity: 0;
+        transform: scale(.94);
+        filter: blur(3px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0);
+      }
+    }
+
+    @keyframes ringPulse {
+      0% {
+        opacity: 0;
+        transform: scale(.72);
+      }
+      22% {
+        opacity: .32;
+      }
+      100% {
+        opacity: 0;
+        transform: scale(1.28);
+      }
+    }
+
+    @keyframes travel {
+      0% {
+        opacity: 0;
+        stroke-dashoffset: 320;
+      }
+      10% {
+        opacity: .95;
+      }
+      85% {
+        opacity: .9;
+      }
+      100% {
+        opacity: 0;
+        stroke-dashoffset: 0;
+      }
+    }
+
+    @media (max-width: 1180px) {
+      .content {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .title, .sub, .note {
+        max-width: none;
+      }
+
+      .board {
+        width: 100%;
+        height: 560px;
+      }
+    }
+
+    @media (max-width: 780px) {
+      .slide {
+        padding: 24px 20px 20px;
+      }
+
+      .title {
+        font-size: 2.6rem;
+      }
+
+      .sub {
+        font-size: .96rem;
+      }
+
+      .board {
+        min-height: 520px;
+      }
+
+      .card {
+        width: 160px;
+        padding: 11px 12px;
+      }
+
+      .card .row {
+        font-size: .83rem;
+      }
+
+      .card .meta {
+        font-size: .70rem;
+      }
+
+      .center-card {
+        width: 246px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="glow a"></div>
+  <div class="glow b"></div>
+
+  <section class="slide">
+    <div class="top">
+      <div class="eyebrow">Problem statement</div>
+      <div class="legend">
+        <span><span class="dot" style="background:#ffd98c;"></span>User preference</span>
+        <span><span class="dot" style="background:#7aefff;"></span>Deployment factor</span>
+        <span><span class="dot" style="background:#c9f85e;"></span>Design target</span>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="left">
+        <h1 class="title">
+          Designing neural networks under
+          <span class="accent">different user preferences </span>
+        </h1>
+
+        <div class="sub">
+          For a specific task, different users care about different domains, model sizes,
+          latency targets, accuracy levels, energy budgets, and deployment environments.
+          These requirements are often inconsistent, making manual neural network design difficult.
+        </div>
+
+        <div class="chips">
+          <div class="chip">Task-specific</div>
+          <div class="chip">User-driven</div>
+          <div class="chip">Multi-objective</div>
+        </div>
+
+        <div class="note">
+          The challenge is not only achieving high accuracy, but also finding an architecture
+          that fits practical constraints such as speed, memory, power, and deployment platform.
+        </div>
+      </div>
+
+      <div class="visual">
+        <div class="board">
+          <div class="board-title">Constraint signals merging into one architecture</div>
+
+          <div class="center-rings">
+            <div class="ring r1"></div>
+            <div class="ring r2"></div>
+            <div class="ring r3"></div>
+          </div>
+
+          <svg class="paths" viewBox="0 0 760 620" preserveAspectRatio="none" aria-hidden="true">
+            <path class="path-base" d="M150,124 C250,178 298,220 380,320" />
+            <path class="path-base" d="M610,124 C520,184 468,226 380,320" />
+            <path class="path-base" d="M660,292 C560,304 488,308 380,320" />
+            <path class="path-base" d="M110,292 C205,305 275,309 380,320" />
+            <path class="path-base" d="M190,498 C258,430 300,384 380,320" />
+            <path class="path-base" d="M570,498 C500,430 455,384 380,320" />
+
+            <path class="path-glow g1" d="M150,124 C250,178 298,220 380,320" />
+            <path class="path-glow g2" d="M610,124 C520,184 468,226 380,320" />
+            <path class="path-glow g3" d="M660,292 C560,304 488,308 380,320" />
+            <path class="path-glow g4" d="M110,292 C205,305 275,309 380,320" />
+            <path class="path-glow g5" d="M190,498 C258,430 300,384 380,320" />
+            <path class="path-glow g6" d="M570,498 C500,430 455,384 380,320" />
+          </svg>
+
+          <div class="center-card">
+            <h3>Neural Network<br />Architecture</h3>
+            <p>
+              One design must satisfy multiple user-specific constraints at the same time.
+            </p>
+          </div>
+
+          <div class="card domain">
+            <div class="row"><span class="icon"></span>Domain</div>
+            <div class="meta">Vision · NLP · Speech · Time-series</div>
+          </div>
+
+          <div class="card accuracy">
+            <div class="row"><span class="icon"></span>Accuracy</div>
+            <div class="meta">Performance target for the task</div>
+          </div>
+
+          <div class="card latency">
+            <div class="row"><span class="icon"></span>Latency</div>
+            <div class="meta">Real-time and response-time needs</div>
+          </div>
+
+          <div class="card size">
+            <div class="row"><span class="icon"></span>Model Size</div>
+            <div class="meta">Memory and storage limits</div>
+          </div>
+
+          <div class="card energy">
+            <div class="row"><span class="icon"></span>Energy Budget</div>
+            <div class="meta">Power, battery, and thermal bounds</div>
+          </div>
+
+          <div class="card deploy">
+            <div class="row"><span class="icon"></span>Deployment</div>
+            <div class="meta">Edge · Mobile · Cloud · Embedded</div>
+          </div>
+
+          <div class="footer-tag">User-aware architecture design</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="voice.js"></script>
+  <script>
+    playSlideNarration(
+      "Designing neural networks isn’t one-size-fits for all. Different users prioritize accuracy, latency, model size, or energy—and these goals often conflict. The challenge is to design architectures that balance these constraints for real-world deployment"
+    );
+  </script>
+  <script>
+    window.setTimeout(function () {
+      window.location.href = "slide2.html";
+    }, 17200);
+  </script>
+</body>
+</html>

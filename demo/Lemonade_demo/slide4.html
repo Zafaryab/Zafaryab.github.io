@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Results Slide - LEMONADE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg0: #07090d;
+      --bg1: #0d1117;
+      --panel: rgba(255,255,255,0.05);
+      --panel2: rgba(255,255,255,0.025);
+      --border: rgba(255,255,255,0.10);
+      --text: rgba(248,250,252,0.96);
+      --muted: rgba(255,255,255,0.66);
+      --faint: rgba(255,255,255,0.34);
+      --green: #91f2ba;
+      --blue: #85dcff;
+      --purple: #ccbaff;
+      --amber: #ffd98c;
+      --red: #ff9ca8;
+      --cyan: #7aefff;
+      --lime: #c9f85e;
+      --orange: #ffb46e;
+      --shadow: 0 28px 80px rgba(0,0,0,0.42);
+      --accent: var(--lime);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      overflow: hidden;
+      font-family: "DM Sans", system-ui, sans-serif;
+      font-size: 14px;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 18% 12%, rgba(122,239,255,0.10), transparent 24%),
+        radial-gradient(circle at 82% 10%, rgba(201,248,94,0.10), transparent 24%),
+        radial-gradient(circle at 50% 100%, rgba(204,186,255,0.06), transparent 30%),
+        linear-gradient(160deg, var(--bg0) 0%, var(--bg1) 62%, #07080b 100%);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .noise {
+      position: fixed; inset: 0; pointer-events: none; opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      z-index: 0;
+    }
+    .glow { position: fixed; border-radius: 50%; filter: blur(90px); pointer-events: none; z-index: 0; opacity: .65; }
+    .glow.a { width: 440px; height: 440px; top: -100px; right: -80px; background: rgba(201,248,94,0.12); }
+    .glow.b { width: 360px; height: 360px; bottom: -100px; left: -60px; background: rgba(122,239,255,0.12); }
+
+    .slide {
+      position: relative; z-index: 2; width: 100vw; height: 100vh;
+      padding: 34px 42px 22px;
+      display: grid; grid-template-rows: auto 1fr; gap: 16px;
+    }
+
+    .topbar { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; }
+    .eyebrow {
+      font-size: .78rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--cyan); opacity: 0; transform: translateY(12px); animation: fadeUp .7s ease forwards;
+    }
+    .legend {
+      display: flex; flex-wrap: wrap; gap: 8px; opacity: 0; transform: translateY(12px);
+      animation: fadeUp .7s ease forwards; animation-delay: .12s;
+    }
+    .legend span {
+      display: inline-flex; align-items: center; gap: 7px; padding: 6px 10px; border-radius: 999px;
+      border: 1px solid var(--border); background: rgba(255,255,255,0.04);
+      font-size: .66rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      color: rgba(255,255,255,.8);
+    }
+    .legend .dot { width: 7px; height: 7px; border-radius: 50%; }
+
+    .main {
+      display: grid; grid-template-columns: .62fr 1.38fr; gap: 28px; align-items: center; min-height: 0;
+    }
+    .left { display: flex; flex-direction: column; justify-content: center; min-height: 0; z-index: 10; }
+    .title {
+      margin: 0;
+      font-family: "Instrument Serif", Georgia, serif;
+      font-weight: 600;
+      font-size: clamp(2.8rem, 5.4vw, 4.9rem);
+      line-height: 0.97;
+      letter-spacing: -0.05em;
+      max-width: 20ch;
+      color: var(--text);
+      opacity: 0; transform: translateY(20px); animation: fadeUp .85s cubic-bezier(.2,.7,.2,1) forwards; animation-delay: .18s;
+    }
+    .title .accent {
+      font-size: inherit;
+      font-weight: 700;
+      background: linear-gradient(120deg, var(--lime) 0%, var(--cyan) 55%, var(--purple) 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .sub {
+      margin-top: 18px; max-width: 640px; color: var(--muted); font-size: 1rem; line-height: 1.68;
+      opacity: 0; transform: translateY(18px); animation: fadeUp .8s ease forwards; animation-delay: .42s;
+    }
+    .right { display: flex; justify-content: center; align-items: center; min-height: 0; }
+    .board {
+      position: relative; width: 100%;
+      height: min(88vh, 940px); min-height: 700px; border-radius: 36px; overflow: hidden;
+      font-family: "DM Sans", system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      background: linear-gradient(165deg, var(--panel), var(--panel2)); border: 1px solid var(--border); box-shadow: var(--shadow); backdrop-filter: blur(6px);
+      display: flex; flex-direction: column; min-height: 0;
+    }
+    .board::before {
+      content: ""; position: absolute; inset: 0;
+      background:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 34px 34px; mask-image: linear-gradient(to bottom, rgba(0,0,0,.76), transparent 96%); pointer-events: none;
+    }
+    .board-head {
+      position: relative; z-index: 6; flex-shrink: 0;
+      padding: 20px 24px 14px;
+      opacity: 0; animation: fadeOnly .7s ease forwards; animation-delay: .65s;
+    }
+    .board-main {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      padding: 0 24px 20px;
+      overflow-y: auto;
+    }
+    .board-title {
+      font-size: .8rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--cyan);
+    }
+    /* Objective “weight scale”: accuracy left — balanced center — deployment right */
+    .objective-scale {
+      margin-top: 34px;
+      --beam-tilt: 0deg;
+    }
+    .objective-scale[data-active="0"] { --beam-tilt: -11deg; }
+    .objective-scale[data-active="1"] { --beam-tilt: 0deg; }
+    .objective-scale[data-active="2"] { --beam-tilt: 11deg; }
+
+    .objective-scale-stage {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 104px;
+      padding-bottom: 10px;
+    }
+    .objective-scale-beam {
+      position: relative;
+      width: min(100%, 540px);
+      height: 74px;
+      transform-origin: 50% calc(100% - 2px);
+      transform: rotate(var(--beam-tilt));
+      transition: transform 0.55s cubic-bezier(.34, 1.56, .64, 1);
+    }
+    .objective-scale-bar {
+      position: absolute;
+      top: 6px;
+      left: 0;
+      right: 0;
+      height: 5px;
+      border-radius: 3px;
+      background: linear-gradient(90deg, rgba(201,248,94,.95) 0%, rgba(122,239,255,.75) 50%, rgba(255,180,110,.95) 100%);
+      box-shadow: 0 0 18px rgba(122,239,255,.12);
+    }
+    .objective-scale-mass {
+      position: absolute;
+      top: 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 72px;
+      margin-left: -36px;
+      padding: 0;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font: inherit;
+      color: rgba(255,255,255,.52);
+      transition: color .25s ease, transform .25s ease;
+    }
+    .objective-scale-mass:hover { color: rgba(255,255,255,.82); }
+    .objective-scale-mass:focus-visible {
+      outline: 2px solid rgba(122,239,255,.45);
+      outline-offset: 3px;
+      border-radius: 6px;
+    }
+    .objective-scale-mass.is-left { left: 8%; }
+    .objective-scale-mass.is-mid { left: 50%; }
+    .objective-scale-mass.is-right { left: 92%; }
+    .objective-scale[data-active="0"] .objective-scale-mass.is-left,
+    .objective-scale[data-active="1"] .objective-scale-mass.is-mid,
+    .objective-scale[data-active="2"] .objective-scale-mass.is-right {
+      color: var(--text);
+      transform: translateY(-1px);
+    }
+    .objective-scale[data-active="0"] .objective-scale-mass.is-left .objective-scale-disc,
+    .objective-scale[data-active="1"] .objective-scale-mass.is-mid .objective-scale-disc,
+    .objective-scale[data-active="2"] .objective-scale-mass.is-right .objective-scale-disc {
+      border-color: rgba(201,248,94,.45);
+      box-shadow: 0 0 22px rgba(122,239,255,.22);
+      background: linear-gradient(165deg, rgba(255,255,255,.14), rgba(255,255,255,.05));
+    }
+    .objective-scale-string {
+      width: 2px;
+      height: 12px;
+      border-radius: 1px;
+      background: linear-gradient(180deg, rgba(255,255,255,.35), rgba(255,255,255,.12));
+      margin-bottom: 4px;
+    }
+    .objective-scale-disc {
+      width: 34px;
+      height: 10px;
+      border-radius: 5px;
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      border: 1px solid rgba(255,255,255,.12);
+      margin-bottom: 6px;
+      transition: border-color .25s, box-shadow .25s, background .25s;
+    }
+    .objective-scale-name {
+      font-size: .66rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      text-align: center;
+      line-height: 1.15;
+    }
+    .objective-scale-fulcrum {
+      position: relative;
+      z-index: 1;
+      margin-top: -4px;
+      width: 0;
+      height: 0;
+      border-left: 14px solid transparent;
+      border-right: 14px solid transparent;
+      border-bottom: 22px solid rgba(255,255,255,.14);
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,.25));
+    }
+
+    .mode-tabs {
+      margin-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      justify-content: flex-end;
+      opacity: 0;
+      animation: fadeOnly .7s ease forwards;
+      animation-delay: .75s;
+    }
+    .mode-tab {
+      padding: 9px 15px; border-radius: 999px; border: 1px solid rgba(255,255,255,.08); background: rgba(255,255,255,.035);
+      font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65);
+      transition: all .35s ease;
+    }
+    .mode-tab.active { color: #081018; background: linear-gradient(120deg, var(--lime), var(--cyan)); border-color: transparent; }
+
+    .profiles {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+      align-content: start;
+      flex: 0 1 auto;
+      min-height: 0;
+    }
+    .profile {
+      position: relative; border-radius: 26px; padding: 18px 19px 19px; overflow: hidden;
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.025));
+      border: 1px solid rgba(255,255,255,.08); box-shadow: inset 0 1px 0 rgba(255,255,255,.02);
+      opacity: 0; transform: translateY(16px) scale(.98); animation: fadeUp .72s ease forwards;
+    }
+    .profile:nth-child(1){animation-delay:.9s}
+    .profile:nth-child(2){animation-delay:1.05s}
+    .profile:nth-child(3){animation-delay:1.2s}
+    .profile.active {
+      border-color: rgba(201,248,94,.34);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.03), 0 14px 32px rgba(0,0,0,.22), 0 0 36px rgba(122,239,255,.10);
+      transform: translateY(-3px) scale(1.01);
+    }
+    .profile h3 {
+      margin: 0 0 8px;
+      font-family: "DM Sans", system-ui, sans-serif;
+      font-size: clamp(1.14rem, 1.85vw, 1.52rem);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.06;
+      color: var(--text);
+    }
+    .profile .desc {
+      margin: 0; color: var(--muted); font-size: .84rem; line-height: 1.44;
+      display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden;
+    }
+
+    .metric-stack { margin-top: 16px; display: grid; gap: 12px; }
+    .metric {
+      position: relative; padding: 11px 14px 12px; border-radius: 16px; background: rgba(255,255,255,.035); border: 1px solid rgba(255,255,255,.06);
+    }
+    .metric-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+    .metric-name { font-size: .66rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; color: rgba(255,255,255,.55); }
+    .metric-value { font-size: 1.04rem; font-weight: 700; color: var(--text); }
+    .bar-track {
+      position: relative; width: 100%; height: 9px; margin-top: 10px; border-radius: 999px; background: rgba(255,255,255,.06); overflow: hidden;
+    }
+    .bar-fill {
+      position: absolute; left: 0; top: 0; bottom: 0; width: calc(var(--target) * 1%); border-radius: 999px;
+      transform-origin: left center;
+      transform: scaleX(0);
+      animation: none;
+    }
+    .profile.metrics-revealed .bar-fill {
+      animation: growBar 1s cubic-bezier(.2,.7,.2,1) forwards;
+      animation-delay: calc(var(--delay,0) * 1s);
+    }
+    .profile.active .bar-fill { filter: saturate(1.08) brightness(1.05); }
+    .profile:not(.metrics-revealed) .metric-value { color: rgba(255,255,255,.38); }
+    .profile:not(.metrics-revealed) .focus-thumb {
+      --focus: 0;
+      opacity: 0.35;
+      animation: none;
+    }
+    .profile.metrics-revealed .focus-thumb { opacity: 1; }
+    .acc { background: linear-gradient(90deg, var(--lime), var(--green)); }
+    .fps { background: linear-gradient(90deg, var(--cyan), var(--blue)); }
+    .eng { background: linear-gradient(90deg, var(--amber), var(--orange)); }
+
+    .focus-meter {
+      margin-top: 16px; border-radius: 20px; padding: 12px 14px 13px; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06);
+    }
+    .focus-head { display: flex; justify-content: space-between; gap: 10px; align-items: center; }
+    .focus-head span:first-child { font-size: .66rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.55); }
+    .focus-head span:last-child { font-size: .8rem; color: rgba(255,255,255,.76); }
+    .focus-track {
+      position: relative; margin-top: 11px; height: 9px; border-radius: 999px; background: rgba(255,255,255,.08);
+    }
+    .focus-thumb {
+      position: absolute; top: 50%; left: calc(var(--focus) * 1%); transform: translate(-50%, -50%);
+      width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg, var(--lime), var(--cyan));
+      box-shadow: 0 0 20px rgba(122,239,255,.28);
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+
+    /* Takeaway — same shell as slide3 gap-card */
+    .callout {
+      position: relative; z-index: 6; flex-shrink: 0;
+      border-radius: 16px;
+      padding: 14px 18px 16px;
+      background: linear-gradient(165deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      font-family: "DM Sans", system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      opacity: 0;
+      transform: translateY(14px);
+      animation: fadeUp 1.05s ease forwards;
+      animation-delay: 2s;
+    }
+    .callout-label {
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 0.5rem;
+    }
+    .callout-text {
+      margin: 0;
+      font-size: clamp(0.84rem, 1.1vw, 0.95rem);
+      font-weight: 500;
+      line-height: 1.55;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      opacity: 1;
+      transition: opacity 0.32s ease;
+    }
+    .callout-text.is-fading {
+      opacity: 0;
+    }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(18px);} to { opacity: 1; transform: translateY(0);} }
+    @keyframes fadeOnly { from { opacity:0;} to { opacity:1;} }
+    @keyframes growBar { from { transform: scaleX(0);} to { transform: scaleX(1);} }
+    @keyframes pulse { 0%,100% { box-shadow: 0 0 20px rgba(122,239,255,.22);} 50% { box-shadow: 0 0 30px rgba(122,239,255,.38);} }
+
+    .restart-btn {
+      position: fixed;
+      bottom: 26px;
+      left: 26px;
+      z-index: 200;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 34px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: #05080c;
+      background: linear-gradient(120deg, var(--lime) 0%, #a8f0d0 45%, var(--cyan) 100%);
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.12),
+        0 14px 40px rgba(0, 0, 0, 0.35),
+        0 0 32px rgba(122, 239, 255, 0.15);
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(14px);
+      transition: opacity 0.5s ease, transform 0.5s ease, visibility 0s linear 0.5s;
+    }
+    .restart-btn.is-visible {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+      transition-delay: 0s;
+    }
+    .restart-btn:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.18),
+        0 18px 48px rgba(0, 0, 0, 0.38),
+        0 0 40px rgba(201, 248, 94, 0.18);
+    }
+
+    @media (max-width: 1180px) {
+      .main { grid-template-columns: 1fr; gap: 24px; }
+      .title, .sub { max-width: none; }
+      .board { height: auto; min-height: 760px; }
+    }
+    @media (max-width: 900px) {
+      .profiles { grid-template-columns: 1fr; overflow: auto; padding-right: 4px; max-height: min(56vh, 580px); }
+      .board { min-height: 860px; }
+    }
+    @media (max-width: 780px) {
+      .slide { padding: 24px 20px 18px; }
+      .title { font-size: 2.6rem; }
+      .restart-btn {
+        bottom: 16px;
+        left: 16px;
+        padding: 12px 26px;
+        font-size: 0.72rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="glow a"></div>
+  <div class="glow b"></div>
+
+  <a href="slide1.html" id="restartBtn" class="restart-btn" aria-label="Play demo from slide 1">Restart</a>
+
+  <section class="slide">
+    <div class="topbar">
+      <div class="eyebrow">Results</div>
+      <div class="legend">
+        <span><span class="dot" style="background:#c9f85e"></span>Accuracy</span>
+        <span><span class="dot" style="background:#7aefff"></span>Throughput</span>
+        <span><span class="dot" style="background:#ffb46e"></span>Energy efficiency</span>
+      </div>
+    </div>
+
+    <div class="main">
+      <div class="left">
+        <h1 class="title"> <span class="accent">Objective-driven architecture adaptation</span> on CIFAR-10 dataset</h1>
+        <div class="sub">
+          The learned architectures change based on the optimization goal. Accuracy-focused settings yield the best performance, 
+          balanced objectives trade a small amount of accuracy for significant energy savings, and efficiency-focused settings 
+          produce high-throughput, deployment-friendly models.
+        </div>
+      </div>
+
+      <div class="right">
+        <div class="board">
+          <div class="board-head">
+            <div class="board-title">CIFAR-10 dataset</div>
+            <div class="objective-scale" id="objectiveScale" data-active="1" role="group" aria-label="Objective weighting along the beam">
+              <div class="objective-scale-stage">
+                <div class="objective-scale-beam" aria-hidden="true">
+                  <div class="objective-scale-bar"></div>
+                  <button type="button" class="objective-scale-mass is-left" data-tab="0" title="Accuracy-first profile">
+                    <span class="objective-scale-string"></span>
+                    <span class="objective-scale-disc"></span>
+                    <span class="objective-scale-name">Accuracy</span>
+                  </button>
+                  <button type="button" class="objective-scale-mass is-mid" data-tab="1" title="Balanced profile">
+                    <span class="objective-scale-string"></span>
+                    <span class="objective-scale-disc"></span>
+                    <span class="objective-scale-name">Balanced</span>
+                  </button>
+                  <button type="button" class="objective-scale-mass is-right" data-tab="2" title="Deployment-efficient profile">
+                    <span class="objective-scale-string"></span>
+                    <span class="objective-scale-disc"></span>
+                    <span class="objective-scale-name">Deployment</span>
+                  </button>
+                </div>
+                <div class="objective-scale-fulcrum" aria-hidden="true"></div>
+              </div>
+              <div class="mode-tabs">
+                <div class="mode-tab" data-tab="0">Accuracy</div>
+                <div class="mode-tab" data-tab="1">Balanced</div>
+                <div class="mode-tab" data-tab="2">Deployment</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="board-main">
+          <div class="profiles">
+            <article class="profile" data-profile="0">
+              <h3>Accuracy focus</h3>
+              <p class="desc">Maximizes final model quality. Best accuracy, but with slower inference and the highest energy per image among the three reported settings.</p>
+
+              <div class="metric-stack">
+                <div class="metric">
+                  <div class="metric-top"><span class="metric-name">Test accuracy</span><span class="metric-value">0%</span></div>
+                  <div class="bar-track"><div class="bar-fill acc" style="--target:0; --delay:0"></div></div>
+                </div>
+                <div class="metric">
+                  <div class="metric-top"><span class="metric-name">FPS</span><span class="metric-value">0</span></div>
+                  <div class="bar-track"><div class="bar-fill fps" style="--target:0; --delay:0"></div></div>
+                </div>
+                <div class="metric">
+                  <div class="metric-top"><span class="metric-name">Energy efficiency</span><span class="metric-value">0</span></div>
+                  <div class="bar-track"><div class="bar-fill eng" style="--target:0; --delay:0"></div></div>
+                </div>
+              </div>
+
+              <div class="focus-meter">
+                <div class="focus-head"><span>Objective emphasis</span><span>Accuracy dominates</span></div>
+                <div class="focus-track"><div class="focus-thumb" style="--focus:0"></div></div>
+              </div>
+            </article>
+
+            <article class="profile" data-profile="1">
+              <h3>Balanced focus</h3>
+              <p class="desc">Balances model quality and energy cost. Nearly preserves accuracy while massively reducing inference energy and sharply increasing throughput.</p>
+
+              <div class="metric-stack">
+                <div class="metric">
+                  <div class="metric-top"><span class="metric-name">Test accuracy</span><span class="metric-value">0%</span></div>
+                  <div class="bar-track"><div class="bar-fill acc" style="--target:0; --delay:0"></div></div>
+                </div>
+                <div class="metric">
+                  <div class="metric-top"><span class="metric-name">FPS</span><span class="metric-value">0</span></div>
+                  <div class="bar-track"><div class="bar-fill fps" style="--target:0; --delay:0"></div></div>
+                </div>
+                <div class="metric">
+                  <div class="metric-top"><span class="metric-name">Energy efficiency</span><span class="metric-value">0</span></div>
+                  <div class="bar-track"><div class="bar-fill eng" style="--target:0; --delay:0"></div></div>
+                </div>
+              </div>
+
+              <div class="focus-meter">
+                <div class="focus-head"><span>Objective emphasis</span><span>Accuracy and energy trade off</span></div>
+                <div class="focus-track"><div class="focus-thumb" style="--focus:0"></div></div>
+              </div>
+            </article>
+
+            <article class="profile" data-profile="2">
+              <h3>Deployment-efficient</h3>
+              <p class="desc">Pushes edge deployment performance further by rewarding FPS in addition to accuracy and energy. Highest throughput with a small accuracy sacrifice.</p>
+
+              <div class="metric-stack">
+                <div class="metric">
+                  <div class="metric-top"><span class="metric-name">Test accuracy</span><span class="metric-value">0%</span></div>
+                  <div class="bar-track"><div class="bar-fill acc" style="--target:0; --delay:0"></div></div>
+                </div>
+                <div class="metric">
+                  <div class="metric-top"><span class="metric-name">FPS</span><span class="metric-value">0</span></div>
+                  <div class="bar-track"><div class="bar-fill fps" style="--target:0; --delay:0"></div></div>
+                </div>
+                <div class="metric">
+                  <div class="metric-top"><span class="metric-name">Energy efficiency</span><span class="metric-value">0</span></div>
+                  <div class="bar-track"><div class="bar-fill eng" style="--target:0; --delay:0"></div></div>
+                </div>
+              </div>
+
+              <div class="focus-meter">
+                <div class="focus-head"><span>Objective emphasis</span><span>Accuracy + energy + FPS</span></div>
+                <div class="focus-track"><div class="focus-thumb" style="--focus:0"></div></div>
+              </div>
+            </article>
+          </div>
+
+          <div class="callout" id="callout">
+            <div class="callout-label">Animated takeaway</div>
+            <div class="callout-text" id="calloutText">All metrics start at zero. The beam balances in the middle until each objective weight is applied.</div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="voice.js"></script>
+  <script>
+    playSlideNarration(
+      "For CIFAR-10 dataset, LEMONADE adapts architectures based on the objective. Accuracy focused settings give the best performance, balanced optimization improves efficiency with minimal accuracy loss, and deployment-focused settings deliver high throughput and energy savings. This shows its ability to design models based on user priorities"
+    );
+  </script>
+  <script>
+    const tabs = Array.from(document.querySelectorAll('.mode-tab'));
+    const profiles = Array.from(document.querySelectorAll('.profile'));
+    const callout = document.getElementById('callout');
+    const calloutText = document.getElementById('calloutText');
+    const objectiveScale = document.getElementById('objectiveScale');
+    const massBtns = Array.from(document.querySelectorAll('.objective-scale-mass'));
+
+    const messages = [
+      'Accuracy-first reaches 95.54% test accuracy, but it has the highest energy consumption and relatively lower throughput among the three settings.',
+      'Balanced focus maintains competitive accuracy (92.72%) while reducing energy consumption significantly and improving throughput compared to the accuracy-first model.',
+      'The deployment-efficient setting boosts throughput to 1606 FPS — nearly 2× faster than accuracy-first — while still achieving strong test accuracy at 94.9%.'    
+      ];
+
+    const METRICS = [
+      { acc: '95.54%', accT: 95.54, fps: '814', fpsT: 20, eng: '2.83e-10', engT: 10, focus: 20 },
+      { acc: '92.72%', accT: 92.72, fps: '524', fpsT: 15, eng: '7.23e-10', engT: 40, focus: 50 },
+      { acc: '94.9%', accT: 94.9, fps: '1606', fpsT: 90, eng: '3.10e-11', engT: 90, focus: 90 }
+      ];
+
+    let index = 0;
+    let calloutSkipFadeOnce = true;
+    let introComplete = false;
+    let carouselTimer = null;
+    const introTimers = [];
+
+    function clearIntroTimers() {
+      while (introTimers.length) clearTimeout(introTimers.pop());
+    }
+
+    function revealProfile(i) {
+      const p = profiles[i];
+      const m = METRICS[i];
+      const vals = p.querySelectorAll('.metric-value');
+      const bars = p.querySelectorAll('.bar-fill');
+      const thumb = p.querySelector('.focus-thumb');
+      vals[0].textContent = m.acc;
+      vals[1].textContent = m.fps;
+      vals[2].textContent = m.eng;
+      bars[0].style.setProperty('--target', String(m.accT));
+      bars[1].style.setProperty('--target', String(m.fpsT));
+      bars[2].style.setProperty('--target', String(m.engT));
+      bars[0].style.setProperty('--delay', '0');
+      bars[1].style.setProperty('--delay', '0.08');
+      bars[2].style.setProperty('--delay', '0.16');
+      if (thumb) thumb.style.setProperty('--focus', String(m.focus));
+      p.classList.add('metrics-revealed');
+    }
+
+    function revealAllProfiles() {
+      for (let i = 0; i < profiles.length; i++) revealProfile(i);
+    }
+
+    function setCalloutMessage(i) {
+      if (!calloutText) return;
+      const next = messages[i];
+      if (calloutText.textContent === next) return;
+      if (calloutSkipFadeOnce) {
+        calloutSkipFadeOnce = false;
+        calloutText.textContent = next;
+        return;
+      }
+      calloutText.classList.add('is-fading');
+      window.setTimeout(() => {
+        calloutText.textContent = next;
+        calloutText.classList.remove('is-fading');
+      }, 160);
+    }
+
+    function activate(i) {
+      index = i;
+      tabs.forEach((tab, idx) => tab.classList.toggle('active', idx === i));
+      profiles.forEach((card, idx) => card.classList.toggle('active', idx === i));
+      if (objectiveScale) objectiveScale.dataset.active = String(i);
+      setCalloutMessage(i);
+    }
+
+    function startCarousel() {
+      if (carouselTimer != null) return;
+      carouselTimer = setInterval(() => {
+        activate((index + 1) % profiles.length);
+      }, 3200);
+    }
+
+    function finishIntro() {
+      introComplete = true;
+      startCarousel();
+    }
+
+    function userPick(i) {
+      if (!introComplete) {
+        clearIntroTimers();
+        introComplete = true;
+        revealAllProfiles();
+        activate(i);
+        startCarousel();
+        return;
+      }
+      activate(i);
+    }
+
+    function runIntro() {
+      const start = 2000;
+      introTimers.push(setTimeout(() => {
+        revealProfile(0);
+        activate(0);
+      }, start));
+      introTimers.push(setTimeout(() => {
+        revealProfile(1);
+        activate(1);
+      }, start + 2000));
+      introTimers.push(setTimeout(() => {
+        revealProfile(2);
+        activate(2);
+      }, start + 4000));
+      introTimers.push(setTimeout(finishIntro, start + 6000));
+    }
+
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => userPick(i));
+    });
+
+    massBtns.forEach((btn) => {
+      btn.addEventListener('click', () => userPick(Number(btn.dataset.tab)));
+    });
+
+    runIntro();
+
+    var SLIDE4_DURATION_MS = 25000;
+    window.setTimeout(function () {
+      var restartBtn = document.getElementById("restartBtn");
+      if (restartBtn) restartBtn.classList.add("is-visible");
+    }, SLIDE4_DURATION_MS);
+  </script>
+</body>
+</html>
