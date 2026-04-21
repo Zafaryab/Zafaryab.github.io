@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Neural Architecture Search — Flow</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    /* Palette + background match Frontpage.html */
+    :root {
+      --bg0: #07090d;
+      --bg1: #0d1117;
+      --panel: rgba(255, 255, 255, 0.05);
+      --panel2: rgba(255, 255, 255, 0.025);
+      --border: rgba(255, 255, 255, 0.1);
+      --text: rgba(248, 250, 252, 0.96);
+      --muted: rgba(255, 255, 255, 0.66);
+      --faint: rgba(255, 255, 255, 0.34);
+      --green: #91f2ba;
+      --blue: #85dcff;
+      --purple: #ccbaff;
+      --amber: #ffd98c;
+      --red: #ff9ca8;
+      --cyan: #7aefff;
+      --lime: #c9f85e;
+      --shadow: 0 28px 80px rgba(0, 0, 0, 0.42);
+      /* Semantic aliases used in this slide */
+      --bg-0: var(--bg0);
+      --bg-1: var(--bg1);
+      --accent: var(--lime);
+      --accent-soft: rgba(201, 248, 94, 0.18);
+      --cyan-soft: rgba(122, 239, 255, 0.1);
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100%;
+      height: 100%;
+      overflow-x: hidden;
+      overflow-y: hidden;
+      font-family: "DM Sans", system-ui, sans-serif;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 18% 12%, rgba(122, 239, 255, 0.1), transparent 24%),
+        radial-gradient(circle at 82% 10%, rgba(201, 248, 94, 0.1), transparent 24%),
+        radial-gradient(circle at 50% 100%, rgba(204, 186, 255, 0.06), transparent 30%),
+        linear-gradient(160deg, var(--bg0) 0%, var(--bg1) 62%, #07080b 100%);
+    }
+
+    .glow {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(90px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.65;
+    }
+
+    .glow.a {
+      width: 440px;
+      height: 440px;
+      top: -100px;
+      right: -80px;
+      background: rgba(201, 248, 94, 0.12);
+    }
+
+    .glow.b {
+      width: 360px;
+      height: 360px;
+      bottom: -100px;
+      left: -60px;
+      background: rgba(122, 239, 255, 0.12);
+    }
+
+    .noise {
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      z-index: 0;
+    }
+
+    /* Layout mirrors Frontpage.html: top bar + two-column content + footer band */
+    .slide {
+      position: relative;
+      z-index: 2;
+      width: 100vw;
+      height: 100vh;
+      max-height: 100vh;
+      min-height: 0;
+      padding: 34px 42px 28px;
+      box-sizing: border-box;
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr);
+      gap: 14px;
+      overflow: hidden;
+    }
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+    }
+
+    .eyebrow {
+      margin: 0;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--cyan);
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      gap: 28px;
+      align-items: stretch;
+      min-height: 0;
+    }
+
+    .left {
+      padding-left: 6px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 1.5rem;
+      min-height: 0;
+      z-index: 20;
+    }
+
+    /* Same title scale as Frontpage.html .title; semibold + bold accent */
+    .left .title {
+      margin: 0;
+      font-family: "Instrument Serif", Georgia, serif;
+      font-weight: 600;
+      font-size: clamp(2.8rem, 5.4vw, 4.9rem);
+      line-height: 0.97;
+      letter-spacing: -0.05em;
+      max-width: 20ch;
+      color: var(--text);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUpWriteup 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+      animation-delay: 0.22s;
+    }
+
+    .left .title .accent {
+      font-size: inherit;
+      font-weight: 700;
+      background: linear-gradient(120deg, var(--lime) 0%, var(--cyan) 55%, var(--purple) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .left .sub {
+      margin-top: 18px;
+      max-width: 650px;
+      color: var(--muted);
+      font-family: "DM Sans", system-ui, sans-serif;
+      font-size: 1.02rem;
+      line-height: 1.65;
+      opacity: 0;
+      animation: fadeUp 0.85s ease forwards;
+      animation-delay: 0.48s;
+    }
+
+    @keyframes fadeUpWriteup {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeOnly {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    .visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 0;
+      z-index: 2;
+    }
+
+    .diagram-board {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      max-height: min(58vh, 520px);
+      min-height: 240px;
+      border-radius: 22px;
+      overflow: hidden;
+      background: linear-gradient(165deg, var(--panel), var(--panel2));
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: translateY(-100px);
+    }
+
+    .diagram-board-title {
+      position: absolute;
+      top: 12px;
+      left: 22px;
+      z-index: 5;
+      margin: 0;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      opacity: 0;
+      animation: fadeOnly 0.7s ease forwards;
+      animation-delay: 0.65s;
+      pointer-events: none;
+      max-width: min(420px, 72%);
+    }
+
+    .diagram-board::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+      background-size: 34px 34px;
+      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.65), transparent 96%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+      max-width: min(380px, 42vw);
+      margin-top: 0;
+    }
+
+    .legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      line-height: 1.2;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .diagram-region {
+      position: relative;
+      z-index: 2;
+      pointer-events: none;
+      width: 100%;
+      height: 100%;
+      min-height: 0;
+      padding: 44px 12px 14px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+    }
+
+    .diagram-inner {
+      position: relative;
+      pointer-events: auto;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      max-height: 100%;
+      aspect-ratio: 1600 / 900;
+      margin: 0 auto;
+      min-height: 0;
+      flex: 0 1 auto;
+    }
+
+    svg.flow {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      display: block;
+    }
+
+    .stage {
+      position: absolute;
+      box-sizing: border-box;
+      border-radius: 22px;
+      padding: clamp(12px, 2vw, 22px) clamp(12px, 2vw, 20px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-family: "DM Sans", system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      background: linear-gradient(165deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.03));
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+      z-index: 4;
+      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, border-color 0.35s ease;
+    }
+
+    #searchSpace.active,
+    #performance.active {
+      transform: scale(1.015);
+      border-color: rgba(201, 248, 94, 0.45);
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.06),
+        0 24px 64px rgba(0, 0, 0, 0.45),
+        0 0 44px rgba(201, 248, 94, 0.14);
+    }
+
+    #searchStrategy.active {
+      transform: translateX(-50%) scale(1.015);
+      border-color: rgba(122, 239, 255, 0.48);
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.06),
+        0 24px 64px rgba(0, 0, 0, 0.45),
+        0 0 44px rgba(122, 239, 255, 0.16);
+    }
+
+    .stage:not(.active) {
+      transform: none;
+    }
+
+    .stage .st-label {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 0.5rem;
+      font-family: inherit;
+    }
+
+    .stage h2 {
+      margin: 0;
+      font-family: "DM Sans", system-ui, sans-serif;
+      font-weight: 600;
+      font-size: clamp(1.28rem, 1.65vw, 1.68rem);
+      line-height: 1.12;
+      letter-spacing: -0.03em;
+      color: var(--text);
+    }
+
+    .stage p {
+      margin: 10px 0 0;
+      font-family: inherit;
+      font-size: 0.82rem;
+      line-height: 1.5;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    #searchSpace {
+      left: 4%;
+      top: calc(32%);
+      width: 22%;
+      max-width: 278px;
+      min-width: 0;
+      min-height: 150px;
+    }
+
+    #searchStrategy {
+      left: 50%;
+      top: calc(27%);
+      width: 24%;
+      max-width: 292px;
+      min-width: 0;
+      min-height: 150px;
+      transform: translateX(-50%);
+    }
+
+    #performance {
+      right: 4%;
+      top: calc(32%);
+      left: auto;
+      width: 22%;
+      max-width: 278px;
+      min-width: 0;
+      min-height: 150px;
+    }
+
+    .path-label {
+      position: absolute;
+      z-index: 3;
+      font-size: clamp(0.55rem, 1.1vw, 0.68rem);
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.4);
+      text-shadow: 0 2px 16px rgba(0, 0, 0, 0.5);
+      pointer-events: none;
+    }
+
+    .path-label.passing { top: 12%; right: 19%; transform: rotate(-6deg); }
+    .path-label.feedback { left: 52%; bottom: 8%; transform: translateX(-50%) rotate(0deg); }
+
+    .candidate {
+      position: absolute;
+      width: 88px;
+      min-height: 54px;
+      transform: translate(-50%, -50%) scale(0.72);
+      opacity: 0;
+      z-index: 10;
+      border-radius: 14px;
+      padding: 9px 10px;
+      background: linear-gradient(160deg, rgba(133, 220, 255, 0.2), rgba(204, 186, 255, 0.12));
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .candidate .name {
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+    }
+
+    .candidate .desc {
+      margin-top: 2px;
+      font-size: 0.64rem;
+      color: var(--muted);
+      line-height: 1.2;
+    }
+
+    .pulse {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      z-index: 11;
+      opacity: 0;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.95), rgba(122, 239, 255, 0.5) 38%, rgba(122, 239, 255, 0.06) 72%, transparent 74%);
+      box-shadow: 0 0 20px rgba(122, 239, 255, 0.55), 0 0 40px rgba(122, 239, 255, 0.15);
+    }
+
+    .score-card {
+      position: absolute;
+      min-width: 158px;
+      max-width: 200px;
+      z-index: 12;
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.92);
+      border-radius: 14px;
+      padding: 11px 13px;
+      background: rgba(7, 9, 13, 0.94);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: var(--shadow);
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .score-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      color: var(--faint);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .score-main {
+      font-family: "Instrument Serif", Georgia, serif;
+      font-size: 1.35rem;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      color: var(--accent);
+    }
+
+    .score-sub {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 0.72rem;
+      line-height: 1.35;
+    }
+
+    /* Research gap — layout + styling aligned with slide3 “Why this matters” */
+    .left .gap-panel {
+      width: 100%;
+      max-width: min(1080px, 100%);
+      align-self: flex-start;
+      margin-top: 10rem;
+    }
+
+    .gap-panel {
+      position: relative;
+      z-index: 5;
+      flex-shrink: 0;
+      height: min(170px, 28vh);
+      min-height: 150px;
+      overflow: hidden;
+      box-sizing: border-box;
+      font-family: "DM Sans", system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: fadeUp 1.05s ease forwards;
+      animation-delay: 1.2s;
+    }
+
+    .gap-card {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      border-radius: 14px;
+      padding: 5px 10px 6px;
+      background: linear-gradient(165deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      box-sizing: border-box;
+    }
+
+    .gap-label {
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 0.42rem;
+    }
+
+    .gap-card h3 {
+      margin: 0 0 0.5rem;
+      font-family: "DM Sans", system-ui, sans-serif;
+      font-size: clamp(1.14rem, 1.75vw, 1.42rem);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.06;
+      color: var(--text);
+    }
+
+    .gap-shell {
+      margin-top: 0;
+      flex: 1;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(148px, 0.9fr);
+      gap: 4px;
+      align-items: stretch;
+    }
+
+    .gap-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      align-items: center;
+      align-content: flex-start;
+    }
+
+    .gap-item {
+      border-radius: 999px;
+      padding: 4px 10px;
+      background: rgba(255, 255, 255, 0.045);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      font-size: 0.84rem;
+      line-height: 1.22;
+      white-space: nowrap;
+      opacity: 0.55;
+      transform: translateY(0) scale(1);
+      cursor: pointer;
+      user-select: none;
+      transition: opacity 0.3s ease, transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, filter 0.3s ease;
+    }
+
+    .gap-item:hover {
+      opacity: 0.9;
+    }
+
+    .gap-item.visible {
+      opacity: 0.55;
+      transform: scale(1);
+    }
+
+    @keyframes gapPulse {
+      0% {
+        opacity: 0.7;
+        transform: scale(1);
+        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.03), 0 8px 20px rgba(0, 0, 0, 0.18), 0 0 14px rgba(122, 239, 255, 0.08);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.06);
+        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06), 0 12px 28px rgba(0, 0, 0, 0.24), 0 0 30px rgba(122, 239, 255, 0.24);
+      }
+      100% {
+        opacity: 0.82;
+        transform: scale(1.02);
+        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04), 0 10px 24px rgba(0, 0, 0, 0.22), 0 0 22px rgba(122, 239, 255, 0.14);
+      }
+    }
+
+    .gap-item.active {
+      opacity: 1;
+      transform: scale(1.03);
+      border-color: rgba(122, 239, 255, 0.5);
+      background: linear-gradient(165deg, rgba(122, 239, 255, 0.18), rgba(204, 186, 255, 0.12));
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04), 0 10px 26px rgba(0, 0, 0, 0.24), 0 0 28px rgba(122, 239, 255, 0.16);
+      filter: saturate(1.12);
+      animation: gapPulse 1.45s ease-in-out infinite;
+    }
+
+    .gap-item.active strong {
+      color: #ffffff;
+    }
+
+    .gap-item:nth-child(1).active {
+      background: linear-gradient(165deg, rgba(255, 156, 174, 0.22), rgba(255, 120, 150, 0.12));
+      border-color: rgba(255, 156, 174, 0.55);
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04), 0 10px 26px rgba(0, 0, 0, 0.24), 0 0 28px rgba(255, 156, 174, 0.18);
+    }
+
+    .gap-item:nth-child(2).active {
+      background: linear-gradient(165deg, rgba(255, 214, 102, 0.22), rgba(255, 170, 80, 0.12));
+      border-color: rgba(255, 214, 102, 0.55);
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04), 0 10px 26px rgba(0, 0, 0, 0.24), 0 0 28px rgba(255, 214, 102, 0.18);
+    }
+
+    .gap-item:nth-child(3).active {
+      background: linear-gradient(165deg, rgba(122, 239, 255, 0.22), rgba(133, 220, 255, 0.12));
+      border-color: rgba(122, 239, 255, 0.55);
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04), 0 10px 26px rgba(0, 0, 0, 0.24), 0 0 28px rgba(122, 239, 255, 0.2);
+    }
+
+    .gap-item:nth-child(4).active {
+      background: linear-gradient(165deg, rgba(145, 242, 186, 0.22), rgba(91, 200, 150, 0.12));
+      border-color: rgba(145, 242, 186, 0.55);
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04), 0 10px 26px rgba(0, 0, 0, 0.24), 0 0 28px rgba(145, 242, 186, 0.18);
+    }
+
+    .gap-item:nth-child(5).active {
+      background: linear-gradient(165deg, rgba(204, 186, 255, 0.22), rgba(160, 140, 255, 0.12));
+      border-color: rgba(204, 186, 255, 0.55);
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04), 0 10px 26px rgba(0, 0, 0, 0.24), 0 0 28px rgba(204, 186, 255, 0.18);
+    }
+
+    .gap-item:nth-child(6).active {
+      background: linear-gradient(165deg, rgba(255, 180, 120, 0.22), rgba(255, 140, 90, 0.12));
+      border-color: rgba(255, 180, 120, 0.55);
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04), 0 10px 26px rgba(0, 0, 0, 0.24), 0 0 28px rgba(255, 180, 120, 0.18);
+    }
+
+    .gap-item:nth-child(7).active {
+      background: linear-gradient(165deg, rgba(255, 120, 190, 0.22), rgba(210, 90, 170, 0.12));
+      border-color: rgba(255, 120, 190, 0.55);
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04), 0 10px 26px rgba(0, 0, 0, 0.24), 0 0 28px rgba(255, 120, 190, 0.18);
+    }
+
+    .gap-item strong {
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .gap-item:not(.active) {
+      animation: none;
+    }
+
+    .gap-detail {
+      align-self: start;
+      margin-top: -20px;
+      min-height: 5.25rem;
+      border-radius: 12px;
+      padding: 5px 7px;
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .gap-detail.active {
+      border-color: rgba(122, 239, 255, 0.2);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03), 0 0 24px rgba(122, 239, 255, 0.08);
+    }
+
+    .gap-detail-label {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--faint);
+      margin-bottom: 0.18rem;
+    }
+
+    .gap-detail h4 {
+      margin: 0;
+      font-family: "DM Sans", system-ui, sans-serif;
+      font-size: 0.94rem;
+      font-weight: 600;
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+    }
+
+    .gap-detail p {
+      margin: 2px 0 0;
+      color: var(--muted);
+      font-size: 0.76rem;
+      line-height: 1.35;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: calc(3 * 1.35 * 0.76rem);
+    }
+
+    .gap-item p {
+      display: none;
+    }
+
+    @media (max-width: 700px) {
+      .path-label { display: none; }
+      .stage h2 { font-size: 1.15rem; }
+      .stage p { font-size: 0.72rem; }
+      #searchSpace, #performance { width: 26%; }
+      #searchStrategy { width: 30%; }
+    }
+
+    @media (max-width: 1180px) {
+      .content {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        align-items: start;
+      }
+
+      .left {
+        justify-content: flex-start;
+        padding-right: 0;
+      }
+
+      .left .title {
+        max-width: none;
+      }
+
+      .visual {
+        width: 100%;
+        min-height: min(48vh, 420px);
+      }
+
+      .diagram-board {
+        max-height: min(46vh, 480px);
+        min-height: 260px;
+      }
+
+      .gap-panel {
+        height: auto;
+        min-height: 0;
+        max-height: none;
+      }
+    }
+
+    @media (max-width: 920px) {
+      .slide {
+        padding: 24px 20px 20px;
+      }
+
+      .top {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .legend {
+        justify-content: flex-start;
+        max-width: none;
+      }
+
+      .diagram-inner {
+        max-height: min(46vh, 100%);
+      }
+
+      .gap-shell {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 780px) {
+      .left .title {
+        font-size: 2.6rem;
+      }
+      .left .sub {
+        font-size: 0.96rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="glow a" aria-hidden="true"></div>
+  <div class="glow b" aria-hidden="true"></div>
+  <section class="slide">
+    <div class="top">
+      <p class="eyebrow">Traditional approach</p>
+      <div class="legend">
+        <span><span class="dot" style="background: var(--cyan);"></span>Flow</span>
+        <span><span class="dot" style="background: var(--green);"></span>Stronger signal</span>
+        <span><span class="dot" style="background: var(--red);"></span>Weaker signal</span>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="left">
+        <h1 class="title">
+          <span class="title-lead">Traditional NAS relied on</span>
+          <span class="accent">expert-designed search spaces and strategies</span>
+        </h1>
+        <div class="sub">
+          Traditional NAS depends on manually designed search spaces and strategies, making it expert-driven 
+          and inflexible. The need for repeated training and evaluation leads to high computational cost and slow convergence, 
+          while limited adaptability makes it difficult to handle diverse real-world requirements such as accuracy, 
+          efficiency, and deployment constraints.
+        </div>
+
+        <section class="gap-panel" aria-labelledby="research-gap-heading">
+          <div class="gap-card">
+            <div class="gap-label">Research gap</div>
+            <h3 id="research-gap-heading">Drawbacks of traditional NAS</h3>
+            <div class="gap-shell" id="gapShell">
+              <div class="gap-grid" id="gapGrid">
+                <div class="gap-item" data-title="High compute cost" data-desc="Traditional NAS repeatedly trains and evaluates candidate models, which makes the search expensive in GPU time, energy, and budget."><strong>High compute cost</strong></div>
+                <div class="gap-item" data-title="Slow convergence" data-desc="A large design space often needs many trials before it reaches a strong architecture, slowing down iteration and deployment."><strong>Slow convergence</strong></div>
+                <div class="gap-item" data-title="Hand-crafted search spaces" data-desc="Many NAS methods depend on predefined search spaces, which can limit novelty and block discovery outside manually chosen options."><strong>Hand-crafted search spaces</strong></div>
+                <div class="gap-item" data-title="Limited adaptability" data-desc="Traditional search pipelines may struggle to adapt quickly when task requirements, hardware limits, or objectives change."><strong>Limited adaptability</strong></div>
+                <div class="gap-item" data-title="Poor transferability" data-desc="An architecture discovered for one dataset or task may not generalize well elsewhere, so the search must often be repeated."><strong>Poor transferability</strong></div>
+                <div class="gap-item" data-title="Hard multi-objective trade-offs" data-desc="Balancing accuracy, latency, memory, and power is difficult, especially for edge and resource-constrained settings."><strong>Hard multi-objective trade-offs</strong></div>
+                <div class="gap-item" data-title="Low accessibility" data-desc="Because NAS often requires expert tuning and strong infrastructure, it remains difficult for many users to adopt widely."><strong>Low accessibility</strong></div>
+              </div>
+              <div class="gap-detail" id="gapDetail">
+                <div class="gap-detail-label">Selected gap</div>
+                <h4>High compute cost</h4>
+                <p>Traditional NAS repeatedly trains and evaluates candidate models, which makes the search expensive in GPU time, energy, and budget.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div class="visual">
+        <div class="diagram-board">
+          <h2 class="diagram-board-title" id="diagram-framework-title">Architecture search process</h2>
+          <div class="diagram-region">
+            <div class="diagram-inner">
+        <svg class="flow" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <defs>
+            <linearGradient id="lineGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#c9f85e"></stop>
+              <stop offset="45%" stop-color="#7aefff"></stop>
+              <stop offset="100%" stop-color="#ccbaff"></stop>
+            </linearGradient>
+            <marker id="arrowHead" markerWidth="14" markerHeight="14" refX="12" refY="7" orient="auto" markerUnits="userSpaceOnUse" viewBox="0 0 14 14">
+              <path d="M0,0 L14,7 L0,14 z" fill="#b8e8ff"></path>
+            </marker>
+            <marker id="arrowHeadSpaceStrategy" markerWidth="16" markerHeight="16" refX="13" refY="8" orient="auto" markerUnits="userSpaceOnUse" viewBox="0 0 16 16">
+              <path d="M0,0 L16,8 L0,16 z" fill="#d4f0ff"></path>
+            </marker>
+            <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="3" result="blur"></feGaussianBlur>
+              <feMerge>
+                <feMergeNode in="blur"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+              </feMerge>
+            </filter>
+          </defs>
+
+          <path id="path-space-strategy-glow" d="M 335 420 L 730 420" fill="none" stroke="url(#lineGlow)" stroke-width="12" stroke-linecap="round" opacity="0.28" filter="url(#softGlow)" pointer-events="none"></path>
+          <path id="path-space-strategy" d="M 335 420 L 730 420" fill="none" stroke="url(#lineGlow)" stroke-width="5" stroke-linecap="round" marker-end="url(#arrowHeadSpaceStrategy)" pointer-events="none"></path>
+
+          <path id="path-strategy-performance" d="M 780 345 C 930 205, 1175 220, 1290 345" fill="none" stroke="url(#lineGlow)" stroke-width="5" stroke-linecap="round" marker-end="url(#arrowHead)" filter="url(#softGlow)"></path>
+          <path id="path-feedback" d="M 1260 610 C 1080 760, 820 760, 760 500" fill="none" stroke="url(#lineGlow)" stroke-width="5" stroke-linecap="round" marker-end="url(#arrowHead)" filter="url(#softGlow)"></path>
+        </svg>
+
+        <div id="searchSpace" class="stage">
+          <span class="st-label">01 · Sample</span>
+          <h2>Search space</h2>
+          <p>Candidate graphs—depth, width, connectivity—define what can be proposed.</p>
+        </div>
+
+        <div id="searchStrategy" class="stage">
+          <span class="st-label">02 · Policy</span>
+          <h2>Search strategy</h2>
+          <p>Chooses the next architecture using prior evaluations and the current objective.</p>
+        </div>
+
+        <div id="performance" class="stage">
+          <span class="st-label">03 · Evaluate</span>
+          <h2>Performance</h2>
+          <p>Trains or validates the selected design and returns a scalar signal like accuracy.</p>
+        </div>
+
+        <div id="candidate" class="candidate">
+          <div id="candidateName" class="name">Arch-A</div>
+          <div id="candidateDesc" class="desc">3 blocks · 32 filters</div>
+        </div>
+
+        <div id="pulse" class="pulse"></div>
+
+        <div id="scoreCard" class="score-card">
+          <div class="score-top">
+            <span id="scoreArch">Arch-A</span>
+            <span>Acc.</span>
+          </div>
+          <div id="scoreMain" class="score-main">91.6%</div>
+          <div id="scoreSub" class="score-sub">Returned to the strategy as the next decision signal.</div>
+        </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const architectures = [
+      { name: "Arch-A", desc: "3 blocks · 32 filters", acc: 91.6 },
+      { name: "Arch-B", desc: "4 blocks · 48 filters", acc: 93.1 },
+      { name: "Arch-C", desc: "2 blocks · 24 filters", acc: 88.7 },
+      { name: "Arch-D", desc: "5 blocks · skip links", acc: 94.4 }
+    ];
+
+    const stageSearchSpace = document.getElementById("searchSpace");
+    const stageStrategy = document.getElementById("searchStrategy");
+    const stagePerformance = document.getElementById("performance");
+    const candidate = document.getElementById("candidate");
+    const candidateName = document.getElementById("candidateName");
+    const candidateDesc = document.getElementById("candidateDesc");
+    const pulse = document.getElementById("pulse");
+    const scoreCard = document.getElementById("scoreCard");
+    const scoreArch = document.getElementById("scoreArch");
+    const scoreMain = document.getElementById("scoreMain");
+    const scoreSub = document.getElementById("scoreSub");
+
+    const pathSpaceStrategyGlow = document.getElementById("path-space-strategy-glow");
+    const pathSpaceStrategy = document.getElementById("path-space-strategy");
+    const pathStrategyPerformance = document.getElementById("path-strategy-performance");
+    const pathFeedback = document.getElementById("path-feedback");
+    const svg = document.querySelector("svg.flow");
+    const diagramInner = document.querySelector(".diagram-inner");
+    let gapItems = [];
+    let gapTimer = null;
+    let gapIndex = 0;
+    let autoGapRotation = true;
+
+    let loopId = 0;
+
+    function edgeClient(el, edge, t) {
+      const r = el.getBoundingClientRect();
+      var u = t == null ? 0.5 : t;
+      switch (edge) {
+        case "right":
+          return { x: r.right, y: r.top + r.height * u };
+        case "left":
+          return { x: r.left, y: r.top + r.height * u };
+        case "bottom":
+          return { x: r.left + r.width * u, y: r.bottom };
+        case "top":
+          return { x: r.left + r.width * u, y: r.top };
+        default:
+          return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+      }
+    }
+
+    function clientToSvg(elSvg, cx, cy) {
+      const p = elSvg.createSVGPoint();
+      p.x = cx;
+      p.y = cy;
+      const ctm = elSvg.getScreenCTM();
+      if (!ctm) return { x: 0, y: 0 };
+      const q = p.matrixTransform(ctm.inverse());
+      return { x: q.x, y: q.y };
+    }
+
+    function pointToSvg(elSvg, pt) {
+      return clientToSvg(elSvg, pt.x, pt.y);
+    }
+
+    function updateFlowPaths() {
+      if (!svg || !stageSearchSpace || !stageStrategy || !stagePerformance) return;
+
+      const a = pointToSvg(svg, edgeClient(stageSearchSpace, "right", 0.5));
+      const b = pointToSvg(svg, edgeClient(stageStrategy, "left", 0.5));
+      const seg = "M " + a.x + " " + a.y + " L " + b.x + " " + b.y;
+      pathSpaceStrategyGlow.setAttribute("d", seg);
+      pathSpaceStrategy.setAttribute("d", seg);
+
+      const s = pointToSvg(svg, edgeClient(stageStrategy, "right", 0.5));
+      const e = pointToSvg(svg, edgeClient(stagePerformance, "left", 0.5));
+      const passDx = e.x - s.x;
+      const passLift = Math.max(85, Math.min(125, passDx * 0.18));
+      const c1x = s.x + passDx * 0.32;
+      const c1y = s.y - passLift;
+      const c2x = e.x - passDx * 0.32;
+      const c2y = e.y - passLift;
+      const passing = "M " + s.x + " " + s.y + " C " + c1x + " " + c1y + ", " + c2x + " " + c2y + ", " + e.x + " " + e.y;
+      pathStrategyPerformance.setAttribute("d", passing);
+
+      const f0 = pointToSvg(svg, edgeClient(stagePerformance, "bottom", 0.5));
+      const f1 = pointToSvg(svg, edgeClient(stageStrategy, "bottom", 0.28));
+      const backDx = f1.x - f0.x;
+      const backDrop = Math.max(90, Math.min(130, Math.abs(backDx) * 0.16));
+      const g1x = f0.x + backDx * 0.34;
+      const g1y = f0.y + backDrop;
+      const g2x = f1.x - backDx * 0.24;
+      const g2y = f1.y + backDrop;
+      const feedback = "M " + f0.x + " " + f0.y + " C " + g1x + " " + g1y + ", " + g2x + " " + g2y + ", " + f1.x + " " + f1.y;
+      pathFeedback.setAttribute("d", feedback);
+    }
+
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    function clearActive() {
+      [stageSearchSpace, stageStrategy, stagePerformance].forEach(el => el.classList.remove("active"));
+    }
+
+    function centerOf(el) {
+      const r = el.getBoundingClientRect();
+      const d = diagramInner.getBoundingClientRect();
+      return {
+        x: r.left - d.left + r.width / 2,
+        y: r.top - d.top + r.height / 2
+      };
+    }
+
+    function svgPointToScreen(path, length) {
+      const pt = path.getPointAtLength(length);
+      const svgRect = svg.getBoundingClientRect();
+      const vb = svg.viewBox.baseVal;
+      const sx = svgRect.width / vb.width;
+      const sy = svgRect.height / vb.height;
+      const scale = Math.min(sx, sy);
+      const offsetX = svgRect.left + (svgRect.width - vb.width * scale) * 0.5;
+      const offsetY = svgRect.top + (svgRect.height - vb.height * scale) * 0.5;
+      const d = diagramInner.getBoundingClientRect();
+      return {
+        x: offsetX + pt.x * scale - d.left,
+        y: offsetY + pt.y * scale - d.top
+      };
+    }
+
+    function setCandidate(x, y, scale = 1, opacity = 1) {
+      candidate.style.left = x + "px";
+      candidate.style.top = y + "px";
+      candidate.style.opacity = opacity;
+      candidate.style.transform = `translate(-50%, -50%) scale(${scale})`;
+      pulse.style.left = x + "px";
+      pulse.style.top = y + "px";
+    }
+
+    function showScore(x, y, arch) {
+      scoreArch.textContent = arch.name;
+      scoreMain.textContent = `${arch.acc.toFixed(1)}%`;
+      scoreSub.textContent = `Feedback strength for the next architecture choice.`;
+      scoreCard.style.left = x + "px";
+      scoreCard.style.top = y + "px";
+      scoreCard.style.opacity = 1;
+      scoreCard.style.transform = "translate(-50%, -50%) scale(1)";
+
+      if (arch.acc >= 92) {
+        scoreCard.style.borderColor = "rgba(145, 242, 186, 0.45)";
+        pulse.style.background = "radial-gradient(circle, rgba(255,255,255,0.95), rgba(145,242,186,0.55) 38%, rgba(145,242,186,0.08) 72%, transparent 74%)";
+        pulse.style.boxShadow = "0 0 20px rgba(145,242,186,0.55), 0 0 40px rgba(145,242,186,0.18)";
+      } else {
+        scoreCard.style.borderColor = "rgba(255, 156, 168, 0.45)";
+        pulse.style.background = "radial-gradient(circle, rgba(255,255,255,0.95), rgba(255,156,168,0.52) 38%, rgba(255,156,168,0.08) 72%, transparent 74%)";
+        pulse.style.boxShadow = "0 0 20px rgba(255,156,168,0.5), 0 0 40px rgba(255,156,168,0.15)";
+      }
+    }
+
+    function hideScore() {
+      scoreCard.style.opacity = 0;
+      scoreCard.style.transform = "translate(-50%, -50%) scale(0.92)";
+      pulse.style.background = "radial-gradient(circle, rgba(255,255,255,0.95), rgba(122,239,255,0.5) 38%, rgba(122,239,255,0.06) 72%, transparent 74%)";
+      pulse.style.boxShadow = "0 0 20px rgba(122,239,255,0.55), 0 0 40px rgba(122,239,255,0.15)";
+    }
+
+    function pointOnPathScreen(path, ratio) {
+      var len = path.getTotalLength();
+      return svgPointToScreen(path, len * ratio);
+    }
+
+    async function moveAlongPath(path, duration, id, startRatio = 0, endRatio = 1) {
+      const total = path.getTotalLength();
+      const startLen = total * startRatio;
+      const endLen = total * endRatio;
+      const startTime = performance.now();
+
+      while (true) {
+        if (id !== loopId) return;
+        const now = performance.now();
+        const t = Math.min((now - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - t, 3);
+        const currentLen = startLen + (endLen - startLen) * eased;
+        const point = svgPointToScreen(path, currentLen);
+        setCandidate(point.x, point.y, 1, 1);
+        if (t >= 1) break;
+        await sleep(16);
+      }
+    }
+
+    async function run() {
+      const id = ++loopId;
+      hideScore();
+      clearActive();
+
+      while (id === loopId) {
+        for (const arch of architectures) {
+          if (id !== loopId) return;
+
+          candidateName.textContent = arch.name;
+          candidateDesc.textContent = arch.desc;
+
+          var p3 = centerOf(stagePerformance);
+
+          clearActive();
+          stageSearchSpace.classList.add("active");
+          var atSearch = pointOnPathScreen(pathSpaceStrategy, 0.03);
+          setCandidate(atSearch.x, atSearch.y, 0.74, 1);
+          await sleep(180);
+
+          clearActive();
+          stageSearchSpace.classList.add("active");
+          stageStrategy.classList.add("active");
+          await sleep(120);
+
+          await moveAlongPath(pathSpaceStrategy, 460, id, 0.04, 0.98);
+
+          clearActive();
+          stageStrategy.classList.add("active");
+          await sleep(120);
+
+          await moveAlongPath(pathStrategyPerformance, 620, id, 0.03, 0.97);
+
+          clearActive();
+          stagePerformance.classList.add("active");
+          var atPerf = pointOnPathScreen(pathStrategyPerformance, 0.98);
+          setCandidate(atPerf.x, atPerf.y, 1, 1);
+          await sleep(250);
+
+          showScore(p3.x, p3.y - Math.min(115, stagePerformance.getBoundingClientRect().height * 0.38), arch);
+          await sleep(380);
+
+          clearActive();
+          stagePerformance.classList.add("active");
+          stageStrategy.classList.add("active");
+
+          candidate.style.opacity = 0;
+          candidate.style.transform = "translate(-50%, -50%) scale(0.72)";
+          pulse.style.opacity = 1;
+          await moveAlongPath(pathFeedback, 680, id, 0.03, 0.98);
+
+          clearActive();
+          stageStrategy.classList.add("active");
+          await sleep(180);
+
+          candidate.style.opacity = 0;
+          pulse.style.opacity = 0;
+          hideScore();
+        }
+      }
+    }
+
+    var resizeT = 0;
+    window.addEventListener("resize", function () {
+      clearTimeout(resizeT);
+      resizeT = setTimeout(updateFlowPaths, 100);
+    });
+
+    if (diagramInner && typeof ResizeObserver !== "undefined") {
+      var ro = new ResizeObserver(function () {
+        updateFlowPaths();
+      });
+      ro.observe(diagramInner);
+    }
+
+    function renderGapDetail(index) {
+      const detail = document.getElementById("gapDetail");
+      if (!detail || !gapItems.length) return;
+      const item = gapItems[index];
+      const title = item.getAttribute("data-title") || item.textContent.trim();
+      const desc = item.getAttribute("data-desc") || "";
+      detail.classList.add("active");
+      detail.querySelector("h4").textContent = title;
+      detail.querySelector("p").textContent = desc;
+    }
+
+    function paintGap() {
+      gapItems.forEach(function (item, idx) {
+        item.classList.toggle("active", idx === gapIndex);
+      });
+      renderGapDetail(gapIndex);
+    }
+
+    function animateGapLoop() {
+      gapItems = Array.from(document.querySelectorAll("#gapGrid .gap-item"));
+      if (!gapItems.length) return;
+
+      if (gapTimer) {
+        clearInterval(gapTimer);
+      }
+
+      gapItems.forEach(function (item, idx) {
+        item.classList.add("visible");
+        item.classList.remove("active");
+        item.style.animation = "none";
+        item.addEventListener("mouseenter", function () {
+          autoGapRotation = false;
+          gapIndex = idx;
+          paintGap();
+        });
+        item.addEventListener("click", function () {
+          autoGapRotation = false;
+          gapIndex = idx;
+          paintGap();
+        });
+      });
+
+      const gapShell = document.getElementById("gapShell");
+      if (gapShell) {
+        gapShell.addEventListener("mouseleave", function () {
+          autoGapRotation = true;
+        });
+      }
+
+      gapIndex = 0;
+      paintGap();
+
+      gapTimer = setInterval(function () {
+        if (!autoGapRotation) return;
+        gapIndex = (gapIndex + 1) % gapItems.length;
+        paintGap();
+      }, 2000);
+    }
+
+    function startLoop() {
+      updateFlowPaths();
+      requestAnimationFrame(function () {
+        animateGapLoop();
+      });
+      run();
+    }
+
+    function boot() {
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(function () {
+          requestAnimationFrame(function () {
+            requestAnimationFrame(startLoop);
+          });
+        });
+      } else {
+        requestAnimationFrame(function () {
+          requestAnimationFrame(startLoop);
+        });
+      }
+    }
+
+    boot();
+  </script>
+  <script src="voice.js"></script>
+  <script>
+    playSlideNarration(
+      "Traditional NAS is expert-driven and inflexible, requiring repeated training that makes it slow and expensive. More importantly, it doesn’t account for user-specific needs like efficiency and deployment constraints."
+    );
+  </script>
+  <script>
+    window.setTimeout(function () {
+      window.location.href = "slide3.html";
+    }, 13600);
+  </script>
+</body>
+</html>

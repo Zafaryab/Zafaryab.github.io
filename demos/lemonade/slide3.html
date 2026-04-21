@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Solution Slide — Expert System Guided LLM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg0: #07090d;
+      --bg1: #0d1117;
+      --panel: rgba(255,255,255,0.05);
+      --panel2: rgba(255,255,255,0.025);
+      --border: rgba(255,255,255,0.10);
+      --text: rgba(248,250,252,0.96);
+      --muted: rgba(255,255,255,0.66);
+      --faint: rgba(255,255,255,0.34);
+
+      --green: #91f2ba;
+      --blue: #85dcff;
+      --purple: #ccbaff;
+      --amber: #ffd98c;
+      --red: #ff9ca8;
+      --cyan: #7aefff;
+      --lime: #c9f85e;
+      --orange: #ffb46e;
+
+      --shadow: 0 28px 80px rgba(0,0,0,0.42);
+      --accent: var(--lime);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+
+    body {
+      overflow: hidden;
+      font-family: "DM Sans", system-ui, sans-serif;
+      font-size: 14px;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 18% 12%, rgba(122,239,255,0.10), transparent 24%),
+        radial-gradient(circle at 82% 10%, rgba(201,248,94,0.10), transparent 24%),
+        radial-gradient(circle at 50% 100%, rgba(204,186,255,0.06), transparent 30%),
+        linear-gradient(160deg, var(--bg0) 0%, var(--bg1) 62%, #07080b 100%);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      z-index: 0;
+    }
+
+    .glow {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(90px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.65;
+    }
+
+    .glow.a {
+      width: 440px;
+      height: 440px;
+      top: -100px;
+      right: -80px;
+      background: rgba(201,248,94,0.12);
+    }
+
+    .glow.b {
+      width: 360px;
+      height: 360px;
+      bottom: -100px;
+      left: -60px;
+      background: rgba(122,239,255,0.12);
+    }
+
+    .slide {
+      position: relative;
+      z-index: 2;
+      width: 100vw;
+      height: 100vh;
+      min-height: 0;
+      padding: 34px 42px 22px;
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr);
+      gap: 16px;
+      box-sizing: border-box;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 24px;
+    }
+
+    .eyebrow {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      opacity: 0;
+      transform: translateY(12px);
+      animation: fadeUp .7s ease forwards;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: fadeUp .7s ease forwards;
+      animation-delay: .12s;
+    }
+
+    .legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.8);
+    }
+
+    .legend .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+    }
+
+    /* Same two-column + title as slide2.html (.content / .left .title) */
+    .main {
+      display: grid;
+      grid-template-columns: 0.86fr 1.14fr;
+      gap: 22px;
+      align-items: stretch;
+      min-height: 0;
+    }
+
+    .left {
+      padding-left: 6px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 1.5rem;
+      min-height: 0;
+      z-index: 20;
+    }
+
+    .left .title {
+      margin: 0;
+      font-family: "Instrument Serif", Georgia, serif;
+      font-weight: 600;
+      font-size: clamp(2.8rem, 5.4vw, 4.9rem);
+      line-height: 0.97;
+      letter-spacing: -0.05em;
+      max-width: 20ch;
+      color: var(--text);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUpWriteup 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+      animation-delay: 0.22s;
+    }
+
+    .left .title .accent {
+      font-size: inherit;
+      font-weight: 700;
+      background: linear-gradient(120deg, var(--lime) 0%, var(--cyan) 55%, var(--purple) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .left .sub {
+      margin-top: 18px;
+      max-width: 650px;
+      color: var(--muted);
+      font-family: "DM Sans", system-ui, sans-serif;
+      font-size: 1.02rem;
+      line-height: 1.65;
+      opacity: 0;
+      animation: fadeUp 0.85s ease forwards;
+      animation-delay: 0.48s;
+    }
+
+    .right {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      min-height: 0;
+      width: 100%;
+    }
+
+    /* Narrower frame from the left; .flow-wrap widens so diagram scale is unchanged (left clips). */
+    .board {
+      position: relative;
+      width: calc(100% + 28px - 40px);
+      margin-left: calc(-28px + 40px);
+      height: min(calc(72vh - 40px), 640px);
+      min-height: 460px;
+      max-height: min(calc(72vh - 40px), 640px);
+      border-radius: 30px;
+      overflow: hidden;
+      background: linear-gradient(165deg, var(--panel), var(--panel2));
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(6px);
+    }
+
+    .board::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 34px 34px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,.76), transparent 96%);
+      pointer-events: none;
+    }
+
+    .board-title {
+      position: absolute;
+      top: 20px;
+      left: 24px;
+      z-index: 5;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      opacity: 0;
+      animation: fadeOnly .7s ease forwards;
+      animation-delay: .65s;
+    }
+
+    .flow-wrap {
+      position: absolute;
+      top: 56px;
+      bottom: 0px;
+      left: calc(6px - 28px);
+      width: calc(100% + 25px);
+    }
+
+    svg.flow {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .line-base {
+      fill: none;
+      stroke: rgba(255,255,255,0.10);
+      stroke-width: 2;
+      stroke-linecap: round;
+    }
+
+    .line-move {
+      fill: none;
+      stroke-width: 3.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      opacity: 0;
+      filter: drop-shadow(0 0 6px currentColor);
+    }
+
+    .line-move.traveling {
+      animation: travel 0.55s ease-out forwards;
+    }
+
+    /* Path colors — one segment lights per flow step (see script) */
+    .flow-in-1 { color: var(--blue); stroke: var(--blue); }
+    .flow-in-2 { color: var(--purple); stroke: var(--purple); }
+    .flow-fwd-1 { color: var(--cyan); stroke: var(--cyan); }
+    .flow-fwd-2 { color: #d98cff; stroke: #d98cff; }
+    /* Generation → output: matches legend “Generation” */
+    .flow-fwd-3 { color: var(--purple); stroke: var(--purple); }
+    .flow-fwd-4 { color: var(--orange); stroke: var(--orange); }
+    .flow-fb-1 { color: var(--lime); stroke: var(--lime); }
+    .flow-fb-2 { color: var(--lime); stroke: var(--lime); }
+
+    /* Match slide2.html .stage — same panel + typography for diagram blocks */
+    .node {
+      position: absolute;
+      box-sizing: border-box;
+      border-radius: 18px;
+      padding: clamp(9px, 1.65vw, 18px) clamp(9px, 1.65vw, 16px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-family: "DM Sans", system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      background: linear-gradient(165deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.03));
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+      z-index: 4;
+      opacity: 0;
+      transform: scale(.94);
+      animation: cardReveal .72s cubic-bezier(.2,.7,.2,1) forwards;
+      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, border-color 0.35s ease;
+      min-width: 0;
+    }
+
+    .node .label {
+      font-size: 0.54rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 0.38rem;
+      font-family: inherit;
+    }
+
+    .node h3 {
+      margin: 0;
+      font-family: "DM Sans", system-ui, sans-serif;
+      font-weight: 600;
+      font-size: clamp(0.95rem, 1.18vw, 1.22rem);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--text);
+    }
+
+    .node p {
+      margin: 7px 0 0;
+      font-family: inherit;
+      font-size: 0.68rem;
+      line-height: 1.45;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    /* Line icons — same SVG set as preview (4).html */
+    .node .icon {
+      width: clamp(28px, 3vw, 34px);
+      height: clamp(28px, 3vw, 34px);
+      margin: 0 auto 0.35rem;
+      display: grid;
+      place-items: center;
+      color: var(--node-icon, var(--cyan));
+      line-height: 0;
+      opacity: 1;
+    }
+
+    .node .icon svg {
+      width: 100%;
+      height: 100%;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.9;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .node.spec { --node-icon: var(--blue); }
+    .node.rules { --node-icon: var(--purple); }
+    .node.expert { --node-icon: var(--cyan); }
+    .node.command { --node-icon: #d88cff; }
+    .node.llm { --node-icon: #dca7ff; }
+    .node.gen { --node-icon: var(--green); }
+    .node.eval { --node-icon: var(--orange); }
+    .node.metrics { --node-icon: var(--lime); }
+
+    .node.command .icon {
+      width: clamp(26px, 2.85vw, 32px);
+      height: clamp(26px, 2.85vw, 32px);
+      margin-bottom: 0.28rem;
+    }
+
+    .spec {
+      left: 4%;
+      top: 22%;
+      width: 14%;
+      max-width: 14%;
+      animation-delay: 0.95s;
+    }
+
+    .rules {
+      left: 4%;
+      top: 62%;
+      width: 14%;
+      max-width: 14%;
+      animation-delay: 1.05s;
+    }
+
+    .expert {
+      left: 21%;
+      top: 44%;
+      width: 15%;
+      max-width: 15%;
+      z-index: 5;
+      animation-delay: 1.15s;
+    }
+
+    .command {
+      left: 37.5%;
+      top: 44%;
+      width: 11%;
+      max-width: 11%;
+      border-radius: 50%;
+      aspect-ratio: 1 / 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      z-index: 6;
+      animation-delay: 1.35s;
+    }
+
+    .llm {
+      left: 50.5%;
+      top: 44%;
+      width: 14%;
+      max-width: 14%;
+      z-index: 7;
+      animation-delay: 1.5s;
+    }
+
+    .gen {
+      left: 67%;
+      top: 44%;
+      width: 13%;
+      max-width: 13%;
+      z-index: 8;
+      animation-delay: 1.65s;
+    }
+
+    .eval {
+      left: 82%;
+      top: 44%;
+      width: 16%;
+      max-width: 16%;
+      transform: scale(0.94);
+      z-index: 9;
+      animation-delay: 1.8s;
+    }
+
+    /* Room for longer titles + body copy */
+    .node.gen,
+    .node.eval {
+      padding: clamp(10px, 1.9vw, 20px) clamp(11px, 2.1vw, 18px);
+      min-height: 6.35rem;
+    }
+
+    .node.gen h3,
+    .node.eval h3 {
+      line-height: 1.12;
+      max-width: 100%;
+    }
+
+    .node.gen p,
+    .node.eval p {
+      line-height: 1.48;
+      max-width: 100%;
+    }
+
+    /* Above the main spine — center without translateX(-50%), so scale() pulse does not shift horizontally */
+    .metrics {
+      left: 64.5%;
+      top: 8%;
+      width: 15%;
+      max-width: min(15%, 190px);
+      transform: scale(0.94);
+      z-index: 10;
+      animation-delay: 1.95s;
+    }
+
+    .eval.revealed {
+      transform: scale(1);
+    }
+
+    .metrics.revealed {
+      transform: scale(1);
+    }
+
+    .pulse-ring {
+      position: absolute;
+      left: 26%;
+      top: 50%;
+      width: 200px;
+      height: 200px;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .pulse-ring span {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.08);
+      opacity: 0;
+      transform: scale(.72);
+      animation: ringPulse 2.8s ease-out infinite;
+    }
+
+    .pulse-ring span:nth-child(1) { animation-delay: 2.2s; }
+    .pulse-ring span:nth-child(2) { animation-delay: 2.55s; }
+    .pulse-ring span:nth-child(3) { animation-delay: 2.9s; }
+
+    /* “Why this matters” — same pattern as slide2 research gap: pills + detail + auto-rotate */
+    .left .gap-panel {
+      width: 100%;
+      max-width: 100%;
+      align-self: stretch;
+      margin-top: 10rem;
+    }
+
+    .gap-panel {
+      position: relative;
+      z-index: 5;
+      flex-shrink: 0;
+      height: min(148px, 21vh);
+      min-height: 118px;
+      overflow: hidden;
+      box-sizing: border-box;
+      font-family: "DM Sans", system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: fadeUp 1.05s ease forwards;
+      animation-delay: 1.2s;
+    }
+
+    .gap-card {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      border-radius: 14px;
+      padding: 5px 10px 6px;
+      background: linear-gradient(165deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      box-sizing: border-box;
+    }
+
+    .gap-label {
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.20em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 0.42rem;
+    }
+
+    .gap-card h3 {
+      margin: 0 0 0.5rem;
+      font-family: "DM Sans", system-ui, sans-serif;
+      font-size: clamp(1.14rem, 1.75vw, 1.42rem);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.06;
+      color: var(--text);
+    }
+
+    .gap-shell {
+      margin-top: 0;
+      flex: 1;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(132px, 0.88fr);
+      gap: 4px;
+      align-items: stretch;
+    }
+
+    .gap-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      align-items: center;
+      align-content: flex-start;
+    }
+
+    .gap-item {
+      border-radius: 999px;
+      padding: 4px 10px;
+      background: rgba(255, 255, 255, 0.045);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      font-size: 0.84rem;
+      line-height: 1.22;
+      white-space: nowrap;
+      opacity: 0.55;
+      transform: translateY(0) scale(1);
+      cursor: pointer;
+      user-select: none;
+      transition: opacity 0.3s ease, transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, filter 0.3s ease;
+    }
+
+    .gap-item:hover {
+      opacity: 0.9;
+    }
+
+    .gap-item.visible {
+      opacity: 0.55;
+      transform: scale(1);
+    }
+
+    @keyframes gapPulse {
+      0% {
+        opacity: 0.7;
+        transform: scale(1);
+        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.03), 0 8px 20px rgba(0, 0, 0, 0.18), 0 0 14px rgba(122, 239, 255, 0.08);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.06);
+        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06), 0 12px 28px rgba(0, 0, 0, 0.24), 0 0 30px rgba(122, 239, 255, 0.24);
+      }
+      100% {
+        opacity: 0.82;
+        transform: scale(1.02);
+        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04), 0 10px 24px rgba(0, 0, 0, 0.22), 0 0 22px rgba(122, 239, 255, 0.14);
+      }
+    }
+
+    .gap-item.active {
+      opacity: 1;
+      transform: scale(1.03);
+      border-color: rgba(122, 239, 255, 0.5);
+      background: linear-gradient(165deg, rgba(122, 239, 255, 0.18), rgba(204, 186, 255, 0.12));
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04), 0 10px 26px rgba(0, 0, 0, 0.24), 0 0 28px rgba(122, 239, 255, 0.16);
+      filter: saturate(1.12);
+      animation: gapPulse 1.45s ease-in-out infinite;
+    }
+
+    .gap-item.active strong {
+      color: #ffffff;
+    }
+
+    .gap-item:nth-child(1).active {
+      background: linear-gradient(165deg, rgba(255, 156, 174, 0.22), rgba(255, 120, 150, 0.12));
+      border-color: rgba(255, 156, 174, 0.55);
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04), 0 10px 26px rgba(0, 0, 0, 0.24), 0 0 28px rgba(255, 156, 174, 0.18);
+    }
+
+    .gap-item:nth-child(2).active {
+      background: linear-gradient(165deg, rgba(255, 214, 102, 0.22), rgba(255, 170, 80, 0.12));
+      border-color: rgba(255, 214, 102, 0.55);
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04), 0 10px 26px rgba(0, 0, 0, 0.24), 0 0 28px rgba(255, 214, 102, 0.18);
+    }
+
+    .gap-item:nth-child(3).active {
+      background: linear-gradient(165deg, rgba(122, 239, 255, 0.22), rgba(133, 220, 255, 0.12));
+      border-color: rgba(122, 239, 255, 0.55);
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04), 0 10px 26px rgba(0, 0, 0, 0.24), 0 0 28px rgba(122, 239, 255, 0.2);
+    }
+
+    .gap-item:nth-child(4).active {
+      background: linear-gradient(165deg, rgba(145, 242, 186, 0.22), rgba(91, 200, 150, 0.12));
+      border-color: rgba(145, 242, 186, 0.55);
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04), 0 10px 26px rgba(0, 0, 0, 0.24), 0 0 28px rgba(145, 242, 186, 0.18);
+    }
+
+    .gap-item strong {
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .gap-item:not(.active) {
+      animation: none;
+    }
+
+    .gap-detail {
+      align-self: start;
+      margin-top: -20px;
+      min-height: 0;
+      border-radius: 12px;
+      padding: 5px 7px;
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .gap-detail.active {
+      border-color: rgba(122, 239, 255, 0.2);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03), 0 0 24px rgba(122, 239, 255, 0.08);
+    }
+
+    .gap-detail-label {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--faint);
+      margin-bottom: 0.18rem;
+    }
+
+    .gap-detail h4 {
+      margin: 0;
+      font-family: "DM Sans", system-ui, sans-serif;
+      font-size: 0.94rem;
+      font-weight: 600;
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+    }
+
+    .gap-detail p {
+      margin: 2px 0 0;
+      color: var(--muted);
+      font-size: 0.76rem;
+      line-height: 1.35;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: calc(2 * 1.35 * 0.76rem);
+    }
+
+    .gap-item p {
+      display: none;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeUpWriteup {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeOnly {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes cardReveal {
+      from {
+        opacity: 0;
+        transform: scale(.94);
+        filter: blur(3px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0);
+      }
+    }
+
+    @keyframes travel {
+      0% {
+        opacity: 0;
+        stroke-dashoffset: var(--path-len, 260);
+      }
+      12% {
+        opacity: 0.92;
+      }
+      78% {
+        opacity: 0.85;
+      }
+      100% {
+        opacity: 0;
+        stroke-dashoffset: 0;
+      }
+    }
+
+    @keyframes ringPulse {
+      0% {
+        opacity: 0;
+        transform: scale(.72);
+      }
+      22% {
+        opacity: .32;
+      }
+      100% {
+        opacity: 0;
+        transform: scale(1.28);
+      }
+    }
+
+    @media (max-width: 700px) {
+      .node h3 { font-size: 0.94rem; }
+      .node p { font-size: 0.62rem; }
+    }
+
+    @media (max-width: 1180px) {
+      .main {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        align-items: start;
+      }
+      .left {
+        justify-content: flex-start;
+        padding-right: 0;
+      }
+      .left .title {
+        max-width: none;
+      }
+      .board {
+        width: 100%;
+        margin-left: 0;
+        height: min(58vh, 580px);
+        min-height: 480px;
+        max-height: min(58vh, 580px);
+      }
+
+      .flow-wrap {
+        inset: 56px 12px 18px 6px;
+        width: auto;
+        left: 6px;
+      }
+      .gap-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .gap-panel {
+        height: auto;
+        min-height: 0;
+        max-height: none;
+      }
+    }
+
+    @media (max-width: 780px) {
+      .slide {
+        padding: 24px 20px 18px;
+      }
+      .left .title {
+        font-size: 2.6rem;
+      }
+      .left .sub {
+        font-size: 0.96rem;
+      }
+      .board {
+        min-height: 520px;
+        height: min(56vh, 560px);
+        max-height: min(56vh, 560px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="glow a"></div>
+  <div class="glow b"></div>
+
+  <section class="slide">
+    <div class="topbar">
+      <div class="eyebrow">The solution</div>
+      <div class="legend">
+        <span><span class="dot" style="background:#85dcff;"></span>Input</span>
+        <span><span class="dot" style="background:#ccbaff;"></span>Generation</span>
+        <span><span class="dot" style="background:#91f2ba;"></span>Evaluation</span>
+        <span><span class="dot" style="background:#c9f85e;"></span>Feedback loop</span>
+      </div>
+    </div>
+
+    <div class="main">
+      <div class="left">
+        <h1 class="title">
+          An <span class="accent">expert system guided LLM</span> generates neural architectures tailored to user needs
+        </h1>
+        <div class="sub">
+          User requirements and domain rules are first interpreted by an expert system and converted into structured 
+          prompts for a large language model. The model generates candidate architectures, which are evaluated across 
+          multiple objectives, and the feedback is used to iteratively refine designs to match user-specific constraints.
+        </div>
+
+        <section class="gap-panel" aria-labelledby="why-heading">
+          <div class="gap-card">
+            <div class="gap-label">Why this matters</div>
+            <h3 id="why-heading">Key advantages of the proposed solution</h3>
+            <div class="gap-shell" id="matterShell">
+              <div class="gap-grid" id="matterGrid">
+                <div
+                  class="gap-item"
+                  data-title="Faster design"
+                  data-desc="Reduces manual trial-and-error in architecture construction."
+                >
+                  <strong>Faster design</strong>
+                </div>
+                <div
+                  class="gap-item"
+                  data-title="Better alignment"
+                  data-desc="Architectures are guided by user requirements and domain rules."
+                >
+                  <strong>Better alignment</strong>
+                </div>
+                <div
+                  class="gap-item"
+                  data-title="Multi-objective aware"
+                  data-desc="Supports evaluation beyond accuracy alone."
+                >
+                  <strong>Multi-objective aware</strong>
+                </div>
+                <div
+                  class="gap-item"
+                  data-title="Iterative improvement"
+                  data-desc="Metrics can refine future generations in a closed feedback loop."
+                >
+                  <strong>Iterative improvement</strong>
+                </div>
+              </div>
+              <div class="gap-detail" id="matterDetail">
+                <div class="gap-detail-label">Selected advantage</div>
+                <h4>Faster design</h4>
+                <p>Reduces manual trial-and-error in architecture construction.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="right">
+        <div class="board">
+          <div class="board-title">Proposed framework</div>
+
+          <div class="pulse-ring">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
+          <div class="flow-wrap">
+            <svg class="flow" viewBox="0 0 1000 520" preserveAspectRatio="none" aria-hidden="true">
+              <!--
+                Coordinates: viewBox 1000×520; node left/top/width match % layout.
+                Spine Y = 272. Diagonals: spec/rules right edge → expert left (212, 272).
+              -->
+              <!-- User Task / Rule Book → Expert -->
+              <path class="line-base" d="M 180 166 L 212 272" />
+              <path class="line-base" d="M 180 374 L 212 272" />
+              <!-- Expert → Command: leave Expert on spine (272); enter circular Command at its vertical center (286) -->
+              <path class="line-base" d="M 360 272 L 375 286" />
+              <!-- Command → LLM: leave Command at same height, then to LLM spine -->
+              <path class="line-base" d="M 485 286 L 505 272" />
+              <path class="line-base" d="M 645 272 L 670 272" />
+              <path class="line-base" d="M 800 272 L 820 272" />
+
+              <!-- Feedback: Eval top-center (90%, 44%) → Metrics bottom-center (72%, ~118) → Expert top-center (28.5%, 44%) -->
+              <path class="line-base" d="M 900 228 C 900 158 792 125 720 118" />
+              <path class="line-base" d="M 720 118 C 555 48 398 212 285 228" />
+
+              <path class="line-move flow-in-1" d="M 180 166 L 212 272" />
+              <path class="line-move flow-in-2" d="M 180 374 L 212 272" />
+              <path class="line-move flow-fwd-1" d="M 360 272 L 375 286" />
+              <path class="line-move flow-fwd-2" d="M 485 286 L 505 272" />
+              <path class="line-move flow-fwd-3" d="M 645 272 L 670 272" />
+              <path class="line-move flow-fwd-4" d="M 800 272 L 820 272" />
+              <path class="line-move flow-fb-1" d="M 900 228 C 900 158 792 125 720 118" />
+              <path class="line-move flow-fb-2" d="M 720 118 C 555 48 398 212 285 228" />
+            </svg>
+
+            <div class="node spec">
+              <div class="icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32">
+                  <ellipse cx="16" cy="8" rx="9" ry="4"></ellipse>
+                  <path d="M7 8v12c0 2.2 4 4 9 4s9-1.8 9-4V8"></path>
+                  <path d="M12 13h4"></path>
+                  <path d="M12 17h4"></path>
+                  <path d="M20 14c1.7 0 3 1.1 3 2.5S21.7 19 20 19s-3-1.1-3-2.5S18.3 14 20 14z"></path>
+                </svg>
+              </div>
+              <div class="label">Input</div>
+              <h3>User Task</h3>
+              <p>Requirements and target specifications.</p>
+            </div>
+
+            <div class="node rules">
+              <div class="icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32">
+                  <path d="M7 8.5c0-1.4 1.1-2.5 2.5-2.5H16v18H9.5A2.5 2.5 0 0 1 7 21.5z"></path>
+                  <path d="M25 8.5c0-1.4-1.1-2.5-2.5-2.5H16v18h6.5a2.5 2.5 0 0 0 2.5-2.5z"></path>
+                  <path d="M16 10.5c-1.7-1.2-3.7-1.8-6-1.8"></path>
+                  <path d="M16 10.5c1.7-1.2 3.7-1.8 6-1.8"></path>
+                </svg>
+              </div>
+              <div class="label">Knowledge</div>
+              <h3>Rule Book</h3>
+              <p>Domain rules and design heuristics.</p>
+            </div>
+
+            <div class="node expert">
+              <div class="icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32">
+                  <path d="M16 7c-4.4 0-8 3.5-8 7.8 0 2.7 1.3 5 3.5 6.4v3.3h9V21c2.2-1.4 3.5-3.7 3.5-6.4C24 10.5 20.4 7 16 7z"></path>
+                  <path d="M13 25.5h6"></path>
+                  <path d="M14 28h4"></path>
+                  <path d="M12.5 15.2c.9-1 2.1-1.5 3.5-1.5 1.4 0 2.6.5 3.5 1.5"></path>
+                </svg>
+              </div>
+              <div class="label">Reasoning</div>
+              <h3>Expert System</h3>
+              <p>Converts user intent and rules into guidance.</p>
+            </div>
+
+            <div class="node command">
+              <div class="icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32">
+                  <path d="M10 8h8l4 4v12H10z"></path>
+                  <path d="M18 8v4h4"></path>
+                  <path d="M14 18h5"></path>
+                  <path d="M14 21h4"></path>
+                </svg>
+              </div>
+              <div class="label">Command</div>
+              <h3>Command</h3>
+              <p>Structured instruction.</p>
+            </div>
+
+            <div class="node llm">
+              <div class="icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32">
+                  <path d="M11.5 9.2c1.8-1.2 4-.7 5.3.8l2.1 2.4"></path>
+                  <path d="M21 9.4c1.9 1 2.6 3.3 1.8 5.1l-1.4 3"></path>
+                  <path d="M24.2 17.1c.1 2.1-1.4 3.9-3.5 4.2l-3.3.4"></path>
+                  <path d="M20.2 24.2c-1.5 1.4-3.9 1.4-5.4 0l-2.5-2.1"></path>
+                  <path d="M11 22.5c-2-.8-3-2.9-2.5-4.9l.8-3.2"></path>
+                  <path d="M8.4 14.5c-.7-2 0-4.2 1.9-5.2l2.9-1.5"></path>
+                </svg>
+              </div>
+              <div class="label">Generation</div>
+              <h3>LLM Model</h3>
+              <p>Produces candidate architectures.</p>
+            </div>
+
+            <div class="node gen">
+              <div class="icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32">
+                  <circle cx="8" cy="10" r="2"></circle>
+                  <circle cx="8" cy="22" r="2"></circle>
+                  <circle cx="16" cy="8" r="2"></circle>
+                  <circle cx="16" cy="16" r="2"></circle>
+                  <circle cx="16" cy="24" r="2"></circle>
+                  <circle cx="24" cy="12" r="2"></circle>
+                  <circle cx="24" cy="20" r="2"></circle>
+                  <path d="M10 10l4-2"></path>
+                  <path d="M10 10l4 6"></path>
+                  <path d="M10 22l4-6"></path>
+                  <path d="M10 22l4 2"></path>
+                  <path d="M18 8l4 4"></path>
+                  <path d="M18 16l4-4"></path>
+                  <path d="M18 16l4 4"></path>
+                  <path d="M18 24l4-4"></path>
+                </svg>
+              </div>
+              <div class="label">Output</div>
+              <h3>Generated Network</h3>
+              <p>Task-specific neural design.</p>
+            </div>
+
+            <div class="node eval">
+              <div class="icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32">
+                  <path d="M8 24V13"></path>
+                  <path d="M16 24V9"></path>
+                  <path d="M24 24V16"></path>
+                  <path d="M6 24h20"></path>
+                  <path d="M22.2 8.2l1.5 1.5 2.8-2.8"></path>
+                </svg>
+              </div>
+              <div class="label">Assessment</div>
+              <h3>Multi-parameter Evaluation</h3>
+              <p>Accuracy, latency, size, energy, and more.</p>
+            </div>
+
+            <div class="node metrics">
+              <div class="icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32">
+                  <path d="M7 24V15"></path>
+                  <path d="M13 24V11"></path>
+                  <path d="M19 24V17"></path>
+                  <path d="M25 24V8"></path>
+                  <path d="M6 24h20"></path>
+                  <path d="M8 10l4-3 4 2 7-5"></path>
+                  <path d="M20.5 4.5H27v6.5"></path>
+                </svg>
+              </div>
+              <div class="label">Feedback</div>
+              <h3>Metrics</h3>
+              <p>Guide iterative refinement and improvement.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    /*
+      Flow: User Task → Expert ← Rule Book → Command → LLM → Generated → Evaluation
+      → Metrics → Expert (feedback arc to top of Reasoning) → cycle.
+
+      Incoming edge when each node pulses: flow-in-1/2 (inputs→Expert), flow-fwd-1…4 (spine),
+      flow-fb-1 (Eval top → Metrics bottom-center 720,118), flow-fb-2 (same point → Expert top-center 285,228). Expert step uses null (merge point).
+
+      Continuous signals: STEP_MS < travel duration, no global clear — several path segments animate at once; each path cleans up on animationend.
+      Flow loop starts after FLOW_START_DELAY_MS so every diagram node finishes cardReveal first.
+      Input + Knowledge paths (flow-in-1/2) run once at start; the repeating loop is flowStepsLoop only.
+    */
+    const nodes = {
+      spec: document.querySelector(".spec"),
+      rules: document.querySelector(".rules"),
+      expert: document.querySelector(".expert"),
+      command: document.querySelector(".command"),
+      llm: document.querySelector(".llm"),
+      gen: document.querySelector(".gen"),
+      eval: document.querySelector(".eval"),
+      metrics: document.querySelector(".metrics"),
+    };
+
+    /** User Task + Rule Book → Expert: animated only once, then the closed loop runs without re-firing these edges */
+    const flowStepsOnce = [
+      { node: nodes.spec, pathClass: "flow-in-1" },
+      { node: nodes.rules, pathClass: "flow-in-2" },
+    ];
+
+    /** Expert merge → … → feedback → Expert — repeats */
+    const flowStepsLoop = [
+      { node: nodes.expert, pathClass: null },
+      { node: nodes.command, pathClass: "flow-fwd-1" },
+      { node: nodes.llm, pathClass: "flow-fwd-2" },
+      { node: nodes.gen, pathClass: "flow-fwd-3" },
+      { node: nodes.eval, pathClass: "flow-fwd-4" },
+      { node: nodes.metrics, pathClass: "flow-fb-1" },
+      { node: nodes.expert, pathClass: "flow-fb-2" },
+    ];
+
+    /** Shorter than travel duration so multiple segments animate at once (continuous pipeline). */
+    const STEP_MS = 240;
+    const PULSE_MS = 420;
+    /** Last .node delay (metrics 1.95s) + cardReveal (0.72s) + small buffer — signals start after all diagram blocks appear */
+    const FLOW_START_DELAY_MS = 2800;
+
+    /** Dash length per path so the traveling stroke matches real geometry (short horizontals vs long curves). */
+    function initFlowPaths() {
+      function apply() {
+        document.querySelectorAll(".flow .line-move").forEach(function (p) {
+          var len = p.getTotalLength();
+          p.style.setProperty("--path-len", String(len));
+          p.style.strokeDasharray = String(len) + " " + String(len);
+          p.style.strokeDashoffset = String(len);
+        });
+      }
+      apply();
+      requestAnimationFrame(function () {
+        requestAnimationFrame(apply);
+      });
+    }
+
+    function pulseNode(node) {
+      if (!node) return;
+      node.animate(
+        [{ transform: "scale(1)" }, { transform: "scale(1.022)" }, { transform: "scale(1)" }],
+        { duration: PULSE_MS, easing: "ease-in-out" }
+      );
+    }
+
+    function playPathSegment(pathClass) {
+      if (!pathClass) return;
+      const path = document.querySelector(".flow ." + pathClass);
+      if (!path) return;
+      path.classList.remove("traveling");
+      void path.offsetWidth;
+      path.classList.add("traveling");
+      path.addEventListener(
+        "animationend",
+        function onTravelEnd() {
+          path.removeEventListener("animationend", onTravelEnd);
+          path.classList.remove("traveling");
+        },
+        { once: true }
+      );
+    }
+
+    let loopIndex = 0;
+
+    function runLoopStep() {
+      const step = flowStepsLoop[loopIndex % flowStepsLoop.length];
+      pulseNode(step.node);
+      playPathSegment(step.pathClass);
+      loopIndex++;
+    }
+
+    function applyFlowStep(step) {
+      pulseNode(step.node);
+      playPathSegment(step.pathClass);
+    }
+
+    /* “Why this matters” — same interaction model as slide2 research gap */
+    let matterItems = [];
+    let matterTimer = null;
+    let matterIndex = 0;
+    let autoMatterRotation = true;
+
+    function renderMatterDetail(index) {
+      const detail = document.getElementById("matterDetail");
+      if (!detail || !matterItems.length) return;
+      const item = matterItems[index];
+      const title = item.getAttribute("data-title") || item.textContent.trim();
+      const desc = item.getAttribute("data-desc") || "";
+      detail.classList.add("active");
+      detail.querySelector("h4").textContent = title;
+      detail.querySelector("p").textContent = desc;
+    }
+
+    function paintMatter() {
+      matterItems.forEach(function (item, idx) {
+        item.classList.toggle("active", idx === matterIndex);
+      });
+      renderMatterDetail(matterIndex);
+    }
+
+    function animateMatterLoop() {
+      matterItems = Array.from(document.querySelectorAll("#matterGrid .gap-item"));
+      if (!matterItems.length) return;
+
+      if (matterTimer) {
+        clearInterval(matterTimer);
+      }
+
+      matterItems.forEach(function (item, idx) {
+        item.classList.add("visible");
+        item.classList.remove("active");
+        item.style.animation = "none";
+        item.addEventListener("mouseenter", function () {
+          autoMatterRotation = false;
+          matterIndex = idx;
+          paintMatter();
+        });
+        item.addEventListener("click", function () {
+          autoMatterRotation = false;
+          matterIndex = idx;
+          paintMatter();
+        });
+      });
+
+      const matterShell = document.getElementById("matterShell");
+      if (matterShell) {
+        matterShell.addEventListener("mouseleave", function () {
+          autoMatterRotation = true;
+        });
+      }
+
+      matterIndex = 0;
+      paintMatter();
+
+      matterTimer = setInterval(function () {
+        if (!autoMatterRotation) return;
+        matterIndex = (matterIndex + 1) % matterItems.length;
+        paintMatter();
+      }, 2000);
+    }
+
+    window.addEventListener("load", () => {
+      initFlowPaths();
+      document.querySelector(".eval")?.classList.add("revealed");
+      document.querySelector(".metrics")?.classList.add("revealed");
+      requestAnimationFrame(function () {
+        animateMatterLoop();
+      });
+      setTimeout(function () {
+        var onceIdx = 0;
+        function runOnceThenLoop() {
+          applyFlowStep(flowStepsOnce[onceIdx]);
+          onceIdx++;
+          if (onceIdx < flowStepsOnce.length) {
+            setTimeout(runOnceThenLoop, STEP_MS);
+          } else {
+            runLoopStep();
+            setInterval(runLoopStep, STEP_MS);
+          }
+        }
+        runOnceThenLoop();
+      }, FLOW_START_DELAY_MS);
+    });
+  </script>
+  <script src="voice.js"></script>
+  <script>
+    playSlideNarration(
+      "LEMONADE addresses the limitations of traditional methods by integrating an expert system with a large language model. It generates architectures based on user requirements, evaluates them across multiple objectives, and uses feedback to iteratively improve designs. This makes the process adaptive, efficient, and aligned with real-world deployment needs."
+    );
+  </script>
+  <script>
+    window.setTimeout(function () {
+      window.location.href = "slide4.html";
+    }, 23000);
+  </script>
+</body>
+</html>
