@@ -1,19 +1,20 @@
 <!-- partials/header.html -->
-<nav class="navbar navbar-expand-xl navbar-dark sticky-top">
-  <div class="container-xl">
-    <a class="navbar-brand fw-semibold" href="index.html">Zafaryab Haider</a>
+<header class="site-header">
+  <div class="wrap hdr">
+    <a class="brand" href="index.html">ZH<span class="proto">://</span>RESEARCH</a>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle navigation">[ MENU ]</button>
 
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
-        <li class="nav-item"><a class="nav-link" href="index.html" data-nav="index.html">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="resume.html" data-nav="resume.html">Resume</a></li>
-        <li class="nav-item"><a class="nav-link" href="photography.html" data-nav="photography.html">Photography</a></li>
-        <li class="nav-item"><a class="nav-link" href="demos.html" data-nav="demos.html">Demos</a></li>
-      </ul>
+    <nav class="nav" id="primary-nav" aria-label="Primary">
+      <a href="index.html" data-nav="index.html">Profile</a>
+      <a href="resume.html" data-nav="resume.html">Research</a>
+      <a href="photography.html" data-nav="photography.html">Lens</a>
+      <a href="demos.html" data-nav="demos.html">Demos</a>
+    </nav>
+
+    <div class="status-pill">
+      <span class="dot" aria-hidden="true"></span>
+      STATUS <b>ONLINE</b>
     </div>
   </div>
-</nav>
+</header>

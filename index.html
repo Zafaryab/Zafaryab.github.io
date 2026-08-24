@@ -1,299 +1,263 @@
 <!-- index.html -->
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Zafaryab Haider | About</title>
-  <meta name="description" content="Zafaryab Haider — Research Candidate (ECE), Graduate AI Consultant, and Assistant Professor. Interests: LLM security, computer vision, embedded AI." />
+  <title>Zafaryab Haider // AI Security Research</title>
+  <meta name="description" content="Zafaryab Haider — AI security researcher (ECE, University of Maine). LLM security, trustworthy AI, adversarial ML, and hardware-level model integrity." />
 
-  <!-- Performance hints -->
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
 
-  <!-- CSS (IMPORTANT ORDER) -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body class="page-index">
+  <span id="top"></span>
   <div id="header-placeholder"></div>
 
   <main>
-    <!-- Hero / About -->
+    <!-- 00 / PROFILE -->
     <section class="hero">
-      <div class="container">
-        <div class="hero-card">
-          <div class="row g-0">
-            <!-- Left: identity -->
-            <div class="col-lg-4 hero-left text-center text-lg-start">
-              <img src="images/profile.jpg" alt="Portrait of Zafaryab Haider" class="about-photo mb-3" />
-              <div class="kicker mb-3 justify-content-center justify-content-lg-start">
-                <i class="fa-solid fa-shield-halved"></i>
-                <span>AI • Security • Trustworthy and Safe AI</span>
-              </div>
+      <div class="wrap hero-grid">
+        <div class="hero-main">
+          <div class="hero-id"><span class="n">00</span> / PROFILE</div>
+          <h1 class="display">ZAFARYAB<br />HAIDER</h1>
 
-              <h1 class="h3 mb-1 fw-bold">Zafaryab Haider</h1>
-              <p class="text-secondary mb-3">
-                Research Candidate (ECE) · Graduate AI Consultant<br />
-                <span class="fw-semibold">University of Maine</span>, Orono, USA
-              </p>
-              <p class="text-secondary mb-4">
-                Assistant Professor<br />
-                Zakir Husain College of Engineering &amp; Technology (ZHCET)<br />
-                Aligarh Muslim University, UP, India
-              </p>
+          <div class="hero-areas">
+            <span>AI Security</span>
+            <span>Trustworthy AI</span>
+            <span>Adversarial ML</span>
+            <span>Hardware AI Security</span>
+          </div>
 
-              <div class="d-flex flex-wrap gap-2 justify-content-center justify-content-lg-start">
-                <a class="btn btn-brand text-white" href="resume.html">
-                  <i class="fa-solid fa-file-lines me-2"></i>View Resume
-                </a>
-                <a class="btn btn-soft" href="photography.html">
-                  <i class="fa-solid fa-camera me-2"></i>Photography
-                </a>
-              </div>
+          <p class="hero-lead">
+            Ph.D. researcher investigating <span class="accent">vulnerabilities, robustness, and trust</span>
+            in intelligent systems — from the integrity of LLM training to hardware-level model faults.<span class="cursor" aria-hidden="true"></span>
+          </p>
 
-              <div class="social d-flex gap-2 mt-4 justify-content-center justify-content-lg-start">
-                <!-- add social links if needed -->
-              </div>
-            </div>
+          <div class="acts">
+            <a class="act act--primary" href="resume.html#publications">Publications <span class="arw">↗</span></a>
+            <a class="act" href="#projects">Selected Research <span class="arw">↗</span></a>
+            <a class="act" href="resume.html">Full CV <span class="arw">↗</span></a>
+          </div>
+        </div>
 
-            <!-- Right: narrative -->
-            <div class="col-lg-8 hero-right">
-              <h2 class="display-6 display-title mb-3">Assalāmu ʿalaikum</h2>
+        <figure class="portrait">
+          <div class="frame">
+            <span class="corner tl"></span><span class="corner tr"></span>
+            <span class="corner bl"></span><span class="corner br"></span>
+            <img src="images/profile.jpg" alt="Portrait of Zafaryab Haider" />
+          </div>
+          <figcaption>
+            <div class="pid">ID // ZH-001</div>
+            <dl class="meta">
+              <div><dt>Affil</dt><dd class="v-green">Univ. of Maine</dd></div>
+              <div><dt>Field</dt><dd>AI Security</dd></div>
+              <div><dt>Loc</dt><dd>Orono, ME</dd></div>
+              <div><dt>Status</dt><dd class="v-green">Active</dd></div>
+            </dl>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
 
-              <p class="lead mb-3">
-                I’m currently a Research Candidate in Electrical and Computer Engineering at the University of Maine,
-                where I explore the intersections of AI, security, and embedded systems.
-              </p>
+    <!-- 01 / RESEARCH -->
+    <section class="section--tight" id="research">
+      <div class="wrap">
+        <div class="sec-head">
+          <div class="sec-label"><span class="n">01</span><span class="slash">/</span>RESEARCH</div>
+          <span class="line"></span>
+          <span class="tag">SYS.RESEARCH</span>
+        </div>
 
-              <p class="mb-3">
-                After completing my B.Tech. in Computer Science and Engineering (2011) and M.Tech. in Software Engineering (2013)
-                with honors, I joined the Department of Computer Engineering at ZHCET, Aligarh Muslim University.
-              </p>
-
-              <p class="mb-3">
-                I’ve taught a wide range of core computer science subjects and supervised student projects
-                on Android app development, machine learning, networking, and image processing.
-              </p>
-
-              <p class="mb-3">
-                My current research focuses on enhancing the reliability and security of Large Language Models (LLMs),
-                with broader interests in computer vision and multimodal human activity recognition.
-              </p>
-
-              <p class="mb-0">
-                Outside the lab, I’m a passionate photographer—capturing fleeting moments and serene landscapes.
-                Explore my work on my <a href="photography.html" class="fw-semibold text-decoration-none">photography portfolio</a>.
-              </p>
-            </div>
+        <div class="modules">
+          <div class="module">
+            <div class="idx">[01]</div>
+            <h3>AI Security</h3>
+            <p>Attacks, defenses, and integrity of large language models and intelligent systems.</p>
+          </div>
+          <div class="module">
+            <div class="idx">[02]</div>
+            <h3>Trustworthy AI</h3>
+            <p>Reliability and safety of models under malicious or corrupted human feedback in training.</p>
+          </div>
+          <div class="module">
+            <div class="idx">[03]</div>
+            <h3>Adversarial ML</h3>
+            <p>Robustness under structured, malicious, and stealthy perturbation of inputs.</p>
+          </div>
+          <div class="module">
+            <div class="idx">[04]</div>
+            <h3>Hardware AI Security</h3>
+            <p>Model integrity under hardware-level bit-flip faults in quantized networks.</p>
+          </div>
+          <div class="module">
+            <div class="idx">[05]</div>
+            <h3>Computer Vision</h3>
+            <p>Self-supervised and masked image modeling for medical and multimodal tasks.</p>
+          </div>
+          <div class="module">
+            <div class="idx">[06]</div>
+            <h3>Embedded AI</h3>
+            <p>Applied deep learning on constrained and assistive hardware platforms.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Featured Projects -->
-    <section class="section band" id="projects">
-      <div class="container">
-        <div class="text-center">
-          <h2 class="section-title">Featured Projects</h2>
-          <p class="section-subtitle">A few highlights across LLM security, vision, and embedded systems.</p>
+    <!-- 02 / SELECTED_RESEARCH -->
+    <section class="section--tight" id="projects">
+      <div class="wrap">
+        <div class="sec-head">
+          <div class="sec-label"><span class="n">02</span><span class="slash">/</span>SELECTED_RESEARCH</div>
+          <span class="line"></span>
+          <span class="tag">06 ENTRIES</span>
         </div>
 
-        <div class="row g-3 d-none d-md-flex">
-          <div class="col-md-6 col-lg-4">
-            <div class="pro-card p-4">
-              <div class="d-flex align-items-start gap-3">
-                <div class="icon"><i class="fa-solid fa-people-group"></i></div>
-                  <div>
-                    <h3 class="h5 mb-1 fw-bold">Consensus-Based Reward</h3>
-                    <p>Mitigating malicious RLHF in LLM training via consensus reward strategies.</p>
-                  </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <div class="pro-card p-4">
-              <div class="d-flex align-items-start gap-3">
-                <div class="icon"><i class="fa-solid fa-wave-square"></i></div>
+        <div class="entries">
+          <article class="entry">
+            <div class="entry-idx">01<span class="of">/ 06</span></div>
+            <div>
+              <div class="entry-head">
                 <div>
-                  <h3 class="h5 mb-1 fw-bold">Whale Call Classifier</h3>
-                  <p>Detecting endangered whale calls using deep spectrogram-based models.</p>
+                  <h3 class="entry-title">CoBRa</h3>
+                  <div class="entry-cat">Trustworthy AI / Multi-Agent Systems</div>
                 </div>
+                <span class="status status--pub">Published</span>
+              </div>
+              <dl class="meta">
+                <div><dt>Venue</dt><dd class="v-amber">Scientific Reports</dd></div>
+                <div><dt>Year</dt><dd class="v-amber">2025</dd></div>
+              </dl>
+              <p class="entry-desc">Consensus-based reward system for mitigating malicious human-in-the-loop feedback during RLHF training of large language models.</p>
+              <div class="acts">
+                <a class="act" href="resume.html#publications">Paper <span class="arw">↗</span></a>
+                <a class="act" href="demos/cobra/index.html">Demo <span class="arw">↗</span></a>
               </div>
             </div>
-          </div>
+          </article>
 
-          <div class="col-md-6 col-lg-4">
-            <div class="pro-card p-4">
-              <div class="d-flex align-items-start gap-3">
-                <div class="icon"><i class="fa-solid fa-microscope"></i></div>
+          <article class="entry">
+            <div class="entry-idx">02<span class="of">/ 06</span></div>
+            <div>
+              <div class="entry-head">
                 <div>
-                  <h3 class="h5 mb-1 fw-bold">BEiT v2 for Cancer Imaging</h3>
-                  <p>Pre-trained masked image models for breast cancer diagnostics.</p>
+                  <h3 class="entry-title">BLADE</h3>
+                  <div class="entry-cat">Hardware AI Security / Multimodal</div>
                 </div>
+                <span class="status status--submitted">Under Review</span>
+              </div>
+              <dl class="meta">
+                <div><dt>Venue</dt><dd class="v-amber">ECCV 2026</dd></div>
+                <div><dt>Year</dt><dd class="v-amber">2026</dd></div>
+              </dl>
+              <p class="entry-desc">Bit-flip attacks for semantic misdirection in quantized image-captioning models — inducing targeted drift through hardware-level faults.</p>
+              <div class="acts">
+                <a class="act" href="resume.html#patents">Patent <span class="arw">↗</span></a>
               </div>
             </div>
-          </div>
+          </article>
 
-          <div class="col-md-6 col-lg-4">
-            <div class="pro-card p-4">
-              <div class="d-flex align-items-start gap-3">
-                <div class="icon"><i class="fa-solid fa-person-cane"></i></div>
+          <article class="entry">
+            <div class="entry-idx">03<span class="of">/ 06</span></div>
+            <div>
+              <div class="entry-head">
                 <div>
-                  <h3 class="h5 mb-1 fw-bold">Assistive Stick</h3>
-                  <p>Smart stick for visually impaired: object detection, text-to-audio conversion.</p>
+                  <h3 class="entry-title">DAASH</h3>
+                  <div class="entry-cat">Adversarial ML</div>
                 </div>
+                <span class="status status--accepted">Accepted</span>
+              </div>
+              <dl class="meta">
+                <div><dt>Venue</dt><dd class="v-amber">CVPR 2026</dd></div>
+                <div><dt>Ref</dt><dd class="v-cyan">arXiv:2508.13309</dd></div>
+              </dl>
+              <p class="entry-desc">A meta-attack framework for synthesizing effective and stealthy adversarial examples across models and objectives.</p>
+              <div class="acts">
+                <a class="act" href="https://arxiv.org/abs/2508.13309" target="_blank" rel="noopener">arXiv <span class="arw">↗</span></a>
               </div>
             </div>
-          </div>
+          </article>
 
-          <div class="col-md-6 col-lg-4">
-            <div class="pro-card p-4">
-              <div class="d-flex align-items-start gap-3">
-                <div class="icon"><i class="fa-solid fa-microchip"></i></div>
+          <article class="entry">
+            <div class="entry-idx">04<span class="of">/ 06</span></div>
+            <div>
+              <div class="entry-head">
                 <div>
-                  <h3 class="h5 mb-1 fw-bold">Custom OS Pong Game</h3>
-                  <p>Kernel/user-mode system calls with PS/2 hardware support.</p>
+                  <h3 class="entry-title">Whale Call Classifier</h3>
+                  <div class="entry-cat">Applied Deep Learning / Bioacoustics</div>
                 </div>
+                <span class="status status--pub">Project</span>
               </div>
+              <p class="entry-desc">Detecting and classifying endangered North Atlantic right whale calls via spectrogram preprocessing and self-supervised deep learning under class imbalance.</p>
             </div>
-          </div>
+          </article>
+
+          <article class="entry">
+            <div class="entry-idx">05<span class="of">/ 06</span></div>
+            <div>
+              <div class="entry-head">
+                <div>
+                  <h3 class="entry-title">BEiT v2 // Cancer Imaging</h3>
+                  <div class="entry-cat">Computer Vision / Medical Imaging</div>
+                </div>
+                <span class="status status--pub">Project</span>
+              </div>
+              <p class="entry-desc">Pre-trained masked image modeling for breast-cancer diagnostics; ImageNet pretraining achieved strong accuracy and convergence on downstream tasks.</p>
+            </div>
+          </article>
+
+          <article class="entry">
+            <div class="entry-idx">06<span class="of">/ 06</span></div>
+            <div>
+              <div class="entry-head">
+                <div>
+                  <h3 class="entry-title">Assistive Stick</h3>
+                  <div class="entry-cat">Embedded AI / Accessibility</div>
+                </div>
+                <span class="status status--pub">Published</span>
+              </div>
+              <dl class="meta">
+                <div><dt>Venue</dt><dd class="v-amber">IEEE IMPACT</dd></div>
+                <div><dt>Year</dt><dd class="v-amber">2022</dd></div>
+              </dl>
+              <p class="entry-desc">Smart stick for visually impaired users: on-device object detection with text-to-audio conversion for real-time guidance.</p>
+            </div>
+          </article>
         </div>
-        
       </div>
     </section>
 
-    <!-- Graduate Teaching Assistant Roles -->
-    <section class="section" id="ta-roles">
-      <div class="container">
-        <div class="text-center">
-          <h2 class="section-title">Graduate Teaching Assistant Roles</h2>
-          <p class="section-subtitle">Support roles focused on hardware, logic design, and security learning.</p>
+    <!-- 03 / TEACHING -->
+    <section class="section--tight" id="teaching">
+      <div class="wrap">
+        <div class="sec-head">
+          <div class="sec-label"><span class="n">03</span><span class="slash">/</span>TEACHING</div>
+          <span class="line"></span>
+          <span class="tag">GTA + COURSES</span>
         </div>
 
-        <div class="row g-3">
-          <div class="col-md-6 col-lg-4">
-            <div class="pro-card p-4">
-              <div class="d-flex align-items-start gap-3">
-                <div class="icon"><i class="fa-solid fa-computer"></i></div>
-                <div>
-                  <h3 class="h5 mb-1 fw-bold">Microprocessor Lab</h3>
-                  <p>Supported x86/ARM programming and hardware I/O design.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-lg-4">
-            <div class="pro-card p-4">
-              <div class="d-flex align-items-start gap-3">
-                <div class="icon"><i class="fa-solid fa-sitemap"></i></div>
-                <div>
-                  <h3 class="h5 mb-1 fw-bold">Sequential Logic Lab</h3>
-                  <p>Guided Verilog/VHDL simulation and synthesis for digital systems.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-lg-4">
-            <div class="pro-card p-4">
-              <div class="d-flex align-items-start gap-3">
-                <div class="icon"><i class="fa-solid fa-lock"></i></div>
-                <div>
-                  <h3 class="h5 mb-1 fw-bold">Cybersecurity Education</h3>
-                  <p>Helped design hands-on exercises and conceptual lectures in secure systems.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <ul class="tlist">
+          <li><span class="k">TA</span> Microprocessor Lab — x86/ARM programming and hardware I/O design</li>
+          <li><span class="k">TA</span> Sequential Logic Lab — Verilog/VHDL simulation and synthesis</li>
+          <li><span class="k">TA</span> Cybersecurity Education — hands-on exercises in secure systems</li>
+          <li><span class="k">CRS</span> Information Security — encryption, threats, network defense</li>
+          <li><span class="k">CRS</span> Data Structures — trees, graphs, heaps, classic algorithms</li>
+          <li><span class="k">CRS</span> Internet Tools — protocols, client–server models, APIs</li>
+          <li><span class="k">CRS</span> C Programming — pointers, memory, procedural design</li>
+          <li><span class="k">CRS</span> Object-Oriented Programming — Java/C++ design and architecture</li>
+        </ul>
       </div>
     </section>
-
-    <!-- Courses Taught -->
-    <section class="section band" id="courses">
-      <div class="container">
-        <div class="text-center">
-          <h2 class="section-title">Courses Taught</h2>
-          <p class="section-subtitle">Core CS foundations + security and software development.</p>
-        </div>
-
-        <div class="row g-3">
-          <div class="col-md-6 col-lg-4">
-            <div class="pro-card p-4">
-              <div class="d-flex align-items-start gap-3">
-                <div class="icon"><i class="fa-solid fa-shield"></i></div>
-                <div>
-                  <h3 class="h5 mb-1 fw-bold">Information Security</h3>
-                  <p>Encryption, threats, and network defense fundamentals.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-lg-4">
-            <div class="pro-card p-4">
-              <div class="d-flex align-items-start gap-3">
-                <div class="icon"><i class="fa-solid fa-diagram-project"></i></div>
-                <div>
-                  <h3 class="h5 mb-1 fw-bold">Data Structures</h3>
-                  <p>Arrays, trees, graphs, heaps, and classic algorithms.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-lg-4">
-            <div class="pro-card p-4">
-              <div class="d-flex align-items-start gap-3">
-                <div class="icon"><i class="fa-solid fa-globe"></i></div>
-                <div>
-                  <h3 class="h5 mb-1 fw-bold">Internet Tools</h3>
-                  <p>Protocols, client–server models, and API integration.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-lg-4">
-            <div class="pro-card p-4">
-              <div class="d-flex align-items-start gap-3">
-                <div class="icon"><i class="fa-solid fa-code"></i></div>
-                <div>
-                  <h3 class="h5 mb-1 fw-bold">C Programming</h3>
-                  <p>Pointers, memory, debugging, and procedural design.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-lg-4">
-            <div class="pro-card p-4">
-              <div class="d-flex align-items-start gap-3">
-                <div class="icon"><i class="fa-solid fa-cubes"></i></div>
-                <div>
-                  <h3 class="h5 mb-1 fw-bold">Object-Oriented Programming</h3>
-                  <p>Java/C++ design, polymorphism, and software architecture.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- TA Roles / Courses sections stay unchanged -->
   </main>
 
   <div id="footer-placeholder"></div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/site.js"></script>
 </body>
 </html>
-

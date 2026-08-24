@@ -1,87 +1,70 @@
+<!-- photography.html -->
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Zafaryab Haider | Photography</title>
-  <meta name="description" content="Photography portfolio of Zafaryab Haider — landscapes, birds, and moments." />
+  <title>Zafaryab Haider // Lens</title>
+  <meta name="description" content="Photography portfolio of Zafaryab Haider — landscapes, campus, and moments." />
 
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
   <link rel="preconnect" href="https://code.jquery.com" />
 
-  <!-- CSS (IMPORTANT ORDER) -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body class="page-photography">
+  <span id="top"></span>
   <div id="header-placeholder"></div>
 
   <main>
-    <!-- Hero -->
-    <section class="page-hero">
-      <div class="container-xl">
-        <div class="hero-card">
-          <div class="hero-inner">
-            <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-3">
-              <div>
-                <div class="kicker mb-3">
-                  <i class="fa-solid fa-camera-retro"></i>
-                  <span>Photography Portfolio</span>
-                </div>
-                <h1 class="display-6 display-title mb-2">My Photography</h1>
-                <!-- <p class="hero-muted mb-0">Collections + categories to browse quickly. Click any photo to view full size.</p> -->
-              </div>
-
-              <a class="social-pill" href="https://instagram.com/zhaider_lens" target="_blank" rel="noopener noreferrer">
-                <i class="fa-brands fa-instagram"></i>
-                <span>Follow on Instagram</span>
-                <i class="fa-solid fa-arrow-up-right-from-square ms-1"></i>
-              </a>
-            </div>
+    <section class="section--tight">
+      <div class="wrap">
+        <div class="hero-id"><span class="n">05</span> / PHOTOGRAPHY</div>
+        <div class="entry-head" style="align-items:flex-end;">
+          <div>
+            <h1 class="display" style="font-size:clamp(1.9rem,4.5vw,2.7rem);">LENS</h1>
+            <p class="hero-lead" style="margin:.9rem 0 0;">Landscapes, campus, and quiet moments. Select any frame to view full size.</p>
           </div>
+          <a class="act" href="https://instagram.com/zhaider_lens" target="_blank" rel="noopener noreferrer">Instagram <span class="arw">↗</span></a>
         </div>
       </div>
     </section>
 
-    <!-- Compact Filter Bar -->
-    <section class="section pt-0">
-      <div class="container-xl">
+    <section class="section--tight" style="padding-top:0;">
+      <div class="wrap">
+        <div class="sec-head">
+          <div class="sec-label"><span class="n">01</span><span class="slash">/</span>GALLERY</div>
+          <span class="line"></span>
+        </div>
+
         <div class="filter-bar">
           <div class="filter-item">
-            <label class="filter-label" for="collectionSelect">Collection</label>
-            <select id="collectionSelect" class="form-select form-select-sm"></select>
+            <label for="collectionSelect">// Collection</label>
+            <select id="collectionSelect"></select>
           </div>
-
           <div class="filter-item">
-            <label class="filter-label" for="tagSelect">Tag</label>
-            <select id="tagSelect" class="form-select form-select-sm"></select>
+            <label for="tagSelect">// Tag</label>
+            <select id="tagSelect"></select>
           </div>
-
-          <button class="btn btn-sm btn-outline-brand" id="clearFiltersBtn" type="button">
-            Reset
-          </button>
-
-          <div class="filter-meta text-secondary" id="galleryMeta"></div>
+          <button class="act" id="clearFiltersBtn" type="button">Reset <span class="arw">×</span></button>
+          <div class="filter-meta" id="galleryMeta"></div>
         </div>
 
-        <!-- Gallery Grid -->
-        <div class="row g-3 g-lg-4" id="galleryGrid"></div>
+        <div class="gallery" id="galleryGrid"></div>
       </div>
     </section>
-
-
   </main>
 
   <div id="footer-placeholder"></div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
-
   <script src="js/site.js"></script>
   <script src="js/gallery.js"></script>
 
@@ -99,4 +82,3 @@
   </script>
 </body>
 </html>
-

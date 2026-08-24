@@ -85,33 +85,28 @@ function renderGrid() {
 
   grid.innerHTML = items.map(p => {
     const badgeLabel = (p.tags && p.tags.length) ? p.tags[0] : (p.collections?.[0] || "photo");
-    const icon = pickIcon(badgeLabel);
     const thumbSrc = p.thumb || p.full;
 
     return `
-      <div class="col-12 col-sm-6 col-lg-4">
-        <a href="${p.full}" data-lightbox="gallery" data-title="${escapeHtml(p.title)}" class="text-decoration-none">
-          <article class="gallery-card">
-            <div class="tag"><i class="fa-solid ${icon} me-1"></i> ${escapeHtml(badgeLabel)}</div>
-            <div class="photo-window">
-              <img src="${thumbSrc}" alt="${escapeHtml(p.title)}" loading="lazy"
-                   onerror="this.onerror=null;this.src='${p.full}';" />
-            </div>
-            <div class="caption">
-              <h3 class="h6 title">${escapeHtml(p.title)}</h3>
-              <p class="sub">${escapeHtml(p.subtitle || "")}</p>
-            </div>
-          </article>
-        </a>
-      </div>
+      <a href="${p.full}" data-lightbox="gallery" data-title="${escapeHtml(p.title)}" class="shot">
+        <span class="tag-abs">${escapeHtml(badgeLabel)}</span>
+        <div class="win">
+          <img src="${thumbSrc}" alt="${escapeHtml(p.title)}" loading="lazy"
+               onerror="this.onerror=null;this.src='${p.full}';" />
+        </div>
+        <div class="cap">
+          <h3 class="t">${escapeHtml(p.title)}</h3>
+          <p class="s">${escapeHtml(p.subtitle || "")}</p>
+        </div>
+      </a>
     `;
   }).join("");
 
   const parts = [];
-  if (activeCollection !== "All") parts.push(`Collection: ${escapeHtml(activeCollection)}`);
-  if (activeTag !== "All") parts.push(`Tag: ${escapeHtml(activeTag)}`);
+  if (activeCollection !== "All") parts.push(`COL: ${escapeHtml(activeCollection)}`);
+  if (activeTag !== "All") parts.push(`TAG: ${escapeHtml(activeTag)}`);
 
-  meta.innerHTML = `${items.length} photo${items.length === 1 ? "" : "s"}${parts.length ? " · " + parts.join(" · ") : ""}`;
+  meta.innerHTML = `<b>${items.length}</b> FRAME${items.length === 1 ? "" : "S"}${parts.length ? " // " + parts.join(" // ") : ""}`;
 }
 
 function renderAll() {
