@@ -23,39 +23,52 @@
   <div id="header-placeholder"></div>
 
   <main>
-    <section class="section--tight">
+    <!-- GALLERY CONSOLE HEADER -->
+    <section class="hero">
       <div class="wrap">
-        <div class="hero-id"><span class="n">05</span> / PHOTOGRAPHY</div>
-        <div class="entry-head" style="align-items:flex-end;">
-          <div>
-            <h1 class="display" style="font-size:clamp(1.9rem,4.5vw,2.7rem);">LENS</h1>
-            <p class="hero-lead" style="margin:.9rem 0 0;">Landscapes, campus, and quiet moments. Select any frame to view full size.</p>
+        <div class="dash">
+          <div class="dash-bar">
+            <span><span class="n">05</span> / LENS</span>
+            <span class="r">FRAME.SYSTEM</span>
           </div>
-          <a class="act" href="https://instagram.com/zhaider_lens" target="_blank" rel="noopener noreferrer">Instagram <span class="arw">↗</span></a>
+
+          <div class="dash-main dash-main--lens">
+            <div class="dash-profile">
+              <h1 class="cv-title">LENS</h1>
+              <p class="cv-interest" style="margin:var(--s-related) 0 var(--s-module);">
+                Landscapes, campus, and quiet moments. Select any frame to view full size.
+              </p>
+              <div class="acts" style="margin-top:auto;">
+                <a class="act" href="https://instagram.com/zhaider_lens" target="_blank" rel="noopener noreferrer">Instagram <span class="arw">↗</span></a>
+              </div>
+            </div>
+
+            <div class="lens-controls">
+              <div class="lens-ctrl">
+                <label class="k" for="collectionSelect">Collection</label>
+                <select id="collectionSelect"></select>
+              </div>
+              <div class="lens-ctrl">
+                <label class="k" for="tagSelect">Tag</label>
+                <select id="tagSelect"></select>
+              </div>
+              <div class="lens-ctrl">
+                <span class="k">Showing</span>
+                <span class="val" id="galleryMeta"></span>
+              </div>
+              <div class="lens-ctrl">
+                <span class="k">Filter</span>
+                <button class="act" id="clearFiltersBtn" type="button">Reset <span class="arw">×</span></button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
+    <!-- GALLERY -->
     <section class="section--tight" style="padding-top:0;">
       <div class="wrap">
-        <div class="sec-head">
-          <div class="sec-label"><span class="n">01</span><span class="slash">/</span>GALLERY</div>
-          <span class="line"></span>
-        </div>
-
-        <div class="filter-bar">
-          <div class="filter-item">
-            <label for="collectionSelect">// Collection</label>
-            <select id="collectionSelect"></select>
-          </div>
-          <div class="filter-item">
-            <label for="tagSelect">// Tag</label>
-            <select id="tagSelect"></select>
-          </div>
-          <button class="act" id="clearFiltersBtn" type="button">Reset <span class="arw">×</span></button>
-          <div class="filter-meta" id="galleryMeta"></div>
-        </div>
-
         <div class="gallery" id="galleryGrid"></div>
       </div>
     </section>

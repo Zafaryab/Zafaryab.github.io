@@ -21,344 +21,352 @@
   <div id="header-placeholder"></div>
 
   <main>
-    <!-- 00 / CV -->
-    <section class="section--tight">
+    <!-- TOP DASHBOARD: profile + CV identity -->
+    <section class="hero">
       <div class="wrap">
-        <div class="hero-id"><span class="n">00</span> / CURRICULUM_VITAE</div>
-        <div class="entry-head" style="align-items:flex-end;">
-          <div>
-            <h1 class="display" style="font-size:clamp(1.9rem,4.5vw,2.7rem);">RESUME</h1>
-            <p class="hero-lead" style="margin:.9rem 0 0;">
-              Ph.D. Candidate (ECE, UMaine) — Large Language Models, Safe &amp; Trustworthy AI, AI Security.
-            </p>
+        <div class="dash">
+          <div class="dash-bar">
+            <span><span class="n">00</span> / CURRICULUM_VITAE</span>
+            <span class="r">RESEARCH.PROFILE</span>
           </div>
-          <div class="acts">
-            <a class="act act--primary" href="assets/pdf/resume.pdf" target="_blank" rel="noopener">Download PDF <span class="arw">↓</span></a>
-            <a class="act" href="#publications">Publications <span class="arw">↗</span></a>
+
+          <div class="dash-main dash-main--cv">
+            <!-- profile -->
+            <div class="dash-profile cv-profile">
+              <img src="images/profile.jpg" alt="Portrait of Zafaryab Haider" />
+              <h2>Zafaryab Haider</h2>
+              <div class="role">PH.D. CANDIDATE // ECE</div>
+
+              <ul class="contact-list" style="margin-bottom:var(--s-module);">
+                <li><span class="k">Inst</span><span>Univ. of Maine, ME</span></li>
+                <li><span class="k">Email</span><a href="mailto:zafaryab.haider@maine.edu">zafaryab.haider@maine.edu</a></li>
+                <li><span class="k">Web</span><a href="https://linkedin.com/in/zafaryab" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></li>
+              </ul>
+
+              <div class="foot-social" style="margin-top:auto;">
+                <a href="https://linkedin.com/in/zafaryab" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="https://instagram.com/zhaider_lens" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://facebook.com/zaffuyab" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+              </div>
+            </div>
+
+            <!-- identity / actions / quick facts -->
+            <div class="dash-cell">
+              <h1 class="cv-title">RESUME</h1>
+              <div class="cv-sub">PH.D. CANDIDATE (ECE, UMAINE) // AI SECURITY</div>
+              <p class="cv-interest">
+                <span style="color:var(--text-primary)">Interests:</span> Large Language Models (LLMs),
+                Safe &amp; Trustworthy AI, Adversarial ML, and hardware-level AI security.
+              </p>
+
+              <div class="acts">
+                <a class="act act--primary" href="assets/pdf/resume.pdf" target="_blank" rel="noopener">Download PDF <span class="arw">↓</span></a>
+                <a class="act" href="#publications">Publications <span class="arw">↗</span></a>
+              </div>
+
+              <div class="chips">
+                <span class="chip">Safe AI</span>
+                <span class="chip">LLMs</span>
+                <span class="chip">AI Security</span>
+                <span class="chip">Adversarial ML</span>
+              </div>
+
+              <div class="col2" style="gap:var(--s-module);border-top:1px solid var(--border);padding-top:var(--s-module);margin-top:auto;">
+                <div>
+                  <div class="sys-head" style="border:0;padding:0 0 8px;">// EDUCATION</div>
+                  <ul class="mini-list">
+                    <li><strong>Ph.D., ECE</strong> — University of Maine, USA <span class="tag" style="margin-left:2px;">2022–</span></li>
+                    <li><strong>M.Tech., CE</strong> — AMU, India (9.33/10, Hons.) <span class="tag">2011–13</span></li>
+                  </ul>
+                </div>
+                <div>
+                  <div class="sys-head" style="border:0;padding:0 0 8px;">// STATUS</div>
+                  <dl class="meta" style="font-size:.74rem;">
+                    <div><dt>Status</dt><dd class="v-green">Active</dd></div>
+                    <div><dt>Body</dt><dd>IEEE · 100018946</dd></div>
+                    <div><dt>Loc</dt><dd>Orono, ME, USA</dd></div>
+                    <div><dt>Updated</dt><dd class="v-amber">Dec 2025</dd></div>
+                  </dl>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <hr class="divider" />
+    <!-- 01 / PUBLICATIONS (full width) -->
+    <section class="section--tight" id="publications">
+      <div class="wrap">
+        <div class="sec-head">
+          <div class="sec-label"><span class="n">01</span><span class="slash">/</span>PUBLICATIONS</div>
+          <span class="line"></span>
+          <span class="tag">07 PAPERS</span>
+        </div>
 
-    <section class="section--tight">
-      <div class="wrap grid-2">
-        <!-- LEFT: profile column -->
-        <aside class="profile">
-          <div class="frame">
-            <img src="images/profile.jpg" alt="Portrait of Zafaryab Haider" />
-          </div>
-          <div class="profile-body">
-            <h2>Zafaryab Haider</h2>
-            <div class="role">PH.D. CANDIDATE // ECE</div>
-
-            <div class="chips" style="margin-bottom:1rem;">
-              <span class="chip">Safe AI</span>
-              <span class="chip">LLMs</span>
-              <span class="chip">AI Security</span>
-            </div>
-
-            <ul class="contact-list" style="margin-bottom:1rem;">
-              <li><span class="k">Inst</span><span>Univ. of Maine, Orono, ME</span></li>
-              <li><span class="k">Email</span><a href="mailto:zafaryab.haider@maine.edu">zafaryab.haider@maine.edu</a></li>
-              <li><span class="k">Web</span><a href="https://linkedin.com/in/zafaryab" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></li>
-            </ul>
-
-            <div class="foot-social" style="margin-bottom:1rem;">
-              <a href="https://linkedin.com/in/zafaryab" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-              <a href="https://instagram.com/zhaider_lens" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-              <a href="https://facebook.com/zaffuyab" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-            </div>
-
-            <hr class="divider" style="margin:1rem 0;" />
-            <div class="meta">
-              <div><dt>Body</dt><dd class="v-green">IEEE Member</dd></div>
-              <div><dt>ID</dt><dd>100018946</dd></div>
-            </div>
-          </div>
-        </aside>
-
-        <!-- RIGHT: content stack -->
-        <div class="stack">
-
-          <!-- Interests -->
-          <section class="card" id="interests">
-            <div class="card-head"><span class="num">01</span><h3 class="hx">Interests</h3></div>
-            <div class="card-body">
-              <p style="margin:0;">Large Language Models (LLMs), Safe and Trustworthy Artificial Intelligence, Adversarial ML, and hardware-level AI security.</p>
-            </div>
-          </section>
-
-          <!-- Education -->
-          <section class="card" id="education">
-            <div class="card-head"><span class="num">02</span><h3 class="hx">Education</h3></div>
-            <div class="card-body">
-              <ul>
-                <li><strong>University of Maine (UMaine)</strong>, Orono, ME, USA — Ph.D. in Electrical &amp; Computer Engineering <span class="tag">Aug 2022 – Present</span></li>
-                <li><strong>Aligarh Muslim University (AMU)</strong>, Aligarh, UP, India — M.Tech. in Computer Engineering (GPA 9.33/10.0, Hons.) <span class="tag">Aug 2011 – Jul 2013</span></li>
-              </ul>
-            </div>
-          </section>
-
-          <!-- Publications -->
-          <section class="card" id="publications">
-            <div class="card-head"><span class="num">03</span><h3 class="hx">Research Papers</h3></div>
-            <div class="card-body" style="padding:0;">
-              <div class="pubs">
-                <article class="pub">
-                  <div class="pub-side">
-                    <div class="pub-year">2025</div>
-                    <div class="pub-venue">IEEE Access</div>
-                  </div>
-                  <div>
-                    <h4 class="pub-title">ILASH: A predictive neural architecture search framework for multi-task applications</h4>
-                    <div class="pub-authors">Rahman, M. H., <span class="me">Haider, Z.</span>, Rizvee, M. M., Shomaji, S., &amp; Chakraborty, P.</div>
-                    <div class="pub-tags">NAS / Multi-Task Learning</div>
-                    <div class="pub-foot">
-                      <span class="status status--pub">Published</span>
-                      <a class="link-u" href="https://doi.org/10.1109/ACCESS.2025.3592039" target="_blank" rel="noopener">DOI ↗</a>
-                    </div>
-                  </div>
-                </article>
-
-                <article class="pub">
-                  <div class="pub-side">
-                    <div class="pub-year">2025</div>
-                    <div class="pub-venue">Scientific Reports</div>
-                  </div>
-                  <div>
-                    <h4 class="pub-title">An automated multi-parameter neural architecture discovery framework using ChatGPT in the backend</h4>
-                    <div class="pub-authors">Rahman, M. H., <span class="me">Haider, Z.</span>, &amp; Chakraborty, P.</div>
-                    <div class="pub-tags">NAS / LLM Tooling</div>
-                    <div class="pub-foot"><span class="status status--pub">Published</span></div>
-                  </div>
-                </article>
-
-                <article class="pub">
-                  <div class="pub-side">
-                    <div class="pub-year">2025</div>
-                    <div class="pub-venue">Scientific Reports</div>
-                  </div>
-                  <div>
-                    <h4 class="pub-title">CoBRa: Consensus-based reward system for mitigating malicious human-in-the-loop feedback in LLM</h4>
-                    <div class="pub-authors"><span class="me">Haider, Z.</span>, Rahman, H., Devabhaktuni, V., Moeykens, S., &amp; Chakraborty, P.</div>
-                    <div class="pub-tags">Trustworthy AI / RLHF</div>
-                    <div class="pub-foot">
-                      <span class="status status--pub">Published</span>
-                      <a class="link-u" href="demos/cobra/index.html">Demo ↗</a>
-                    </div>
-                  </div>
-                </article>
-
-                <article class="pub">
-                  <div class="pub-side">
-                    <div class="pub-year">2023</div>
-                    <div class="pub-venue">J. Microbiological Methods</div>
-                  </div>
-                  <div>
-                    <h4 class="pub-title">Towards digital diagnosis of malaria: How far have we reached?</h4>
-                    <div class="pub-authors">Aqeel, S., <span class="me">Haider, Z.</span>, &amp; Khan, W.</div>
-                    <div class="pub-tags">Medical Imaging</div>
-                    <div class="pub-foot"><span class="status status--pub">Published</span></div>
-                  </div>
-                </article>
-
-                <article class="pub">
-                  <div class="pub-side">
-                    <div class="pub-year">2022</div>
-                    <div class="pub-venue">IEEE IMPACT</div>
-                  </div>
-                  <div>
-                    <h4 class="pub-title">Assistive stick for visually impaired people</h4>
-                    <div class="pub-authors">Khan, D. A., Zamir, M. A., Umar, M. S., &amp; <span class="me">Haider, Z.</span></div>
-                    <div class="pub-tags">Embedded AI / Accessibility</div>
-                    <div class="pub-foot"><span class="status status--pub">Published</span></div>
-                  </div>
-                </article>
-
-                <article class="pub">
-                  <div class="pub-side">
-                    <div class="pub-year">2026</div>
-                    <div class="pub-venue">CVPR 2026</div>
-                  </div>
-                  <div>
-                    <h4 class="pub-title">DAASH: A meta-attack framework for synthesizing effective and stealthy adversarial examples</h4>
-                    <div class="pub-authors">Nafi, A. A. N., Rahaman, H., <span class="me">Haider, Z.</span>, et al.</div>
-                    <div class="pub-tags">Adversarial ML</div>
-                    <div class="pub-foot">
-                      <span class="status status--accepted">Accepted</span>
-                      <a class="link-u" href="https://arxiv.org/abs/2508.13309" target="_blank" rel="noopener">arXiv:2508.13309 ↗</a>
-                    </div>
-                  </div>
-                </article>
-
-                <article class="pub">
-                  <div class="pub-side">
-                    <div class="pub-year">2026</div>
-                    <div class="pub-venue">ECCV 2026</div>
-                  </div>
-                  <div>
-                    <h4 class="pub-title">BLADE: Bit-flip attacks for semantic misdirection in quantized image captioning</h4>
-                    <div class="pub-authors"><span class="me">Haider, Z.</span>, Rahaman, M. H., Moeykens, S., Devabhaktuni, V., &amp; Chakraborty, P.</div>
-                    <div class="pub-tags">Hardware AI Security / Multimodal</div>
-                    <div class="pub-foot"><span class="status status--submitted">Under Review</span></div>
-                  </div>
-                </article>
+        <div class="pubs">
+          <article class="pub">
+            <div class="pub-side"><div class="pub-year">2025</div><div class="pub-venue">IEEE Access</div></div>
+            <div class="pub-body">
+              <div>
+                <h4 class="pub-title">ILASH: A predictive neural architecture search framework for multi-task applications</h4>
+                <div class="pub-authors">Rahman, M. H., <span class="me">Haider, Z.</span>, Rizvee, M. M., Shomaji, S., &amp; Chakraborty, P.</div>
+                <div class="pub-tags">NAS / Multi-Task Learning</div>
+              </div>
+              <div class="pub-aside">
+                <span class="status status--pub">Published</span>
+                <a class="link-u" href="https://doi.org/10.1109/ACCESS.2025.3592039" target="_blank" rel="noopener">DOI ↗</a>
               </div>
             </div>
-          </section>
+          </article>
 
-          <!-- Awards -->
+          <article class="pub">
+            <div class="pub-side"><div class="pub-year">2025</div><div class="pub-venue">Scientific Reports</div></div>
+            <div class="pub-body">
+              <div>
+                <h4 class="pub-title">An automated multi-parameter neural architecture discovery framework using ChatGPT in the backend</h4>
+                <div class="pub-authors">Rahman, M. H., <span class="me">Haider, Z.</span>, &amp; Chakraborty, P.</div>
+                <div class="pub-tags">NAS / LLM Tooling</div>
+              </div>
+              <div class="pub-aside"><span class="status status--pub">Published</span></div>
+            </div>
+          </article>
+
+          <article class="pub">
+            <div class="pub-side"><div class="pub-year">2025</div><div class="pub-venue">Scientific Reports</div></div>
+            <div class="pub-body">
+              <div>
+                <h4 class="pub-title">CoBRa: Consensus-based reward system for mitigating malicious human-in-the-loop feedback in LLM</h4>
+                <div class="pub-authors"><span class="me">Haider, Z.</span>, Rahman, H., Devabhaktuni, V., Moeykens, S., &amp; Chakraborty, P.</div>
+                <div class="pub-tags">Trustworthy AI / RLHF</div>
+              </div>
+              <div class="pub-aside">
+                <span class="status status--pub">Published</span>
+                <a class="link-u" href="demos/cobra/index.html">Demo ↗</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="pub">
+            <div class="pub-side"><div class="pub-year">2026</div><div class="pub-venue">CVPR 2026</div></div>
+            <div class="pub-body">
+              <div>
+                <h4 class="pub-title">DAASH: A meta-attack framework for synthesizing effective and stealthy adversarial examples</h4>
+                <div class="pub-authors">Nafi, A. A. N., Rahaman, H., <span class="me">Haider, Z.</span>, et al.</div>
+                <div class="pub-tags">Adversarial ML</div>
+              </div>
+              <div class="pub-aside">
+                <span class="status status--accepted">Accepted</span>
+                <a class="link-u" href="https://arxiv.org/abs/2508.13309" target="_blank" rel="noopener">arXiv ↗</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="pub">
+            <div class="pub-side"><div class="pub-year">2026</div><div class="pub-venue">ECCV 2026</div></div>
+            <div class="pub-body">
+              <div>
+                <h4 class="pub-title">BLADE: Bit-flip attacks for semantic misdirection in quantized image captioning</h4>
+                <div class="pub-authors"><span class="me">Haider, Z.</span>, Rahaman, M. H., Moeykens, S., Devabhaktuni, V., &amp; Chakraborty, P.</div>
+                <div class="pub-tags">Hardware AI Security / Multimodal</div>
+              </div>
+              <div class="pub-aside"><span class="status status--submitted">Under Review</span></div>
+            </div>
+          </article>
+
+          <article class="pub">
+            <div class="pub-side"><div class="pub-year">2023</div><div class="pub-venue">J. Microbiol. Methods</div></div>
+            <div class="pub-body">
+              <div>
+                <h4 class="pub-title">Towards digital diagnosis of malaria: How far have we reached?</h4>
+                <div class="pub-authors">Aqeel, S., <span class="me">Haider, Z.</span>, &amp; Khan, W.</div>
+                <div class="pub-tags">Medical Imaging</div>
+              </div>
+              <div class="pub-aside"><span class="status status--pub">Published</span></div>
+            </div>
+          </article>
+
+          <article class="pub">
+            <div class="pub-side"><div class="pub-year">2022</div><div class="pub-venue">IEEE IMPACT</div></div>
+            <div class="pub-body">
+              <div>
+                <h4 class="pub-title">Assistive stick for visually impaired people</h4>
+                <div class="pub-authors">Khan, D. A., Zamir, M. A., Umar, M. S., &amp; <span class="me">Haider, Z.</span></div>
+                <div class="pub-tags">Embedded AI / Accessibility</div>
+              </div>
+              <div class="pub-aside"><span class="status status--pub">Published</span></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 / EXPERIENCE (full width) -->
+    <section class="section--tight" id="experience">
+      <div class="wrap">
+        <div class="sec-head">
+          <div class="sec-label"><span class="n">02</span><span class="slash">/</span>EXPERIENCE</div>
+          <span class="line"></span>
+        </div>
+        <section class="card">
+          <div class="card-head"><span class="num">▸</span><h3 class="hx">Employment</h3></div>
+          <div class="card-body col2">
+            <ul>
+              <li><strong>University of Maine</strong> (Orono, ME) <span class="tag">Aug 2022 – Present</span>
+                <ul style="margin-top:.4rem;">
+                  <li>Graduate Assistant, ARCSIM — AI &amp; ML consultant</li>
+                  <li>Research Assistant, ECE — Cybersecurity Education, Security of AI</li>
+                  <li>Teaching Assistant, ECE — Sequential Logic Lab (ECE275), Microprocessor Lab (ECE473)</li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li><strong>Aligarh Muslim University</strong> — Assistant Professor, ZHCET <span class="tag">Jan 2015 – Aug 2022</span></li>
+              <li style="margin-top:.5rem;"><strong>AMU</strong> — Guest Faculty, ZHCET <span class="tag">Aug 2013 – Feb 2014</span></li>
+              <li style="margin-top:.5rem;"><strong>AMU</strong> — Teaching Assistant, CE <span class="tag">Aug 2011 – 2013</span></li>
+            </ul>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- 03 / RECORD (dense masonry of smaller sections) -->
+    <section class="section--tight" id="record">
+      <div class="wrap">
+        <div class="sec-head">
+          <div class="sec-label"><span class="n">03</span><span class="slash">/</span>RECORD</div>
+          <span class="line"></span>
+        </div>
+
+        <div class="cv-cols">
           <section class="card" id="awards">
-            <div class="card-head"><span class="num">04</span><h3 class="hx">Awards &amp; Funding</h3></div>
+            <div class="card-head"><span class="num">▸</span><h3 class="hx">Awards &amp; Funding</h3></div>
             <div class="card-body">
-              <p style="margin:0 0 .6rem;color:var(--text-primary);font-weight:600;">SentriAlign: Training-Signal Integrity for LLMs</p>
-              <div class="meta" style="margin-bottom:.75rem;">
+              <p style="margin:0 0 .5rem;color:var(--text-primary);font-weight:600;">SentriAlign: Training-Signal Integrity for LLMs</p>
+              <dl class="meta">
                 <div><dt>Role</dt><dd>Co-Investigator</dd></div>
-                <div><dt>Program</dt><dd class="v-green">MIRTA 8.0 Commercialization Accelerator</dd></div>
+                <div><dt>Program</dt><dd class="v-green">MIRTA 8.0 Accelerator</dd></div>
                 <div><dt>Term</dt><dd class="v-amber">Jan 14 – May 11, 2026</dd></div>
                 <div><dt>Award</dt><dd class="v-amber">$25,000</dd></div>
-              </div>
+              </dl>
             </div>
           </section>
 
-          <!-- Patents -->
           <section class="card" id="patents">
-            <div class="card-head"><span class="num">05</span><h3 class="hx">Patents Filed</h3></div>
+            <div class="card-head"><span class="num">▸</span><h3 class="hx">Patents Filed</h3></div>
             <div class="card-body">
               <ul>
-                <li><strong>Bit-flip induced semantic drift in multimodal transformer models</strong> — U.S. Provisional App. No. 63/930,131</li>
-                <li><strong>Framework for mitigating malicious RLHF feedback in LLM training using consensus-based reward</strong> — U.S. Provisional App. No. 63/768,361</li>
-                <li><strong>Methods and systems for the automated generation of neural network architectures</strong> — U.S. Provisional App. No. 63/627,621</li>
+                <li><strong>Bit-flip induced semantic drift in multimodal transformer models</strong> — U.S. Prov. 63/930,131</li>
+                <li><strong>Framework for mitigating malicious RLHF feedback via consensus-based reward</strong> — U.S. Prov. 63/768,361</li>
+                <li><strong>Automated generation of neural network architectures</strong> — U.S. Prov. 63/627,621</li>
               </ul>
             </div>
           </section>
 
-          <!-- Scholarships -->
+          <section class="card" id="talks">
+            <div class="card-head"><span class="num">▸</span><h3 class="hx">Talks &amp; Posters</h3></div>
+            <div class="card-body">
+              <ul>
+                <li><strong>BLADE</strong>: Bit-level Fault Analysis — Poster, 3rd Nelms IoT Conf. (UF), Dec 2025</li>
+                <li>RLHF Robustness with Multi-Agent Consensus — Demo, Nelms IoT Conf. (UF), Dec 2025</li>
+                <li>Mitigating malicious RLHF feedback via consensus reward — UMaine, Apr 2025</li>
+                <li>AI and its use cases — CNLU, Bihar, India, Apr 2025</li>
+                <li>CoBRa: Mitigating Malicious RLHF Feedback — WHiSPerS, UNH, Mar 2025</li>
+                <li>AI Security — UMaine, Mar 2024 · LLMs and Security — CNLU, 2024</li>
+                <li>Trainer, Google Tech; UGC-HRDC MOOCs; SWAYAM course lectures</li>
+              </ul>
+            </div>
+          </section>
+
           <section class="card" id="scholarships">
-            <div class="card-head"><span class="num">06</span><h3 class="hx">Scholarships &amp; Fellowships</h3></div>
+            <div class="card-head"><span class="num">▸</span><h3 class="hx">Scholarships &amp; Fellowships</h3></div>
             <div class="card-body">
               <ul>
                 <li>Graduate Aptitude Test in Engineering (GATE) Scholarship</li>
                 <li>Maulana Azad National Fellowship (MANF)</li>
-                <li>Teaching and Research Assistantship by TEQIP-II</li>
+                <li>Teaching &amp; Research Assistantship, TEQIP-II</li>
                 <li>Graduate Assistantship @ UMaine</li>
               </ul>
             </div>
           </section>
 
-          <!-- Talks -->
-          <section class="card" id="talks">
-            <div class="card-head"><span class="num">07</span><h3 class="hx">Invited Lectures · Talks · Posters</h3></div>
-            <div class="card-body">
-              <ul>
-                <li><strong>BLADE</strong>: Bit-level Fault Analysis via Differentiable Estimation — Poster, 3rd Nelms Annual IoT Conference (UF, Gainesville, FL), Dec 2025</li>
-                <li>Enhancing RLHF Robustness with Multi-Agent Consensus Rewarding — Demo, 3rd Nelms Annual IoT Conference (UF), Dec 2025</li>
-                <li>A framework for mitigating malicious RLHF feedback in LLM training using consensus-based reward — UMaine, Apr 2025</li>
-                <li>AI and its use cases — Chanakya National Law University (CNLU), Bihar, India, Apr 2025</li>
-                <li>CoBRa: Mitigating Malicious RLHF Feedback — WHiSPerS, UNH, USA, Mar 2025</li>
-                <li>AI Security — UMaine, Mar 2024</li>
-                <li>LLMs and Security — CNLU, Bihar, India, 2024</li>
-                <li>Trainer: Google Tech (Sayid Hamid Senior Secondary School)</li>
-                <li>Invited by UGC-HRDC to speak on MOOCs; delivered lectures for a SWAYAM course</li>
-              </ul>
-            </div>
-          </section>
-
-          <!-- Employment -->
-          <section class="card" id="experience">
-            <div class="card-head"><span class="num">08</span><h3 class="hx">Employment</h3></div>
-            <div class="card-body">
-              <ul>
-                <li><strong>University of Maine</strong> (Orono, ME, USA) <span class="tag">Aug 2022 – Present</span>
-                  <ul style="margin-top:.5rem;">
-                    <li>Graduate Assistant, ARCSIM — AI &amp; Machine Learning consultant</li>
-                    <li>Research Assistant, ECE — Cybersecurity Education, Security of AI</li>
-                    <li>Teaching Assistant, ECE — Sequential Logic Lab (ECE275), Microprocessor Lab (ECE473)</li>
-                  </ul>
-                </li>
-                <li style="margin-top:.5rem;"><strong>Aligarh Muslim University</strong> — Assistant Professor, ZHCET <span class="tag">Jan 2015 – Aug 2022</span></li>
-                <li><strong>Aligarh Muslim University</strong> — Guest Faculty, ZHCET <span class="tag">Aug 2013 – Feb 2014</span></li>
-                <li><strong>Aligarh Muslim University</strong> — Teaching Assistant, CE <span class="tag">Aug 2011 – 2013</span></li>
-              </ul>
-            </div>
-          </section>
-
-          <!-- Teaching -->
-          <section class="card" id="teaching">
-            <div class="card-head"><span class="num">09</span><h3 class="hx">Teaching Experience</h3></div>
-            <div class="card-body">
-              <ul class="tlist" style="border:0;">
-                <li><span class="k">COC4010</span> Information Security — 2020–2021</li>
-                <li><span class="k">COA3600</span> Data Structures — 2020–2022</li>
-                <li><span class="k">COE0431</span> Internet Tools — 2015–2019</li>
-                <li><span class="k">COA1910</span> C Programming — 2015–2022</li>
-                <li><span class="k">COA446N</span> Selected Topics in CE-I — 2015–2019</li>
-                <li><span class="k">COC0203</span> Object-Oriented Programming — 2013</li>
-              </ul>
-            </div>
-          </section>
-
-          <!-- Projects -->
           <section class="card" id="projects">
-            <div class="card-head"><span class="num">10</span><h3 class="hx">Projects</h3></div>
+            <div class="card-head"><span class="num">▸</span><h3 class="hx">Projects</h3></div>
             <div class="card-body">
               <ul>
-                <li><strong>Game graphics for Custom Operating System</strong> (2023) — Pong in user space with PS/2 keyboard via kernel integration.</li>
-                <li><strong>Detecting &amp; classifying Northern Right Whale calls via deep learning</strong> (2022) — Spectrogram preprocessing + self-supervised learning to address imbalance/distortion.</li>
-                <li><strong>BEiT v2 for breast-cancer images</strong> (2022) — Self-supervised masked image modeling; strong accuracy and convergence.</li>
-                <li><strong>Data-science project on healthcare</strong> (AMU, with M Lab) — CDSS review; infected-cell detection in blood-smear reports. <span class="tag">On-halt</span></li>
-                <li><strong>Extension to Lex &amp; YACC guide</strong> (2012) — PASCAL-like interface for Lex/YACC authoring.</li>
+                <li><strong>Custom OS game graphics</strong> (2023) — Pong in user space, PS/2 keyboard via kernel.</li>
+                <li><strong>Right Whale call classification</strong> (2022) — Spectrograms + self-supervised DL under imbalance.</li>
+                <li><strong>BEiT v2 for breast-cancer images</strong> (2022) — Masked image modeling; strong accuracy.</li>
+                <li><strong>Healthcare data science</strong> (AMU) — CDSS review; blood-smear cell detection. <span class="tag">On-halt</span></li>
+                <li><strong>Lex &amp; YACC guide extension</strong> (2012) — PASCAL-like authoring interface.</li>
               </ul>
             </div>
           </section>
 
-          <!-- Mentoring -->
           <section class="card" id="mentoring">
-            <div class="card-head"><span class="num">11</span><h3 class="hx">Mentoring</h3></div>
+            <div class="card-head"><span class="num">▸</span><h3 class="hx">Mentoring</h3></div>
             <div class="card-body">
               <ul>
-                <li><strong>Human Activity Recognition Using Smartphone Sensors</strong> (2019–20)</li>
+                <li><strong>Human Activity Recognition</strong> via smartphone sensors (2019–20)</li>
                 <li><strong>Disease Risk Prediction</strong> (2018–19)</li>
                 <li><strong>2π Surveillance System</strong> (2017–18)</li>
-                <li><strong>Hajj Guide via Offline GPS</strong> (2016–17)</li>
-                <li><strong>SyncWorld</strong> (2012–13) — File storage and synchronization service</li>
+                <li><strong>Hajj Guide</strong> via offline GPS (2016–17)</li>
+                <li><strong>SyncWorld</strong> (2012–13) — file storage &amp; sync service</li>
               </ul>
             </div>
           </section>
 
-          <!-- Skills -->
-          <section class="card" id="skills">
-            <div class="card-head"><span class="num">12</span><h3 class="hx">Technical Skills</h3></div>
-            <div class="card-body">
-              <div class="meta">
-                <div><dt>Languages</dt><dd>C, C++, Java, Python, JavaScript, SQL, HTML, CSS, Shell</dd></div>
-                <div><dt>Compiler</dt><dd>Lex, YACC</dd></div>
-                <div><dt>OS</dt><dd>Windows, Linux</dd></div>
-                <div><dt>Tools</dt><dd>LaTeX, NetBeans, Eclipse, VSCode, Colab, Kaggle, Jupyter, Cursor</dd></div>
-                <div><dt>Databases</dt><dd>Oracle, MySQL, SQLite</dd></div>
-                <div><dt>Frameworks</dt><dd>ReactJS, scikit-learn, PyTorch, Pandas, NumPy, Matplotlib</dd></div>
-                <div><dt>Hardware</dt><dd>Raspberry Pi, Verilog, VCU118 FPGA, Vivado, Vitis, Quartus</dd></div>
-              </div>
-            </div>
-          </section>
-
-          <!-- References -->
           <section class="card" id="references">
-            <div class="card-head"><span class="num">13</span><h3 class="hx">References</h3></div>
+            <div class="card-head"><span class="num">▸</span><h3 class="hx">References</h3></div>
             <div class="card-body">
               <ul>
-                <li><strong>Dr. Prabuddha Chakraborty</strong> — Assistant Professor, ECE, UMaine — <a href="mailto:prabuddha@maine.edu">prabuddha@maine.edu</a></li>
-                <li><strong>Dr. Vijay Devabhaktuni</strong> — Professor &amp; Founding Chair, ECE, ILSTU — <a href="mailto:vdevabh@ilstu.edu">vdevabh@ilstu.edu</a></li>
+                <li><strong>Dr. Prabuddha Chakraborty</strong> — Asst. Prof., ECE, UMaine — <a href="mailto:prabuddha@maine.edu">prabuddha@maine.edu</a></li>
+                <li><strong>Dr. Vijay Devabhaktuni</strong> — Prof. &amp; Founding Chair, ECE, ILSTU — <a href="mailto:vdevabh@ilstu.edu">vdevabh@ilstu.edu</a></li>
                 <li><strong>Dr. Shane Moeykens</strong> — Director, UMaine ARCSIM &amp; EPSCoR — <a href="mailto:shane.moeykens@maine.edu">shane.moeykens@maine.edu</a></li>
               </ul>
-              <hr class="divider" style="margin:1rem 0;" />
-              <div class="meta"><div><dt>Updated</dt><dd class="v-amber">December 15, 2025</dd></div></div>
             </div>
           </section>
-
         </div>
+      </div>
+    </section>
+
+    <!-- 04 / TEACHING + SKILLS (full width) -->
+    <section class="section--tight" id="teaching">
+      <div class="wrap">
+        <div class="sec-head">
+          <div class="sec-label"><span class="n">04</span><span class="slash">/</span>TEACHING</div>
+          <span class="line"></span>
+        </div>
+        <ul class="tlist">
+          <li><span class="k">COC4010</span> Information Security — 2020–2021</li>
+          <li><span class="k">COA3600</span> Data Structures — 2020–2022</li>
+          <li><span class="k">COE0431</span> Internet Tools — 2015–2019</li>
+          <li><span class="k">COA1910</span> C Programming — 2015–2022</li>
+          <li><span class="k">COA446N</span> Selected Topics in CE-I — 2015–2019</li>
+          <li><span class="k">COC0203</span> Object-Oriented Programming — 2013</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section--tight" id="skills">
+      <div class="wrap">
+        <div class="sec-head">
+          <div class="sec-label"><span class="n">05</span><span class="slash">/</span>TECHNICAL_SKILLS</div>
+          <span class="line"></span>
+        </div>
+        <section class="card">
+          <div class="card-body">
+            <dl class="meta meta-grid2">
+              <div><dt>Languages</dt><dd>C, C++, Java, Python, JavaScript, SQL, HTML, CSS, Shell</dd></div>
+              <div><dt>Frameworks</dt><dd>ReactJS, scikit-learn, PyTorch, Pandas, NumPy, Matplotlib</dd></div>
+              <div><dt>Compiler</dt><dd>Lex, YACC</dd></div>
+              <div><dt>Databases</dt><dd>Oracle, MySQL, SQLite</dd></div>
+              <div><dt>OS</dt><dd>Windows, Linux</dd></div>
+              <div><dt>Hardware</dt><dd>Raspberry Pi, Verilog, VCU118 FPGA, Vivado, Vitis, Quartus</dd></div>
+              <div><dt>Tools</dt><dd>LaTeX, NetBeans, Eclipse, VSCode, Colab, Kaggle, Jupyter, Cursor</dd></div>
+            </dl>
+          </div>
+        </section>
       </div>
     </section>
   </main>
