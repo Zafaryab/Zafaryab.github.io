@@ -1,24 +1,63 @@
 /* =========================================
    Global theme tokens + base
+   Dark technical palette — research portal
+   with a subtle terminal aesthetic.
 ========================================= */
 :root{
-  --ink: #0f172a;
-  --muted: #475569;
-  --soft: #f1f5f9;
-  --card: #ffffff;
-  --border: rgba(15, 23, 42, .10);
-  --brand: #2563eb;
-  --brand2: #22c55e;
-  --shadow: 0 10px 30px rgba(2, 6, 23, .10);
+  /* Core surfaces */
+  --bg: #020608;
+  --surface: #071211;
+  --surface-2: #0a1a18;      /* slightly lifted panels / bands */
+  --elevate: #0c211d;        /* hover / active surface */
+
+  /* Text */
+  --text-primary: #E5ECE8;   /* off-white, never pure white */
+  --text-secondary: #A5AFAB;
+
+  /* Accents */
+  --green: #32F5B4;          /* primary accent */
+  --cyan: #29E7FF;           /* links */
+  --magenta: #F04DDB;        /* rare semantic highlight */
+  --amber: #F4C842;          /* metadata / status */
+
+  /* Lines + tints */
+  --border: #1B4035;
+  --border-soft: rgba(27, 64, 53, .6);
+  --green-tint: rgba(50, 245, 180, .08);
+  --green-tint-2: rgba(50, 245, 180, .14);
+
+  /* Shadow — very restrained, almost no glow */
+  --shadow: 0 12px 30px rgba(0, 0, 0, .45);
+
+  /* Legacy aliases kept so any stray references still resolve */
+  --ink: var(--text-primary);
+  --muted: var(--text-secondary);
+  --soft: var(--surface-2);
+  --card: var(--surface);
+  --brand: var(--green);
+  --brand2: var(--cyan);
+
+  --font-mono: ui-monospace, "SFMono-Regular", "Cascadia Code", "JetBrains Mono", Consolas, monospace;
 }
 
 html { scroll-behavior: smooth; }
 
 body{
-  color: var(--ink);
-  background: radial-gradient(1200px 600px at 15% -10%, rgba(37,99,235,.12), transparent 55%),
-              radial-gradient(900px 500px at 85% 0%, rgba(34,197,94,.10), transparent 55%),
-              #ffffff;
+  color: var(--text-primary);
+  background:
+    radial-gradient(1100px 560px at 12% -12%, rgba(50, 245, 180, .05), transparent 55%),
+    radial-gradient(900px 500px at 88% -6%, rgba(41, 231, 255, .04), transparent 55%),
+    var(--bg);
+  background-attachment: fixed;
+}
+
+/* Content hyperlinks lean cyan (sparingly used, mostly inside cards) */
+a{ color: var(--cyan); }
+a:hover{ color: color-mix(in srgb, var(--cyan) 80%, #fff); }
+
+::selection{
+  background: var(--green-tint-2);
+  color: var(--text-primary);
 }
 
 /* =========================================
@@ -28,43 +67,76 @@ body{
   display: inline-flex;
   align-items: center;
   gap: .5rem;
-  padding: .4rem .75rem;
+  padding: .4rem .8rem;
   border: 1px solid var(--border);
   border-radius: 999px;
-  font-size: .9rem;
-  color: var(--muted);
-  background: rgba(255,255,255,.7);
+  font-family: var(--font-mono);
+  font-size: .82rem;
+  letter-spacing: .02em;
+  color: var(--text-secondary);
+  background: var(--surface);
 }
+.kicker i{ color: var(--green); }
 
 .display-title{
   letter-spacing: -0.02em;
   line-height: 1.05;
   font-weight: 800;
+  color: var(--text-primary);
 }
 
-.hero-muted{ color: var(--muted); }
-.lead{ color: var(--muted); }
+.hero-muted{ color: var(--text-secondary); }
+.lead{ color: var(--text-secondary); }
 
 /* Navbar (shared) */
 .navbar{
   backdrop-filter: blur(10px);
-  background: rgba(15, 23, 42, .92) !important;
+  background: rgba(2, 6, 8, .82) !important;
+  border-bottom: 1px solid var(--border-soft);
 }
-.navbar .nav-link{ opacity: .9; }
-.navbar .nav-link:hover{ opacity: 1; }
-.navbar .nav-link.active{ opacity: 1; font-weight: 600; }
+.navbar .navbar-brand{ color: var(--text-primary); }
+.navbar .nav-link{ color: var(--text-secondary); opacity: 1; }
+.navbar .nav-link:hover{ color: var(--text-primary); }
+.navbar .nav-link.active{
+  color: var(--green);
+  font-weight: 600;
+}
 
 /* Buttons */
 .btn-brand{
-  background: var(--brand);
-  border-color: var(--brand);
+  background: var(--green);
+  border-color: var(--green);
+  color: #04120d;
+  font-weight: 600;
 }
-.btn-brand:hover{ filter: brightness(.95); }
+.btn-brand:hover,
+.btn-brand:focus{
+  background: color-mix(in srgb, var(--green) 88%, #000);
+  border-color: color-mix(in srgb, var(--green) 88%, #000);
+  color: #04120d;
+}
 
 .btn-soft{
-  background: rgba(37,99,235,.10);
-  border: 1px solid rgba(37,99,235,.20);
-  color: var(--ink);
+  background: var(--green-tint);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+}
+.btn-soft:hover{
+  background: var(--green-tint-2);
+  border-color: var(--green);
+  color: var(--text-primary);
+}
+
+/* Themed outline button (replaces btn-outline-dark on dark bg) */
+.btn-outline-brand{
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+}
+.btn-outline-brand:hover{
+  border-color: var(--green);
+  color: var(--green);
+  background: var(--green-tint);
 }
 
 /* Social pill (Photography CTA) */
@@ -75,14 +147,16 @@ body{
   padding: .55rem .9rem;
   border-radius: 999px;
   border: 1px solid var(--border);
-  background: rgba(255,255,255,.7);
-  color: var(--ink);
+  background: var(--surface);
+  color: var(--text-primary);
   text-decoration: none;
-  transition: transform .12s ease, box-shadow .12s ease;
+  transition: transform .12s ease, border-color .12s ease, background .12s ease;
 }
 .social-pill:hover{
   transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(2,6,23,.10);
+  border-color: var(--green);
+  background: var(--elevate);
+  color: var(--text-primary);
 }
 
 /* Icon social buttons (Index + Resume) */
@@ -94,25 +168,26 @@ body{
   height: 42px;
   border-radius: 999px;
   border: 1px solid var(--border);
-  background: rgba(255,255,255,.75);
-  color: var(--ink);
+  background: var(--surface);
+  color: var(--text-secondary);
   text-decoration: none;
-  transition: transform .12s ease, box-shadow .12s ease;
+  transition: transform .12s ease, border-color .12s ease, color .12s ease;
 }
 .social a:hover{
   transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(2,6,23,.10);
+  border-color: var(--green);
+  color: var(--green);
 }
 
 /* =========================================
-   INDEX (page-index) — preserves your current look
+   INDEX (page-index)
 ========================================= */
 .page-index .hero{
   padding: 3.5rem 0 2rem;
 }
 
 .page-index .hero-card{
-  background: linear-gradient(180deg, rgba(255,255,255,.90), rgba(255,255,255,.75));
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 1.25rem;
   box-shadow: var(--shadow);
@@ -123,7 +198,8 @@ body{
 
 .page-index .hero-right{
   padding: 2.25rem 2rem;
-  background: linear-gradient(135deg, rgba(37,99,235,.08), rgba(34,197,94,.06));
+  background:
+    linear-gradient(135deg, var(--green-tint), rgba(41, 231, 255, .04));
   border-left: 1px solid var(--border);
 }
 
@@ -133,8 +209,8 @@ body{
   height: 168px;
   object-fit: cover;
   border-radius: 50%;
-  border: 4px solid rgba(255,255,255,.9);
-  box-shadow: 0 10px 25px rgba(2,6,23,.15);
+  border: 3px solid var(--border);
+  box-shadow: 0 10px 25px rgba(0,0,0,.5);
 }
 
 .page-index .section{
@@ -144,9 +220,10 @@ body{
   font-weight: 800;
   letter-spacing: -0.02em;
   margin-bottom: 1.25rem;
+  color: var(--text-primary);
 }
 .page-index .section-subtitle{
-  color: var(--muted);
+  color: var(--text-secondary);
   margin-top: -.5rem;
   margin-bottom: 1.75rem;
 }
@@ -155,13 +232,14 @@ body{
   height: 100%;
   border: 1px solid var(--border);
   border-radius: 1rem;
-  background: var(--card);
-  box-shadow: 0 10px 20px rgba(2,6,23,.06);
-  transition: transform .12s ease, box-shadow .12s ease;
+  background: var(--surface);
+  box-shadow: none;
+  transition: transform .12s ease, border-color .12s ease, background .12s ease;
 }
 .page-index .pro-card:hover{
   transform: translateY(-2px);
-  box-shadow: 0 14px 30px rgba(2,6,23,.10);
+  border-color: var(--green);
+  background: var(--elevate);
 }
 .page-index .pro-card .icon{
   width: 44px;
@@ -170,11 +248,12 @@ body{
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: rgba(37,99,235,.10);
-  border: 1px solid rgba(37,99,235,.18);
-  color: var(--brand);
+  background: var(--green-tint);
+  border: 1px solid var(--border);
+  color: var(--green);
 }
-.page-index .pro-card p{ color: var(--muted); margin: 0; }
+.page-index .pro-card h3{ color: var(--text-primary); }
+.page-index .pro-card p{ color: var(--text-secondary); margin: 0; }
 
 @media (max-width: 767.98px){
   .page-index .scroll-row{
@@ -192,7 +271,7 @@ body{
 }
 
 .page-index .band{
-  background: linear-gradient(180deg, rgba(241,245,249,.75), rgba(241,245,249,.35));
+  background: var(--surface-2);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
 }
@@ -200,12 +279,12 @@ body{
 .page-index #footer-placeholder{ margin-top: 2rem; }
 
 /* =========================================
-   PHOTOGRAPHY (page-photography) — preserves your current look
+   PHOTOGRAPHY (page-photography)
 ========================================= */
 .page-photography .page-hero{ padding: 3.25rem 0 1.25rem; }
 
 .page-photography .hero-card{
-  background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.78));
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 1.25rem;
   box-shadow: var(--shadow);
@@ -214,7 +293,7 @@ body{
 
 .page-photography .hero-inner{
   padding: 2rem 1.75rem;
-  background: linear-gradient(135deg, rgba(37,99,235,.08), rgba(34,197,94,.06));
+  background: linear-gradient(135deg, var(--green-tint), rgba(41, 231, 255, .04));
 }
 
 .page-photography .section{ padding: 2rem 0 3rem; }
@@ -223,22 +302,22 @@ body{
   position: relative;
   border-radius: 1rem;
   border: 1px solid var(--border);
-  background: var(--card);
-  box-shadow: 0 10px 20px rgba(2,6,23,.06);
+  background: var(--surface);
+  box-shadow: none;
   overflow: hidden;
-  transition: transform .12s ease, box-shadow .12s ease;
+  transition: transform .12s ease, border-color .12s ease;
   height: 100%;
 }
 .page-photography .gallery-card:hover{
   transform: translateY(-2px);
-  box-shadow: 0 14px 30px rgba(2,6,23,.10);
+  border-color: var(--green);
 }
 
 .page-photography .photo-window{
   aspect-ratio: 4 / 3;
   width: 100%;
   overflow: hidden;
-  background: #0b1220;
+  background: var(--bg);
 }
 .page-photography .photo-window img{
   width: 100%;
@@ -258,10 +337,11 @@ body{
 .page-photography .caption .title{
   font-weight: 700;
   margin: 0 0 .2rem;
+  color: var(--text-primary);
 }
 .page-photography .caption .sub{
   margin: 0;
-  color: var(--muted);
+  color: var(--text-secondary);
   font-size: .95rem;
 }
 
@@ -272,10 +352,11 @@ body{
   z-index: 2;
   padding: .25rem .6rem;
   border-radius: 999px;
-  border: 1px solid rgba(255,255,255,.18);
-  background: rgba(15,23,42,.55);
-  color: rgba(255,255,255,.92);
-  font-size: .85rem;
+  border: 1px solid var(--border);
+  background: rgba(2, 6, 8, .7);
+  color: var(--green);
+  font-size: .8rem;
+  font-family: var(--font-mono);
   backdrop-filter: blur(10px);
 }
 
@@ -285,12 +366,12 @@ body{
 }
 
 /* =========================================
-   RESUME (page-resume) — preserves your current look
+   RESUME (page-resume)
 ========================================= */
 .page-resume .page-hero{ padding: 3.25rem 0 1.25rem; }
 
 .page-resume .hero-card{
-  background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.78));
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 1.25rem;
   box-shadow: var(--shadow);
@@ -299,7 +380,7 @@ body{
 
 .page-resume .hero-inner{
   padding: 2rem 1.75rem;
-  background: linear-gradient(135deg, rgba(37,99,235,.08), rgba(34,197,94,.06));
+  background: linear-gradient(135deg, var(--green-tint), rgba(41, 231, 255, .04));
 }
 
 .page-resume .section{ padding: 1.5rem 0 3rem; }
@@ -307,8 +388,8 @@ body{
 .page-resume .profile-card{
   border: 1px solid var(--border);
   border-radius: 1.25rem;
-  background: rgba(255,255,255,.9);
-  box-shadow: 0 10px 20px rgba(2,6,23,.06);
+  background: var(--surface);
+  box-shadow: none;
   overflow: hidden;
   position: sticky;
   top: 88px;
@@ -316,24 +397,24 @@ body{
 
 .page-resume .profile-top{
   padding: 1.5rem 1.25rem 1rem;
-  background: linear-gradient(135deg, rgba(37,99,235,.08), rgba(34,197,94,.06));
+  background: linear-gradient(135deg, var(--green-tint), rgba(41, 231, 255, .04));
   border-bottom: 1px solid var(--border);
   text-align: center;
 }
 
-/* smaller avatar on resume (keeps your original) */
+/* smaller avatar on resume */
 .page-resume .about-photo{
   width: 128px;
   height: 128px;
   object-fit: cover;
   border-radius: 50%;
-  border: 4px solid rgba(255,255,255,.9);
-  box-shadow: 0 10px 25px rgba(2,6,23,.15);
+  border: 3px solid var(--border);
+  box-shadow: 0 10px 25px rgba(0,0,0,.5);
   margin-bottom: .75rem;
 }
 
 .page-resume .profile-body{ padding: 1.25rem; }
-.page-resume .mini{ color: var(--muted); font-size: .95rem; margin-bottom: .25rem; }
+.page-resume .mini{ color: var(--text-secondary); font-size: .95rem; margin-bottom: .25rem; }
 
 .page-resume .contact-list{
   list-style: none;
@@ -342,20 +423,20 @@ body{
   display: grid;
   gap: .5rem;
 }
-.page-resume .contact-list a{ color: var(--ink); text-decoration: none; }
+.page-resume .contact-list a{ color: var(--cyan); text-decoration: none; }
 .page-resume .contact-list a:hover{ text-decoration: underline; }
 
 .page-resume .content-card{
   border: 1px solid var(--border);
   border-radius: 1.25rem;
-  background: rgba(255,255,255,.92);
-  box-shadow: 0 10px 20px rgba(2,6,23,.06);
+  background: var(--surface);
+  box-shadow: none;
   overflow: hidden;
 }
 .page-resume .content-card .card-head{
   padding: 1rem 1.25rem;
   border-bottom: 1px solid var(--border);
-  background: rgba(241,245,249,.65);
+  background: var(--surface-2);
   display: flex;
   align-items: center;
   gap: .75rem;
@@ -367,26 +448,28 @@ body{
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: rgba(37,99,235,.10);
-  border: 1px solid rgba(37,99,235,.18);
-  color: var(--brand);
+  background: var(--green-tint);
+  border: 1px solid var(--border);
+  color: var(--green);
   flex: 0 0 auto;
 }
-.page-resume .content-card .card-body{ padding: 1.25rem; }
+.page-resume .content-card .card-body{ padding: 1.25rem; color: var(--text-primary); }
 .page-resume .content-card h3{
   margin: 0;
   font-weight: 800;
   letter-spacing: -0.01em;
   font-size: 1.05rem;
+  color: var(--text-primary);
 }
-.page-resume .muted{ color: var(--muted); }
+.page-resume .content-card a{ color: var(--cyan); }
+.page-resume .muted{ color: var(--text-secondary); }
 .page-resume .tight ul{ margin-bottom: 0; }
 .page-resume .tight li{ margin-bottom: .45rem; }
 
 .page-resume .badge-soft{
-  background: rgba(37,99,235,.10);
-  border: 1px solid rgba(37,99,235,.18);
-  color: var(--ink);
+  background: var(--green-tint);
+  border: 1px solid var(--border);
+  color: var(--green);
   font-weight: 600;
 }
 
@@ -395,14 +478,58 @@ body{
 }
 
 /* =========================================
-   Footer (shared) — your existing footer styling
+   DEMOS (page-demos) reuse index card styling
+========================================= */
+.page-demos .page-hero{ padding: 3.25rem 0 1.25rem; }
+.page-demos .hero-card{
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.page-demos .hero-inner{
+  padding: 2rem 1.75rem;
+  background: linear-gradient(135deg, var(--green-tint), rgba(41, 231, 255, .04));
+}
+.page-demos .section{ padding: 2rem 0 3rem; }
+.page-demos .pro-card{
+  height: 100%;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  background: var(--surface);
+  color: var(--text-primary);
+  transition: transform .12s ease, border-color .12s ease, background .12s ease;
+}
+.page-demos .pro-card:hover{
+  transform: translateY(-2px);
+  border-color: var(--green);
+  background: var(--elevate);
+}
+.page-demos .pro-card .icon{
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--green-tint);
+  border: 1px solid var(--border);
+  color: var(--green);
+}
+.page-demos .pro-card h3{ color: var(--text-primary); }
+.page-demos .pro-card p{ color: var(--text-secondary); }
+
+/* =========================================
+   Footer (shared)
 ========================================= */
 .site-footer{
-  background: rgba(15, 23, 42, .95);
-  border-top: 1px solid rgba(255,255,255,.10);
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  color: var(--text-secondary);
 }
-.footer-brand{ letter-spacing: -0.01em; }
-.footer-muted{ color: rgba(255,255,255,.72); }
+.footer-brand{ letter-spacing: -0.01em; color: var(--text-primary); }
+.footer-muted{ color: var(--text-secondary); }
 
 .footer-list{
   list-style: none;
@@ -410,13 +537,14 @@ body{
   margin: 0;
   display: grid;
   gap: .6rem;
-  color: rgba(255,255,255,.85);
+  color: var(--text-secondary);
 }
 .footer-list a{
-  color: rgba(255,255,255,.92);
+  color: var(--text-secondary);
   text-decoration: none;
 }
-.footer-list a:hover{ text-decoration: underline; }
+.footer-list a:hover{ color: var(--green); text-decoration: none; }
+.footer-list i{ color: var(--green); }
 
 .footer-social a{
   display: inline-flex;
@@ -425,27 +553,28 @@ body{
   width: 42px;
   height: 42px;
   border-radius: 999px;
-  border: 1px solid rgba(255,255,255,.14);
-  background: rgba(255,255,255,.08);
-  color: #fff;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text-secondary);
   text-decoration: none;
-  transition: transform .12s ease, background .12s ease;
+  transition: transform .12s ease, border-color .12s ease, color .12s ease;
 }
 .footer-social a:hover{
   transform: translateY(-2px);
-  background: rgba(255,255,255,.12);
+  border-color: var(--green);
+  color: var(--green);
 }
 
 .footer-divider{
-  border-color: rgba(255,255,255,.12);
+  border-color: var(--border);
   opacity: 1;
 }
 
 .footer-top{
-  color: rgba(255,255,255,.85);
+  color: var(--text-secondary);
   text-decoration: none;
 }
-.footer-top:hover{ text-decoration: underline; }
+.footer-top:hover{ color: var(--green); text-decoration: none; }
 
 /* --- Photography: collections + tag pills --- */
 .page-photography .collection-card{
@@ -453,21 +582,21 @@ body{
   text-align: left;
   border: 1px solid var(--border);
   border-radius: 1rem;
-  background: rgba(255,255,255,.92);
-  box-shadow: 0 10px 20px rgba(2,6,23,.06);
+  background: var(--surface);
+  box-shadow: none;
   padding: 1rem 1rem;
-  transition: transform .12s ease, box-shadow .12s ease;
+  transition: transform .12s ease, border-color .12s ease;
 }
 .page-photography .collection-card:hover{
   transform: translateY(-2px);
-  box-shadow: 0 14px 30px rgba(2,6,23,.10);
+  border-color: var(--green);
 }
 .page-photography .collection-card.is-active{
-  border-color: rgba(37,99,235,.35);
-  box-shadow: 0 14px 30px rgba(37,99,235,.10);
+  border-color: var(--green);
+  background: var(--green-tint);
 }
 .page-photography .collection-muted{
-  color: var(--muted);
+  color: var(--text-secondary);
   font-size: .95rem;
 }
 .page-photography .collection-icon{
@@ -477,9 +606,9 @@ body{
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: rgba(37,99,235,.10);
-  border: 1px solid rgba(37,99,235,.18);
-  color: var(--brand);
+  background: var(--green-tint);
+  border: 1px solid var(--border);
+  color: var(--green);
   flex: 0 0 auto;
 }
 
@@ -488,38 +617,42 @@ body{
   align-items: center;
   border: 1px solid var(--border);
   border-radius: 999px;
-  background: rgba(255,255,255,.8);
+  background: var(--surface);
   padding: .4rem .75rem;
-  color: var(--ink);
+  color: var(--text-secondary);
   font-size: .9rem;
-  transition: transform .12s ease, box-shadow .12s ease;
+  transition: transform .12s ease, border-color .12s ease, color .12s ease;
 }
 .page-photography .tag-pill:hover{
   transform: translateY(-1px);
-  box-shadow: 0 10px 20px rgba(2,6,23,.08);
+  border-color: var(--green);
+  color: var(--text-primary);
 }
 .page-photography .tag-pill.is-active{
-  border-color: rgba(37,99,235,.35);
-  background: rgba(37,99,235,.10);
+  border-color: var(--green);
+  background: var(--green-tint);
+  color: var(--green);
 }
 
 /* Photography: compact pills */
 .page-photography .filter-pill{
   border: 1px solid var(--border);
-  background: rgba(255,255,255,.85);
+  background: var(--surface);
   border-radius: 999px;
   padding: .4rem .75rem;
   font-size: .95rem;
-  color: var(--ink);
-  transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+  color: var(--text-secondary);
+  transition: transform .12s ease, border-color .12s ease, color .12s ease;
 }
 .page-photography .filter-pill:hover{
   transform: translateY(-1px);
-  box-shadow: 0 10px 18px rgba(2,6,23,.08);
+  border-color: var(--green);
+  color: var(--text-primary);
 }
 .page-photography .filter-pill.is-active{
-  background: rgba(37,99,235,.10);
-  border-color: rgba(37,99,235,.35);
+  background: var(--green-tint);
+  border-color: var(--green);
+  color: var(--green);
 }
 
 /* Photography: compact filter bar */
@@ -542,7 +675,7 @@ body{
 
 .page-photography .filter-label{
   font-size: .85rem;
-  color: var(--muted);
+  color: var(--text-secondary);
   margin: 0;
 }
 
@@ -550,6 +683,18 @@ body{
   margin-left: auto;
   font-size: .95rem;
   padding-bottom: .3rem;
+  color: var(--text-secondary);
+}
+
+/* Form controls (filter selects) tuned to the dark surface */
+.page-photography .form-select{
+  background-color: var(--surface);
+  border-color: var(--border);
+  color: var(--text-primary);
+}
+.page-photography .form-select:focus{
+  border-color: var(--green);
+  box-shadow: 0 0 0 .2rem var(--green-tint-2);
 }
 
 /* tighter spacing overall so more photos show */
