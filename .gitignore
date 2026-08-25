@@ -7,3 +7,12 @@ docs/
 local_refs/
 master_cv.pdf
 one_page_resume.pdf
+
+# Camera raw files — keep local, never deploy
+*.dng
+*.DNG
+*.raw
+*.RAW
+*.arw
+*.cr2
+*.nef

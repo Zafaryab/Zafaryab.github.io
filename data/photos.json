@@ -243,5 +243,362 @@
     "width": 1155,
     "height": 1600,
     "orientation": "portrait"
+  },
+  {
+    "id": "frame-0003",
+    "title": "Sunset over the Champlain Valley",
+    "subtitle": "A fiery summer sunset over farmland and a distant lake.",
+    "category": "landscapes",
+    "tags": [
+      "sunset",
+      "lake",
+      "mountains",
+      "sky"
+    ],
+    "collections": [
+      "Sunsets"
+    ],
+    "location": "Vermont, USA",
+    "date": "2024-07-29",
+    "featured": true,
+    "order": 15,
+    "thumb": "images/gallery/thumbs/frame-0003.webp",
+    "full": "images/gallery/full/frame-0003.jpg",
+    "width": 2258,
+    "height": 1806,
+    "orientation": "landscape"
+  },
+  {
+    "id": "frame-0004",
+    "title": "Watkins Glen Gorge",
+    "subtitle": "Layered shale and moss along the gorge trail.",
+    "category": "waterfalls",
+    "tags": [
+      "gorge",
+      "stream",
+      "forest",
+      "moss"
+    ],
+    "collections": [
+      "Waterfalls"
+    ],
+    "location": "Watkins Glen State Park, NY",
+    "date": "2025-05-17",
+    "featured": false,
+    "order": 16,
+    "thumb": "images/gallery/thumbs/frame-0004.webp",
+    "full": "images/gallery/full/frame-0004.jpg",
+    "width": 2268,
+    "height": 4032,
+    "orientation": "portrait"
+  },
+  {
+    "id": "frame-0005",
+    "title": "Cascade at Watkins Glen",
+    "subtitle": "A cascade tucked into the mossy gorge.",
+    "category": "waterfalls",
+    "tags": [
+      "waterfall",
+      "gorge",
+      "forest"
+    ],
+    "collections": [
+      "Waterfalls"
+    ],
+    "location": "Watkins Glen State Park, NY",
+    "date": "2025-05-17",
+    "featured": false,
+    "order": 17,
+    "thumb": "images/gallery/thumbs/frame-0005.webp",
+    "full": "images/gallery/full/frame-0005.jpg",
+    "width": 2268,
+    "height": 2835,
+    "orientation": "portrait"
+  },
+  {
+    "id": "frame-0006",
+    "title": "Upper Falls & Trestle, Letchworth",
+    "subtitle": "The railroad trestle arching over Upper Falls.",
+    "category": "waterfalls",
+    "tags": [
+      "waterfall",
+      "bridge",
+      "canyon",
+      "river"
+    ],
+    "collections": [
+      "Waterfalls"
+    ],
+    "location": "Letchworth State Park, NY",
+    "date": "2025-05-17",
+    "featured": true,
+    "order": 18,
+    "thumb": "images/gallery/thumbs/frame-0006.webp",
+    "full": "images/gallery/full/frame-0006.jpg",
+    "width": 2244,
+    "height": 1795,
+    "orientation": "landscape"
+  },
+  {
+    "id": "frame-0007",
+    "title": "Grand Canyon of the East",
+    "subtitle": "The Genesee River winding through Letchworth's cliffs.",
+    "category": "landscapes",
+    "tags": [
+      "canyon",
+      "river",
+      "forest",
+      "cliffs"
+    ],
+    "collections": [
+      "Waterfalls"
+    ],
+    "location": "Letchworth State Park, NY",
+    "date": "2025-05-17",
+    "featured": false,
+    "order": 19,
+    "thumb": "images/gallery/thumbs/frame-0007.webp",
+    "full": "images/gallery/full/frame-0007.jpg",
+    "width": 4000,
+    "height": 2256,
+    "orientation": "landscape"
+  },
+  {
+    "id": "frame-0008",
+    "title": "Niagara Skyline over the Rapids",
+    "subtitle": "The Niagara skyline beyond the upper rapids.",
+    "category": "cityscape",
+    "tags": [
+      "niagara",
+      "skyline",
+      "rapids",
+      "river"
+    ],
+    "collections": [
+      "Niagara Falls"
+    ],
+    "location": "Niagara Falls",
+    "date": "2025-05-18",
+    "featured": false,
+    "order": 20,
+    "thumb": "images/gallery/thumbs/frame-0008.webp",
+    "full": "images/gallery/full/frame-0008.jpg",
+    "width": 4032,
+    "height": 2268,
+    "orientation": "landscape"
+  },
+  {
+    "id": "frame-0009",
+    "title": "Horseshoe Falls from the Water",
+    "subtitle": "Mist rising off Horseshoe Falls at water level.",
+    "category": "waterfalls",
+    "tags": [
+      "niagara",
+      "waterfall",
+      "mist"
+    ],
+    "collections": [
+      "Niagara Falls",
+      "Waterfalls"
+    ],
+    "location": "Niagara Falls",
+    "date": "2025-05-18",
+    "featured": true,
+    "order": 21,
+    "thumb": "images/gallery/thumbs/frame-0009.webp",
+    "full": "images/gallery/full/frame-0009.jpg",
+    "width": 2835,
+    "height": 2267,
+    "orientation": "landscape"
+  },
+  {
+    "id": "frame-0010",
+    "title": "American Falls from the Water",
+    "subtitle": "The American Falls tumbling onto the talus below.",
+    "category": "waterfalls",
+    "tags": [
+      "niagara",
+      "waterfall",
+      "mist"
+    ],
+    "collections": [
+      "Niagara Falls",
+      "Waterfalls"
+    ],
+    "location": "Niagara Falls",
+    "date": "2025-05-18",
+    "featured": false,
+    "order": 22,
+    "thumb": "images/gallery/thumbs/frame-0010.webp",
+    "full": "images/gallery/full/frame-0010.jpg",
+    "width": 2819,
+    "height": 2254,
+    "orientation": "landscape"
+  },
+  {
+    "id": "frame-0011",
+    "title": "Voyage to the Falls",
+    "subtitle": "A tour boat crowded with blue ponchos on the emerald river.",
+    "category": "travel",
+    "tags": [
+      "niagara",
+      "boat",
+      "aerial",
+      "river"
+    ],
+    "collections": [
+      "Niagara Falls"
+    ],
+    "location": "Niagara Falls",
+    "date": "2025-05-18",
+    "featured": false,
+    "order": 23,
+    "thumb": "images/gallery/thumbs/frame-0011.webp",
+    "full": "images/gallery/full/frame-0011.jpg",
+    "width": 1890,
+    "height": 3360,
+    "orientation": "portrait"
+  },
+  {
+    "id": "frame-0012",
+    "title": "Aurora over the Lake",
+    "subtitle": "Northern lights shimmering above a calm shoreline.",
+    "category": "aurora",
+    "tags": [
+      "aurora",
+      "night",
+      "stars",
+      "lake"
+    ],
+    "collections": [
+      "Aurora"
+    ],
+    "location": "",
+    "date": "",
+    "featured": true,
+    "order": 24,
+    "thumb": "images/gallery/thumbs/frame-0012.webp",
+    "full": "images/gallery/full/frame-0012.jpg",
+    "width": 5568,
+    "height": 3712,
+    "orientation": "landscape"
+  },
+  {
+    "id": "frame-0013",
+    "title": "Aurora Rays",
+    "subtitle": "Green and violet curtains reflected on still water.",
+    "category": "aurora",
+    "tags": [
+      "aurora",
+      "night",
+      "stars",
+      "lake"
+    ],
+    "collections": [
+      "Aurora"
+    ],
+    "location": "",
+    "date": "",
+    "featured": false,
+    "order": 25,
+    "thumb": "images/gallery/thumbs/frame-0013.webp",
+    "full": "images/gallery/full/frame-0013.jpg",
+    "width": 5568,
+    "height": 3712,
+    "orientation": "landscape"
+  },
+  {
+    "id": "frame-0014",
+    "title": "Violet Aurora",
+    "subtitle": "A violet aurora fading to green along the horizon.",
+    "category": "aurora",
+    "tags": [
+      "aurora",
+      "night",
+      "stars"
+    ],
+    "collections": [
+      "Aurora"
+    ],
+    "location": "",
+    "date": "",
+    "featured": false,
+    "order": 26,
+    "thumb": "images/gallery/thumbs/frame-0014.webp",
+    "full": "images/gallery/full/frame-0014.jpg",
+    "width": 5568,
+    "height": 3712,
+    "orientation": "landscape"
+  },
+  {
+    "id": "frame-0015",
+    "title": "Aurora & a Shooting Star",
+    "subtitle": "A meteor streaks past the northern lights.",
+    "category": "aurora",
+    "tags": [
+      "aurora",
+      "night",
+      "stars",
+      "meteor"
+    ],
+    "collections": [
+      "Aurora"
+    ],
+    "location": "",
+    "date": "",
+    "featured": false,
+    "order": 27,
+    "thumb": "images/gallery/thumbs/frame-0015.webp",
+    "full": "images/gallery/full/frame-0015.jpg",
+    "width": 5568,
+    "height": 3712,
+    "orientation": "landscape"
+  },
+  {
+    "id": "frame-0016",
+    "title": "Rainbow Falls, Watkins Glen",
+    "subtitle": "The signature falls and stone footbridge at Watkins Glen.",
+    "category": "waterfalls",
+    "tags": [
+      "waterfall",
+      "gorge",
+      "long-exposure",
+      "forest"
+    ],
+    "collections": [
+      "Waterfalls"
+    ],
+    "location": "Watkins Glen State Park, NY",
+    "date": "",
+    "featured": true,
+    "order": 28,
+    "thumb": "images/gallery/thumbs/frame-0016.webp",
+    "full": "images/gallery/full/frame-0016.jpg",
+    "width": 3712,
+    "height": 5568,
+    "orientation": "portrait"
+  },
+  {
+    "id": "frame-0017",
+    "title": "Gorge Cascade, Watkins Glen",
+    "subtitle": "A silky cascade deep in the shaded gorge.",
+    "category": "waterfalls",
+    "tags": [
+      "waterfall",
+      "gorge",
+      "long-exposure"
+    ],
+    "collections": [
+      "Waterfalls"
+    ],
+    "location": "Watkins Glen State Park, NY",
+    "date": "",
+    "featured": false,
+    "order": 29,
+    "thumb": "images/gallery/thumbs/frame-0017.webp",
+    "full": "images/gallery/full/frame-0017.jpg",
+    "width": 3712,
+    "height": 5568,
+    "orientation": "portrait"
   }
 ]
