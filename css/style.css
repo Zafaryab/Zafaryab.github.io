@@ -591,8 +591,8 @@ p:last-child{ margin-bottom: 0; }
 }
 .sys-row{
   display: grid;
-  grid-template-columns: 2.2rem 1fr auto;
-  align-items: center;
+  grid-template-columns: 1.9rem 1fr auto;
+  align-items: baseline;
   gap: var(--s-related);
   padding: 9px var(--s-module);
   border-bottom: 1px solid var(--border);
@@ -602,8 +602,12 @@ p:last-child{ margin-bottom: 0; }
 .sys-row:last-child{ border-bottom: 0; }
 .sys-row:hover{ background: var(--surface); }
 .sys-row .k{ color: var(--green); font-size: .78rem; letter-spacing: .08em; }
-.sys-row .v{ color: var(--text-primary); font-size: .82rem; letter-spacing: .04em; text-transform: uppercase; }
-.sys-row .s{ color: var(--green); font-size: .62rem; letter-spacing: .12em; }
+.sys-row .v{ color: var(--text-primary); font-size: .8rem; letter-spacing: .02em; text-transform: uppercase; min-width: 0; overflow-wrap: anywhere; }
+/* right column: the project/system that anchors each focus area */
+.sys-row .s{ font-size: .66rem; letter-spacing: .06em; white-space: nowrap; color: var(--text-muted); }
+.sys-row .s.cyan{ color: var(--cyan); }
+.sys-row .s.green{ color: var(--green); }
+.sys-row .s.magenta{ color: var(--magenta); }
 
 /* id-card: portrait + metadata side by side */
 .idcard{
