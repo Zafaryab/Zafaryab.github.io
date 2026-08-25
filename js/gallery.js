@@ -86,17 +86,34 @@ function renderGrid() {
   grid.innerHTML = items.map(p => {
     const badgeLabel = (p.tags && p.tags.length) ? p.tags[0] : (p.collections?.[0] || "photo");
     const thumbSrc = p.thumb || p.full;
+    const num = String(p._num ?? "").padStart(3, "0");
+    const title = p.title || "Untitled";
+    const cat = (p.category && p.category !== "uncategorized") ? p.category : "";
+    const loc = p.location || "";
+
+    // compact metadata line: category (cyan) + location (amber)
+    const meta = [
+      cat ? `<span class="cat">${escapeHtml(cat)}</span>` : "",
+      loc ? `<span class="loc">${escapeHtml(loc)}</span>` : "",
+    ].join("");
+
+    // rich, technical lightbox caption
+    const capBits = [`FRAME // ${num} — ${p.title || "Untitled"}`];
+    if (loc) capBits.push(escapeHtml(loc));
+    if (p.date) capBits.push(escapeHtml(p.date));
+    const lbTitle = capBits.join(" · ");
 
     return `
-      <a href="${p.full}" data-lightbox="gallery" data-title="${escapeHtml(p.title)}" class="shot">
+      <a href="${p.full}" data-lightbox="gallery" data-title="${lbTitle}" class="shot">
         <span class="tag-abs">${escapeHtml(badgeLabel)}</span>
         <div class="win">
-          <img src="${thumbSrc}" alt="${escapeHtml(p.title)}" loading="lazy"
+          <img src="${thumbSrc}" alt="${escapeHtml(title)}" loading="lazy"
                onerror="this.onerror=null;this.src='${p.full}';" />
+          <span class="view">View <span class="arw">↗</span></span>
         </div>
         <div class="cap">
-          <h3 class="t">${escapeHtml(p.title)}</h3>
-          <p class="s">${escapeHtml(p.subtitle || "")}</p>
+          <div class="cap-t"><span class="idx">${num}</span> / ${escapeHtml(title)}</div>
+          ${meta ? `<div class="cap-m">${meta}</div>` : ""}
         </div>
       </a>
     `;
@@ -141,6 +158,11 @@ function wireEvents() {
 async function initGallery() {
   const res = await fetch("data/photos.json");
   PHOTOS = await res.json();
+
+  // stable technical ordering: by `order` when present, else original position
+  PHOTOS.forEach((p, i) => { p._i = i; });
+  PHOTOS.sort((a, b) => ((a.order ?? a._i + 1) - (b.order ?? b._i + 1)) || (a._i - b._i));
+  PHOTOS.forEach((p, i) => { p._num = p.order ?? (i + 1); });
 
   wireEvents();
   renderAll();

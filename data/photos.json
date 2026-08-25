@@ -3,8 +3,13 @@
     "id": "univ_001",
     "title": "Dorm Under Colorful Clouds",
     "category": "landscapes",
-    "tags": ["campus", "sky"],
-    "collections": ["University"],
+    "tags": [
+      "campus",
+      "sky"
+    ],
+    "collections": [
+      "University"
+    ],
     "thumb": "images/gallery/thumbs/univ_001.jpg",
     "full": "images/gallery/full/univ_001.jpg",
     "subtitle": "Dorm framed by a dramatic sky."
@@ -13,8 +18,13 @@
     "id": "univ_002",
     "title": "Campus Lawn, Same Sky",
     "category": "landscapes",
-    "tags": ["campus", "sky"],
-    "collections": ["University"],
+    "tags": [
+      "campus",
+      "sky"
+    ],
+    "collections": [
+      "University"
+    ],
     "thumb": "images/gallery/thumbs/univ_002.jpg",
     "full": "images/gallery/full/univ_002.jpg",
     "subtitle": "Open lawn under the same painted clouds."
@@ -23,8 +33,13 @@
     "id": "univ_003",
     "title": "Red Berries (Soft Background)",
     "category": "landscapes",
-    "tags": ["campus", "details"],
-    "collections": ["University"],
+    "tags": [
+      "campus",
+      "details"
+    ],
+    "collections": [
+      "University"
+    ],
     "thumb": "images/gallery/thumbs/univ_003.jpg",
     "full": "images/gallery/full/univ_003.jpg",
     "subtitle": "Berries in focus with a blurred backdrop."
@@ -33,8 +48,15 @@
     "id": "univ_winter_001",
     "title": "Raymond H. Fogler Library",
     "category": "landscapes",
-    "tags": ["campus", "winter", "architecture"],
-    "collections": ["University", "Winter"],
+    "tags": [
+      "campus",
+      "winter",
+      "architecture"
+    ],
+    "collections": [
+      "University",
+      "Winter"
+    ],
     "thumb": "images/gallery/thumbs/univ_winter_001.jpeg",
     "full": "images/gallery/full/univ_winter_001.jpeg",
     "subtitle": "Raymond H. Fogler Library in winter."
@@ -43,8 +65,15 @@
     "id": "univ_winter_002",
     "title": "Winslow Agriculture Department",
     "category": "landscapes",
-    "tags": ["campus", "winter", "architecture"],
-    "collections": ["University", "Winter"],
+    "tags": [
+      "campus",
+      "winter",
+      "architecture"
+    ],
+    "collections": [
+      "University",
+      "Winter"
+    ],
     "thumb": "images/gallery/thumbs/univ_winter_002.jpeg",
     "full": "images/gallery/full/univ_winter_002.jpeg",
     "subtitle": "Winslow Agriculture building during winter."
@@ -53,8 +82,15 @@
     "id": "univ_winter_003",
     "title": "Winter Campus Building",
     "category": "landscapes",
-    "tags": ["campus", "winter", "architecture"],
-    "collections": ["University", "Winter"],
+    "tags": [
+      "campus",
+      "winter",
+      "architecture"
+    ],
+    "collections": [
+      "University",
+      "Winter"
+    ],
     "thumb": "images/gallery/thumbs/univ_winter_003.jpeg",
     "full": "images/gallery/full/univ_winter_003.jpeg",
     "subtitle": "A quiet campus building in winter light."
@@ -63,8 +99,15 @@
     "id": "univ_winter_004",
     "title": "Memorial Gym",
     "category": "landscapes",
-    "tags": ["campus", "winter", "architecture"],
-    "collections": ["University", "Winter"],
+    "tags": [
+      "campus",
+      "winter",
+      "architecture"
+    ],
+    "collections": [
+      "University",
+      "Winter"
+    ],
     "thumb": "images/gallery/thumbs/univ_winter_004.jpeg",
     "full": "images/gallery/full/univ_winter_004.jpeg",
     "subtitle": "Memorial Gym surrounded by winter atmosphere."
@@ -73,8 +116,15 @@
     "id": "univ_winter_005",
     "title": "Memorial Union View",
     "category": "landscapes",
-    "tags": ["campus", "winter", "wide"],
-    "collections": ["University", "Winter"],
+    "tags": [
+      "campus",
+      "winter",
+      "wide"
+    ],
+    "collections": [
+      "University",
+      "Winter"
+    ],
     "thumb": "images/gallery/thumbs/univ_winter_005.jpeg",
     "full": "images/gallery/full/univ_winter_005.jpeg",
     "subtitle": "A wide winter view featuring Memorial Union."
@@ -83,8 +133,15 @@
     "id": "univ_winter_006",
     "title": "Bench at University Mall (Williams Hall)",
     "category": "landscapes",
-    "tags": ["campus", "winter", "details"],
-    "collections": ["University", "Winter"],
+    "tags": [
+      "campus",
+      "winter",
+      "details"
+    ],
+    "collections": [
+      "University",
+      "Winter"
+    ],
     "thumb": "images/gallery/thumbs/univ_winter_006.jpeg",
     "full": "images/gallery/full/univ_winter_006.jpeg",
     "subtitle": "A seating bench at the University Mall in front of Williams Hall."
@@ -93,8 +150,15 @@
     "id": "univ_winter_007",
     "title": "A-Frame Picnic Table (University Park)",
     "category": "landscapes",
-    "tags": ["park", "winter", "wood"],
-    "collections": ["University", "Winter"],
+    "tags": [
+      "park",
+      "winter",
+      "wood"
+    ],
+    "collections": [
+      "University",
+      "Winter"
+    ],
     "thumb": "images/gallery/thumbs/univ_winter_007.jpeg",
     "full": "images/gallery/full/univ_winter_007.jpeg",
     "subtitle": "An A-frame wooden picnic table at a University park."
@@ -103,8 +167,15 @@
     "id": "univ_winter_008",
     "title": "Evening Bench (Park View)",
     "category": "landscapes",
-    "tags": ["park", "winter", "evening"],
-    "collections": ["University", "Winter"],
+    "tags": [
+      "park",
+      "winter",
+      "evening"
+    ],
+    "collections": [
+      "University",
+      "Winter"
+    ],
     "thumb": "images/gallery/thumbs/univ_winter_008.jpeg",
     "full": "images/gallery/full/univ_winter_008.jpeg",
     "subtitle": "Evening view of a bench from behind at a park."
@@ -113,10 +184,64 @@
     "id": "fall_001",
     "title": "Fall Colors",
     "category": "landscapes",
-    "tags": ["fall"],
-    "collections": ["Fall"],
+    "tags": [
+      "fall"
+    ],
+    "collections": [
+      "Fall"
+    ],
     "thumb": "images/gallery/thumbs/fall_001.JPG",
     "full": "images/gallery/full/fall_001.JPG",
     "subtitle": "Autumn tones in the leaves."
+  },
+  {
+    "id": "frame-0001",
+    "title": "Brick Hall at Winter Dusk",
+    "subtitle": "A snow-topped brick campus building beneath a pink winter sunset.",
+    "category": "landscapes",
+    "tags": [
+      "campus",
+      "winter",
+      "architecture",
+      "sky"
+    ],
+    "collections": [
+      "University",
+      "Winter"
+    ],
+    "location": "University of Maine, Orono, ME",
+    "date": "2025-12-24",
+    "featured": true,
+    "order": 13,
+    "thumb": "images/gallery/thumbs/frame-0001.webp",
+    "full": "images/gallery/full/frame-0001.jpg",
+    "width": 1066,
+    "height": 1600,
+    "orientation": "portrait"
+  },
+  {
+    "id": "frame-0002",
+    "title": "Cupola at Winter Dusk",
+    "subtitle": "A copper-domed cupola against a pink winter sky.",
+    "category": "landscapes",
+    "tags": [
+      "campus",
+      "winter",
+      "architecture",
+      "details"
+    ],
+    "collections": [
+      "University",
+      "Winter"
+    ],
+    "location": "University of Maine, Orono, ME",
+    "date": "2025-12-24",
+    "featured": false,
+    "order": 14,
+    "thumb": "images/gallery/thumbs/frame-0002.webp",
+    "full": "images/gallery/full/frame-0002.jpg",
+    "width": 1155,
+    "height": 1600,
+    "orientation": "portrait"
   }
 ]
