@@ -37,28 +37,29 @@
               <h1 class="display">ZAFARYAB<br />HAIDER</h1>
 
               <div class="dash-roles">
-                <span class="lead-role">AI Security Researcher</span>
+                <span class="lead-role">AI Security &amp; Trustworthy ML</span>
                 <span>Ph.D. Candidate, ECE — University of Maine</span>
-                <span>Assistant Professor, ZHCET — AMU (India)</span>
+                <span>Former Assistant Professor, ZHCET — AMU</span>
               </div>
 
               <p class="dash-bio">
-                Investigating <span class="accent">vulnerabilities, robustness, and trust</span> in intelligent
-                systems — from the integrity of LLM training to hardware-level model faults.<span class="cursor" aria-hidden="true"></span>
+                Adversarial and <span class="accent">bit-level fault attacks</span> on multimodal and speech models,
+                RLHF training-signal integrity, trust under corrupted majorities, and harm amplification in
+                multi-agent LLM systems.<span class="cursor" aria-hidden="true"></span>
               </p>
 
               <div class="acts">
-                <a class="act act--primary" href="resume.html#publications">Publications <span class="arw">↗</span></a>
-                <a class="act" href="#projects">Research <span class="arw">↗</span></a>
-                <a class="act" href="resume.html">Full CV <span class="arw">↗</span></a>
+                <a class="act act--primary" href="resume.html">Research <span class="arw">↗</span></a>
+                <a class="act" href="resume.html#publications">Publications <span class="arw">↗</span></a>
+                <a class="act" href="assets/pdf/Zafaryab_Haider_Resume.pdf" target="_blank" rel="noopener">Resume PDF <span class="arw">↓</span></a>
                 <a class="act" href="demos.html">Demos <span class="arw">↗</span></a>
               </div>
 
               <div class="dash-stats">
-                <div class="dash-stat"><b>07</b><span>Papers</span></div>
-                <div class="dash-stat"><b>03</b><span>Patents</span></div>
-                <div class="dash-stat"><b>09</b><span>Talks</span></div>
-                <div class="dash-stat amber"><b>$25K</b><span>Funding</span></div>
+                <div class="dash-stat"><b>07</b><span>Published / Accepted</span></div>
+                <div class="dash-stat amber"><b>05</b><span>Under Review</span></div>
+                <div class="dash-stat"><b>04</b><span>Patent Families</span></div>
+                <div class="dash-stat amber"><b>$25K</b><span>Funded</span></div>
               </div>
             </div>
 
@@ -67,11 +68,11 @@
               <div class="sys">
                 <div class="sys-head">RESEARCH.SYSTEM</div>
                 <div class="sys-row"><span class="k">01</span><span class="v">AI Security</span><span class="s">● ACTIVE</span></div>
-                <div class="sys-row"><span class="k">02</span><span class="v">Trustworthy AI</span><span class="s">● ACTIVE</span></div>
-                <div class="sys-row"><span class="k">03</span><span class="v">Adversarial ML</span><span class="s"></span></div>
-                <div class="sys-row"><span class="k">04</span><span class="v">Hardware AI Security</span><span class="s"></span></div>
-                <div class="sys-row"><span class="k">05</span><span class="v">Computer Vision</span><span class="s"></span></div>
-                <div class="sys-row"><span class="k">06</span><span class="v">Embedded AI</span><span class="s"></span></div>
+                <div class="sys-row"><span class="k">02</span><span class="v">Trustworthy ML</span><span class="s">● ACTIVE</span></div>
+                <div class="sys-row"><span class="k">03</span><span class="v">Bit-Level Fault Attacks</span><span class="s"></span></div>
+                <div class="sys-row"><span class="k">04</span><span class="v">Multi-Agent Harm &amp; Trust</span><span class="s"></span></div>
+                <div class="sys-row"><span class="k">05</span><span class="v">LLM Reliability</span><span class="s"></span></div>
+                <div class="sys-row"><span class="k">06</span><span class="v">Grid World Models</span><span class="s">● ACTIVE</span></div>
               </div>
 
               <div class="idcard">
@@ -99,74 +100,92 @@
     <section class="section--tight" id="projects">
       <div class="wrap">
         <div class="sec-head">
-          <div class="sec-label"><span class="n">01</span><span class="slash">/</span>SELECTED_RESEARCH</div>
+          <div class="sec-label"><i class="fa-solid fa-flask"></i><span class="n">01</span><span class="slash">/</span>SELECTED_RESEARCH</div>
           <span class="line"></span>
-          <span class="tag">06 SYSTEMS</span>
+          <span class="tag">08 SYSTEMS</span>
         </div>
 
         <div class="proj-grid">
-          <a class="proj" href="resume.html#publications">
-            <div class="proj-top"><span class="proj-id"><span class="n">01</span>CoBRa</span><span class="status status--pub">Published</span></div>
-            <div class="proj-cat">Trustworthy AI / Multi-Agent</div>
+          <a class="proj" href="resume.html#current">
+            <div class="proj-top"><span class="proj-id"><span class="n">01</span>REWIRE</span><span class="status status--active">Active</span></div>
+            <div class="proj-cat">World Models / Critical Infrastructure</div>
             <div class="proj-meta">
-              <span class="kv"><b>Venue</b><span class="amber">Sci. Reports</span></span>
+              <span class="kv"><b>Since</b><span class="amber">Aug 2026</span></span>
+            </div>
+            <p class="proj-desc">Topology-aware world models for electricity-grid reconfiguration — ranking line-switching candidates via learned imagined rollouts, verified by exact AC power-flow simulation.</p>
+          </a>
+
+          <a class="proj" href="resume.html#current">
+            <div class="proj-top"><span class="proj-id"><span class="n">02</span>INTACT</span><span class="status status--upcoming">Upcoming</span></div>
+            <div class="proj-cat">LLM Reliability</div>
+            <div class="proj-meta">
+              <span class="kv"><b>Start</b><span class="amber">Sep 2026</span></span>
+            </div>
+            <p class="proj-desc">Whether token-level logits, probabilities and generation-time signals from autoregressive LLMs give reliable evidence of incorrect or unsupported outputs.</p>
+          </a>
+
+          <a class="proj" href="resume.html#publications">
+            <div class="proj-top"><span class="proj-id"><span class="n">03</span>SMASH</span><span class="status status--submitted">Under Review</span></div>
+            <div class="proj-cat">Adversarial ML / Speech</div>
+            <div class="proj-meta">
+              <span class="kv"><b>Venue</b><span class="amber">NeurIPS</span></span>
+            </div>
+            <p class="proj-desc">Semantically targeted sparse parameter bit flips in speech-recognition models, with robustness and failure analysis.</p>
+          </a>
+
+          <a class="proj" href="resume.html#publications">
+            <div class="proj-top"><span class="proj-id"><span class="n">04</span>ACT</span><span class="status status--accepted">Accepted</span></div>
+            <div class="proj-cat">Trustworthy AI</div>
+            <div class="proj-meta">
+              <span class="kv"><b>Venue</b><span class="amber">IEEE CARS 2026</span></span>
+            </div>
+            <p class="proj-desc">Anchor-calibrated trusted/corrupted cohort recovery when corrupted sources form the majority.</p>
+          </a>
+
+          <a class="proj" href="resume.html#publications">
+            <div class="proj-top"><span class="proj-id"><span class="n">05</span>HARP</span><span class="status status--submitted">Under Review</span></div>
+            <div class="proj-cat">Multi-Agent Safety</div>
+            <div class="proj-meta">
+              <span class="kv"><b>Venue</b><span class="amber">IEEE S&amp;P</span></span>
+            </div>
+            <p class="proj-desc">Local-to-system harm amplification in multi-agent LLM systems — how compromised agents propagate failures.</p>
+          </a>
+
+          <a class="proj" href="resume.html#publications">
+            <div class="proj-top"><span class="proj-id"><span class="n">06</span>BLADE</span><span class="status status--submitted">Under Review</span></div>
+            <div class="proj-cat">Hardware AI Security</div>
+            <div class="proj-meta">
+              <span class="kv"><b>Venue</b><span class="amber">IEEE TIFS</span></span>
+            </div>
+            <p class="proj-desc">Sparse bit-level fault analysis and semantic steering in quantized vision-language models.</p>
+          </a>
+
+          <a class="proj" href="resume.html#publications">
+            <div class="proj-top"><span class="proj-id"><span class="n">07</span>COBRA</span><span class="status status--pub">Published</span></div>
+            <div class="proj-cat">Trustworthy AI / RLHF</div>
+            <div class="proj-meta">
+              <span class="kv"><b>Venue</b><span class="amber">Nature Sci. Reports</span></span>
               <span class="kv"><b>Year</b><span class="amber">2025</span></span>
             </div>
             <p class="proj-desc">Consensus-based reward mitigating malicious human-in-the-loop feedback during RLHF training of LLMs.</p>
-            <div class="acts"><span class="act">Paper <span class="arw">↗</span></span><span class="act">Demo <span class="arw">↗</span></span></div>
-          </a>
-
-          <a class="proj" href="resume.html#patents">
-            <div class="proj-top"><span class="proj-id"><span class="n">02</span>BLADE</span><span class="status status--submitted">Review</span></div>
-            <div class="proj-cat">Hardware AI Security / Multimodal</div>
-            <div class="proj-meta">
-              <span class="kv"><b>Venue</b><span class="amber">ECCV 2026</span></span>
-              <span class="kv"><b>Year</b><span class="amber">2026</span></span>
-            </div>
-            <p class="proj-desc">Bit-flip attacks for semantic misdirection in quantized image-captioning models via hardware faults.</p>
-            <div class="acts"><span class="act">Patent <span class="arw">↗</span></span></div>
           </a>
 
           <a class="proj" href="https://arxiv.org/abs/2508.13309" target="_blank" rel="noopener">
-            <div class="proj-top"><span class="proj-id"><span class="n">03</span>DAASH</span><span class="status status--accepted">Accepted</span></div>
+            <div class="proj-top"><span class="proj-id"><span class="n">08</span>DASH</span><span class="status status--pub">Published</span></div>
             <div class="proj-cat">Adversarial ML</div>
             <div class="proj-meta">
               <span class="kv"><b>Venue</b><span class="amber">CVPR 2026</span></span>
               <span class="kv"><b>Ref</b><span>arXiv</span></span>
             </div>
-            <p class="proj-desc">Meta-attack framework synthesizing effective and stealthy adversarial examples across models and objectives.</p>
-            <div class="acts"><span class="act">arXiv <span class="arw">↗</span></span></div>
+            <p class="proj-desc">Meta-attack framework composing existing attack primitives to synthesize effective and stealthy adversarial examples.</p>
           </a>
 
-          <span class="proj">
-            <div class="proj-top"><span class="proj-id"><span class="n">04</span>Whale Calls</span><span class="status status--pub">Project</span></div>
-            <div class="proj-cat">Applied DL / Bioacoustics</div>
-            <div class="proj-meta">
-              <span class="kv"><b>Method</b><span>Self-Supervised</span></span>
-              <span class="kv"><b>Data</b><span>Spectrograms</span></span>
-            </div>
-            <p class="proj-desc">Detecting endangered North Atlantic right whale calls under heavy class imbalance and distortion.</p>
-          </span>
-
-          <span class="proj">
-            <div class="proj-top"><span class="proj-id"><span class="n">05</span>BEiT v2</span><span class="status status--pub">Project</span></div>
-            <div class="proj-cat">Computer Vision / Medical</div>
-            <div class="proj-meta">
-              <span class="kv"><b>Task</b><span>Breast Cancer</span></span>
-              <span class="kv"><b>Method</b><span>Masked IM</span></span>
-            </div>
-            <p class="proj-desc">Pre-trained masked image modeling for diagnostics; strong accuracy and convergence on downstream tasks.</p>
-          </span>
-
-          <span class="proj">
-            <div class="proj-top"><span class="proj-id"><span class="n">06</span>Assistive Stick</span><span class="status status--pub">Published</span></div>
-            <div class="proj-cat">Embedded AI / Accessibility</div>
-            <div class="proj-meta">
-              <span class="kv"><b>Venue</b><span class="amber">IEEE IMPACT</span></span>
-              <span class="kv"><b>Year</b><span class="amber">2022</span></span>
-            </div>
-            <p class="proj-desc">Smart stick for the visually impaired: on-device object detection with real-time text-to-audio guidance.</p>
-          </span>
+          <a class="proj" href="resume.html#earlier" style="display:flex;flex-direction:column;justify-content:center;">
+            <div class="proj-cat" style="margin:0 0 6px;">Archive</div>
+            <span class="proj-id" style="margin-bottom:8px;">Earlier Research</span>
+            <p class="proj-desc" style="margin:0;">Whale-call classification, BEiTv2 cancer imaging, HAR, assistive systems, and earlier software.</p>
+            <span class="mlaunch" style="margin-top:10px;color:var(--green);font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;">View archive →</span>
+          </a>
         </div>
       </div>
     </section>
@@ -175,7 +194,7 @@
     <section class="section--tight" id="teaching">
       <div class="wrap">
         <div class="sec-head">
-          <div class="sec-label"><span class="n">02</span><span class="slash">/</span>TEACHING</div>
+          <div class="sec-label"><i class="fa-solid fa-chalkboard-user"></i><span class="n">02</span><span class="slash">/</span>TEACHING</div>
           <span class="line"></span>
           <span class="tag">GTA + COURSES</span>
         </div>

@@ -1,0 +1,9 @@
+.claude/*
+.gitignore
+docs/
+
+# Private reference material — NEVER deploy publicly.
+# The master CV is for local coding-agent reference only.
+local_refs/
+master_cv.pdf
+one_page_resume.pdf
