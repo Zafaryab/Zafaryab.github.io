@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" rx="13" fill="#050708"/>
+  <rect x="1" y="1" width="62" height="62" rx="12" fill="none" stroke="#268568" stroke-width="2"/>
+  <text x="32" y="34" text-anchor="middle" dominant-baseline="central"
+        font-family="'JetBrains Mono', ui-monospace, 'Cascadia Code', Consolas, monospace"
+        font-size="30" font-weight="700" letter-spacing="1" fill="#32f5b4">ZH</text>
+</svg>
