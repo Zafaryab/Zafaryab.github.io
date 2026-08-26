@@ -1,0 +1,273 @@
+#!/usr/bin/env python3
+"""
+build_research.py — generate static research HTML from the canonical data.
+
+data/research.json is the single source of truth for publications, patents,
+current research, research-focus areas and the homepage counters. This script
+renders those into plain static HTML between <!-- build:NAME:start/end -->
+markers in index.html and resume.html, so the deployed pages stay ordinary
+static HTML (no client-side fetch / JS dependency for content).
+
+Usage
+    python scripts/build_research.py          # regenerate the marked sections
+    python scripts/build_research.py --check    # validate data + flag stale HTML
+                                                # (exit 1 on any problem)
+
+Never hand-edit content between the build markers — edit research.json and rerun.
+"""
+
+from __future__ import annotations
+
+import argparse
+import html as _html
+import json
+import re
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+DATA = ROOT / "data" / "research.json"
+INDEX = ROOT / "index.html"
+RESUME = ROOT / "resume.html"
+
+STATUS_CLASS = {
+    "active": "active", "upcoming": "upcoming",
+    "published": "pub", "accepted": "accepted", "under_review": "submitted",
+    "filed": "pub",
+}
+STATUS_LABEL = {"published": "Published", "accepted": "Accepted", "under_review": "Under Review"}
+PUB_GROUPS = [("published", "Published", ""), ("accepted", "Accepted", " magenta"),
+              ("under_review", "Under Review", " amber")]
+
+
+# ---------------------------------------------------------------- helpers
+def esc(s) -> str:
+    return _html.escape(str(s), quote=False)
+
+
+def authors_html(authors: str, me: str) -> str:
+    e, em = esc(authors), esc(me)
+    return e.replace(em, f'<span class="me">{em}</span>', 1)
+
+
+def links_html(links) -> str:
+    out = ""
+    for l in links or []:
+        out += (f'\n      <a class="link-u" href="{esc(l["href"])}" '
+                f'target="_blank" rel="noopener">{esc(l["label"])} ↗</a>')
+    return out
+
+
+# ---------------------------------------------------------------- renderers
+def render_focus(d) -> str:
+    return "\n".join(
+        f'<div class="sys-row"><span class="k">{esc(f["n"])}</span>'
+        f'<span class="v">{esc(f["label"])}</span>'
+        f'<span class="s {esc(f["accent"])}">{esc(f["anchor"])}</span></div>'
+        for f in d["focus"]
+    )
+
+
+def render_counters(d) -> str:
+    rows = []
+    for c in d["counters"]:
+        amber = " amber" if c.get("accent") == "amber" else ""
+        rows.append(f'<div class="dash-stat{amber}"><b>{esc(c["value"])}</b>'
+                    f'<span>{esc(c["label"])}</span></div>')
+    return "\n".join(rows)
+
+
+def render_current(d) -> str:
+    cells = []
+    for p in d["current"]:
+        meta = ""
+        for k, v, vc in p["meta"]:
+            cls = f' class="{vc}"' if vc else ""
+            meta += (f'\n      <span class="kv"><b>{esc(k)}</b>'
+                     f'<span{cls}>{esc(v)}</span></span>')
+        cells.append(
+            f'<div class="proj proj-lead">\n'
+            f'  <div class="proj-top"><span class="proj-id"><span class="n">{esc(p["n"])}</span>'
+            f'{esc(p["id"])}</span>'
+            f'<span class="status status--{STATUS_CLASS[p["status"]]}">{esc(p["status_label"])}</span></div>\n'
+            f'  <div class="proj-cat">{esc(p["cat"])}</div>\n'
+            f'  <div class="proj-meta">{meta}\n  </div>\n'
+            f'  <p class="proj-desc">{esc(p["desc"])}</p>\n'
+            f'</div>'
+        )
+    return "\n\n".join(cells)
+
+
+def _pub_article(p) -> str:
+    body = f'      <h4 class="pub-title">{esc(p["title"])}</h4>\n'
+    body += f'      <div class="pub-authors">{authors_html(p["authors"], p["me"])}</div>\n'
+    body += f'      <div class="pub-tags">{esc(p["tags"])}</div>'
+    if p.get("contribution"):
+        body += (f'\n      <p class="pub-contrib"><span class="k">Contribution</span>'
+                 f'{esc(p["contribution"])}</p>')
+    if p.get("note"):
+        body += (f'\n      <p class="pub-note"><span class="k">{esc(p["note"]["k"])}</span> '
+                 f'{esc(p["note"]["text"])}</p>')
+    aside = f'<span class="status status--{STATUS_CLASS[p["status"]]}">{STATUS_LABEL[p["status"]]}</span>'
+    aside += links_html(p.get("links"))
+    return (
+        f'<article class="pub">\n'
+        f'  <div class="pub-side"><div class="pub-year">{esc(p["year"])}</div>'
+        f'<div class="pub-venue">{esc(p["venue"])}</div></div>\n'
+        f'  <div class="pub-body">\n'
+        f'    <div>\n{body}\n    </div>\n'
+        f'    <div class="pub-aside">\n      {aside}\n    </div>\n'
+        f'  </div>\n'
+        f'</article>'
+    )
+
+
+def render_publications(d) -> str:
+    parts = []
+    for key, label, cls in PUB_GROUPS:
+        parts.append(f'<div class="pub-group{cls}">{label}</div>')
+        parts.extend(_pub_article(p) for p in d["publications"][key])
+    return "\n\n".join(parts)
+
+
+def render_patents(d) -> str:
+    cells = []
+    for p in d["patents"]:
+        aside = '<span class="status status--pub">Filed</span>' + links_html(p.get("links"))
+        cells.append(
+            f'<article class="pub">\n'
+            f'  <div class="pub-side"><div class="pub-year" style="color:var(--green)">{esc(p["n"])}</div>'
+            f'<div class="pub-venue">{esc(p["kind"])}</div></div>\n'
+            f'  <div class="pub-body">\n'
+            f'    <div>\n'
+            f'      <h4 class="pub-title">{esc(p["title"])}</h4>\n'
+            f'      <div class="pub-authors">{authors_html(p["inventors"], p["me"])}</div>\n'
+            f'      <div class="pub-tags">{esc(p["detail"])}</div>\n'
+            f'    </div>\n'
+            f'    <div class="pub-aside">\n      {aside}\n    </div>\n'
+            f'  </div>\n'
+            f'</article>'
+        )
+    return "\n\n".join(cells)
+
+
+SECTIONS = {
+    INDEX: {"index-focus": render_focus, "index-counters": render_counters},
+    RESUME: {"resume-current": render_current,
+             "resume-publications": render_publications,
+             "resume-patents": render_patents},
+}
+
+
+# ---------------------------------------------------------------- injection
+def inject(text: str, name: str, content0: str) -> str:
+    s, e = f"<!-- build:{name}:start -->", f"<!-- build:{name}:end -->"
+    if s not in text or e not in text:
+        sys.exit(f"ERROR: markers for '{name}' not found in file.")
+    si, ei = text.index(s), text.index(e)
+    indent = text[text.rfind("\n", 0, si) + 1:si]
+    body = "\n".join((indent + ln if ln.strip() else ln) for ln in content0.splitlines())
+    return text[:si] + s + "\n" + body + "\n" + indent + e + text[ei + len(e):]
+
+
+def apply_file(path: Path, data: dict) -> str:
+    text = path.read_text(encoding="utf-8")
+    for name, fn in SECTIONS[path].items():
+        text = inject(text, name, fn(data))
+    return text
+
+
+# ---------------------------------------------------------------- validation
+def validate(d: dict) -> list[str]:
+    errs: list[str] = []
+    pubs = d["publications"]
+    all_pubs = pubs["published"] + pubs["accepted"] + pubs["under_review"]
+
+    titles = set()
+    for p in all_pubs:
+        for field in ("year", "venue", "title", "authors", "me", "tags", "status"):
+            if not p.get(field):
+                errs.append(f"publication missing '{field}': {p.get('title', '?')}")
+        if p.get("status") not in STATUS_LABEL:
+            errs.append(f"bad status '{p.get('status')}': {p.get('title')}")
+        if p.get("me") and p["me"] not in p.get("authors", ""):
+            errs.append(f"author '{p['me']}' not in author list: {p['title']}")
+        t = p.get("title")
+        if t in titles:
+            errs.append(f"duplicate publication title: {t}")
+        titles.add(t)
+        for l in p.get("links", []):
+            if not str(l.get("href", "")).startswith("http"):
+                errs.append(f"bad link on {t}: {l}")
+
+    pnums = [p["n"] for p in d["patents"]]
+    if len(pnums) != len(set(pnums)):
+        errs.append("duplicate patent numbers")
+    for p in d["patents"]:
+        for l in p.get("links", []):
+            if not str(l.get("href", "")).startswith("http"):
+                errs.append(f"bad patent link on {p['n']}: {l}")
+
+    # counts must agree with the headline counters (compare as integers)
+    def cval(label):
+        for c in d["counters"]:
+            if c["label"].lower().startswith(label):
+                digits = re.sub(r"\D", "", c["value"])
+                return int(digits) if digits else None
+        return None
+    if cval("published") not in (None, len(pubs["published"]) + len(pubs["accepted"])):
+        errs.append("counter 'Published / Accepted' != published+accepted count")
+    if cval("under review") not in (None, len(pubs["under_review"])):
+        errs.append("counter 'Under Review' != under_review count")
+    if cval("patent") not in (None, len(d["patents"])):
+        errs.append("counter 'Patent Families' != patents count")
+
+    fnums = [f["n"] for f in d["focus"]]
+    if len(fnums) != len(set(fnums)):
+        errs.append("duplicate focus numbers")
+    return errs
+
+
+# ---------------------------------------------------------------- main
+def main() -> None:
+    ap = argparse.ArgumentParser(description="Generate research HTML from data/research.json")
+    ap.add_argument("--check", action="store_true",
+                    help="validate data and report stale HTML without writing")
+    args = ap.parse_args()
+
+    try:
+        data = json.loads(DATA.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        sys.exit(f"ERROR: {DATA} is not valid JSON: {exc}")
+
+    errs = validate(data)
+    stale = []
+    for path in (INDEX, RESUME):
+        if apply_file(path, data) != path.read_text(encoding="utf-8"):
+            stale.append(path.name)
+
+    if args.check:
+        print("Research data check")
+        print(f"  Publications: {sum(len(v) for v in data['publications'].values())}"
+              f"  Patents: {len(data['patents'])}")
+        print(f"  Validation errors: {len(errs)}")
+        for e in errs:
+            print(f"    ERROR: {e}")
+        print(f"  Stale generated HTML: {', '.join(stale) if stale else 'none'}"
+              + ("  (run: python scripts/build_research.py)" if stale else ""))
+        sys.exit(1 if errs or stale else 0)
+
+    if errs:
+        print("Refusing to build — data validation failed:")
+        for e in errs:
+            print(f"  ERROR: {e}")
+        sys.exit(1)
+
+    for path in (INDEX, RESUME):
+        path.write_text(apply_file(path, data), encoding="utf-8")
+    print(f"Generated research HTML into index.html, resume.html"
+          + (f"  ({', '.join(stale)} updated)" if stale else "  (already up to date)"))
+
+
+if __name__ == "__main__":
+    main()

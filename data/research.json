@@ -1,12 +1,15 @@
 {
-  "_comment": "Canonical taxonomy + record for the ZH://RESEARCH portal. Single source of truth for research identity, focus areas, and per-project area/topic/status/venue/role. index.html and resume.html are kept in sync with these values.",
+  "_comment": "CANONICAL source of truth for the ZH://RESEARCH portal. Publications, patents, current research, focus areas and counters are authored ONCE here and generated into static HTML by scripts/build_research.py. Do NOT hand-edit content inside the <!-- build:* --> markers in index.html / resume.html. Run:  python scripts/build_research.py  (regenerate)  |  --check  (validate + detect stale HTML).",
   "identity": "AI Security & Trustworthy Machine Learning",
-  "counters": {
-    "published_accepted": 7,
-    "under_review": 5,
-    "patent_families": 4,
-    "funding": "$25K"
-  },
+  "membership": "MEMBER // IEEE",
+
+  "counters": [
+    { "value": "07", "label": "Published / Accepted" },
+    { "value": "05", "label": "Under Review", "accent": "amber" },
+    { "value": "04", "label": "Patent Families" },
+    { "value": "$25K", "label": "Funded", "accent": "amber" }
+  ],
+
   "focus": [
     { "n": "01", "label": "Bit-Level AI Security", "anchor": "BLADE / SMASH", "accent": "cyan" },
     { "n": "02", "label": "RLHF & Trust Estimation", "anchor": "COBRA / ACT", "accent": "green" },
@@ -14,15 +17,142 @@
     { "n": "04", "label": "LLM Reliability", "anchor": "INTACT", "accent": "cyan" },
     { "n": "05", "label": "Grid World Models", "anchor": "REWIRE", "accent": "green" }
   ],
-  "projects": [
-    { "id": "REWIRE", "area": "Grid World Models", "topic": "Critical Infrastructure", "status": "active", "status_label": "Active", "since": "Aug 2026", "role": "current_project" },
-    { "id": "INTACT", "area": "LLM Reliability", "topic": "Generation-Time Signals", "status": "upcoming", "status_label": "Starting Sep 2026", "since": "Sep 2026", "role": "current_project" },
-    { "id": "SMASH", "area": "AI Model Security", "topic": "Bit-Level Speech Faults", "status": "under_review", "venue": "NeurIPS", "role": "first_author" },
-    { "id": "ACT", "area": "Trustworthy ML", "topic": "Trust Estimation", "status": "accepted", "venue": "IEEE CARS 2026", "role": "first_author" },
-    { "id": "HARP", "area": "Multi-Agent LLM Harm", "topic": "Harm Amplification", "status": "under_review", "venue": "IEEE S&P", "role": "coauthor" },
-    { "id": "BLADE", "area": "AI Model Security", "topic": "Bit-Level VLM Faults", "status": "under_review", "venue": "IEEE TIFS", "role": "first_author" },
-    { "id": "COBRA", "area": "Trustworthy ML", "topic": "RLHF Integrity", "status": "published", "venue": "Nature Scientific Reports", "year": 2025, "role": "first_author" },
-    { "id": "DASH", "area": "Adversarial ML", "topic": "Meta-Attack", "status": "published", "venue": "CVPR 2026", "year": 2026, "role": "coauthor", "link": "https://openaccess.thecvf.com/content/CVPR2026/html/Al_Nomaan_Nafi_DASH_A_Meta-Attack_Framework_for_Synthesizing_Effective_and_Stealthy_Adversarial_CVPR_2026_paper.html" }
+
+  "current": [
+    {
+      "n": "01", "id": "REWIRE", "status": "active", "status_label": "Active",
+      "cat": "Grid World Models / Critical Infrastructure",
+      "meta": [["Since", "Aug 2026", "amber"], ["Domain", "Electricity Grid", ""]],
+      "desc": "Topology-aware world model for electricity-grid reconfiguration that evaluates line-switching candidates through learned imagined rollouts and verifies promising actions using exact AC power-flow simulation — covering topology-changing actions, ranking of candidates, and identification of unsafe or poor candidates. Experiments are ongoing; no performance claims are made."
+    },
+    {
+      "n": "02", "id": "INTACT", "status": "upcoming", "status_label": "Starting Sep 2026",
+      "cat": "LLM Reliability",
+      "meta": [["Start", "Sep 2026", "amber"], ["Signal", "Generation-Time", ""]],
+      "desc": "Investigating whether generation-time signals from autoregressive language models — particularly token-level logit and probability structure — can provide reliable evidence of output correctness, whether these signals distinguish reliable from incorrect or unsupported outputs, and how robust they are across models, tasks and decoding conditions."
+    }
   ],
-  "membership": "MEMBER // IEEE"
+
+  "publications": {
+    "published": [
+      {
+        "year": "2026", "venue": "CVPR",
+        "title": "DASH: A meta-attack framework for synthesizing effective and stealthy adversarial examples",
+        "authors": "Al Nomaan Nafi, A., Rahaman, H., Haider, Z., Mahfuz, T., Suya, F., Bhunia, S., & Chakraborty, P.",
+        "me": "Haider, Z.", "tags": "Adversarial ML / Meta-Attack", "status": "published",
+        "links": [{ "label": "Paper", "href": "https://openaccess.thecvf.com/content/CVPR2026/html/Al_Nomaan_Nafi_DASH_A_Meta-Attack_Framework_for_Synthesizing_Effective_and_Stealthy_Adversarial_CVPR_2026_paper.html" }]
+      },
+      {
+        "year": "2025", "venue": "Nature Sci. Reports",
+        "title": "A framework for mitigating malicious RLHF feedback in LLM training using consensus-based reward (COBRA)",
+        "authors": "Haider, Z., Rahman, M. H., Devabhaktuni, V., Moeykens, S., & Chakraborty, P.",
+        "me": "Haider, Z.", "tags": "Trustworthy ML / RLHF Integrity", "status": "published",
+        "contribution": "Consensus-based reward that negates malicious human-in-the-loop RLHF feedback by aggregating across a mixed-trust expert pool rather than rejecting updates outright.",
+        "links": [{ "label": "DOI", "href": "https://doi.org/10.1038/s41598-025-92889-7" }]
+      },
+      {
+        "year": "2025", "venue": "IEEE Access",
+        "title": "Intelligent Layer Sharing (ILASH): A predictive neural architecture search framework for multi-task applications",
+        "authors": "Rahman, M. H., Haider, Z., Rizvee, M. M., Shomaji, S., & Chakraborty, P.",
+        "me": "Haider, Z.", "tags": "NAS / Multi-Task Learning", "status": "published",
+        "links": [{ "label": "DOI", "href": "https://doi.org/10.1109/ACCESS.2025.3592039" }]
+      },
+      {
+        "year": "2025", "venue": "Nature Sci. Reports",
+        "title": "An automated multi-parameter neural architecture discovery framework using ChatGPT in the backend",
+        "authors": "Rahman, M. H., Haider, Z., & Chakraborty, P.",
+        "me": "Haider, Z.", "tags": "NAS / LLM Tooling", "status": "published",
+        "links": [{ "label": "DOI", "href": "https://doi.org/10.1038/s41598-025-97378-5" }]
+      },
+      {
+        "year": "2023", "venue": "J. Microbiol. Methods",
+        "title": "Towards digital diagnosis of malaria: How far have we reached?",
+        "authors": "Aqeel, S., Haider, Z., & Khan, W.",
+        "me": "Haider, Z.", "tags": "Medical Imaging", "status": "published"
+      },
+      {
+        "year": "2022", "venue": "IEEE IMPACT",
+        "title": "Assistive stick for visually impaired people",
+        "authors": "Khan, D. A., Zamir, M. A., Umar, M. S., & Haider, Z.",
+        "me": "Haider, Z.", "tags": "Embedded AI / Accessibility", "status": "published",
+        "note": { "k": "Origin:", "text": "supervised student project (see Mentoring)." }
+      }
+    ],
+    "accepted": [
+      {
+        "year": "2026", "venue": "IEEE CARS",
+        "title": "ACT: Anchor-calibrated trust estimation when corrupted sources form the majority",
+        "authors": "Haider, Z., Rahman, M. H., Glatter, S., & Chakraborty, P.",
+        "me": "Haider, Z.", "tags": "Trustworthy ML / Trust Estimation", "status": "accepted",
+        "contribution": "Anchor-calibrated trust estimation that recovers trusted and corrupted source cohorts when agreement-based methods become directionally ambiguous under corrupted majorities."
+      }
+    ],
+    "under_review": [
+      {
+        "year": "—", "venue": "IEEE TIFS",
+        "title": "BLADE: Bit-flip attacks for semantic misdirection in quantized image captioning",
+        "authors": "Haider, Z., Rahman, M. H., Moeykens, S., Devabhaktuni, V., & Chakraborty, P.",
+        "me": "Haider, Z.", "tags": "AI Model Security / Bit-Level VLM Faults", "status": "under_review",
+        "contribution": "Differentiable bit-level fault analysis for quantized vision–language models, showing controlled semantic steering under sparse parameter faults (BLIP, BLIP-2, GIT).",
+        "note": { "k": "Preprint v1:", "text": "“How a Bit Becomes a Story: Semantic Steering via Differentiable Fault Injection” · arXiv:2512.14715 (earlier version; manuscript substantially revised)" },
+        "links": [{ "label": "Preprint v1", "href": "https://arxiv.org/abs/2512.14715" }]
+      },
+      {
+        "year": "—", "venue": "NeurIPS",
+        "title": "SMASH: Probing speech recognition robustness via semantically targeted bit flips",
+        "authors": "Haider, Z., Rahman, M. H., Bumin, A., & Chakraborty, P.",
+        "me": "Haider, Z.", "tags": "AI Model Security / Bit-Level Speech Faults", "status": "under_review",
+        "contribution": "Probes speech-recognition robustness via sparse, semantically targeted parameter bit-flips, characterizing controlled output changes and transferability."
+      },
+      {
+        "year": "—", "venue": "IEEE S&P",
+        "title": "HARP: Measuring harm amplification in multi-agent LLM systems",
+        "authors": "Rahman, M. H., Haider, Z., Mahfuz, T., & Chakraborty, P.",
+        "me": "Haider, Z.", "tags": "Multi-Agent LLM Harm / Harm Amplification", "status": "under_review",
+        "links": [{ "label": "arXiv", "href": "https://arxiv.org/abs/2605.27489" }]
+      },
+      {
+        "year": "—", "venue": "ACM CCS",
+        "title": "(A)iSpy: Parasitic trojans for machine learning infrastructure",
+        "authors": "Rahaman, H., Xu, Q., Haider, Z., Chakraborty, P., Bhunia, S., & Suya, F.",
+        "me": "Haider, Z.", "tags": "ML Infrastructure Security", "status": "under_review",
+        "links": [{ "label": "arXiv", "href": "https://arxiv.org/abs/2607.17550" }]
+      },
+      {
+        "year": "—", "venue": "AAAI",
+        "title": "Frontier AI releases should publish signed security manifests",
+        "authors": "Bumin, A., Haider, Z., & Chakraborty, P.",
+        "me": "Haider, Z.", "tags": "AI Policy / Position Paper", "status": "under_review"
+      }
+    ]
+  },
+
+  "patents": [
+    {
+      "n": "01", "kind": "PCT",
+      "title": "Methods and systems for the automated generation of neural network architectures",
+      "inventors": "Chakraborty, P., Rahman, M. H., & Haider, Z.", "me": "Haider, Z.",
+      "detail": "PCT/US2025/013847 · filed Jan 30, 2025 · priority US 63/627,621 (Jan 31, 2024)",
+      "links": [{ "label": "Patent", "href": "https://patents.google.com/patent/WO2025166046A1" }]
+    },
+    {
+      "n": "02", "kind": "PCT",
+      "title": "Framework for mitigating malicious RLHF feedback in LLM training using consensus-based reward",
+      "inventors": "Haider, Z., Rahman, M. H., Moeykens, S., & Chakraborty, P.", "me": "Haider, Z.",
+      "detail": "PCT application · filed Mar 9, 2026 · priority US 63/768,361",
+      "links": [{ "label": "UMaine Record", "href": "https://umaine.flintbox.com/technologies/dd9ab7ff-5cda-499b-9993-7509f28e2371" }]
+    },
+    {
+      "n": "03", "kind": "US Prov.",
+      "title": "Explainable agentic framework for determining cross-PDK migration difficulty",
+      "inventors": "Chakraborty, P., Regan, T., Mahfuz, T., & Haider, Z.", "me": "Haider, Z.",
+      "detail": "US Provisional 64/075,062 · filed May 26, 2026"
+    },
+    {
+      "n": "04", "kind": "US Prov.",
+      "title": "Bit-flip induced semantic drift in multimodal transformer models",
+      "inventors": "Haider, Z., Rahman, M. H., Moeykens, S., & Chakraborty, P.", "me": "Haider, Z.",
+      "detail": "US Provisional 63/930,131"
+    }
+  ]
 }
