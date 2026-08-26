@@ -3,6 +3,25 @@
   "identity": "AI Security & Trustworthy Machine Learning",
   "membership": "MEMBER // IEEE",
 
+  "person": {
+    "name": "Zafaryab Haider",
+    "url": "https://zafaryab.github.io/",
+    "image": "https://zafaryab.github.io/assets/og-preview.png",
+    "jobTitle": "AI Security Researcher",
+    "affiliation": "University of Maine",
+    "sameAs": [
+      "https://scholar.google.com/citations?user=7rECzEYAAAAJ&hl=en",
+      "https://linkedin.com/in/zafaryab"
+    ],
+    "knowsAbout": [
+      "AI Security",
+      "Trustworthy Machine Learning",
+      "Adversarial Machine Learning",
+      "Large Language Model Security",
+      "Hardware-level Model Integrity"
+    ]
+  },
+
   "counters": [
     { "source": "published_accepted", "label": "Published / Accepted" },
     { "source": "under_review", "label": "Under Review", "accent": "amber" },

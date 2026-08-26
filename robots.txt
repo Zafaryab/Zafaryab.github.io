@@ -1,0 +1,5 @@
+# https://zafaryab.github.io/
+User-agent: *
+Allow: /
+
+Sitemap: https://zafaryab.github.io/sitemap.xml

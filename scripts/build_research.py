@@ -183,12 +183,70 @@ def render_engineering(d) -> str:
     return "\n\n".join(cells)
 
 
+# ---------------------------------------------------------------- JSON-LD (SEO)
+PERSON_ID = "https://zafaryab.github.io/#person"
+
+
+def _jsonld_script(obj) -> str:
+    """Serialize to a safe <script type=application/ld+json> block.
+    JSON is not HTML-escaped, so neutralise the three characters that could
+    break out of the script element."""
+    payload = json.dumps(obj, indent=2, ensure_ascii=False)
+    payload = (payload.replace("<", "\\u003c")
+                      .replace(">", "\\u003e")
+                      .replace("&", "\\u0026"))
+    return f'<script type="application/ld+json">\n{payload}\n</script>'
+
+
+def _person_node(d) -> dict:
+    p = d["person"]
+    return {
+        "@type": "Person",
+        "@id": PERSON_ID,
+        "name": p["name"],
+        "url": p["url"],
+        "image": p["image"],
+        "jobTitle": p["jobTitle"],
+        "affiliation": {"@type": "Organization", "name": p["affiliation"]},
+        "sameAs": list(p["sameAs"]),
+        "knowsAbout": list(p["knowsAbout"]),
+    }
+
+
+def render_index_jsonld(d) -> str:
+    node = {"@context": "https://schema.org"}
+    node.update(_person_node(d))
+    return _jsonld_script(node)
+
+
+def render_resume_jsonld(d) -> str:
+    # Person + one ScholarlyArticle node per published/accepted paper.
+    # Under-review work is omitted (no public venue/link to cite).
+    graph = [_person_node(d)]
+    for p in d["publications"]["published"] + d["publications"]["accepted"]:
+        art = {
+            "@type": "ScholarlyArticle",
+            "name": p["title"],
+            "author": p["authors"],
+            "isPartOf": {"@type": "Periodical", "name": p["venue"]},
+        }
+        if p.get("year"):
+            art["datePublished"] = str(p["year"])
+        links = p.get("links") or []
+        if links:
+            art["url"] = links[0]["href"]
+        graph.append(art)
+    return _jsonld_script({"@context": "https://schema.org", "@graph": graph})
+
+
 SECTIONS = {
-    INDEX: {"index-focus": render_focus, "index-counters": render_counters},
+    INDEX: {"index-focus": render_focus, "index-counters": render_counters,
+            "index-jsonld": render_index_jsonld},
     RESUME: {"resume-current": render_current,
              "resume-publications": render_publications,
              "resume-patents": render_patents,
-             "resume-engineering": render_engineering},
+             "resume-engineering": render_engineering,
+             "resume-jsonld": render_resume_jsonld},
 }
 
 
@@ -256,6 +314,14 @@ def validate(d: dict) -> list[str]:
     fnums = [f["n"] for f in d["focus"]]
     if len(fnums) != len(set(fnums)):
         errs.append("duplicate focus numbers")
+
+    person = d.get("person", {})
+    for field in ("name", "url", "image", "jobTitle", "affiliation", "sameAs", "knowsAbout"):
+        if not person.get(field):
+            errs.append(f"person missing '{field}' (needed for JSON-LD)")
+    for u in person.get("sameAs", []):
+        if not str(u).startswith("http"):
+            errs.append(f"person sameAs not a URL: {u}")
 
     eng_titles = set()
     for s in d.get("engineering", []):
