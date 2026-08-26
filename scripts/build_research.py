@@ -68,12 +68,23 @@ def render_focus(d) -> str:
     )
 
 
+def counts(d) -> dict:
+    p = d["publications"]
+    return {
+        "published_accepted": len(p["published"]) + len(p["accepted"]),
+        "under_review": len(p["under_review"]),
+        "patents": len(d["patents"]),
+    }
+
+
 def render_counters(d) -> str:
+    c = counts(d)
     rows = []
-    for c in d["counters"]:
-        amber = " amber" if c.get("accent") == "amber" else ""
-        rows.append(f'<div class="dash-stat{amber}"><b>{esc(c["value"])}</b>'
-                    f'<span>{esc(c["label"])}</span></div>')
+    for item in d["counters"]:
+        value = f'{c[item["source"]]:02d}' if "source" in item else item["value"]
+        amber = " amber" if item.get("accent") == "amber" else ""
+        rows.append(f'<div class="dash-stat{amber}"><b>{esc(value)}</b>'
+                    f'<span>{esc(item["label"])}</span></div>')
     return "\n".join(rows)
 
 
@@ -110,9 +121,10 @@ def _pub_article(p) -> str:
                  f'{esc(p["note"]["text"])}</p>')
     aside = f'<span class="status status--{STATUS_CLASS[p["status"]]}">{STATUS_LABEL[p["status"]]}</span>'
     aside += links_html(p.get("links"))
+    year = p.get("year") or "—"
     return (
         f'<article class="pub">\n'
-        f'  <div class="pub-side"><div class="pub-year">{esc(p["year"])}</div>'
+        f'  <div class="pub-side"><div class="pub-year">{esc(year)}</div>'
         f'<div class="pub-venue">{esc(p["venue"])}</div></div>\n'
         f'  <div class="pub-body">\n'
         f'    <div>\n{body}\n    </div>\n'
@@ -185,9 +197,12 @@ def validate(d: dict) -> list[str]:
 
     titles = set()
     for p in all_pubs:
-        for field in ("year", "venue", "title", "authors", "me", "tags", "status"):
+        for field in ("venue", "title", "authors", "me", "tags", "status"):
             if not p.get(field):
                 errs.append(f"publication missing '{field}': {p.get('title', '?')}")
+        # year required for published/accepted; may be null (dash) while under review
+        if p.get("status") != "under_review" and not p.get("year"):
+            errs.append(f"published/accepted publication missing year: {p.get('title')}")
         if p.get("status") not in STATUS_LABEL:
             errs.append(f"bad status '{p.get('status')}': {p.get('title')}")
         if p.get("me") and p["me"] not in p.get("authors", ""):
@@ -208,19 +223,14 @@ def validate(d: dict) -> list[str]:
             if not str(l.get("href", "")).startswith("http"):
                 errs.append(f"bad patent link on {p['n']}: {l}")
 
-    # counts must agree with the headline counters (compare as integers)
-    def cval(label):
-        for c in d["counters"]:
-            if c["label"].lower().startswith(label):
-                digits = re.sub(r"\D", "", c["value"])
-                return int(digits) if digits else None
-        return None
-    if cval("published") not in (None, len(pubs["published"]) + len(pubs["accepted"])):
-        errs.append("counter 'Published / Accepted' != published+accepted count")
-    if cval("under review") not in (None, len(pubs["under_review"])):
-        errs.append("counter 'Under Review' != under_review count")
-    if cval("patent") not in (None, len(d["patents"])):
-        errs.append("counter 'Patent Families' != patents count")
+    # counters are computed from the data (source) — just validate they resolve
+    valid_sources = set(counts(d))
+    for c in d["counters"]:
+        if "source" in c:
+            if c["source"] not in valid_sources:
+                errs.append(f"counter references unknown source: {c['source']}")
+        elif "value" not in c:
+            errs.append(f"counter missing value/source: {c.get('label')}")
 
     fnums = [f["n"] for f in d["focus"]]
     if len(fnums) != len(set(fnums)):
