@@ -238,7 +238,15 @@ def render_selected(d) -> str:
 
 
 def render_selected_count(d) -> str:
-    return f'<span class="tag">{len(_selected_items(d)):02d} SYSTEMS</span>'
+    return f'<span class="tag">{len(_selected_items(d)):02d} SELECTED</span>'
+
+
+def render_engineering_home(d) -> str:
+    # Compact homepage list: year as the mono key + system title (one line each).
+    return "\n".join(
+        f'<li><span class="k">{esc(s["year"])}</span> {esc(s["title"])}</li>'
+        for s in d["engineering"]
+    )
 
 
 # ---------------------------------------------------------------- JSON-LD (SEO)
@@ -300,6 +308,7 @@ def render_resume_jsonld(d) -> str:
 SECTIONS = {
     INDEX: {"index-focus": render_focus, "index-counters": render_counters,
             "index-selected": render_selected, "index-selected-count": render_selected_count,
+            "index-engineering": render_engineering_home,
             "index-jsonld": render_index_jsonld},
     RESUME: {"resume-current": render_current,
              "resume-publications": render_publications,

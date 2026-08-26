@@ -24,7 +24,6 @@
 
   "counters": [
     { "source": "published_accepted", "label": "Published / Accepted" },
-    { "source": "under_review", "label": "Under Review", "accent": "amber" },
     { "source": "patents", "label": "Patent Families" },
     { "value": "$25K", "label": "Funded", "accent": "amber" }
   ],

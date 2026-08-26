@@ -99,49 +99,45 @@
 
               <div class="acts">
                 <a class="act act--primary" href="resume.html">Research <span class="arw">↗</span></a>
-                <a class="act" href="resume.html#publications">Publications <span class="arw">↗</span></a>
                 <a class="act" href="assets/pdf/Zafaryab_Haider_Resume.pdf" target="_blank" rel="noopener">Resume PDF <span class="arw">↓</span></a>
+                <a class="act" href="https://scholar.google.com/citations?user=7rECzEYAAAAJ&amp;hl=en" target="_blank" rel="noopener">Scholar <span class="arw">↗</span></a>
                 <a class="act" href="demos.html">Demos <span class="arw">↗</span></a>
               </div>
 
               <div class="dash-stats">
                 <!-- build:index-counters:start -->
                 <div class="dash-stat"><b>07</b><span>Published / Accepted</span></div>
-                <div class="dash-stat amber"><b>05</b><span>Under Review</span></div>
                 <div class="dash-stat"><b>04</b><span>Patent Families</span></div>
                 <div class="dash-stat amber"><b>$25K</b><span>Funded</span></div>
                 <!-- build:index-counters:end -->
               </div>
             </div>
 
-            <!-- research.system + id-card -->
-            <div class="dash-side">
-              <div class="sys">
-                <div class="sys-head">RESEARCH.FOCUS</div>
-                <!-- build:index-focus:start -->
-                <div class="sys-row"><span class="k">01</span><span class="v">Bit-Level AI Security</span><span class="s cyan">BLADE / SMASH</span></div>
-                <div class="sys-row"><span class="k">02</span><span class="v">RLHF &amp; Trust Estimation</span><span class="s green">COBRA / ACT</span></div>
-                <div class="sys-row"><span class="k">03</span><span class="v">Multi-Agent LLM Harm</span><span class="s magenta">HARP</span></div>
-                <div class="sys-row"><span class="k">04</span><span class="v">LLM Reliability</span><span class="s cyan">INTACT</span></div>
-                <div class="sys-row"><span class="k">05</span><span class="v">Grid World Models</span><span class="s green">REWIRE</span></div>
-                <!-- build:index-focus:end -->
+            <!-- portrait + id -->
+            <div class="idcard idcard--col">
+              <figure class="frame" style="margin:0;">
+                <img src="images/profile.jpg" alt="Portrait of Zafaryab Haider" />
+              </figure>
+              <div class="idmeta">
+                <div class="pid">// PROFILE</div>
+                <dl class="meta">
+                  <div><dt>Affil</dt><dd class="v-green">UMaine</dd></div>
+                  <div><dt>Loc</dt><dd>Orono, ME</dd></div>
+                  <div><dt>Member</dt><dd>IEEE</dd></div>
+                </dl>
               </div>
+            </div>
 
-              <div class="idcard">
-                <figure class="frame" style="margin:0;">
-                  <img src="images/profile.jpg" alt="Portrait of Zafaryab Haider" />
-                </figure>
-                <div class="idmeta">
-                  <div class="pid">// PROFILE</div>
-                  <dl class="meta">
-                    <div><dt>Affil</dt><dd class="v-green">UMaine</dd></div>
-                    <div><dt>Field</dt><dd>AI Security</dd></div>
-                    <div><dt>Loc</dt><dd>Orono, ME</dd></div>
-                    <div><dt>Status</dt><dd class="v-green">Active</dd></div>
-                    <div><dt>Member</dt><dd>IEEE</dd></div>
-                  </dl>
-                </div>
-              </div>
+            <!-- research focus -->
+            <div class="sys sys--col">
+              <div class="sys-head">RESEARCH.FOCUS</div>
+              <!-- build:index-focus:start -->
+              <div class="sys-row"><span class="k">01</span><span class="v">Bit-Level AI Security</span><span class="s cyan">BLADE / SMASH</span></div>
+              <div class="sys-row"><span class="k">02</span><span class="v">RLHF &amp; Trust Estimation</span><span class="s green">COBRA / ACT</span></div>
+              <div class="sys-row"><span class="k">03</span><span class="v">Multi-Agent LLM Harm</span><span class="s magenta">HARP</span></div>
+              <div class="sys-row"><span class="k">04</span><span class="v">LLM Reliability</span><span class="s cyan">INTACT</span></div>
+              <div class="sys-row"><span class="k">05</span><span class="v">Grid World Models</span><span class="s green">REWIRE</span></div>
+              <!-- build:index-focus:end -->
             </div>
           </div>
         </div>
@@ -155,7 +151,7 @@
           <div class="sec-label"><i class="fa-solid fa-flask"></i><span class="n">01</span><span class="slash">/</span>SELECTED_RESEARCH</div>
           <span class="line"></span>
           <!-- build:index-selected-count:start -->
-          <span class="tag">08 SYSTEMS</span>
+          <span class="tag">08 SELECTED</span>
           <!-- build:index-selected-count:end -->
         </div>
 
@@ -236,36 +232,45 @@
             <p class="proj-desc">Meta-attack framework composing existing attack primitives to synthesize effective and stealthy adversarial examples.</p>
           </a>
           <!-- build:index-selected:end -->
-
-          <a class="proj" href="resume.html#earlier" style="display:flex;flex-direction:column;justify-content:center;">
-            <div class="proj-cat" style="margin:0 0 6px;">Archive</div>
-            <span class="proj-id" style="margin-bottom:8px;">Earlier Research</span>
-            <p class="proj-desc" style="margin:0;">Whale-call classification, BEiTv2 cancer imaging, HAR, assistive systems, and earlier software.</p>
-            <span class="mlaunch" style="margin-top:10px;color:var(--green);font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;">View archive →</span>
-          </a>
         </div>
+
+        <a class="arch-bar" href="resume.html#earlier">
+          <span class="arch-k">// EARLIER RESEARCH</span>
+          <span class="arch-desc">Whale-call classification · BEiTv2 cancer imaging · HAR · assistive systems · earlier software</span>
+          <span class="arch-more">View archive →</span>
+        </a>
       </div>
     </section>
 
-    <!-- TEACHING -->
+    <!-- TEACHING & ENGINEERING -->
     <section class="section--tight" id="teaching">
       <div class="wrap">
         <div class="sec-head">
-          <div class="sec-label"><i class="fa-solid fa-chalkboard-user"></i><span class="n">02</span><span class="slash">/</span>TEACHING</div>
+          <div class="sec-label"><i class="fa-solid fa-chalkboard-user"></i><span class="n">02</span><span class="slash">/</span>TEACHING &amp; ENGINEERING</div>
           <span class="line"></span>
-          <span class="tag">GTA + COURSES</span>
+          <span class="tag">SUMMARY</span>
         </div>
 
-        <ul class="tlist">
-          <li><span class="k">TA</span> Microprocessor Lab — x86/ARM programming, hardware I/O</li>
-          <li><span class="k">TA</span> Sequential Logic Lab — Verilog/VHDL simulation &amp; synthesis</li>
-          <li><span class="k">TA</span> Cybersecurity Education — hands-on secure-systems exercises</li>
-          <li><span class="k">CRS</span> Information Security — encryption, threats, network defense</li>
-          <li><span class="k">CRS</span> Data Structures — trees, graphs, heaps, algorithms</li>
-          <li><span class="k">CRS</span> Internet Tools — protocols, client–server, APIs</li>
-          <li><span class="k">CRS</span> C Programming — pointers, memory, procedural design</li>
-          <li><span class="k">CRS</span> Object-Oriented Programming — Java/C++ architecture</li>
-        </ul>
+        <div class="te-grid">
+          <div class="te-col">
+            <div class="te-head">// TEACHING</div>
+            <ul class="te-list">
+              <li><span class="k">UMaine</span> TA — Microprocessor, Sequential Logic &amp; Cybersecurity labs</li>
+              <li><span class="k">AMU</span> Information Security · Data Structures · OOP · C · Internet Tools</li>
+              <li><a class="te-more" href="resume.html#teaching">Full teaching record →</a></li>
+            </ul>
+          </div>
+          <div class="te-col">
+            <div class="te-head">// ENGINEERING SYSTEMS</div>
+            <ul class="te-list">
+              <!-- build:index-engineering:start -->
+              <li><span class="k">2025</span> Adversarial Evaluation Tooling</li>
+              <li><span class="k">2024</span> Distributed / Edge LLM Inference</li>
+              <li><span class="k">2026</span> Human Evaluation &amp; AI Assessment Platform</li>
+              <!-- build:index-engineering:end -->
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
   </main>

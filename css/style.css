@@ -517,10 +517,10 @@ p:last-child{ margin-bottom: 0; }
 .dash-bar .n{ color: var(--green); }
 .dash-bar .r{ color: var(--text-muted); }
 
-/* main split: identity | system+id */
+/* main split: identity | portrait | research.focus */
 .dash-main{
   display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.72fr);
+  grid-template-columns: minmax(0, 1.7fr) minmax(150px, 0.62fr) minmax(230px, 1fr);
 }
 .dash-main > *{ min-width: 0; }
 .dash-profile{
@@ -531,10 +531,11 @@ p:last-child{ margin-bottom: 0; }
 }
 .dash-profile .display{ margin: 6px 0 var(--s-module); }
 
-/* stats strip anchored to the bottom of the identity cell */
+/* stats strip sits just below the action row (no dead space above it) */
 .dash-stats{
-  margin-top: auto;
-  padding-top: var(--s-major);
+  margin-top: var(--s-major);
+  padding-top: var(--s-module);
+  border-top: 1px solid var(--border);
   display: flex;
   flex-wrap: wrap;
   gap: var(--s-major);
@@ -567,6 +568,8 @@ p:last-child{ margin-bottom: 0; }
 /* right column: research.system list then id-card */
 .dash-side{ display: grid; grid-template-rows: auto 1fr; }
 .sys{ border-bottom: 1px solid var(--border); }
+/* focus as its own hero column: no trailing divider under the last row */
+.sys--col{ border-bottom: 0; }
 .sys-head,
 .idcard-head{
   padding: 10px var(--s-module);
@@ -621,6 +624,13 @@ p:last-child{ margin-bottom: 0; }
 .idcard .pid{ color: var(--green); font-size: .72rem; letter-spacing: .14em; margin-bottom: 10px; }
 .idcard .meta{ font-size: .72rem; gap: 8px 10px; }
 .idcard .meta > div{ grid-template-columns: 5rem 1fr; }
+/* portrait as a narrow hero column: image stacked over metadata */
+.idcard--col{
+  grid-template-columns: 1fr;
+  border-right: 1px solid var(--border);
+  align-content: start;
+}
+.idcard--col .frame{ max-width: 240px; }
 
 /* ---------- Dense project grid ---------- */
 .proj-grid{
@@ -682,6 +692,27 @@ p:last-child{ margin-bottom: 0; }
 .proj-desc{ font-size: .86rem; color: var(--text-secondary); margin-bottom: 10px; }
 .proj .acts{ gap: 6px; }
 .proj .act{ padding: .35rem .6rem; font-size: .68rem; }
+
+/* homepage: 8-card grid squares its bottom so the archive bar attaches below */
+.page-index #projects .proj-grid{ border-radius: 0; }
+
+/* slim full-width archive bar below the selected-research grid */
+.arch-bar{
+  display: flex;
+  align-items: center;
+  gap: var(--s-module);
+  flex-wrap: wrap;
+  padding: .8rem var(--s-module);
+  border: 1px solid var(--border);
+  border-top: 0;
+  border-radius: 0 0 var(--r) var(--r);
+  font-family: var(--mono);
+  transition: background var(--t);
+}
+.arch-bar:hover{ background: var(--surface); }
+.arch-bar .arch-k{ color: var(--green); font-size: .72rem; letter-spacing: .12em; flex: 0 0 auto; }
+.arch-bar .arch-desc{ color: var(--text-secondary); font-size: .8rem; letter-spacing: .01em; }
+.arch-bar .arch-more{ color: var(--green); font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; margin-left: auto; flex: 0 0 auto; }
 
 /* ============================================================
    SECONDARY-PAGE SHELL — resume / lens / demos
@@ -920,6 +951,45 @@ details.fold .fold-body{ padding: var(--s-module); }
   letter-spacing: .08em;
   flex: 0 0 auto;
 }
+
+/* homepage: paired teaching + engineering summary panels */
+.te-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  overflow: hidden;
+}
+.te-col:first-child{ border-right: 1px solid var(--border); }
+.te-head{
+  padding: 10px var(--s-module);
+  border-bottom: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: .7rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.te-list{ list-style: none; margin: 0; padding: 0; }
+.te-list li{
+  padding: .7rem var(--s-module);
+  border-bottom: 1px solid var(--border);
+  font-size: .86rem;
+  color: var(--text-secondary);
+  display: flex;
+  gap: .7rem;
+  align-items: baseline;
+}
+.te-list li:last-child{ border-bottom: 0; }
+.te-list li .k{
+  font-family: var(--mono);
+  font-size: .7rem;
+  color: var(--green);
+  letter-spacing: .06em;
+  flex: 0 0 auto;
+  min-width: 3.4rem;
+}
+.te-more{ color: var(--green); font-family: var(--mono); font-size: .74rem; letter-spacing: .06em; }
 
 /* ============================================================
    PUBLICATIONS
@@ -1287,6 +1357,15 @@ details.fold .fold-body{ padding: var(--s-module); }
 /* gallery: densify on very wide displays */
 @media (min-width: 1400px){
   .gallery{ grid-template-columns: repeat(4, 1fr); }
+  .page-index #projects .proj-grid{ grid-template-columns: repeat(4, 1fr); }
+}
+
+/* homepage hero: drop the 3-column split below this width so the identity
+   column keeps full width and the name stays on one line on normal desktops */
+@media (max-width: 1180px){
+  .page-index .dash-main{ grid-template-columns: 1fr; }
+  .page-index .dash-profile{ border-right: 0; border-bottom: 1px solid var(--border); }
+  .page-index .idcard--col{ border-right: 0; border-bottom: 1px solid var(--border); }
 }
 
 /* project grid: 3 -> 2 columns on mid displays */
@@ -1308,6 +1387,7 @@ details.fold .fold-body{ padding: var(--s-module); }
   .dash-main--lens,
   .dash-main--demos{ grid-template-columns: 1fr; }
   .dash-profile{ border-right: 0; border-bottom: 1px solid var(--border); }
+  .idcard--col{ border-right: 0; border-bottom: 1px solid var(--border); }
   .dash-side{ grid-template-rows: none; }
   .cv-cols{ columns: 1; }
 }
@@ -1317,12 +1397,14 @@ details.fold .fold-body{ padding: var(--s-module); }
   .pub-body{ grid-template-columns: 1fr; gap: 8px; }
   .pub-aside{ align-items: flex-start; flex-direction: row; flex-wrap: wrap; text-align: left; }
   .tlist{ grid-template-columns: 1fr; }
+  .te-grid{ grid-template-columns: 1fr; }
+  .te-col:first-child{ border-right: 0; border-bottom: 1px solid var(--border); }
   .meta > div{ grid-template-columns: 7rem 1fr; }
   .gallery{ grid-template-columns: 1fr; }
   .foot{ grid-template-columns: 1fr; gap: 1.5rem; }
 
   .proj-grid{ grid-template-columns: 1fr; }
-  .idcard{ grid-template-columns: 160px 1fr; }
+  .idcard--col .frame{ max-width: 200px; }
   .module-row{ grid-template-columns: 1fr; gap: 10px; }
   .section, .section--tight{ padding-block: var(--s-section); }
   .dash-summary{ grid-template-columns: 1fr; }
