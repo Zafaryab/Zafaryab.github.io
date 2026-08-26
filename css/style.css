@@ -6,28 +6,28 @@
 
 /* ---------- Tokens ---------- */
 :root{
-  /* surfaces */
-  --bg: #020608;
-  --bg-secondary: #050a0b;
-  --surface: #071211;
-  --surface-hover: #0a1715;
+  /* surfaces — matte black + charcoal (kept flat, no grid) */
+  --bg: #050708;
+  --bg-secondary: #080b0c;
+  --surface: #0c1011;
+  --surface-hover: #121718;
 
   /* text */
   --text-primary: #e5ece8;
   --text-secondary: #a5afab;
   --text-muted: #66736d;
 
-  /* accents */
+  /* accents — original ZH://RESEARCH palette */
   --green: #32f5b4;
   --green-muted: #1b8061;
   --cyan: #29e7ff;
   --magenta: #f04ddb;
   --amber: #f4c842;
 
-  /* lines */
+  /* lines — original green-tinted technical borders */
   --border: #17352d;
   --border-bright: #268568;
-  --grid-line: rgba(38, 133, 104, .035);
+  --grid-line: transparent;
 
   /* type */
   --mono: "JetBrains Mono", ui-monospace, "Cascadia Code", Consolas, monospace;
@@ -68,19 +68,7 @@ body{
   overflow-x: hidden;
 }
 
-/* faint technical grid — visible only on close inspection */
-body::before{
-  content: "";
-  position: fixed;
-  inset: 0;
-  background-image:
-    linear-gradient(var(--grid-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-  background-size: 46px 46px;
-  pointer-events: none;
-  z-index: 0;
-}
-/* keep content above the grid */
+/* flat matte canvas — technical grid removed */
 .site-header, main, .site-footer{ position: relative; z-index: 1; }
 
 img{ max-width: 100%; display: block; }
