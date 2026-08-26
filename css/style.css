@@ -531,9 +531,9 @@ p:last-child{ margin-bottom: 0; }
 }
 .dash-profile .display{ margin: 6px 0 var(--s-module); }
 
-/* stats strip anchored to the bottom of the identity column */
+/* stats strip sits just below the bio (tight, not pinned to the bottom) */
 .dash-stats{
-  margin-top: auto;
+  margin-top: var(--s-module);
   padding-top: var(--s-module);
   border-top: 1px solid var(--border);
   display: flex;
@@ -571,11 +571,9 @@ p:last-child{ margin-bottom: 0; }
 /* focus as its own hero column: actions pinned to the bottom of the column */
 .sys--col{ border-bottom: 0; display: flex; flex-direction: column; }
 .sys-acts{
-  flex: 1;                       /* fill the leftover height of the focus column */
   display: flex;
   flex-wrap: wrap;
-  align-items: center;           /* center the group vertically */
-  justify-content: center;       /* center the group horizontally */
+  justify-content: center;       /* centered horizontally, tight under the focus list */
   gap: .5rem;
   padding: var(--s-module);
   border-top: 1px solid var(--border);
@@ -641,7 +639,7 @@ p:last-child{ margin-bottom: 0; }
   border-right: 1px solid var(--border);
   align-content: start;
 }
-.idcard--col .frame{ max-width: 240px; }
+.idcard--col .frame{ max-width: 190px; }
 
 /* ---------- Dense project grid ---------- */
 .proj-grid{
@@ -682,6 +680,13 @@ p:last-child{ margin-bottom: 0; }
   text-transform: uppercase;
   color: var(--cyan);
   margin-bottom: 10px;
+}
+/* homepage cards: keep the category on a single line so card heights match */
+.page-index .proj-grid .proj-cat{
+  font-size: .66rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .proj-meta{
   font-family: var(--mono);
