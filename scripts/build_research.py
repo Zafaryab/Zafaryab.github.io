@@ -117,8 +117,14 @@ def _pub_article(p) -> str:
         body += (f'\n      <p class="pub-contrib"><span class="k">Contribution</span>'
                  f'{esc(p["contribution"])}</p>')
     if p.get("note"):
-        body += (f'\n      <p class="pub-note"><span class="k">{esc(p["note"]["k"])}</span> '
-                 f'{esc(p["note"]["text"])}</p>')
+        n = p["note"]
+        if n.get("hidden"):
+            # preserved in the source as an HTML comment, but not shown
+            safe = f'{n["k"]} {n["text"]}'.replace("--", "—")
+            body += f'\n      <!-- {safe} -->'
+        else:
+            body += (f'\n      <p class="pub-note"><span class="k">{esc(n["k"])}</span> '
+                     f'{esc(n["text"])}</p>')
     aside = f'<span class="status status--{STATUS_CLASS[p["status"]]}">{STATUS_LABEL[p["status"]]}</span>'
     aside += links_html(p.get("links"))
     year = p.get("year") or "—"

@@ -48,21 +48,21 @@
         "authors": "Haider, Z., Rahman, M. H., Devabhaktuni, V., Moeykens, S., & Chakraborty, P.",
         "me": "Haider, Z.", "tags": "Trustworthy ML / RLHF Integrity", "status": "published",
         "contribution": "Consensus-based reward that negates malicious human-in-the-loop RLHF feedback by aggregating across a mixed-trust expert pool rather than rejecting updates outright.",
-        "links": [{ "label": "DOI", "href": "https://doi.org/10.1038/s41598-025-92889-7" }]
+        "links": [{ "label": "Paper", "href": "https://doi.org/10.1038/s41598-025-92889-7" }]
       },
       {
         "year": "2025", "venue": "IEEE Access",
         "title": "Intelligent Layer Sharing (ILASH): A predictive neural architecture search framework for multi-task applications",
         "authors": "Rahman, M. H., Haider, Z., Rizvee, M. M., Shomaji, S., & Chakraborty, P.",
         "me": "Haider, Z.", "tags": "NAS / Multi-Task Learning", "status": "published",
-        "links": [{ "label": "DOI", "href": "https://doi.org/10.1109/ACCESS.2025.3592039" }]
+        "links": [{ "label": "Paper", "href": "https://doi.org/10.1109/ACCESS.2025.3592039" }]
       },
       {
         "year": "2025", "venue": "Nature Sci. Reports",
         "title": "An automated multi-parameter neural architecture discovery framework using ChatGPT in the backend",
         "authors": "Rahman, M. H., Haider, Z., & Chakraborty, P.",
         "me": "Haider, Z.", "tags": "NAS / LLM Tooling", "status": "published",
-        "links": [{ "label": "DOI", "href": "https://doi.org/10.1038/s41598-025-97378-5" }]
+        "links": [{ "label": "Paper", "href": "https://doi.org/10.1038/s41598-025-97378-5" }]
       },
       {
         "year": "2023", "venue": "J. Microbiol. Methods",
@@ -76,8 +76,8 @@
         "title": "Assistive stick for visually impaired people",
         "authors": "Khan, D. A., Zamir, M. A., Umar, M. S., & Haider, Z.",
         "me": "Haider, Z.", "tags": "Embedded AI / Accessibility", "status": "published",
-        "links": [{ "label": "IEEE", "href": "https://ieeexplore.ieee.org/document/10029287" }],
-        "note": { "k": "Origin:", "text": "supervised student project (see Mentoring)." }
+        "links": [{ "label": "Paper", "href": "https://ieeexplore.ieee.org/document/10029287" }],
+        "note": { "k": "Origin:", "text": "supervised student project (see Mentoring).", "hidden": true }
       }
     ],
     "accepted": [
@@ -96,8 +96,8 @@
         "authors": "Haider, Z., Rahman, M. H., Moeykens, S., Devabhaktuni, V., & Chakraborty, P.",
         "me": "Haider, Z.", "tags": "AI Model Security / Bit-Level VLM Faults", "status": "under_review",
         "contribution": "Differentiable bit-level fault analysis for quantized vision–language models, studying controlled semantic steering under sparse parameter faults (BLIP, BLIP-2, GIT).",
-        "note": { "k": "Preprint v1:", "text": "“How a Bit Becomes a Story: Semantic Steering via Differentiable Fault Injection” · arXiv:2512.14715 (earlier version; manuscript substantially revised)" },
-        "links": [{ "label": "Preprint v1", "href": "https://arxiv.org/abs/2512.14715" }]
+        "note": { "k": "Preprint v1:", "text": "“How a Bit Becomes a Story: Semantic Steering via Differentiable Fault Injection” · arXiv:2512.14715 (earlier version; manuscript substantially revised)", "hidden": true },
+        "links": [{ "label": "arXiv", "href": "https://arxiv.org/abs/2512.14715" }]
       },
       {
         "year": null, "venue": "NeurIPS",
