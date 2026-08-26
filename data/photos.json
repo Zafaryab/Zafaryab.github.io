@@ -12,7 +12,8 @@
     ],
     "thumb": "images/gallery/thumbs/univ_001.jpg",
     "full": "images/gallery/full/univ_001.jpg",
-    "subtitle": "Dorm framed by a dramatic sky."
+    "subtitle": "Dorm framed by a dramatic sky.",
+    "large": "images/gallery/large/univ_001.webp"
   },
   {
     "id": "univ_002",
@@ -27,7 +28,8 @@
     ],
     "thumb": "images/gallery/thumbs/univ_002.jpg",
     "full": "images/gallery/full/univ_002.jpg",
-    "subtitle": "Open lawn under the same painted clouds."
+    "subtitle": "Open lawn under the same painted clouds.",
+    "large": "images/gallery/large/univ_002.webp"
   },
   {
     "id": "univ_003",
@@ -42,7 +44,8 @@
     ],
     "thumb": "images/gallery/thumbs/univ_003.jpg",
     "full": "images/gallery/full/univ_003.jpg",
-    "subtitle": "Berries in focus with a blurred backdrop."
+    "subtitle": "Berries in focus with a blurred backdrop.",
+    "large": "images/gallery/large/univ_003.webp"
   },
   {
     "id": "univ_winter_001",
@@ -59,7 +62,8 @@
     ],
     "thumb": "images/gallery/thumbs/univ_winter_001.jpeg",
     "full": "images/gallery/full/univ_winter_001.jpeg",
-    "subtitle": "Raymond H. Fogler Library in winter."
+    "subtitle": "Raymond H. Fogler Library in winter.",
+    "large": "images/gallery/large/univ_winter_001.webp"
   },
   {
     "id": "univ_winter_002",
@@ -76,7 +80,8 @@
     ],
     "thumb": "images/gallery/thumbs/univ_winter_002.jpeg",
     "full": "images/gallery/full/univ_winter_002.jpeg",
-    "subtitle": "Winslow Agriculture building during winter."
+    "subtitle": "Winslow Agriculture building during winter.",
+    "large": "images/gallery/large/univ_winter_002.webp"
   },
   {
     "id": "univ_winter_003",
@@ -93,7 +98,8 @@
     ],
     "thumb": "images/gallery/thumbs/univ_winter_003.jpeg",
     "full": "images/gallery/full/univ_winter_003.jpeg",
-    "subtitle": "A quiet campus building in winter light."
+    "subtitle": "A quiet campus building in winter light.",
+    "large": "images/gallery/large/univ_winter_003.webp"
   },
   {
     "id": "univ_winter_004",
@@ -110,7 +116,8 @@
     ],
     "thumb": "images/gallery/thumbs/univ_winter_004.jpeg",
     "full": "images/gallery/full/univ_winter_004.jpeg",
-    "subtitle": "Memorial Gym surrounded by winter atmosphere."
+    "subtitle": "Memorial Gym surrounded by winter atmosphere.",
+    "large": "images/gallery/large/univ_winter_004.webp"
   },
   {
     "id": "univ_winter_005",
@@ -127,7 +134,8 @@
     ],
     "thumb": "images/gallery/thumbs/univ_winter_005.jpeg",
     "full": "images/gallery/full/univ_winter_005.jpeg",
-    "subtitle": "A wide winter view featuring Memorial Union."
+    "subtitle": "A wide winter view featuring Memorial Union.",
+    "large": "images/gallery/large/univ_winter_005.webp"
   },
   {
     "id": "univ_winter_006",
@@ -144,7 +152,8 @@
     ],
     "thumb": "images/gallery/thumbs/univ_winter_006.jpeg",
     "full": "images/gallery/full/univ_winter_006.jpeg",
-    "subtitle": "A seating bench at the University Mall in front of Williams Hall."
+    "subtitle": "A seating bench at the University Mall in front of Williams Hall.",
+    "large": "images/gallery/large/univ_winter_006.webp"
   },
   {
     "id": "univ_winter_007",
@@ -161,7 +170,8 @@
     ],
     "thumb": "images/gallery/thumbs/univ_winter_007.jpeg",
     "full": "images/gallery/full/univ_winter_007.jpeg",
-    "subtitle": "An A-frame wooden picnic table at a University park."
+    "subtitle": "An A-frame wooden picnic table at a University park.",
+    "large": "images/gallery/large/univ_winter_007.webp"
   },
   {
     "id": "univ_winter_008",
@@ -178,7 +188,8 @@
     ],
     "thumb": "images/gallery/thumbs/univ_winter_008.jpeg",
     "full": "images/gallery/full/univ_winter_008.jpeg",
-    "subtitle": "Evening view of a bench from behind at a park."
+    "subtitle": "Evening view of a bench from behind at a park.",
+    "large": "images/gallery/large/univ_winter_008.webp"
   },
   {
     "id": "fall_001",
@@ -192,7 +203,8 @@
     ],
     "thumb": "images/gallery/thumbs/fall_001.JPG",
     "full": "images/gallery/full/fall_001.JPG",
-    "subtitle": "Autumn tones in the leaves."
+    "subtitle": "Autumn tones in the leaves.",
+    "large": "images/gallery/large/fall_001.webp"
   },
   {
     "id": "frame-0001",
@@ -217,7 +229,8 @@
     "full": "images/gallery/full/frame-0001.jpg",
     "width": 1066,
     "height": 1600,
-    "orientation": "portrait"
+    "orientation": "portrait",
+    "large": "images/gallery/large/frame-0001.webp"
   },
   {
     "id": "frame-0002",
@@ -242,7 +255,8 @@
     "full": "images/gallery/full/frame-0002.jpg",
     "width": 1155,
     "height": 1600,
-    "orientation": "portrait"
+    "orientation": "portrait",
+    "large": "images/gallery/large/frame-0002.webp"
   },
   {
     "id": "frame-0003",
@@ -266,7 +280,8 @@
     "full": "images/gallery/full/frame-0003.jpg",
     "width": 2258,
     "height": 1806,
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "large": "images/gallery/large/frame-0003.webp"
   },
   {
     "id": "frame-0004",
@@ -290,7 +305,8 @@
     "full": "images/gallery/full/frame-0004.jpg",
     "width": 2268,
     "height": 4032,
-    "orientation": "portrait"
+    "orientation": "portrait",
+    "large": "images/gallery/large/frame-0004.webp"
   },
   {
     "id": "frame-0005",
@@ -313,7 +329,8 @@
     "full": "images/gallery/full/frame-0005.jpg",
     "width": 2268,
     "height": 2835,
-    "orientation": "portrait"
+    "orientation": "portrait",
+    "large": "images/gallery/large/frame-0005.webp"
   },
   {
     "id": "frame-0006",
@@ -337,7 +354,8 @@
     "full": "images/gallery/full/frame-0006.jpg",
     "width": 2244,
     "height": 1795,
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "large": "images/gallery/large/frame-0006.webp"
   },
   {
     "id": "frame-0007",
@@ -361,7 +379,8 @@
     "full": "images/gallery/full/frame-0007.jpg",
     "width": 4000,
     "height": 2256,
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "large": "images/gallery/large/frame-0007.webp"
   },
   {
     "id": "frame-0008",
@@ -385,7 +404,8 @@
     "full": "images/gallery/full/frame-0008.jpg",
     "width": 4032,
     "height": 2268,
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "large": "images/gallery/large/frame-0008.webp"
   },
   {
     "id": "frame-0009",
@@ -409,7 +429,8 @@
     "full": "images/gallery/full/frame-0009.jpg",
     "width": 2835,
     "height": 2267,
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "large": "images/gallery/large/frame-0009.webp"
   },
   {
     "id": "frame-0010",
@@ -433,7 +454,8 @@
     "full": "images/gallery/full/frame-0010.jpg",
     "width": 2819,
     "height": 2254,
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "large": "images/gallery/large/frame-0010.webp"
   },
   {
     "id": "frame-0011",
@@ -457,7 +479,8 @@
     "full": "images/gallery/full/frame-0011.jpg",
     "width": 1890,
     "height": 3360,
-    "orientation": "portrait"
+    "orientation": "portrait",
+    "large": "images/gallery/large/frame-0011.webp"
   },
   {
     "id": "frame-0012",
@@ -481,7 +504,8 @@
     "full": "images/gallery/full/frame-0012.jpg",
     "width": 5568,
     "height": 3712,
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "large": "images/gallery/large/frame-0012.webp"
   },
   {
     "id": "frame-0013",
@@ -505,7 +529,8 @@
     "full": "images/gallery/full/frame-0013.jpg",
     "width": 5568,
     "height": 3712,
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "large": "images/gallery/large/frame-0013.webp"
   },
   {
     "id": "frame-0014",
@@ -528,7 +553,8 @@
     "full": "images/gallery/full/frame-0014.jpg",
     "width": 5568,
     "height": 3712,
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "large": "images/gallery/large/frame-0014.webp"
   },
   {
     "id": "frame-0015",
@@ -552,7 +578,8 @@
     "full": "images/gallery/full/frame-0015.jpg",
     "width": 5568,
     "height": 3712,
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "large": "images/gallery/large/frame-0015.webp"
   },
   {
     "id": "frame-0016",
@@ -576,7 +603,8 @@
     "full": "images/gallery/full/frame-0016.jpg",
     "width": 3712,
     "height": 5568,
-    "orientation": "portrait"
+    "orientation": "portrait",
+    "large": "images/gallery/large/frame-0016.webp"
   },
   {
     "id": "frame-0017",
@@ -599,6 +627,7 @@
     "full": "images/gallery/full/frame-0017.jpg",
     "width": 3712,
     "height": 5568,
-    "orientation": "portrait"
+    "orientation": "portrait",
+    "large": "images/gallery/large/frame-0017.webp"
   }
 ]

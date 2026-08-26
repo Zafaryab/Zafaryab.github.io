@@ -85,7 +85,8 @@ function renderGrid() {
 
   grid.innerHTML = items.map(p => {
     const badgeLabel = (p.tags && p.tags.length) ? p.tags[0] : (p.collections?.[0] || "photo");
-    const thumbSrc = p.thumb || p.full;
+    const thumbSrc = p.thumb || p.large || p.full;
+    const lightSrc = p.large || p.full;   // lightbox-sized image; original is archival
     const num = String(p._num ?? "").padStart(3, "0");
     const title = p.title || "Untitled";
     const cat = (p.category && p.category !== "uncategorized") ? p.category : "";
@@ -104,11 +105,11 @@ function renderGrid() {
     const lbTitle = capBits.join(" · ");
 
     return `
-      <a href="${p.full}" data-lightbox="gallery" data-title="${lbTitle}" class="shot">
+      <a href="${lightSrc}" data-lightbox="gallery" data-title="${lbTitle}" class="shot">
         <span class="tag-abs">${escapeHtml(badgeLabel)}</span>
         <div class="win">
           <img src="${thumbSrc}" alt="${escapeHtml(title)}" loading="lazy"
-               onerror="this.onerror=null;this.src='${p.full}';" />
+               onerror="this.onerror=null;this.src='${lightSrc}';" />
           <span class="view">View <span class="arw">↗</span></span>
         </div>
         <div class="cap">

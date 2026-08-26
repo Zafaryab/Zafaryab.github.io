@@ -13,9 +13,10 @@ What it does
         - assigns a stable id            (frame-0001, frame-0002, ...)
         - normalizes the filename        (frame-0001.jpg)
         - generates a WebP thumbnail     (images/gallery/thumbs/frame-0001.webp)
+        - generates a lightbox-sized WebP (images/gallery/large/frame-0001.webp)
         - records safe technical metadata (width, height, orientation, capture date)
         - appends a JSON entry with empty, ready-to-edit curator fields
-    * regenerates any missing thumbnails for existing entries
+    * regenerates any missing thumbnails and large images for existing entries
     * validates the manifest and prints a concise summary
 
 Guarantees
@@ -48,15 +49,19 @@ except ImportError:  # pragma: no cover
 ROOT = Path(__file__).resolve().parent.parent
 FULL_DIR = ROOT / "images" / "gallery" / "full"
 THUMB_DIR = ROOT / "images" / "gallery" / "thumbs"
+LARGE_DIR = ROOT / "images" / "gallery" / "large"
 JSON_PATH = ROOT / "data" / "photos.json"
 
 # JSON stores web-root-relative POSIX paths
 FULL_REL = "images/gallery/full"
 THUMB_REL = "images/gallery/thumbs"
+LARGE_REL = "images/gallery/large"
 
 IMAGE_EXTS = {".jpg", ".jpeg", ".png", ".webp"}
 THUMB_LONG_EDGE = 800          # px, long edge of generated thumbnails
 THUMB_QUALITY = 82             # WebP quality
+LARGE_LONG_EDGE = 1800         # px, long edge of lightbox-sized images
+LARGE_QUALITY = 85             # WebP quality for lightbox images
 ID_PREFIX = "frame-"
 
 # Fields the script owns and may (re)write on the entries it creates.
@@ -130,6 +135,15 @@ def make_thumb(src: Path, dst: Path) -> None:
         im.convert("RGB").save(dst, "WEBP", quality=THUMB_QUALITY, method=6)
 
 
+def make_large(src: Path, dst: Path) -> None:
+    """Generate a lightbox-sized WebP. Never upscales past the original."""
+    with Image.open(src) as im:
+        im = ImageOps.exif_transpose(im)          # respect EXIF orientation
+        im.thumbnail((LARGE_LONG_EDGE, LARGE_LONG_EDGE), Image.Resampling.LANCZOS)
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        im.convert("RGB").save(dst, "WEBP", quality=LARGE_QUALITY, method=6)
+
+
 def read_dimensions(src: Path) -> tuple[int, int, str, str]:
     with Image.open(src) as im:
         im = ImageOps.exif_transpose(im)
@@ -152,13 +166,14 @@ def scan_full() -> list[Path]:
 
 def validate(data: list, warnings: list) -> dict:
     """Collect integrity warnings without mutating the manifest."""
-    stats = {"missing_files": 0, "missing_thumbs": 0}
+    stats = {"missing_files": 0, "missing_thumbs": 0, "missing_larges": 0}
     seen_ids, seen_fulls = set(), set()
 
     for e in data:
         eid = e.get("id", "<no-id>")
         full = e.get("full", "")
         thumb = e.get("thumb", "")
+        large = e.get("large", "")
 
         if eid in seen_ids:
             warnings.append(f"duplicate id: {eid}")
@@ -174,6 +189,9 @@ def validate(data: list, warnings: list) -> dict:
         if thumb and not (ROOT / thumb).exists():
             warnings.append(f"entry {eid} references missing thumbnail: {thumb}")
             stats["missing_thumbs"] += 1
+        if large and not (ROOT / large).exists():
+            warnings.append(f"entry {eid} references missing large image: {large}")
+            stats["missing_larges"] += 1
 
     # orphan thumbnails (present on disk but referenced by nobody)
     referenced_thumbs = {basename(e.get("thumb", "")) for e in data}
@@ -181,6 +199,13 @@ def validate(data: list, warnings: list) -> dict:
         for t in THUMB_DIR.iterdir():
             if t.is_file() and t.name not in referenced_thumbs:
                 warnings.append(f"orphan thumbnail (not referenced): {t.name}")
+
+    # orphan large images (present on disk but referenced by nobody)
+    referenced_larges = {basename(e.get("large", "")) for e in data}
+    if LARGE_DIR.exists():
+        for t in LARGE_DIR.iterdir():
+            if t.is_file() and t.name not in referenced_larges:
+                warnings.append(f"orphan large image (not referenced): {t.name}")
     return stats
 
 
@@ -202,6 +227,7 @@ def run(check_only: bool) -> int:
               + (f"  -> {', '.join(p.name for p in new_files)}" if new_files else ""))
         print(f"  Missing files:    {stats['missing_files']}")
         print(f"  Missing thumbs:   {stats['missing_thumbs']}")
+        print(f"  Missing larges:   {stats['missing_larges']}")
         print(f"  Warnings:         {len(warnings)}")
         for w in warnings:
             print(f"    WARNING: {w}")
@@ -216,6 +242,23 @@ def run(check_only: bool) -> int:
             make_thumb(src, dst)
             thumbs_created += 1
             print(f"  rebuilt missing thumb: {thumb}")
+
+    # ---- backfill lightbox-sized large images for existing entries (safe) ----
+    # `large` is a script-owned field: derive it from the entry id, generate the
+    # WebP if absent. The heavy DSLR originals stay archived on disk but are no
+    # longer downloaded on every lightbox view.
+    larges_created = 0
+    for e in data:
+        full, eid = e.get("full", ""), e.get("id", "")
+        if not (full and eid):
+            continue
+        if not e.get("large"):
+            e["large"] = f"{LARGE_REL}/{eid}.webp"
+        src, dst = ROOT / full, ROOT / e["large"]
+        if src.exists() and not dst.exists():
+            make_large(src, dst)
+            larges_created += 1
+            print(f"  built large: {e['large']}")
 
     # ---- ingest new photographs ----
     next_num = next_id_number(data)
@@ -238,6 +281,9 @@ def run(check_only: bool) -> int:
         thumb_path = THUMB_DIR / f"{photo_id}.webp"
         make_thumb(target, thumb_path)
         thumbs_created += 1
+        large_path = LARGE_DIR / f"{photo_id}.webp"
+        make_large(target, large_path)
+        larges_created += 1
 
         data.append({
             "id": photo_id,
@@ -251,6 +297,7 @@ def run(check_only: bool) -> int:
             "featured": False,
             "order": len(data) + 1,
             "thumb": f"{THUMB_REL}/{photo_id}.webp",
+            "large": f"{LARGE_REL}/{photo_id}.webp",
             "full": f"{FULL_REL}/{photo_id}{ext}",
             "width": w,
             "height": h,
@@ -266,13 +313,14 @@ def run(check_only: bool) -> int:
         JSON_PATH.write_text(new_text, encoding="utf-8")
 
     # ---- summary ----
-    if added == 0 and thumbs_created == 0 and not changed:
+    if added == 0 and thumbs_created == 0 and larges_created == 0 and not changed:
         print("No new photographs detected.\nGallery is up to date.")
     else:
         print("\nGallery update complete.\n")
     print(f"  Existing:       {existing_count}")
     print(f"  New:            {added}")
     print(f"  Thumbs created: {thumbs_created}")
+    print(f"  Larges created: {larges_created}")
     print(f"  Missing files:  {stats['missing_files']}")
     print(f"  Warnings:       {len(warnings)}")
     print(f"  Total:          {len(data)}")
