@@ -113,7 +113,10 @@
         "authors": "Haider, Z., Rahman, M. H., Glatter, S., & Chakraborty, P.",
         "me": "Haider, Z.", "tags": "Trustworthy ML / Trust Estimation", "status": "accepted",
         "homepage": { "order": 4, "code": "ACT", "summary": "Anchor-calibrated trusted/corrupted cohort recovery when corrupted sources form the majority." },
-        "contribution": "Anchor-calibrated trust estimation that recovers trusted and corrupted source cohorts when agreement-based methods become directionally ambiguous under corrupted majorities."
+        "contribution": "Anchor-calibrated trust estimation that recovers trusted and corrupted source cohorts when agreement-based methods become directionally ambiguous under corrupted majorities.",
+        "links": [
+          { "label": "Demo", "href": "https://zafaryab.github.io/demos/act/index.html" }
+        ]
       }
     ],
     "under_review": [

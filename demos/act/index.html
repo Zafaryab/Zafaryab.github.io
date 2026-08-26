@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ACT — Anchor-Calibrated Trust</title>
+<style>
+:root{
+  --void:#040705; --panel:#080D0A; --panel2:#0B120E;
+  --line:#123123; --line2:#1C5034;
+  --green:#31E08A; --green-d:#1C6E48;
+  --cyan:#3FE6DC; --white:#DCE9E1;
+  --dim:#5E7D6C; --faint:#31463B;
+  --amber:#E0A93C; --amber-d:#7A5F26;
+  --steel:#6FA3B0; --steel-d:#3A5A63;
+  --mono:"JetBrains Mono",ui-monospace,"SFMono-Regular","IBM Plex Mono",Menlo,Consolas,monospace;
+  --sans:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --r:2px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--void);overflow:hidden}
+body{font-family:var(--mono);color:var(--white);display:flex;align-items:center;justify-content:center;-webkit-font-smoothing:antialiased}
+#fit{position:relative;width:100%;height:100%;overflow:hidden}
+#stage{position:absolute;top:0;left:0;width:1600px;height:900px;transform-origin:0 0;
+  background:radial-gradient(1200px 700px at 50% 6%,#0A130E 0%,#050908 55%,#030605 100%);
+  padding:18px;display:flex;flex-direction:column;gap:9px}
+#stage::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(to right,rgba(28,110,72,.05) 1px,transparent 1px),
+                   linear-gradient(to bottom,rgba(28,110,72,.05) 1px,transparent 1px);
+  background-size:40px 40px;mask-image:radial-gradient(900px 520px at 50% 45%,#000 0%,transparent 78%)}
+#stage::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:60;
+  background:repeating-linear-gradient(to bottom,rgba(0,0,0,0) 0 2px,rgba(0,0,0,.13) 2px 3px);opacity:.4}
+
+.pn{position:relative;background:linear-gradient(180deg,var(--panel2),var(--panel));
+    border:1px solid var(--line);border-radius:var(--r);display:flex;flex-direction:column;min-height:0}
+.pn>.hd{display:flex;align-items:center;gap:8px;padding:6px 9px;border-bottom:1px solid var(--line);
+    font-size:9px;letter-spacing:.18em;color:var(--dim);text-transform:uppercase;flex:0 0 auto}
+.pn>.hd .k{color:var(--green-d)}
+.pn>.hd .r{margin-left:auto;color:var(--faint);letter-spacing:.1em}
+.pn.live{border-color:var(--line2)}
+.pn.live>.hd{color:var(--green)}
+.bd{padding:9px;flex:1 1 auto;min-height:0;display:flex;flex-direction:column}
+.cn{position:absolute;width:6px;height:6px;border:1px solid var(--line2);opacity:0;transition:opacity .3s}
+.pn.live .cn{opacity:.9}
+.k1{top:-1px;left:-1px;border-right:0;border-bottom:0}
+.k2{top:-1px;right:-1px;border-left:0;border-bottom:0}
+.k3{bottom:-1px;left:-1px;border-right:0;border-top:0}
+.k4{bottom:-1px;right:-1px;border-left:0;border-top:0}
+
+.hdr{flex:0 0 52px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--line);padding:0 4px 9px;position:relative;z-index:5}
+.mark{display:flex;align-items:baseline;gap:11px}
+.mark .wd{font-size:27px;font-weight:600;letter-spacing:.34em;color:var(--white);text-shadow:0 0 22px rgba(63,230,220,.22)}
+.mark .wd b{color:var(--cyan);font-weight:600}
+.mark .sub{font-size:9.5px;letter-spacing:.19em;color:var(--dim);text-transform:uppercase}
+.mark .sub em{font-style:normal;color:var(--green-d)}
+.hdr .sp{flex:1}
+.tag{font-family:var(--sans);font-size:12.5px;color:var(--dim);border-left:1px solid var(--line);padding-left:13px;line-height:1.45}
+.tag b{color:var(--white);font-weight:500}
+.cite{text-align:right;font-size:9px;letter-spacing:.12em;color:var(--dim);line-height:1.6}
+.cite span{color:var(--faint)}
+.cite b{color:var(--cyan);font-weight:400}
+
+.strip{flex:0 0 30px;display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:var(--r);position:relative;z-index:5;overflow:hidden}
+.cx{background:var(--panel);padding:0 9px;display:flex;align-items:center;gap:7px;overflow:hidden}
+.cx .lb{font-size:8px;letter-spacing:.16em;color:var(--faint);text-transform:uppercase;white-space:nowrap}
+.cx .vl{font-size:10px;color:var(--white);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cx .vl.g{color:var(--green)} .cx .vl.c{color:var(--cyan)} .cx .vl.a{color:var(--amber)} .cx .vl.s{color:var(--steel)}
+
+.body{flex:1 1 auto;position:relative;min-height:0;z-index:5}
+.sact{position:absolute;inset:0;display:grid;gap:9px;opacity:0;pointer-events:none;transition:opacity .5s ease}
+.sact.on{opacity:1;pointer-events:auto}
+#act1{grid-template-columns:292px 1fr 300px}
+#act2{grid-template-columns:1fr}
+.col{display:flex;flex-direction:column;gap:9px;min-height:0}
+
+.saybar{flex:0 0 auto;display:flex;align-items:flex-start;gap:14px;padding:2px 2px 11px;border-bottom:1px solid var(--line);margin-bottom:9px}
+.say{font-family:var(--sans);font-size:17px;line-height:1.34;color:var(--white);flex:1;letter-spacing:-.005em}
+.say b{font-weight:600;color:var(--cyan)}
+.say i{font-style:normal;font-weight:600;color:var(--amber)}
+.saylbl{font-size:8px;letter-spacing:.17em;color:var(--cyan);text-transform:uppercase;text-align:right;
+        border:1px solid var(--line);border-radius:var(--r);padding:4px 7px;white-space:nowrap;line-height:1.5;flex:0 0 auto;margin-top:2px}
+
+.exbadge{font-size:7.5px;letter-spacing:.16em;color:var(--amber);border:1px solid rgba(224,169,60,.4);
+         padding:1px 4px;border-radius:var(--r);display:inline-block;margin-bottom:10px;font-family:var(--mono)}
+.item{font-family:var(--sans);font-size:12.5px;line-height:1.5;color:var(--white);border-left:1px solid var(--line2);padding-left:9px;margin-bottom:12px}
+.dec{border:1px solid var(--line);border-radius:var(--r);padding:7px 9px;margin-bottom:7px;transition:all .4s}
+.dec .dl{display:flex;align-items:baseline;gap:7px;font-size:8px;letter-spacing:.15em;color:var(--faint);text-transform:uppercase}
+.dec .dl .n{margin-left:auto;font-size:13px;color:var(--dim);letter-spacing:0}
+.dec .dt{font-family:var(--sans);font-size:12.5px;color:var(--dim);margin-top:3px}
+.dec.a{border-color:var(--steel-d)} .dec.a .dl{color:var(--steel)} .dec.a .dt{color:#A8C4CB}
+.dec.b{border-color:var(--steel-d)} .dec.b .dl{color:var(--steel)} .dec.b .dt{color:#A8C4CB}
+.dec.win{background:rgba(111,163,176,.07)}
+.dec.win .n{color:var(--steel)}
+.dec.truth{border-color:var(--line2)} .dec.truth .dl{color:var(--green)} .dec.truth .dt{color:var(--white)}
+.dec.truth .n{color:var(--green)}
+.dec.wrong{border-color:rgba(224,169,60,.45)} .dec.wrong .dl{color:var(--amber)} .dec.wrong .dt{color:#C9A96A}
+.dec.wrong .n{color:var(--amber)}
+.maj{display:flex;align-items:center;gap:9px;padding:8px 9px;border:1px solid var(--line);border-radius:var(--r);
+     background:#060B08;margin-top:3px}
+.maj .ml{font-size:8px;letter-spacing:.15em;color:var(--faint);text-transform:uppercase}
+.maj .mv{margin-left:auto;font-size:13px;color:var(--steel)}
+.exnote{font-family:var(--sans);font-size:11px;line-height:1.5;color:var(--dim);border-top:1px solid var(--line);padding-top:9px;margin-top:auto}
+.exnote b{color:var(--amber);font-weight:500}
+
+.svgwrap{flex:1 1 auto;min-height:0;position:relative}
+.svgwrap svg{width:100%;height:100%;display:block}
+
+.stat{display:flex;align-items:baseline;gap:9px;margin-bottom:9px}
+.stat .sw{font-size:19px;letter-spacing:.14em;color:var(--steel)}
+.stat.inv .sw{color:var(--amber)} .stat.ori .sw{color:var(--green)} .stat.pre .sw{color:var(--green)}
+.stat .sx{margin-left:auto;font-size:8px;letter-spacing:.13em;color:var(--faint);text-transform:uppercase;text-align:right;line-height:1.4}
+.rho{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:9px}
+.rb{border:1px solid var(--line);border-radius:var(--r);padding:6px 8px;background:#060B08}
+.rb .rl{font-size:7.5px;letter-spacing:.14em;color:var(--faint);text-transform:uppercase}
+.rb .rv{font-size:18px;margin-top:2px;color:var(--dim)}
+.rb.ag .rv{color:var(--steel)} .rb.ag.bad .rv{color:var(--amber)}
+.rb.ac{border-color:var(--line2)} .rb.ac .rv{color:var(--green)}
+.rb.pend .rv{color:var(--faint)}
+
+.chain{display:flex;flex-direction:column;gap:0;flex:1 1 auto;justify-content:center}
+.cs{display:flex;align-items:center;gap:9px;padding:5px 0;opacity:.3;transition:opacity .5s ease}
+.cs.on{opacity:1}
+.cs .cd{width:6px;height:6px;border:1px solid var(--green-d);flex:0 0 auto;transition:all .35s}
+.cs.on .cd{background:var(--cyan);border-color:var(--cyan);box-shadow:0 0 8px rgba(63,230,220,.7)}
+.cs .cn2{font-family:var(--sans);font-size:12px;color:var(--dim)}
+.cs.on .cn2{color:var(--white)}
+.cs.term .cn2{color:var(--cyan)}
+.crail{width:1px;height:9px;background:var(--line);margin-left:2.5px}
+.dsbox{border:1px dashed var(--line2);border-radius:var(--r);padding:7px 9px;margin-top:7px;opacity:.3;transition:opacity .5s}
+.dsbox.on{opacity:1}
+.dsbox .dt2{font-size:8.5px;letter-spacing:.15em;color:var(--cyan);text-transform:uppercase}
+.dsbox .df{font-size:8px;color:var(--faint);letter-spacing:.05em;margin-top:4px;line-height:1.5}
+.note{font-family:var(--sans);font-size:10.5px;line-height:1.5;color:var(--faint);border-top:1px solid var(--line);padding-top:8px;margin-top:8px}
+.note b{color:var(--dim);font-weight:500}
+
+/* ═ evidence ═ */
+.ev{display:grid;grid-template-rows:auto 1fr auto;gap:9px;height:100%}
+.evhd{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--line);padding-bottom:7px}
+.evhd .t{font-size:15px;letter-spacing:.26em;color:var(--white)}
+.evhd .flip{display:flex;align-items:center;gap:9px;font-size:8.5px;letter-spacing:.16em;text-transform:uppercase}
+.evhd .flip .o{color:var(--amber-d);text-decoration:line-through}
+.evhd .flip .a{color:var(--faint)} .evhd .flip .n{color:var(--green)}
+.evhd .rr{margin-left:auto;font-size:9px;color:var(--dim);letter-spacing:.12em}
+.evgrid{display:grid;grid-template-columns:1.15fr 1fr;gap:9px;min-height:0}
+.mainres{display:flex;flex-direction:column;justify-content:center;gap:0;flex:1 1 auto;padding:0 6px}
+.mrhd{font-family:var(--sans);font-size:13px;color:var(--dim);margin-bottom:16px}
+.mrhd b{color:var(--white);font-weight:600}
+.mrow{display:grid;grid-template-columns:150px 1fr 110px;gap:16px;align-items:center;padding:16px 0;
+      opacity:0;transform:translateX(-6px);transition:all .55s ease}
+.mrow.on{opacity:1;transform:none}
+.mrow .ml2{font-family:var(--sans);font-size:14px;color:var(--white);font-weight:500}
+.mrow .ml2 s{display:block;font-family:var(--mono);font-size:8px;color:var(--faint);text-decoration:none;letter-spacing:.13em;margin-top:3px;text-transform:uppercase}
+.rax{position:relative;height:26px;border:1px solid var(--line);border-radius:var(--r);background:#0A130E}
+.rax .zero{position:absolute;left:50%;top:-4px;bottom:-4px;width:1px;background:var(--cyan);opacity:.5}
+.rax .fillL{position:absolute;right:50%;top:0;bottom:0;width:0;background:var(--amber-d);transition:width 1s cubic-bezier(.2,.7,.2,1)}
+.rax .fillR{position:absolute;left:50%;top:0;bottom:0;width:0;background:var(--green);transition:width 1s cubic-bezier(.2,.7,.2,1)}
+.rax .ends{position:absolute;inset:0;display:flex;justify-content:space-between;align-items:center;padding:0 5px;
+           font-size:7px;letter-spacing:.1em;color:var(--faint);pointer-events:none}
+.mrow .mv2{font-size:26px;text-align:right}
+.mrow.neg .mv2{color:var(--amber)} .mrow.pos .mv2{color:var(--green)}
+
+.sbox{display:flex;flex-direction:column;gap:0;flex:1 1 auto;justify-content:space-evenly}
+.srow{display:flex;align-items:baseline;gap:10px;padding:7px 0;border-bottom:1px dotted rgba(18,49,35,.8);
+      opacity:0;transition:opacity .5s ease}
+.srow:last-child{border-bottom:0}
+.srow.on{opacity:1}
+.srow .sl2{font-size:9px;letter-spacing:.13em;color:var(--faint);text-transform:uppercase;min-width:36px}
+.srow .st2{font-family:var(--sans);font-size:12px;color:var(--dim)}
+.srow .st2 b{color:var(--white);font-weight:500}
+.srow .sv2{margin-left:auto;font-size:15px;color:var(--green);white-space:nowrap}
+.srow.warn .sv2{color:var(--cyan)}
+
+.bl{display:grid;grid-template-columns:1fr;gap:7px}
+.blrow{display:flex;align-items:center;gap:7px}
+.blchip{flex:1;border:1px solid var(--line);border-radius:var(--r);padding:6px 4px;text-align:center;
+        font-size:8.5px;letter-spacing:.08em;color:var(--dim);position:relative;transition:all .5s ease}
+.blchip u{display:block;font-size:12px;text-decoration:none;margin-top:2px;color:var(--amber);transition:all .5s}
+.blchip.up{border-color:var(--line2);color:var(--white)}
+.blchip.up u{color:var(--green)}
+.blbar{display:flex;align-items:center;justify-content:center;gap:9px;border:1px dashed var(--line2);border-radius:var(--r);
+       padding:6px;font-size:8.5px;letter-spacing:.16em;color:var(--cyan);text-transform:uppercase;opacity:0;transition:opacity .5s}
+.blbar.on{opacity:1}
+.evfoot{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px}
+.fbox{display:flex;align-items:center;gap:11px;padding:8px 11px;border:1px solid var(--line);background:var(--panel);
+      border-radius:var(--r);font-size:8.5px;color:var(--dim);line-height:1.6}
+.fbox .bg{font-size:7.5px;letter-spacing:.15em;color:var(--green-d);border:1px solid var(--line2);padding:1px 4px;border-radius:var(--r);white-space:nowrap}
+.fbox b{color:var(--white);font-weight:400}
+
+/* final */
+.fin{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;
+     background:radial-gradient(760px 430px at 50% 50%,rgba(8,16,12,.985),rgba(4,7,5,.995));
+     opacity:0;pointer-events:none;transition:opacity .6s ease;z-index:25}
+.fin.on{opacity:1}
+.fq{display:flex;align-items:stretch;gap:0}
+.fq .qb{border:1px solid var(--line);border-top:1px solid var(--line2);padding:13px 22px;background:var(--panel);
+        border-radius:var(--r);text-align:center;min-width:260px}
+.fq .qb .qh{font-size:10px;letter-spacing:.26em;color:var(--dim);text-transform:uppercase}
+.fq .qb .qq{font-family:var(--sans);font-size:15px;color:var(--white);margin-top:6px}
+.fq .qb.hi{border-color:var(--cyan)} .fq .qb.hi .qh{color:var(--cyan)}
+.fq .qarw{display:flex;align-items:center;padding:0 16px;color:var(--green-d);font-size:13px}
+.fin .rule{width:190px;height:1px;background:linear-gradient(90deg,transparent,var(--line2),transparent)}
+.fin .big{font-family:var(--sans);font-size:42px;font-weight:600;color:var(--white);text-align:center;line-height:1.18;letter-spacing:-.015em}
+.fin .big em{font-style:normal;color:var(--cyan)}
+.fin .sm{font-family:var(--sans);font-size:12px;color:var(--dim);text-align:center;max-width:640px;line-height:1.55}
+.fin .meta{display:flex;gap:24px;align-items:center;font-size:9px;letter-spacing:.13em;color:var(--faint);border-top:1px solid var(--line);padding-top:14px}
+.fin .meta b{color:var(--dim);font-weight:400}
+
+#ret{position:absolute;pointer-events:none;z-index:40;opacity:0;transition:all .6s cubic-bezier(.4,.05,.15,1)}
+#ret.on{opacity:1}
+#ret span{position:absolute;width:11px;height:11px;border:1px solid var(--cyan)}
+#ret span:nth-child(1){top:-1px;left:-1px;border-right:0;border-bottom:0}
+#ret span:nth-child(2){top:-1px;right:-1px;border-left:0;border-bottom:0}
+#ret span:nth-child(3){bottom:-1px;left:-1px;border-right:0;border-top:0}
+#ret span:nth-child(4){bottom:-1px;right:-1px;border-left:0;border-top:0}
+
+.foot{flex:0 0 62px;border-top:1px solid var(--line);padding-top:9px;display:flex;align-items:center;gap:14px;position:relative;z-index:5}
+.ctrl{display:flex;gap:6px;align-items:center}
+.btn{font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;background:transparent;
+     border:1px solid var(--line);color:var(--dim);padding:6px 11px;cursor:pointer;border-radius:var(--r);transition:all .2s}
+.btn:hover{border-color:var(--line2);color:var(--green)}
+.btn:focus-visible{outline:1px solid var(--cyan);outline-offset:2px}
+.btn.pri{color:var(--green);border-color:var(--line2)}
+a.btn{text-decoration:none;display:inline-block}
+.regsel{display:flex;gap:0;border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.regsel button{font-family:var(--mono);font-size:8.5px;letter-spacing:.12em;background:transparent;border:0;
+  border-right:1px solid var(--line);color:var(--faint);padding:7px 10px;cursor:pointer;transition:all .2s}
+.regsel button:last-child{border-right:0}
+.regsel button:hover{color:var(--dim)}
+.regsel button.sel{color:var(--amber);background:rgba(224,169,60,.09)}
+.regsel button.sel[data-g="3"]{color:var(--green);background:rgba(49,224,138,.08)}
+.track{flex:1;position:relative;height:34px;cursor:pointer}
+.tline{position:absolute;left:0;right:0;top:20px;height:1px;background:var(--line)}
+.tfill{position:absolute;left:0;top:20px;height:1px;background:var(--green);box-shadow:0 0 8px rgba(49,224,138,.65)}
+.head{position:absolute;top:16px;width:1px;height:9px;background:var(--cyan);box-shadow:0 0 8px var(--cyan)}
+.tk{position:absolute;top:20px;transform:translateX(-.5px)}
+.tk i{display:block;width:1px;height:5px;background:var(--line2)}
+.tk u{position:absolute;top:-15px;left:0;font-size:7.5px;letter-spacing:.12em;color:var(--faint);text-decoration:none;white-space:nowrap;transition:color .3s}
+.tk.done u{color:var(--dim)}
+.tk.now u{color:var(--cyan)}
+.tk.now i{background:var(--cyan);height:8px;margin-top:-3px}
+.clock{font-size:10px;color:var(--dim);letter-spacing:.1em;white-space:nowrap}
+.clock b{color:var(--green);font-weight:400}
+
+@media (prefers-reduced-motion: reduce){#stage::after{display:none}}
+</style>
+</head>
+<body>
+<div id="fit">
+<div id="stage">
+
+  <div class="hdr">
+    <div class="mark">
+      <div class="wd">A<b>C</b>T</div>
+      <div class="sub">Anchor-<em>Calibrated</em> Trust</div>
+    </div>
+    <div class="tag">Agreement can tell you who sides with whom.<br><b>It cannot tell you which side is right.</b></div>
+    <div class="sp"></div>
+    <div class="cite">
+      <span>ZH://RESEARCH</span> Trust orientation for multi-source systems<br>
+      <b>ACT</b> <span>· anchor-calibrated trust · unpublished figures</span>
+    </div>
+  </div>
+
+  <div class="strip">
+    <div class="cx"><span class="lb">Sources</span><span class="vl s" id="m-src">9</span></div>
+    <div class="cx"><span class="lb">Regime</span><span class="vl a" id="m-reg">6 / 9 corrupted</span></div>
+    <div class="cx"><span class="lb">Cohorts</span><span class="vl" id="m-coh">—</span></div>
+    <div class="cx"><span class="lb">Orientation</span><span class="vl" id="m-ori">—</span></div>
+    <div class="cx"><span class="lb">Chapter</span><span class="vl c" id="m-ch">sources</span></div>
+  </div>
+
+  <div class="body">
+
+    <!-- ═══ ACT 1 ═══ -->
+    <div class="sact on" id="act1">
+
+      <!-- LEFT -->
+      <div class="col">
+        <div class="pn live" id="p-ex" style="flex:1 1 auto">
+          <span class="cn k1"></span><span class="cn k2"></span><span class="cn k3"></span><span class="cn k4"></span>
+          <div class="hd"><span class="k">A</span> The item under review <span class="r" id="ex-r">one decision</span></div>
+          <div class="bd">
+            <span class="exbadge">ILLUSTRATIVE MULTI-SOURCE EXAMPLE</span>
+            <div class="item">&ldquo;Your account is locked. Verify your card details at this link to restore access.&rdquo;</div>
+            <div class="dec a" id="d-a">
+              <div class="dl">Decision A<span class="n" id="n-a">—</span></div>
+              <div class="dt">Phishing — block it</div>
+            </div>
+            <div class="dec b" id="d-b">
+              <div class="dl">Decision B<span class="n" id="n-b">—</span></div>
+              <div class="dt">Legitimate — deliver it</div>
+            </div>
+            <div class="maj"><span class="ml">Majority</span><span class="mv" id="m-maj">—</span></div>
+            <div class="exnote" id="exnote">Nine automated sources each make one binary call. We are not told which of them can be trusted.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CENTER -->
+      <div class="col">
+        <div class="pn live" id="p-map" style="flex:1 1 auto">
+          <span class="cn k1"></span><span class="cn k2"></span><span class="cn k3"></span><span class="cn k4"></span>
+          <div class="hd"><span class="k">B</span> <span id="map-h">Source decisions</span> <span class="r" id="map-r">—</span></div>
+          <div class="bd" style="padding:11px 13px 6px">
+            <div class="saybar">
+              <div class="say" id="say">Nine sources look at the same item. Each one makes a call.</div>
+              <div class="saylbl" id="saylbl">SOURCE DECISIONS</div>
+            </div>
+            <div class="svgwrap"><svg id="map" viewBox="0 0 900 520" preserveAspectRatio="xMidYMid meet"></svg></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="col">
+        <div class="pn" id="p-ori" style="flex:0 0 auto">
+          <span class="cn k1"></span><span class="cn k2"></span><span class="cn k3"></span><span class="cn k4"></span>
+          <div class="hd"><span class="k">C</span> Trust orientation <span class="r">which side to trust</span></div>
+          <div class="bd" style="padding:10px 11px">
+            <div class="stat" id="statrow"><span class="sw" id="statw">—</span><span class="sx" id="statx">awaiting<br>agreement structure</span></div>
+            <div class="rho">
+              <div class="rb ag pend" id="rb-ag"><div class="rl">Agreement ρ</div><div class="rv" id="rv-ag">—</div></div>
+              <div class="rb ac pend" id="rb-ac"><div class="rl">ACT ρ</div><div class="rv" id="rv-ac">—</div></div>
+            </div>
+            <div class="note" style="border-top:0;padding-top:0;margin-top:0">
+              ρ is the correlation between estimated and true source reliability. <b>Negative means the ranking is upside down.</b>
+            </div>
+          </div>
+        </div>
+
+        <div class="pn" id="p-chain" style="flex:1 1 auto">
+          <span class="cn k1"></span><span class="cn k2"></span><span class="cn k3"></span><span class="cn k4"></span>
+          <div class="hd"><span class="k">D</span> What ACT produces <span class="r">reliability map</span></div>
+          <div class="bd" style="padding:10px 11px">
+            <div class="chain">
+              <div class="cs" id="cs0"><i class="cd"></i><span class="cn2">Source decisions</span></div>
+              <div class="crail"></div>
+              <div class="cs" id="cs1"><i class="cd"></i><span class="cn2">Agreement structure</span></div>
+              <div class="crail"></div>
+              <div class="cs" id="cs2"><i class="cd"></i><span class="cn2">Anchor orientation</span></div>
+              <div class="crail"></div>
+              <div class="cs term" id="cs3"><i class="cd"></i><span class="cn2">Oriented reliability map</span></div>
+            </div>
+            <div class="dsbox" id="dsbox">
+              <div class="dt2">↓ Downstream aggregation</div>
+              <div class="df">Any consumer of source reliability. RoT / DRWA / AVGA are used as evaluation contexts in the paper.</div>
+            </div>
+            <div class="note">
+              <b>Anchors orient the partition.</b> They do not train or update the underlying models.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ ACT 2 · EVIDENCE ═══ -->
+    <div class="sact" id="act2">
+      <div class="ev">
+        <div class="evhd">
+          <span class="t">EVIDENCE</span>
+          <span class="flip"><span class="o">illustration</span><span class="a">→</span><span class="n">reported experiments</span></span>
+          <span class="rr">corrupted-majority configuration · 6 of 9 sources corrupted</span>
+        </div>
+
+        <div class="evgrid">
+          <div class="pn live" id="p-main">
+            <span class="cn k1"></span><span class="cn k2"></span><span class="cn k3"></span><span class="cn k4"></span>
+            <div class="hd">Trust-orientation correlation <span class="r">ρ against true source reliability</span></div>
+            <div class="bd">
+              <div class="mainres">
+                <div class="mrhd">With <b>six of nine sources corrupted</b>, agreement ranks the sources upside down. ACT turns the ranking the right way up.</div>
+                <div class="mrow neg" data-m="0">
+                  <div class="ml2">Agreement<s>pairwise structure only</s></div>
+                  <div class="rax"><span class="fillL" data-w="41"></span><span class="zero"></span>
+                    <span class="ends"><span>−1 INVERTED</span><span>ALIGNED +1</span></span></div>
+                  <div class="mv2">−0.82</div>
+                </div>
+                <div class="mrow pos" data-m="1">
+                  <div class="ml2">ACT<s>agreement + 16 labeled anchors</s></div>
+                  <div class="rax"><span class="fillR" data-w="41"></span><span class="zero"></span>
+                    <span class="ends"><span>−1 INVERTED</span><span>ALIGNED +1</span></span></div>
+                  <div class="mv2">+0.82</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pn" id="p-scope">
+            <span class="cn k1"></span><span class="cn k2"></span><span class="cn k3"></span><span class="cn k4"></span>
+            <div class="hd">Consistency across seeds <span class="r">orientation reversals</span></div>
+            <div class="bd" style="padding:10px 13px">
+              <div class="sbox">
+                <div class="srow" data-s="0"><span class="sl2">SA</span><span class="st2">Sentiment · <b>SST-2 · BERT</b></span><span class="sv2">25 / 25</span></div>
+                <div class="srow" data-s="1"><span class="sl2">TRL</span><span class="st2">Preference · <b>HH-RLHF · GPT-2-XL + LoRA</b></span><span class="sv2">20 / 20</span></div>
+                <div class="srow warn" data-s="2"><span class="sl2">—</span><span class="st2">False reversals in the main <b>trusted-majority</b> configurations</span><span class="sv2">none</span></div>
+                <div class="srow warn" data-s="3"><span class="sl2">NOISE</span><span class="st2">Random anchor label noise <b>≤ 30%</b></span><span class="sv2">≥ 97.5%</span></div>
+              </div>
+              <div class="note">Reversals are counted per seed. The noise figure is <b>random</b> anchor corruption — it does not speak to adversarially chosen anchors.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pn" id="p-bl" style="flex:0 0 auto">
+          <span class="cn k1"></span><span class="cn k2"></span><span class="cn k3"></span><span class="cn k4"></span>
+          <div class="hd">The ambiguity is not specific to pairwise agreement <span class="r" id="bl-r">five aggregation families</span></div>
+          <div class="bd" style="padding:9px 13px">
+            <div class="bl">
+              <div class="blrow">
+                <span class="blchip" data-b="0">DAWID–SKENE<u>↓</u></span>
+                <span class="blchip" data-b="1">GLAD<u>↓</u></span>
+                <span class="blchip" data-b="2">SPECTRAL<u>↓</u></span>
+                <span class="blchip" data-b="3">TRUTH DISCOVERY<u>↓</u></span>
+                <span class="blchip" data-b="4">SNORKEL-FAMILY<u>↓</u></span>
+              </div>
+              <div class="blbar" id="blbar">↑ one shared anchor orientation ↑</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="evfoot">
+          <div class="fbox"><span class="bg">SUBSTRATE</span><span>Sentiment: <b>SST-2 · BERT</b>. Preference: <b>HH-RLHF · GPT-2-XL + LoRA</b>.</span></div>
+          <div class="fbox"><span class="bg">ANCHORS</span><span><b>16</b> labeled items. They orient the partition; they do not retrain the sources.</span></div>
+          <div class="fbox"><span class="bg">SCOPE</span><span>ACT estimates trust <b>orientation</b>, not precise continuous source reliability.</span></div>
+        </div>
+      </div>
+
+      <div class="fin" id="fin">
+        <div class="fq">
+          <div class="qb"><div class="qh">Agreement</div><div class="qq">Who agrees with whom?</div></div>
+          <div class="qarw">→</div>
+          <div class="qb hi"><div class="qh">ACT</div><div class="qq">Which group should we trust?</div></div>
+        </div>
+        <div class="rule"></div>
+        <div class="big">Agreement finds the groups.<br><em>ACT finds the direction.</em></div>
+        <div class="sm">ACT estimates trust orientation, not precise continuous source reliability.</div>
+        <div class="meta">
+          <span>ZH://RESEARCH</span>
+          <span><b>ANCHOR-CALIBRATED TRUST</b></span>
+          <span>ORIENT WHEN NEEDED · PRESERVE WHEN ALREADY CORRECT</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="ret"><span></span><span></span><span></span><span></span></div>
+  </div>
+
+  <div class="foot">
+    <div class="ctrl">
+      <button class="btn pri" id="b-play" aria-label="Pause">❚❚ Pause</button>
+      <button class="btn" id="b-replay" aria-label="Replay from start">↻ Replay</button>
+      <a class="btn" id="b-paper" href="#" aria-disabled="true" title="Not yet published" style="opacity:.42;cursor:not-allowed">Paper · TBA</a>
+    </div>
+    <div class="regsel" role="group" aria-label="Corruption regime">
+      <button data-g="3">3/9 CORRUPTED</button>
+      <button data-g="6" class="sel">6/9 CORRUPTED</button>
+    </div>
+    <div class="track" id="track" role="slider" aria-label="Timeline" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+      <div class="tline"></div><div class="tfill" id="tfill"></div><div class="head" id="thead"></div>
+      <div id="ticks"></div>
+    </div>
+    <div class="clock"><b id="clk">0:00</b> / 0:45</div>
+  </div>
+
+</div>
+</div>
+
+<script>
+(function(){
+"use strict";
+var NS="http://www.w3.org/2000/svg";
+function $(i){return document.getElementById(i);}
+function el(t,a,p){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e;}
+function set(e,v){if(e&&e._v!==v){e._v=v;e.textContent=v;}}
+function seth(e,v){if(e&&e._h!==v){e._h=v;e.innerHTML=v;}}
+function att(e,k,v){var s=String(v);if(e&&e['_a'+k]!==s){e['_a'+k]=s;e.setAttribute(k,s);}}
+function cls(e,c,o){if(e)e.classList.toggle(c,!!o);}
+function clamp(v,a,b){return v<a?a:v>b?b:v;}
+function ease(x){return x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2;}
+function lerp(a,b,p){return a+(b-a)*p;}
+
+var stage=$('stage'),fitEl=$('fit');
+function resize(){var w=fitEl.clientWidth,h=fitEl.clientHeight,k=Math.min(w/1600,h/900);
+  stage.style.transform='translate('+((w-1600*k)/2)+'px,'+((h-900*k)/2)+'px) scale('+k+')';}
+window.addEventListener('resize',resize);resize();
+
+/* ═══ chapters ═══ */
+var T={sources:[0,6000],agreement:[6000,14500],anchors:[14500,21000],
+       orient:[21000,28000],preserve:[28000,33500],evidence:[33500,45000]};
+var FINAL_AT=41000,DUR=45000;
+var CH=[['sources','01 SOURCES'],['agreement','02 AGREEMENT'],['anchors','03 ANCHORS'],
+        ['orient','04 ORIENT'],['preserve','05 PRESERVE'],['evidence','06 EVIDENCE']];
+function seg(t,n){var r=T[n];return clamp((t-r[0])/(r[1]-r[0]),0,1);}
+function aft(t,n){return t>=T[n][0];}
+function sub(t,a,b){return clamp((t-a)/(b-a),0,1);}
+
+/* ═══ data ═══ */
+var REG={
+ 6:{p:[0.10,0.92,0.14,0.08,0.88,0.16,0.06,0.95,0.12],trusted:[1,4,7]},
+ 3:{p:[0.91,0.89,0.11,0.93,0.90,0.09,0.94,0.87,0.13],trusted:[0,1,3,4,6,7]}
+};
+var BOOST=0.06;
+function build(g){
+  var R=REG[g],A=[],i,j,tr=function(x){return R.trusted.indexOf(x)>=0;};
+  for(i=0;i<9;i++){A.push([]);for(j=0;j<9;j++){
+    if(i===j){A[i].push(1);continue;}
+    var v=R.p[i]*R.p[j]+(1-R.p[i])*(1-R.p[j]);
+    if(!tr(i)&&!tr(j))v=Math.min(0.98,v+BOOST);
+    A[i].push(v);}}
+  var rel=[];for(i=0;i<9;i++){var s=0;for(j=0;j<9;j++)if(j!==i)s+=A[i][j];rel.push(s/8);}
+  /* alpha = smaller cohort, beta = larger cohort */
+  var small=[],large=[];
+  for(i=0;i<9;i++)(tr(i)?(R.trusted.length<=4?small:large):(R.trusted.length<=4?large:small)).push(i);
+  var perm=small.concat(large),slot=[];
+  for(i=0;i<9;i++)slot[perm[i]]=i;
+  var mn=Math.min.apply(null,rel),mx=Math.max.apply(null,rel);
+  var act=[];for(i=0;i<9;i++)act.push(tr(i)?Math.max.apply(null,rel):Math.min.apply(null,rel));
+  /* ACT reliability = agreement reliability, mirrored only if orientation was inverted */
+  var mT=0,mC=0,nT=0,nC=0;
+  for(i=0;i<9;i++){if(tr(i)){mT+=rel[i];nT++;}else{mC+=rel[i];nC++;}}
+  mT/=nT;mC/=nC;
+  var inverted=mT<mC;
+  for(i=0;i<9;i++)act[i]=inverted?(mn+mx-rel[i]):rel[i];
+  return {R:R,A:A,rel:rel,act:act,tr:tr,perm:perm,slot:slot,small:small,large:large,
+          inverted:inverted,alphaN:small.length,betaN:large.length,
+          alphaTrusted:tr(small[0]),rhoAg:inverted?-0.82:0.82};
+}
+var D={6:build(6),3:build(3)};
+var userReg=6;
+function other(g){return g===6?3:6;}
+
+/* ═══ svg ═══ */
+var SV=$('map');
+var MX=104,MY=40,CELL=34,BAX=422,BAW=90,BBX=526,BBW=90,SCX=644,GX=792;
+var gGrid=el('g',{},SV),gCell=el('g',{},SV),gBar=el('g',{},SV),gLab=el('g',{},SV),gAnc=el('g',{},SV),gGa=el('g',{},SV);
+function rowY(s){return MY+s*CELL;}
+
+/* matrix frame */
+el('rect',{x:MX,y:MY,width:CELL*9,height:CELL*9,fill:'none',stroke:'#123123'},gGrid);
+var cells=[],ci,cj;
+for(ci=0;ci<9;ci++){cells.push([]);for(cj=0;cj<9;cj++)
+  cells[ci].push(el('rect',{x:0,y:0,width:CELL-2,height:CELL-2,fill:'#0A1114',opacity:0},gCell));}
+
+/* labels, chips, brackets, bars */
+var rowLab=[],colLab=[],chip=[],chipT=[],barA=[],barB=[];
+for(ci=0;ci<9;ci++){
+  rowLab.push(el('text',{x:96,y:0,'text-anchor':'end','font-size':10,fill:'#5E7D6C','font-family':'var(--mono)'},gLab));
+  colLab.push(el('text',{x:0,y:30,'text-anchor':'middle','font-size':9.5,fill:'#5E7D6C','font-family':'var(--mono)'},gLab));
+  chip.push(el('rect',{x:40,y:0,width:17,height:17,rx:2,fill:'none',stroke:'#3A5A63',opacity:0},gLab));
+  chipT.push(el('text',{x:48.5,y:0,'text-anchor':'middle','font-size':9,fill:'#6FA3B0',opacity:0},gLab));
+  barA.push(el('rect',{x:BAX,y:0,width:0,height:16,fill:'#3A5A63',opacity:0},gBar));
+  barB.push(el('rect',{x:BBX,y:0,width:0,height:16,fill:'#1C6E48',opacity:0},gBar));
+}
+el('text',{x:BAX,y:30,'font-size':8,fill:'#31463B','letter-spacing':'.14em'},gLab).textContent='AGREEMENT';
+var bblbl=el('text',{x:BBX,y:30,'font-size':8,fill:'#31463B','letter-spacing':'.14em',opacity:0},gLab);
+bblbl.textContent='ACT';
+var brA=el('path',{d:'',stroke:'#3A5A63','stroke-width':1.4,fill:'none',opacity:0},gLab);
+var brB=el('path',{d:'',stroke:'#3A5A63','stroke-width':1.4,fill:'none',opacity:0},gLab);
+var brAt=el('text',{x:14,y:0,'font-size':8.5,fill:'#6FA3B0','letter-spacing':'.14em',opacity:0,transform:''},gLab);
+var brBt=el('text',{x:14,y:0,'font-size':8.5,fill:'#6FA3B0','letter-spacing':'.14em',opacity:0,transform:''},gLab);
+var scA=el('text',{x:SCX,y:0,'font-size':13,fill:'#31463B','text-anchor':'middle',opacity:0},gLab);
+var scB=el('text',{x:SCX,y:0,'font-size':13,fill:'#31463B','text-anchor':'middle',opacity:0},gLab);
+var scL=el('text',{x:SCX,y:30,'font-size':8,fill:'#31463B','text-anchor':'middle','letter-spacing':'.1em',opacity:0},gLab);
+scL.textContent='ANCHORS';
+
+/* anchor strip */
+var ANY=372,ANX=108,ANP=34,ANW=28;
+var ancLbl=el('text',{x:ANX,y:364,'font-size':8,fill:'#31463B','letter-spacing':'.14em',opacity:0},gAnc);
+ancLbl.textContent='16 LABELED ANCHOR ITEMS';
+var anc=[],ancT=[];
+for(ci=0;ci<16;ci++){
+  anc.push(el('rect',{x:ANX+ci*ANP,y:ANY,width:ANW,height:26,rx:2,fill:'#080D0A',stroke:'#123123',opacity:0},gAnc));
+  ancT.push(el('text',{x:ANX+ci*ANP+ANW/2,y:ANY+17,'text-anchor':'middle','font-size':8,fill:'#31463B',opacity:0},gAnc));
+}
+var beam=el('path',{d:'',stroke:'#3FE6DC','stroke-width':1.5,fill:'none','stroke-dasharray':'3 4',opacity:0},gAnc);
+var ancNote=el('text',{x:ANX,y:424,'font-size':10.5,fill:'#31463B','font-family':'var(--sans)',opacity:0},gAnc);
+
+/* orientation gauge */
+var GY0=76,GY1=316,GYZ=196,GSC=120;
+function gy(r){return GYZ-r*GSC;}
+el('text',{x:GX,y:46,'text-anchor':'middle','font-size':8.5,fill:'#31463B','letter-spacing':'.16em'},gGa).textContent='TRUST ORIENTATION';
+el('text',{x:GX,y:GY0-13,'text-anchor':'middle','font-size':7.5,fill:'#1C6E48','letter-spacing':'.16em'},gGa).textContent='ALIGNED';
+el('text',{x:GX,y:GY1+21,'text-anchor':'middle','font-size':7.5,fill:'#7A5F26','letter-spacing':'.16em'},gGa).textContent='INVERTED';
+el('line',{x1:GX,y1:GY0,x2:GX,y2:GY1,stroke:'#1C5034','stroke-width':1},gGa);
+[[1,'+1'],[0,'0'],[-1,'\u22121']].forEach(function(q){
+  el('line',{x1:GX-5,y1:gy(q[0]),x2:GX+5,y2:gy(q[0]),stroke:'#31463B','stroke-width':1},gGa);
+  var tq=el('text',{x:GX-10,y:gy(q[0])+3.5,'text-anchor':'end','font-size':7.5,fill:'#31463B'},gGa);
+  tq.textContent=q[1];
+});
+el('line',{x1:GX-16,y1:GYZ,x2:GX+16,y2:GYZ,stroke:'#31463B','stroke-width':1,'stroke-dasharray':'2 3'},gGa);
+var mkAg=el('g',{opacity:0},gGa);
+el('line',{x1:-13,y1:0,x2:13,y2:0,stroke:'#E0A93C','stroke-width':2.4},mkAg);
+var mkAgT=el('text',{x:0,y:3.5,'font-size':8,fill:'#E0A93C','letter-spacing':'.1em'},mkAg);
+mkAgT.textContent='AGREEMENT';
+var mkAc=el('g',{opacity:0},gGa);
+el('path',{d:'M-7,-6 L5,0 L-7,6 Z',fill:'#31E08A'},mkAc);
+var mkAcT=el('text',{x:0,y:3.5,'font-size':8,fill:'#31E08A','letter-spacing':'.1em'},mkAc);
+mkAcT.textContent='ACT';
+
+/* ═══ ticks ═══ */
+var ticksEl=$('ticks');
+CH.forEach(function(c){var d=document.createElement('div');d.className='tk';
+  d.style.left=(T[c[0]][0]/DUR*100)+'%';d.innerHTML='<i></i><u>'+c[1]+'</u>';d.dataset.k=c[0];ticksEl.appendChild(d);});
+var tkEls=ticksEl.querySelectorAll('.tk');
+
+/* ═══ reticle ═══ */
+var ret=$('ret'),bodyEl=document.querySelector('.body'),lastF=null;
+function focusOn(id){
+  if(lastF===id)return;lastF=id;
+  if(!id){ret.classList.remove('on');return;}
+  var e=$(id);if(!e)return;
+  var a=e.getBoundingClientRect(),b=bodyEl.getBoundingClientRect(),k=a.width/e.offsetWidth||1;
+  ret.style.left=((a.left-b.left)/k-4)+'px';ret.style.top=((a.top-b.top)/k-4)+'px';
+  ret.style.width=(e.offsetWidth+8)+'px';ret.style.height=(e.offsetHeight+8)+'px';
+  ret.classList.add('on');
+}
+var PN=['p-ex','p-map','p-ori','p-chain'];
+function live(a){PN.forEach(function(p){cls($(p),'live',a.indexOf(p)>=0);});}
+
+/* regime buttons */
+var regBtns=document.querySelectorAll('.regsel button');
+for(var q=0;q<regBtns.length;q++)(function(b){
+  b.addEventListener('click',function(){userReg=parseInt(b.dataset.g,10);lastF=null;render(t);});
+})(regBtns[q]);
+
+var mrows=document.querySelectorAll('.mrow'),srows=document.querySelectorAll('.srow'),blchips=document.querySelectorAll('.blchip');
+
+/* ═══ narration ═══ */
+function script(t,g,d){
+  var maj=g===6?'six':'three';
+  if(!aft(t,'agreement'))
+    return ['Nine sources look at the same item. Each one makes a call &mdash; and we are <b>not told which of them to trust</b>.','SOURCE DECISIONS'];
+  if(!aft(t,'anchors')){
+    if(t<10200)return['Ask a different question: how often does each pair of sources agree with each other?','PAIRWISE AGREEMENT'];
+    if(t<11800)return['Reorder them by that agreement and two groups fall out on their own.','BLOCK STRUCTURE'];
+    if(t<13000)return['Agreement hands more trust to the larger, more internally consistent group.','RELIABILITY FROM AGREEMENT'];
+    if(g===6)return['<i>They agree with each other. That does not make them trustworthy.</i>','ρ ≈ −0.82 · INVERTED'];
+    return['Here the consistent group happens to be the honest one &mdash; but agreement had no way to know that.','ρ ≈ +0.82 · ALIGNED'];
+  }
+  if(!aft(t,'orient')){
+    if(t<17000)return['ACT brings in sixteen items where the answer is already known.','ACT:// ANCHOR SET'];
+    if(t<19200)return['Score each group against those anchors.','COHORT α · ANCHOR ACCURACY'];
+    return['One group gets almost all of them right. The other gets almost all of them wrong.','COHORT β · ANCHOR ACCURACY'];
+  }
+  if(!aft(t,'preserve')){
+    if(t<24200)return['Not one source moved. Not one agreement value changed. <b>Only the direction of trust.</b>','ORIENTATION FLIP'];
+    return['The partition was always right. Agreement just had it pointing the wrong way.','ORIENTED RELIABILITY MAP'];
+  }
+  if(!aft(t,'evidence')){
+    if(t<30200)return['Now flip the situation: only <b>three</b> of nine are corrupted.','REGIME · 3 / 9 CORRUPTED'];
+    return['Agreement is already pointing the right way. ACT checks the anchors and <b>leaves it alone</b>.','NO REVERSAL REQUIRED'];
+  }
+  return ['',''];
+}
+
+/* ═══ render ═══ */
+function render(t){
+  var ch='sources',k,i,j;
+  for(k=CH.length-1;k>=0;k--){if(t>=T[CH[k][0]][0]){ch=CH[k][0];break;}}
+  var isEv=aft(t,'evidence');
+  cls($('act1'),'on',!isEv);cls($('act2'),'on',isEv);
+
+  /* active regime: chapter 05 always demonstrates the opposite of the selected one */
+  var g=(ch==='preserve')?other(userReg):userReg;
+  var d=D[g];
+  for(k=0;k<regBtns.length;k++)cls(regBtns[k],'sel',parseInt(regBtns[k].dataset.g,10)===userReg);
+
+  set($('m-reg'),g+' / 9 corrupted');
+  $('m-reg').className='vl '+(g===6?'a':'g');
+  set($('m-ch'),({sources:'sources',agreement:'agreement',anchors:'anchors',
+    orient:'orient',preserve:'preserve',evidence:'evidence'})[ch]);
+
+  if(!isEv){
+    var sc=script(t,g,d);
+    seth($('say'),sc[0]);seth($('saylbl'),sc[1]);
+
+    /* permutation progress */
+    var pq=aft(t,'agreement')?ease(sub(t,10200,11800)):0;
+    function slotOf(i){return lerp(i,d.slot[i],pq);}
+
+    /* how much of the matrix is revealed */
+    var fill=aft(t,'agreement')?clamp(sub(t,6300,10000),0,1):0;
+    var shown=Math.round(fill*81);
+
+    /* decisions */
+    var nDec=aft(t,'agreement')?9:Math.floor(clamp(seg(t,'sources')/0.72,0,1)*9+0.0001);
+    var cntA=0,cntB=0;
+    for(i=0;i<9;i++)if(i<nDec){d.tr(i)?cntA++:cntB++;}
+    set($('n-a'),nDec?String(cntA):'—');
+    set($('n-b'),nDec?String(cntB):'—');
+    var majB=cntB>cntA;
+    set($('m-maj'),nDec>=9?(majB?'DECISION B':'DECISION A'):'—');
+    cls($('d-a'),'win',nDec>=9&&!majB);cls($('d-b'),'win',nDec>=9&&majB);
+    var reveal=aft(t,'orient');
+    cls($('d-a'),'truth',reveal);
+    cls($('d-b'),'wrong',reveal);
+    seth($('exnote'),reveal
+      ?(g===6?'The majority was wrong. <b>Six corrupted sources agreed with each other</b> and outvoted the three honest ones.'
+             :'Here the majority happened to be right — but nothing in the agreement structure could have told us that in advance.')
+      :'Nine automated sources each make one binary call. We are not told which of them can be trusted.');
+    set($('ex-r'),nDec?(nDec+' of 9 in'):'one decision');
+
+    /* matrix cells */
+    var n=0;
+    for(i=0;i<9;i++)for(j=0;j<9;j++){
+      var cel=cells[i][j],vis=(n++)<shown;
+      att(cel,'x',(MX+slotOf(j)*CELL+1).toFixed(1));
+      att(cel,'y',(MY+slotOf(i)*CELL+1).toFixed(1));
+      var v=d.A[i][j];
+      var a=i===j?0.14:(0.04+Math.pow(clamp((v-0.10)/0.88,0,1),1.25)*0.86);
+      att(cel,'fill',i===j?'rgba(49,224,138,0.10)':'rgba(111,163,176,'+a.toFixed(3)+')');
+      att(cel,'opacity',vis?1:0);
+    }
+
+    /* row / col labels, chips, bars */
+    var showBars=aft(t,'agreement')&&t>=12400;
+    var showActBar=aft(t,'orient')&&t>=22600;
+    for(i=0;i<9;i++){
+      var s=slotOf(i),yc=MY+s*CELL+CELL/2;
+      att(rowLab[i],'y',(yc+3.5).toFixed(1));set(rowLab[i],'S'+(i+1));
+      att(rowLab[i],'fill',reveal?(d.tr(i)?'#31E08A':'#E0A93C'):'#5E7D6C');
+      att(colLab[i],'x',(MX+s*CELL+CELL/2).toFixed(1));set(colLab[i],'S'+(i+1));
+      att(colLab[i],'fill',reveal?(d.tr(i)?'#1C6E48':'#7A5F26'):'#5E7D6C');
+      att(chip[i],'y',(yc-8.5).toFixed(1));att(chipT[i],'y',(yc+3.5).toFixed(1));
+      att(chip[i],'opacity',i<nDec?1:0);att(chipT[i],'opacity',i<nDec?1:0);
+      set(chipT[i],d.tr(i)?'A':'B');
+      /* agreement bar */
+      att(barA[i],'y',(yc-8).toFixed(1));
+      att(barA[i],'width',showBars?(d.rel[i]*BAW).toFixed(1):0);
+      att(barA[i],'opacity',showBars?0.92:0);
+      /* ACT bar */
+      att(barB[i],'y',(yc-8).toFixed(1));
+      att(barB[i],'width',showActBar?(d.act[i]*BBW*ease(sub(t,22600,23800))).toFixed(1):0);
+      att(barB[i],'opacity',showActBar?0.95:0);
+      att(barB[i],'fill',d.tr(i)?'#31E08A':'#7A5F26');
+    }
+    att(bblbl,'opacity',showActBar?1:0);
+
+    /* cohort brackets */
+    var showBr=aft(t,'agreement')&&t>=11900;
+    var aTop=MY,aBot=MY+d.alphaN*CELL,bTop=aBot,bBot=MY+9*CELL;
+    att(brA,'d','M34,'+(aTop+3)+' H24 V'+(aBot-3)+' H34');
+    att(brB,'d','M34,'+(bTop+3)+' H24 V'+(bBot-3)+' H34');
+    att(brA,'opacity',showBr?1:0);att(brB,'opacity',showBr?1:0);
+    var aCol=reveal?(d.alphaTrusted?'#31E08A':'#E0A93C'):'#6FA3B0';
+    var bCol=reveal?(d.alphaTrusted?'#E0A93C':'#31E08A'):'#6FA3B0';
+    att(brA,'stroke',aCol);att(brB,'stroke',bCol);
+    att(brAt,'fill',aCol);att(brBt,'fill',bCol);
+    att(brAt,'opacity',showBr?1:0);att(brBt,'opacity',showBr?1:0);
+    var ayc=(aTop+aBot)/2,byc=(bTop+bBot)/2;
+    att(brAt,'transform','rotate(-90 14 '+ayc+')');att(brAt,'y',ayc+3);
+    att(brBt,'transform','rotate(-90 14 '+byc+')');att(brBt,'y',byc+3);
+    set(brAt,(reveal?(d.alphaTrusted?'TRUSTED · ':'CORRUPTED · '):'COHORT α · ')+d.alphaN);
+    set(brBt,(reveal?(d.alphaTrusted?'CORRUPTED · ':'TRUSTED · '):'COHORT β · ')+d.betaN);
+
+    /* anchors */
+    var anOn=aft(t,'anchors');
+    att(ancLbl,'opacity',anOn?1:0);
+    var slide=ease(sub(t,14500,15600));
+    var evalA=sub(t,16900,18600),evalB=sub(t,18900,20600);
+    for(i=0;i<16;i++){
+      var ax=ANX+i*ANP;
+      att(anc[i],'x',(ax+(1-slide)*70).toFixed(1));att(ancT[i],'x',(ax+ANW/2+(1-slide)*70).toFixed(1));
+      var o=anOn?clamp(slide*1.4-i*0.03,0,1):0;
+      att(anc[i],'opacity',o);att(ancT[i],'opacity',o);
+      set(ancT[i],String(i+1));
+      /* alpha then beta scored against the bank */
+      var fillCol='#080D0A',strCol='#123123',txCol='#31463B';
+      var aRight=(i!==6);            /* alpha: 15 of 16 */
+      var bRight=(i===2||i===11);    /* beta:   2 of 16 */
+      var aT=d.alphaTrusted?aRight:bRight, bT=d.alphaTrusted?bRight:aRight;
+      if(evalB>0){var lit=clamp(evalB*17,0,16);
+        if(i<lit){fillCol=bT?'rgba(49,224,138,.14)':'rgba(224,169,60,.14)';
+          strCol=bT?'#1C6E48':'#7A5F26';txCol=bT?'#31E08A':'#E0A93C';}}
+      else if(evalA>0){var lit2=clamp(evalA*17,0,16);
+        if(i<lit2){fillCol=aT?'rgba(49,224,138,.14)':'rgba(224,169,60,.14)';
+          strCol=aT?'#1C6E48':'#7A5F26';txCol=aT?'#31E08A':'#E0A93C';}}
+      att(anc[i],'fill',fillCol);att(anc[i],'stroke',strCol);att(ancT[i],'fill',txCol);
+    }
+    var aScore=d.alphaTrusted?'15 / 16':'2 / 16', bScore=d.alphaTrusted?'2 / 16':'15 / 16';
+    var showScA=evalA>0.55,showScB=evalB>0.55;
+    att(scA,'y',ayc+4);att(scB,'y',byc+4);
+    att(scA,'opacity',showScA?1:0);att(scB,'opacity',showScB?1:0);
+    set(scA,aScore);set(scB,bScore);
+    att(scA,'fill',showScA?(d.alphaTrusted?'#31E08A':'#E0A93C'):'#31463B');
+    att(scB,'fill',showScB?(d.alphaTrusted?'#E0A93C':'#31E08A'):'#31463B');
+    att(scL,'opacity',showScA?1:0);
+    var beamTo=evalB>0?byc:ayc;
+    att(beam,'d','M'+(ANX+15*ANP+ANW)+','+(ANY+13)+' H'+(SCX)+' V'+(beamTo+14));
+    att(beam,'opacity',(evalA>0||evalB>0)?0.9:0);
+    att(ancNote,'opacity',anOn&&t>=16900?1:0);
+    set(ancNote,anOn?'Anchors orient the partition. They do not train or update the sources.':'');
+
+    /* orientation gauge */
+    var agShow=aft(t,'agreement')&&t>=12900;
+    att(mkAg,'opacity',agShow?1:0);
+    att(mkAg,'transform','translate('+GX+','+gy(d.rhoAg)+')');
+    var acStart=aft(t,'orient')?21600:99999;
+    var sweep=ease(sub(t,acStart,acStart+2000));
+    var acShow=t>=acStart;
+    att(mkAc,'opacity',acShow?1:0);
+    var acR=lerp(d.rhoAg,0.82,d.inverted?sweep:1);
+    att(mkAc,'transform','translate('+GX+','+gy(acR)+')');
+    var coincide=acShow&&Math.abs(acR-d.rhoAg)<0.03;
+    att(mkAgT,'x',coincide?-20:18);
+    att(mkAgT,'text-anchor',coincide?'end':'start');
+    att(mkAcT,'x',18);att(mkAcT,'text-anchor','start');
+
+    /* right column */
+    var st='—',sx='awaiting<br>agreement structure',stc='';
+    if(acShow&&sweep>0.9){st=d.inverted?'ORIENTED':'PRESERVED';stc=d.inverted?'ori':'pre';
+      sx=d.inverted?'anchors reversed<br>the trust direction':'no reversal<br>required';}
+    else if(acShow){st='ORIENTING';stc='';sx='applying<br>anchor calibration';}
+    else if(agShow){st=d.inverted?'INVERTED':'ALIGNED';stc=d.inverted?'inv':'';
+      sx=d.inverted?'agreement ranks<br>the sources backwards':'agreement already<br>points the right way';}
+    set($('statw'),st);seth($('statx'),sx);
+    $('statrow').className='stat'+(stc?' '+stc:'');
+    set($('rv-ag'),agShow?((d.rhoAg>0?'+':'')+d.rhoAg.toFixed(2)):'—');
+    cls($('rb-ag'),'pend',!agShow);cls($('rb-ag'),'bad',agShow&&d.inverted);
+    set($('rv-ac'),acShow?((acR>0?'+':'')+acR.toFixed(2)):'—');
+    cls($('rb-ac'),'pend',!acShow);
+    set($('m-coh'),aft(t,'agreement')&&t>=11900?('α · '+d.alphaN+'   β · '+d.betaN):'—');
+    set($('m-ori'),agShow?(acShow&&sweep>0.9?(d.inverted?'oriented +0.82':'preserved +0.82'):(d.inverted?'inverted −0.82':'aligned +0.82')):'—');
+    $('m-ori').className='vl '+(acShow&&sweep>0.9?'g':(agShow&&d.inverted?'a':'s'));
+
+    cls($('cs0'),'on',nDec>0);
+    cls($('cs1'),'on',aft(t,'agreement')&&t>=11900);
+    cls($('cs2'),'on',aft(t,'anchors')&&t>=16900);
+    cls($('cs3'),'on',acShow&&sweep>0.6);
+    cls($('dsbox'),'on',acShow&&sweep>0.9);
+
+    set($('map-h'),({sources:'Source decisions',agreement:'Pairwise agreement · 9 × 9',
+      anchors:'Anchor calibration',orient:'Oriented reliability map',preserve:'Regime check'})[ch]||'');
+    set($('map-r'),({sources:'binary calls',agreement:'structure, not direction',
+      anchors:'16 labeled items',orient:'trust direction resolved',preserve:'trusted majority'})[ch]||'—');
+
+    focusOn(({sources:'p-ex',agreement:'p-map',anchors:'p-map',orient:'p-ori',preserve:'p-ori'})[ch]||null);
+    live(({sources:['p-ex'],agreement:['p-map'],anchors:['p-map'],
+      orient:['p-map','p-ori','p-chain'],preserve:['p-ori','p-map']})[ch]||[]);
+  }else{
+    focusOn(null);
+    set($('m-coh'),'α · 3   β · 6');set($('m-ori'),'oriented +0.82');
+    $('m-ori').className='vl g';
+    var ep=(t-T.evidence[0])/1000;
+    for(k=0;k<mrows.length;k++){
+      var on=ep>0.7+k*1.5;cls(mrows[k],'on',on);
+      var f=mrows[k].querySelector('.fillL')||mrows[k].querySelector('.fillR');
+      f.style.width=on?(f.dataset.w+'%'):'0%';
+    }
+    for(k=0;k<srows.length;k++)cls(srows[k],'on',ep>1.5+k*0.6);
+    var blUp=ep>5.4;
+    for(k=0;k<blchips.length;k++){
+      cls(blchips[k],'up',blUp&&ep>5.6+k*0.16);
+      var u=blchips[k].querySelector('u');
+      set(u,(blUp&&ep>5.6+k*0.16)?'↑':'↓');
+    }
+    cls($('blbar'),'on',ep>4.6);
+    set($('bl-r'),blUp?'oriented by the same anchor set':'all inverted under a corrupted majority');
+    cls($('fin'),'on',t>=FINAL_AT);
+  }
+
+  var pc=t/DUR*100;
+  $('tfill').style.width=pc+'%';$('thead').style.left=pc+'%';
+  for(k=0;k<tkEls.length;k++){var r2=T[tkEls[k].dataset.k];
+    cls(tkEls[k],'done',t>=r2[1]);cls(tkEls[k],'now',t>=r2[0]&&t<r2[1]);}
+  var s2=Math.floor(t/1000);
+  set($('clk'),Math.floor(s2/60)+':'+String(s2%60).padStart(2,'0'));
+  var pr=String(Math.round(pc));
+  if($('track')._p!==pr){$('track')._p=pr;$('track').setAttribute('aria-valuenow',pr);}
+}
+
+/* ═══ clock ═══ */
+var t=0,playing=true,last=performance.now();
+function loop(now){var dt=now-last;last=now;
+  if(playing){t+=dt;if(t>=DUR){t=DUR;playing=false;syncBtn();}}
+  render(t);requestAnimationFrame(loop);}
+function syncBtn(){var b=$('b-play');b.textContent=playing?'❚❚ Pause':'▶ Play';
+  b.setAttribute('aria-label',playing?'Pause':'Play');b.classList.toggle('pri',playing);}
+$('b-play').addEventListener('click',function(){if(t>=DUR)t=0;playing=!playing;syncBtn();});
+$('b-replay').addEventListener('click',function(){t=0;userReg=6;lastF=null;playing=true;syncBtn();});
+$('b-paper').addEventListener('click',function(e){e.preventDefault();});
+$('track').addEventListener('click',function(e){var r=$('track').getBoundingClientRect();
+  t=clamp((e.clientX-r.left)/r.width,0,1)*DUR;lastF=null;render(t);});
+$('track').addEventListener('keydown',function(e){
+  if(e.key==='ArrowRight')t=clamp(t+2500,0,DUR);
+  else if(e.key==='ArrowLeft'){t=clamp(t-2500,0,DUR);lastF=null;}
+  else return;e.preventDefault();render(t);});
+document.addEventListener('keydown',function(e){
+  if(e.target.tagName==='BUTTON'||e.target.tagName==='A')return;
+  if(e.code==='Space'){e.preventDefault();if(t>=DUR)t=0;playing=!playing;syncBtn();}
+  if(e.key==='r'||e.key==='R'){t=0;userReg=6;lastF=null;playing=true;syncBtn();}});
+window.addEventListener('resize',function(){lastF=null;});
+syncBtn();requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
