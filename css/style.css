@@ -636,6 +636,7 @@ p:last-child{ margin-bottom: 0; }
 /* portrait as a narrow hero column: image stacked over metadata */
 .idcard--col{
   grid-template-columns: 1fr;
+  gap: var(--s-related);
   border-right: 1px solid var(--border);
   align-content: start;
 }
