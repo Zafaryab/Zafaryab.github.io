@@ -67,9 +67,10 @@ ID_PREFIX = "frame-"
 # Fields the script owns and may (re)write on the entries it creates.
 # Everything else is curator-maintained and is never touched once written.
 CURATOR_FIELDS = (
-    "title", "subtitle", "category", "tags",
+    "title", "subtitle", "primary_collection", "tags",
     "collections", "location", "date", "featured", "order",
 )
+FACETS_PATH = ROOT / "data" / "tag_facets.json"
 
 _DATETIME_TAG = next((k for k, v in ExifTags.TAGS.items() if v == "DateTimeOriginal"), 36867)
 
@@ -164,10 +165,26 @@ def scan_full() -> list[Path]:
     )
 
 
+def load_facet_vocab() -> set:
+    """Union of the controlled secondary-attribute vocabulary (tag_facets.json)."""
+    if not FACETS_PATH.exists():
+        return set()
+    try:
+        facets = json.loads(FACETS_PATH.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return set()
+    vocab = set()
+    for key, vals in facets.items():
+        if not key.startswith("_") and isinstance(vals, list):
+            vocab.update(vals)
+    return vocab
+
+
 def validate(data: list, warnings: list) -> dict:
     """Collect integrity warnings without mutating the manifest."""
     stats = {"missing_files": 0, "missing_thumbs": 0, "missing_larges": 0}
     seen_ids, seen_fulls = set(), set()
+    vocab = load_facet_vocab()
 
     for e in data:
         eid = e.get("id", "<no-id>")
@@ -178,6 +195,12 @@ def validate(data: list, warnings: list) -> dict:
         if eid in seen_ids:
             warnings.append(f"duplicate id: {eid}")
         seen_ids.add(eid)
+
+        # tags must come from the controlled vocabulary (place names belong in
+        # collections, not tags)
+        for t in e.get("tags", []) or []:
+            if vocab and t not in vocab:
+                warnings.append(f"entry {eid} uses tag outside controlled vocab: {t}")
 
         if full in seen_fulls:
             warnings.append(f"duplicate file reference: {full}")
@@ -289,9 +312,9 @@ def run(check_only: bool) -> int:
             "id": photo_id,
             "title": "",
             "subtitle": "",
-            "category": "uncategorized",
-            "tags": [],
+            "primary_collection": "",
             "collections": [],
+            "tags": [],
             "location": "",
             "date": date,
             "featured": False,

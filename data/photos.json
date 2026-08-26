@@ -2,632 +2,683 @@
   {
     "id": "univ_001",
     "title": "Dorm Under Colorful Clouds",
-    "category": "landscapes",
+    "subtitle": "Dorm framed by a dramatic sky.",
+    "primary_collection": "University of Maine / Orono",
+    "collections": [
+      "University of Maine / Orono"
+    ],
     "tags": [
-      "campus",
+      "architecture",
       "sky"
     ],
-    "collections": [
-      "University"
-    ],
+    "location": "University of Maine, Orono, ME",
+    "date": "",
+    "featured": false,
+    "order": 11,
     "thumb": "images/gallery/thumbs/univ_001.jpg",
+    "large": "images/gallery/large/univ_001.webp",
     "full": "images/gallery/full/univ_001.jpg",
-    "subtitle": "Dorm framed by a dramatic sky.",
-    "large": "images/gallery/large/univ_001.webp"
+    "width": 1600,
+    "height": 899,
+    "orientation": "landscape"
   },
   {
     "id": "univ_002",
     "title": "Campus Lawn, Same Sky",
-    "category": "landscapes",
+    "subtitle": "Open lawn under the same painted clouds.",
+    "primary_collection": "University of Maine / Orono",
+    "collections": [
+      "University of Maine / Orono"
+    ],
     "tags": [
-      "campus",
       "sky"
     ],
-    "collections": [
-      "University"
-    ],
+    "location": "University of Maine, Orono, ME",
+    "date": "",
+    "featured": false,
+    "order": 12,
     "thumb": "images/gallery/thumbs/univ_002.jpg",
+    "large": "images/gallery/large/univ_002.webp",
     "full": "images/gallery/full/univ_002.jpg",
-    "subtitle": "Open lawn under the same painted clouds.",
-    "large": "images/gallery/large/univ_002.webp"
+    "width": 1600,
+    "height": 899,
+    "orientation": "landscape"
   },
   {
     "id": "univ_003",
     "title": "Red Berries (Soft Background)",
-    "category": "landscapes",
+    "subtitle": "Berries in focus with a blurred backdrop.",
+    "primary_collection": "University of Maine / Orono",
+    "collections": [
+      "University of Maine / Orono"
+    ],
     "tags": [
-      "campus",
       "details"
     ],
-    "collections": [
-      "University"
-    ],
+    "location": "University of Maine, Orono, ME",
+    "date": "",
+    "featured": false,
+    "order": 13,
     "thumb": "images/gallery/thumbs/univ_003.jpg",
+    "large": "images/gallery/large/univ_003.webp",
     "full": "images/gallery/full/univ_003.jpg",
-    "subtitle": "Berries in focus with a blurred backdrop.",
-    "large": "images/gallery/large/univ_003.webp"
+    "width": 1600,
+    "height": 900,
+    "orientation": "landscape"
   },
   {
     "id": "univ_winter_001",
     "title": "Raymond H. Fogler Library",
-    "category": "landscapes",
-    "tags": [
-      "campus",
-      "winter",
-      "architecture"
-    ],
-    "collections": [
-      "University",
-      "Winter"
-    ],
-    "thumb": "images/gallery/thumbs/univ_winter_001.jpeg",
-    "full": "images/gallery/full/univ_winter_001.jpeg",
     "subtitle": "Raymond H. Fogler Library in winter.",
-    "large": "images/gallery/large/univ_winter_001.webp"
+    "primary_collection": "University of Maine / Orono",
+    "collections": [
+      "University of Maine / Orono"
+    ],
+    "tags": [
+      "architecture",
+      "winter"
+    ],
+    "location": "University of Maine, Orono, ME",
+    "date": "",
+    "featured": false,
+    "order": 3,
+    "thumb": "images/gallery/thumbs/univ_winter_001.jpeg",
+    "large": "images/gallery/large/univ_winter_001.webp",
+    "full": "images/gallery/full/univ_winter_001.jpeg",
+    "width": 1371,
+    "height": 1029,
+    "orientation": "landscape"
   },
   {
     "id": "univ_winter_002",
     "title": "Winslow Agriculture Department",
-    "category": "landscapes",
-    "tags": [
-      "campus",
-      "winter",
-      "architecture"
-    ],
-    "collections": [
-      "University",
-      "Winter"
-    ],
-    "thumb": "images/gallery/thumbs/univ_winter_002.jpeg",
-    "full": "images/gallery/full/univ_winter_002.jpeg",
     "subtitle": "Winslow Agriculture building during winter.",
-    "large": "images/gallery/large/univ_winter_002.webp"
+    "primary_collection": "University of Maine / Orono",
+    "collections": [
+      "University of Maine / Orono"
+    ],
+    "tags": [
+      "architecture",
+      "winter"
+    ],
+    "location": "University of Maine, Orono, ME",
+    "date": "",
+    "featured": false,
+    "order": 4,
+    "thumb": "images/gallery/thumbs/univ_winter_002.jpeg",
+    "large": "images/gallery/large/univ_winter_002.webp",
+    "full": "images/gallery/full/univ_winter_002.jpeg",
+    "width": 1600,
+    "height": 1066,
+    "orientation": "landscape"
   },
   {
     "id": "univ_winter_003",
     "title": "Winter Campus Building",
-    "category": "landscapes",
-    "tags": [
-      "campus",
-      "winter",
-      "architecture"
-    ],
-    "collections": [
-      "University",
-      "Winter"
-    ],
-    "thumb": "images/gallery/thumbs/univ_winter_003.jpeg",
-    "full": "images/gallery/full/univ_winter_003.jpeg",
     "subtitle": "A quiet campus building in winter light.",
-    "large": "images/gallery/large/univ_winter_003.webp"
+    "primary_collection": "University of Maine / Orono",
+    "collections": [
+      "University of Maine / Orono"
+    ],
+    "tags": [
+      "architecture",
+      "winter"
+    ],
+    "location": "University of Maine, Orono, ME",
+    "date": "",
+    "featured": false,
+    "order": 5,
+    "thumb": "images/gallery/thumbs/univ_winter_003.jpeg",
+    "large": "images/gallery/large/univ_winter_003.webp",
+    "full": "images/gallery/full/univ_winter_003.jpeg",
+    "width": 1600,
+    "height": 1066,
+    "orientation": "landscape"
   },
   {
     "id": "univ_winter_004",
     "title": "Memorial Gym",
-    "category": "landscapes",
-    "tags": [
-      "campus",
-      "winter",
-      "architecture"
-    ],
-    "collections": [
-      "University",
-      "Winter"
-    ],
-    "thumb": "images/gallery/thumbs/univ_winter_004.jpeg",
-    "full": "images/gallery/full/univ_winter_004.jpeg",
     "subtitle": "Memorial Gym surrounded by winter atmosphere.",
-    "large": "images/gallery/large/univ_winter_004.webp"
+    "primary_collection": "University of Maine / Orono",
+    "collections": [
+      "University of Maine / Orono"
+    ],
+    "tags": [
+      "architecture",
+      "winter"
+    ],
+    "location": "University of Maine, Orono, ME",
+    "date": "",
+    "featured": false,
+    "order": 6,
+    "thumb": "images/gallery/thumbs/univ_winter_004.jpeg",
+    "large": "images/gallery/large/univ_winter_004.webp",
+    "full": "images/gallery/full/univ_winter_004.jpeg",
+    "width": 1600,
+    "height": 1066,
+    "orientation": "landscape"
   },
   {
     "id": "univ_winter_005",
     "title": "Memorial Union View",
-    "category": "landscapes",
+    "subtitle": "A wide winter view featuring Memorial Union.",
+    "primary_collection": "University of Maine / Orono",
+    "collections": [
+      "University of Maine / Orono"
+    ],
     "tags": [
-      "campus",
+      "architecture",
       "winter",
       "wide"
     ],
-    "collections": [
-      "University",
-      "Winter"
-    ],
+    "location": "University of Maine, Orono, ME",
+    "date": "",
+    "featured": false,
+    "order": 7,
     "thumb": "images/gallery/thumbs/univ_winter_005.jpeg",
+    "large": "images/gallery/large/univ_winter_005.webp",
     "full": "images/gallery/full/univ_winter_005.jpeg",
-    "subtitle": "A wide winter view featuring Memorial Union.",
-    "large": "images/gallery/large/univ_winter_005.webp"
+    "width": 1392,
+    "height": 928,
+    "orientation": "landscape"
   },
   {
     "id": "univ_winter_006",
     "title": "Bench at University Mall (Williams Hall)",
-    "category": "landscapes",
+    "subtitle": "A seating bench at the University Mall in front of Williams Hall.",
+    "primary_collection": "University of Maine / Orono",
+    "collections": [
+      "University of Maine / Orono"
+    ],
     "tags": [
-      "campus",
       "winter",
       "details"
     ],
-    "collections": [
-      "University",
-      "Winter"
-    ],
+    "location": "University of Maine, Orono, ME",
+    "date": "",
+    "featured": false,
+    "order": 8,
     "thumb": "images/gallery/thumbs/univ_winter_006.jpeg",
+    "large": "images/gallery/large/univ_winter_006.webp",
     "full": "images/gallery/full/univ_winter_006.jpeg",
-    "subtitle": "A seating bench at the University Mall in front of Williams Hall.",
-    "large": "images/gallery/large/univ_winter_006.webp"
+    "width": 1600,
+    "height": 1199,
+    "orientation": "landscape"
   },
   {
     "id": "univ_winter_007",
     "title": "A-Frame Picnic Table (University Park)",
-    "category": "landscapes",
-    "tags": [
-      "park",
-      "winter",
-      "wood"
-    ],
-    "collections": [
-      "University",
-      "Winter"
-    ],
-    "thumb": "images/gallery/thumbs/univ_winter_007.jpeg",
-    "full": "images/gallery/full/univ_winter_007.jpeg",
     "subtitle": "An A-frame wooden picnic table at a University park.",
-    "large": "images/gallery/large/univ_winter_007.webp"
+    "primary_collection": "University of Maine / Orono",
+    "collections": [
+      "University of Maine / Orono"
+    ],
+    "tags": [
+      "winter",
+      "forest"
+    ],
+    "location": "University of Maine, Orono, ME",
+    "date": "",
+    "featured": false,
+    "order": 9,
+    "thumb": "images/gallery/thumbs/univ_winter_007.jpeg",
+    "large": "images/gallery/large/univ_winter_007.webp",
+    "full": "images/gallery/full/univ_winter_007.jpeg",
+    "width": 1600,
+    "height": 1199,
+    "orientation": "landscape"
   },
   {
     "id": "univ_winter_008",
     "title": "Evening Bench (Park View)",
-    "category": "landscapes",
-    "tags": [
-      "park",
-      "winter",
-      "evening"
-    ],
-    "collections": [
-      "University",
-      "Winter"
-    ],
-    "thumb": "images/gallery/thumbs/univ_winter_008.jpeg",
-    "full": "images/gallery/full/univ_winter_008.jpeg",
     "subtitle": "Evening view of a bench from behind at a park.",
-    "large": "images/gallery/large/univ_winter_008.webp"
+    "primary_collection": "University of Maine / Orono",
+    "collections": [
+      "University of Maine / Orono"
+    ],
+    "tags": [
+      "winter",
+      "sunset"
+    ],
+    "location": "University of Maine, Orono, ME",
+    "date": "",
+    "featured": false,
+    "order": 10,
+    "thumb": "images/gallery/thumbs/univ_winter_008.jpeg",
+    "large": "images/gallery/large/univ_winter_008.webp",
+    "full": "images/gallery/full/univ_winter_008.jpeg",
+    "width": 1600,
+    "height": 1066,
+    "orientation": "landscape"
   },
   {
     "id": "fall_001",
     "title": "Fall Colors",
-    "category": "landscapes",
+    "subtitle": "Autumn tones in the leaves.",
+    "primary_collection": "",
+    "collections": [],
     "tags": [
       "fall"
     ],
-    "collections": [
-      "Fall"
-    ],
+    "location": "",
+    "date": "",
+    "featured": false,
+    "order": 1,
     "thumb": "images/gallery/thumbs/fall_001.JPG",
+    "large": "images/gallery/large/fall_001.webp",
     "full": "images/gallery/full/fall_001.JPG",
-    "subtitle": "Autumn tones in the leaves.",
-    "large": "images/gallery/large/fall_001.webp"
+    "width": 5568,
+    "height": 3712,
+    "orientation": "landscape"
   },
   {
     "id": "frame-0001",
     "title": "Brick Hall at Winter Dusk",
     "subtitle": "A snow-topped brick campus building beneath a pink winter sunset.",
-    "category": "landscapes",
-    "tags": [
-      "campus",
-      "winter",
-      "architecture",
-      "sky"
-    ],
+    "primary_collection": "University of Maine / Orono",
     "collections": [
-      "University",
-      "Winter"
+      "University of Maine / Orono"
+    ],
+    "tags": [
+      "architecture",
+      "winter",
+      "sky"
     ],
     "location": "University of Maine, Orono, ME",
     "date": "2025-12-24",
     "featured": true,
-    "order": 13,
+    "order": 1,
     "thumb": "images/gallery/thumbs/frame-0001.webp",
+    "large": "images/gallery/large/frame-0001.webp",
     "full": "images/gallery/full/frame-0001.jpg",
     "width": 1066,
     "height": 1600,
-    "orientation": "portrait",
-    "large": "images/gallery/large/frame-0001.webp"
+    "orientation": "portrait"
   },
   {
     "id": "frame-0002",
     "title": "Cupola at Winter Dusk",
     "subtitle": "A copper-domed cupola against a pink winter sky.",
-    "category": "landscapes",
-    "tags": [
-      "campus",
-      "winter",
-      "architecture",
-      "details"
-    ],
+    "primary_collection": "University of Maine / Orono",
     "collections": [
-      "University",
-      "Winter"
+      "University of Maine / Orono"
+    ],
+    "tags": [
+      "architecture",
+      "winter",
+      "details"
     ],
     "location": "University of Maine, Orono, ME",
     "date": "2025-12-24",
     "featured": false,
-    "order": 14,
+    "order": 2,
     "thumb": "images/gallery/thumbs/frame-0002.webp",
+    "large": "images/gallery/large/frame-0002.webp",
     "full": "images/gallery/full/frame-0002.jpg",
     "width": 1155,
     "height": 1600,
-    "orientation": "portrait",
-    "large": "images/gallery/large/frame-0002.webp"
+    "orientation": "portrait"
   },
   {
     "id": "frame-0003",
     "title": "Sunset over the Champlain Valley",
     "subtitle": "A fiery summer sunset over farmland and a distant lake.",
-    "category": "landscapes",
+    "primary_collection": "Champlain Valley, Vermont",
+    "collections": [
+      "Champlain Valley, Vermont"
+    ],
     "tags": [
       "sunset",
       "lake",
       "mountains",
       "sky"
     ],
-    "collections": [
-      "Sunsets"
-    ],
     "location": "Vermont, USA",
     "date": "2024-07-29",
     "featured": true,
-    "order": 15,
+    "order": 1,
     "thumb": "images/gallery/thumbs/frame-0003.webp",
+    "large": "images/gallery/large/frame-0003.webp",
     "full": "images/gallery/full/frame-0003.jpg",
     "width": 2258,
     "height": 1806,
-    "orientation": "landscape",
-    "large": "images/gallery/large/frame-0003.webp"
+    "orientation": "landscape"
   },
   {
     "id": "frame-0004",
     "title": "Watkins Glen Gorge",
     "subtitle": "Layered shale and moss along the gorge trail.",
-    "category": "waterfalls",
+    "primary_collection": "Watkins Glen State Park",
+    "collections": [
+      "Watkins Glen State Park"
+    ],
     "tags": [
       "gorge",
-      "stream",
-      "forest",
-      "moss"
-    ],
-    "collections": [
-      "Waterfalls"
+      "river",
+      "forest"
     ],
     "location": "Watkins Glen State Park, NY",
     "date": "2025-05-17",
     "featured": false,
-    "order": 16,
+    "order": 1,
     "thumb": "images/gallery/thumbs/frame-0004.webp",
+    "large": "images/gallery/large/frame-0004.webp",
     "full": "images/gallery/full/frame-0004.jpg",
     "width": 2268,
     "height": 4032,
-    "orientation": "portrait",
-    "large": "images/gallery/large/frame-0004.webp"
+    "orientation": "portrait"
   },
   {
     "id": "frame-0005",
     "title": "Cascade at Watkins Glen",
     "subtitle": "A cascade tucked into the mossy gorge.",
-    "category": "waterfalls",
+    "primary_collection": "Watkins Glen State Park",
+    "collections": [
+      "Watkins Glen State Park"
+    ],
     "tags": [
       "waterfall",
       "gorge",
       "forest"
     ],
-    "collections": [
-      "Waterfalls"
-    ],
     "location": "Watkins Glen State Park, NY",
     "date": "2025-05-17",
     "featured": false,
-    "order": 17,
+    "order": 2,
     "thumb": "images/gallery/thumbs/frame-0005.webp",
+    "large": "images/gallery/large/frame-0005.webp",
     "full": "images/gallery/full/frame-0005.jpg",
     "width": 2268,
     "height": 2835,
-    "orientation": "portrait",
-    "large": "images/gallery/large/frame-0005.webp"
+    "orientation": "portrait"
   },
   {
     "id": "frame-0006",
     "title": "Upper Falls & Trestle, Letchworth",
     "subtitle": "The railroad trestle arching over Upper Falls.",
-    "category": "waterfalls",
+    "primary_collection": "Letchworth State Park",
+    "collections": [
+      "Letchworth State Park"
+    ],
     "tags": [
       "waterfall",
       "bridge",
-      "canyon",
+      "gorge",
       "river"
-    ],
-    "collections": [
-      "Waterfalls"
     ],
     "location": "Letchworth State Park, NY",
     "date": "2025-05-17",
     "featured": true,
-    "order": 18,
+    "order": 1,
     "thumb": "images/gallery/thumbs/frame-0006.webp",
+    "large": "images/gallery/large/frame-0006.webp",
     "full": "images/gallery/full/frame-0006.jpg",
     "width": 2244,
     "height": 1795,
-    "orientation": "landscape",
-    "large": "images/gallery/large/frame-0006.webp"
+    "orientation": "landscape"
   },
   {
     "id": "frame-0007",
     "title": "Grand Canyon of the East",
     "subtitle": "The Genesee River winding through Letchworth's cliffs.",
-    "category": "landscapes",
-    "tags": [
-      "canyon",
-      "river",
-      "forest",
-      "cliffs"
-    ],
+    "primary_collection": "Letchworth State Park",
     "collections": [
-      "Waterfalls"
+      "Letchworth State Park"
+    ],
+    "tags": [
+      "gorge",
+      "river",
+      "forest"
     ],
     "location": "Letchworth State Park, NY",
     "date": "2025-05-17",
     "featured": false,
-    "order": 19,
+    "order": 2,
     "thumb": "images/gallery/thumbs/frame-0007.webp",
+    "large": "images/gallery/large/frame-0007.webp",
     "full": "images/gallery/full/frame-0007.jpg",
     "width": 4000,
     "height": 2256,
-    "orientation": "landscape",
-    "large": "images/gallery/large/frame-0007.webp"
+    "orientation": "landscape"
   },
   {
     "id": "frame-0008",
     "title": "Niagara Skyline over the Rapids",
     "subtitle": "The Niagara skyline beyond the upper rapids.",
-    "category": "cityscape",
-    "tags": [
-      "niagara",
-      "skyline",
-      "rapids",
-      "river"
-    ],
+    "primary_collection": "Niagara Falls",
     "collections": [
       "Niagara Falls"
+    ],
+    "tags": [
+      "skyline",
+      "river"
     ],
     "location": "Niagara Falls",
     "date": "2025-05-18",
     "featured": false,
-    "order": 20,
+    "order": 1,
     "thumb": "images/gallery/thumbs/frame-0008.webp",
+    "large": "images/gallery/large/frame-0008.webp",
     "full": "images/gallery/full/frame-0008.jpg",
     "width": 4032,
     "height": 2268,
-    "orientation": "landscape",
-    "large": "images/gallery/large/frame-0008.webp"
+    "orientation": "landscape"
   },
   {
     "id": "frame-0009",
     "title": "Horseshoe Falls from the Water",
     "subtitle": "Mist rising off Horseshoe Falls at water level.",
-    "category": "waterfalls",
+    "primary_collection": "Niagara Falls",
+    "collections": [
+      "Niagara Falls"
+    ],
     "tags": [
-      "niagara",
       "waterfall",
       "mist"
-    ],
-    "collections": [
-      "Niagara Falls",
-      "Waterfalls"
     ],
     "location": "Niagara Falls",
     "date": "2025-05-18",
     "featured": true,
-    "order": 21,
+    "order": 2,
     "thumb": "images/gallery/thumbs/frame-0009.webp",
+    "large": "images/gallery/large/frame-0009.webp",
     "full": "images/gallery/full/frame-0009.jpg",
     "width": 2835,
     "height": 2267,
-    "orientation": "landscape",
-    "large": "images/gallery/large/frame-0009.webp"
+    "orientation": "landscape"
   },
   {
     "id": "frame-0010",
     "title": "American Falls from the Water",
     "subtitle": "The American Falls tumbling onto the talus below.",
-    "category": "waterfalls",
+    "primary_collection": "Niagara Falls",
+    "collections": [
+      "Niagara Falls"
+    ],
     "tags": [
-      "niagara",
       "waterfall",
       "mist"
-    ],
-    "collections": [
-      "Niagara Falls",
-      "Waterfalls"
     ],
     "location": "Niagara Falls",
     "date": "2025-05-18",
     "featured": false,
-    "order": 22,
+    "order": 3,
     "thumb": "images/gallery/thumbs/frame-0010.webp",
+    "large": "images/gallery/large/frame-0010.webp",
     "full": "images/gallery/full/frame-0010.jpg",
     "width": 2819,
     "height": 2254,
-    "orientation": "landscape",
-    "large": "images/gallery/large/frame-0010.webp"
+    "orientation": "landscape"
   },
   {
     "id": "frame-0011",
     "title": "Voyage to the Falls",
     "subtitle": "A tour boat crowded with blue ponchos on the emerald river.",
-    "category": "travel",
+    "primary_collection": "Niagara Falls",
+    "collections": [
+      "Niagara Falls"
+    ],
     "tags": [
-      "niagara",
       "boat",
       "aerial",
       "river"
     ],
-    "collections": [
-      "Niagara Falls"
-    ],
     "location": "Niagara Falls",
     "date": "2025-05-18",
     "featured": false,
-    "order": 23,
+    "order": 4,
     "thumb": "images/gallery/thumbs/frame-0011.webp",
+    "large": "images/gallery/large/frame-0011.webp",
     "full": "images/gallery/full/frame-0011.jpg",
     "width": 1890,
     "height": 3360,
-    "orientation": "portrait",
-    "large": "images/gallery/large/frame-0011.webp"
+    "orientation": "portrait"
   },
   {
     "id": "frame-0012",
     "title": "Aurora over the Lake",
     "subtitle": "Northern lights shimmering above a calm shoreline.",
-    "category": "aurora",
+    "primary_collection": "Aurora",
+    "collections": [
+      "Aurora"
+    ],
     "tags": [
       "aurora",
       "night",
       "stars",
       "lake"
     ],
-    "collections": [
-      "Aurora"
-    ],
     "location": "",
     "date": "",
     "featured": true,
-    "order": 24,
+    "order": 1,
     "thumb": "images/gallery/thumbs/frame-0012.webp",
+    "large": "images/gallery/large/frame-0012.webp",
     "full": "images/gallery/full/frame-0012.jpg",
     "width": 5568,
     "height": 3712,
-    "orientation": "landscape",
-    "large": "images/gallery/large/frame-0012.webp"
+    "orientation": "landscape"
   },
   {
     "id": "frame-0013",
     "title": "Aurora Rays",
     "subtitle": "Green and violet curtains reflected on still water.",
-    "category": "aurora",
+    "primary_collection": "Aurora",
+    "collections": [
+      "Aurora"
+    ],
     "tags": [
       "aurora",
       "night",
       "stars",
       "lake"
     ],
-    "collections": [
-      "Aurora"
-    ],
     "location": "",
     "date": "",
     "featured": false,
-    "order": 25,
+    "order": 2,
     "thumb": "images/gallery/thumbs/frame-0013.webp",
+    "large": "images/gallery/large/frame-0013.webp",
     "full": "images/gallery/full/frame-0013.jpg",
     "width": 5568,
     "height": 3712,
-    "orientation": "landscape",
-    "large": "images/gallery/large/frame-0013.webp"
+    "orientation": "landscape"
   },
   {
     "id": "frame-0014",
     "title": "Violet Aurora",
     "subtitle": "A violet aurora fading to green along the horizon.",
-    "category": "aurora",
+    "primary_collection": "Aurora",
+    "collections": [
+      "Aurora"
+    ],
     "tags": [
       "aurora",
       "night",
       "stars"
     ],
-    "collections": [
-      "Aurora"
-    ],
     "location": "",
     "date": "",
     "featured": false,
-    "order": 26,
+    "order": 3,
     "thumb": "images/gallery/thumbs/frame-0014.webp",
+    "large": "images/gallery/large/frame-0014.webp",
     "full": "images/gallery/full/frame-0014.jpg",
     "width": 5568,
     "height": 3712,
-    "orientation": "landscape",
-    "large": "images/gallery/large/frame-0014.webp"
+    "orientation": "landscape"
   },
   {
     "id": "frame-0015",
     "title": "Aurora & a Shooting Star",
     "subtitle": "A meteor streaks past the northern lights.",
-    "category": "aurora",
+    "primary_collection": "Aurora",
+    "collections": [
+      "Aurora"
+    ],
     "tags": [
       "aurora",
       "night",
-      "stars",
-      "meteor"
-    ],
-    "collections": [
-      "Aurora"
+      "stars"
     ],
     "location": "",
     "date": "",
     "featured": false,
-    "order": 27,
+    "order": 4,
     "thumb": "images/gallery/thumbs/frame-0015.webp",
+    "large": "images/gallery/large/frame-0015.webp",
     "full": "images/gallery/full/frame-0015.jpg",
     "width": 5568,
     "height": 3712,
-    "orientation": "landscape",
-    "large": "images/gallery/large/frame-0015.webp"
+    "orientation": "landscape"
   },
   {
     "id": "frame-0016",
     "title": "Rainbow Falls, Watkins Glen",
     "subtitle": "The signature falls and stone footbridge at Watkins Glen.",
-    "category": "waterfalls",
+    "primary_collection": "Watkins Glen State Park",
+    "collections": [
+      "Watkins Glen State Park"
+    ],
     "tags": [
       "waterfall",
       "gorge",
       "long-exposure",
       "forest"
     ],
-    "collections": [
-      "Waterfalls"
-    ],
     "location": "Watkins Glen State Park, NY",
     "date": "",
     "featured": true,
-    "order": 28,
+    "order": 3,
     "thumb": "images/gallery/thumbs/frame-0016.webp",
+    "large": "images/gallery/large/frame-0016.webp",
     "full": "images/gallery/full/frame-0016.jpg",
     "width": 3712,
     "height": 5568,
-    "orientation": "portrait",
-    "large": "images/gallery/large/frame-0016.webp"
+    "orientation": "portrait"
   },
   {
     "id": "frame-0017",
     "title": "Gorge Cascade, Watkins Glen",
     "subtitle": "A silky cascade deep in the shaded gorge.",
-    "category": "waterfalls",
+    "primary_collection": "Watkins Glen State Park",
+    "collections": [
+      "Watkins Glen State Park"
+    ],
     "tags": [
       "waterfall",
       "gorge",
       "long-exposure"
     ],
-    "collections": [
-      "Waterfalls"
-    ],
     "location": "Watkins Glen State Park, NY",
     "date": "",
     "featured": false,
-    "order": 29,
+    "order": 4,
     "thumb": "images/gallery/thumbs/frame-0017.webp",
+    "large": "images/gallery/large/frame-0017.webp",
     "full": "images/gallery/full/frame-0017.jpg",
     "width": 3712,
     "height": 5568,
-    "orientation": "portrait",
-    "large": "images/gallery/large/frame-0017.webp"
+    "orientation": "portrait"
   }
 ]

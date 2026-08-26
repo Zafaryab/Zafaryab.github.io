@@ -1349,22 +1349,12 @@ details.fold .fold-body{ padding: var(--s-module); }
 }
 .shot .cap-m .cat{ color: var(--cyan); }
 .shot .cap-m .loc{ color: var(--amber); }
-.shot .tag-abs{
-  position: absolute;
-  top: .6rem; left: .6rem;
-  z-index: 2;
-  font-family: var(--mono);
-  font-size: .64rem;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--green);
-  background: rgba(2,6,8,.75);
-  border: 1px solid var(--border-bright);
-  border-radius: var(--r);
-  padding: .18rem .45rem;
-  backdrop-filter: blur(6px);
-}
-.lb-data .lb-caption{ font-family: var(--mono); font-size: .9rem; }
+/* stacked lightbox caption: FRAME / Title / Subtitle / Location · Date */
+.lb-data .lb-caption{ font-family: var(--mono); font-size: .82rem; line-height: 1.5; }
+.lb-data .lb-caption .lb-fr{ display: block; color: var(--green); font-size: .64rem; letter-spacing: .16em; }
+.lb-data .lb-caption .lb-ti{ display: block; color: #fff; font-size: .95rem; letter-spacing: .01em; margin-top: 2px; }
+.lb-data .lb-caption .lb-sub{ display: block; color: var(--text-secondary); font-size: .8rem; margin-top: 3px; }
+.lb-data .lb-caption .lb-meta{ display: block; color: var(--text-muted); font-size: .68rem; letter-spacing: .06em; margin-top: 4px; }
 
 /* ============================================================
    FOOTER

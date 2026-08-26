@@ -1,0 +1,7 @@
+{
+  "_comment": "Controlled secondary attributes for LENS. Photos.json tags MUST come from this vocabulary. gallery.js builds the FILTER dropdown from these facets (as optgroups); update_gallery.py --check warns on any tag outside this list. Place/trip names live in collections.json, never here.",
+  "Subject": ["architecture", "skyline", "waterfall", "gorge", "river", "forest", "lake", "mountains", "sky", "aurora", "stars", "bridge", "boat"],
+  "Season": ["winter", "fall"],
+  "Time": ["sunset", "night"],
+  "Technique": ["long-exposure", "aerial", "wide", "details", "mist"]
+}
