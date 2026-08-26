@@ -735,6 +735,16 @@ p:last-child{ margin-bottom: 0; }
 .cv-cols{ columns: 2; column-gap: var(--s-module); }
 .cv-cols > .card{ break-inside: avoid; margin-bottom: var(--s-module); }
 
+/* research header: title left, actions right on desktop; wrap on mobile */
+.cv-head-row{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-module) var(--s-major);
+  flex-wrap: wrap;
+}
+.cv-head-row .acts{ flex: 0 0 auto; }
+
 /* research page: compact jump navigation across the long CV */
 .jump-nav{
   display: flex;
