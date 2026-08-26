@@ -531,9 +531,9 @@ p:last-child{ margin-bottom: 0; }
 }
 .dash-profile .display{ margin: 6px 0 var(--s-module); }
 
-/* stats strip sits just below the action row (no dead space above it) */
+/* stats strip anchored to the bottom of the identity column */
 .dash-stats{
-  margin-top: var(--s-major);
+  margin-top: auto;
   padding-top: var(--s-module);
   border-top: 1px solid var(--border);
   display: flex;
@@ -568,8 +568,16 @@ p:last-child{ margin-bottom: 0; }
 /* right column: research.system list then id-card */
 .dash-side{ display: grid; grid-template-rows: auto 1fr; }
 .sys{ border-bottom: 1px solid var(--border); }
-/* focus as its own hero column: no trailing divider under the last row */
-.sys--col{ border-bottom: 0; }
+/* focus as its own hero column: actions pinned to the bottom of the column */
+.sys--col{ border-bottom: 0; display: flex; flex-direction: column; }
+.sys-acts{
+  margin-top: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  padding: var(--s-module);
+  border-top: 1px solid var(--border);
+}
 .sys-head,
 .idcard-head{
   padding: 10px var(--s-module);

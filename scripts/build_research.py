@@ -169,9 +169,14 @@ def render_patents(d) -> str:
     return "\n\n".join(cells)
 
 
+def _engineering_by_year(d) -> list:
+    """Engineering systems newest-first (by year)."""
+    return sorted(d["engineering"], key=lambda s: int(str(s["year"])[:4]), reverse=True)
+
+
 def render_engineering(d) -> str:
     cells = []
-    for s in d["engineering"]:
+    for s in _engineering_by_year(d):
         cells.append(
             f'<div class="proj">\n'
             f'  <div class="proj-top"><span class="proj-id">{esc(s["title"])}</span>'
@@ -242,10 +247,10 @@ def render_selected_count(d) -> str:
 
 
 def render_engineering_home(d) -> str:
-    # Compact homepage list: year as the mono key + system title (one line each).
+    # Compact homepage list, newest-first: year as the mono key + system title.
     return "\n".join(
         f'<li><span class="k">{esc(s["year"])}</span> {esc(s["title"])}</li>'
-        for s in d["engineering"]
+        for s in _engineering_by_year(d)
     )
 
 

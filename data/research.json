@@ -23,8 +23,9 @@
   },
 
   "counters": [
-    { "source": "published_accepted", "label": "Published / Accepted" },
-    { "source": "patents", "label": "Patent Families" },
+    { "source": "published_accepted", "label": "Pub" },
+    { "source": "under_review", "label": "Rev", "accent": "amber" },
+    { "source": "patents", "label": "IP" },
     { "value": "$25K", "label": "Funded", "accent": "amber" }
   ],
 
