@@ -183,6 +183,64 @@ def render_engineering(d) -> str:
     return "\n\n".join(cells)
 
 
+# ------------------------------------------------ homepage selected research
+def _selected_items(d) -> list:
+    """All records flagged for the homepage showcase, in homepage.order.
+    Venue / status / year / category are read from the canonical record;
+    only order, short code and the showcase summary live under `homepage`."""
+    items = [("current", c) for c in d["current"] if "homepage" in c]
+    for grp in ("published", "accepted", "under_review"):
+        items += [("pub", p) for p in d["publications"][grp] if "homepage" in p]
+    items.sort(key=lambda t: t[1]["homepage"]["order"])
+    return items
+
+
+def _selected_card(kind, rec) -> str:
+    hp = rec["homepage"]
+    num = f'{hp["order"]:02d}'
+    if kind == "current":
+        name = rec["id"]
+        cat = rec["cat"]
+        status_label = rec["status"].capitalize()      # Active / Upcoming
+        status_cls = STATUS_CLASS[rec["status"]]
+        href = "resume.html#current"
+        k, v, _ = rec["meta"][0]                        # first meta pair only
+        meta_pairs = [(k, v)]
+    else:
+        name = hp["code"]
+        cat = rec["tags"]
+        status_label = STATUS_LABEL[rec["status"]]
+        status_cls = STATUS_CLASS[rec["status"]]
+        href = "resume.html#publications"
+        meta_pairs = [("Venue", rec["venue"])]
+        if rec.get("year"):
+            meta_pairs.append(("Year", rec["year"]))
+
+    lines = [
+        f'<a class="proj" href="{href}">',
+        f'  <div class="proj-top"><span class="proj-id"><span class="n">{num}</span>'
+        f'{esc(name)}</span><span class="status status--{status_cls}">{esc(status_label)}</span></div>',
+        f'  <div class="proj-cat">{esc(cat)}</div>',
+        f'  <div class="proj-meta">',
+    ]
+    for k, v in meta_pairs:
+        lines.append(f'    <span class="kv"><b>{esc(k)}</b><span class="amber">{esc(v)}</span></span>')
+    lines += [
+        f'  </div>',
+        f'  <p class="proj-desc">{esc(hp["summary"])}</p>',
+        f'</a>',
+    ]
+    return "\n".join(lines)
+
+
+def render_selected(d) -> str:
+    return "\n\n".join(_selected_card(k, r) for k, r in _selected_items(d))
+
+
+def render_selected_count(d) -> str:
+    return f'<span class="tag">{len(_selected_items(d)):02d} SYSTEMS</span>'
+
+
 # ---------------------------------------------------------------- JSON-LD (SEO)
 PERSON_ID = "https://zafaryab.github.io/#person"
 
@@ -241,6 +299,7 @@ def render_resume_jsonld(d) -> str:
 
 SECTIONS = {
     INDEX: {"index-focus": render_focus, "index-counters": render_counters,
+            "index-selected": render_selected, "index-selected-count": render_selected_count,
             "index-jsonld": render_index_jsonld},
     RESUME: {"resume-current": render_current,
              "resume-publications": render_publications,
@@ -314,6 +373,20 @@ def validate(d: dict) -> list[str]:
     fnums = [f["n"] for f in d["focus"]]
     if len(fnums) != len(set(fnums)):
         errs.append("duplicate focus numbers")
+
+    sel = _selected_items(d)
+    orders = [r["homepage"].get("order") for _, r in sel]
+    if len(orders) != len(set(orders)):
+        errs.append("duplicate homepage.order in selected research")
+    if orders and sorted(orders) != list(range(1, len(orders) + 1)):
+        errs.append(f"homepage.order must be contiguous from 1: got {sorted(orders)}")
+    for kind, r in sel:
+        hp = r["homepage"]
+        who = r.get("id") or r.get("title", "?")
+        if not hp.get("summary"):
+            errs.append(f"homepage missing 'summary': {who}")
+        if kind == "pub" and not hp.get("code"):
+            errs.append(f"homepage publication missing 'code': {who}")
 
     person = d.get("person", {})
     for field in ("name", "url", "image", "jobTitle", "affiliation", "sameAs", "knowsAbout"):
