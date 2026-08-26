@@ -652,6 +652,11 @@ p:last-child{ margin-bottom: 0; }
    pin each column's footer block to the bottom so the bottoms line up,
    leaving the flexible space between the upper content and the rail.
    ============================================================ */
+/* give the middle (portrait) column a bit more width */
+.page-index .dash-main{
+  grid-template-columns: minmax(0, 1.55fr) minmax(190px, 0.8fr) minmax(230px, 1fr);
+}
+
 /* LEFT: metrics stay bottom-anchored; trim the bottom padding to ~16px */
 .page-index .dash-profile{ padding-bottom: var(--s-module); }
 .page-index .dash-stats{ margin-top: auto; }
@@ -664,9 +669,8 @@ p:last-child{ margin-bottom: 0; }
 }
 .page-index .idcard--col .frame{ max-width: none; }        /* fill the column */
 .page-index .idcard--col .idmeta{ margin-top: auto; }
-.page-index .idcard--col .meta{ gap: .55rem; }
-.page-index .idcard--col .meta > div{ display: block; }     /* label over value */
-.page-index .idcard--col .meta dt{ margin-bottom: 2px; }
+.page-index .idcard--col .meta{ gap: 10px 10px; }           /* label + value inline */
+.page-index .idcard--col .meta dd{ white-space: nowrap; }   /* each row on one line */
 
 /* RIGHT: three equal-width action buttons in one row, pinned to the bottom */
 .page-index .sys--col .sys-acts{
