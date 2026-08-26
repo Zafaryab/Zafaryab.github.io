@@ -646,6 +646,44 @@ p:last-child{ margin-bottom: 0; }
 /* narrower label column so a longer value (e.g. lab name) fits on one line */
 .idcard--col .meta > div{ grid-template-columns: 3.5rem 1fr; }
 
+/* ============================================================
+   PROFILE hero — shared bottom rail (homepage only)
+   The three columns already stretch to equal height (grid default);
+   pin each column's footer block to the bottom so the bottoms line up,
+   leaving the flexible space between the upper content and the rail.
+   ============================================================ */
+/* LEFT: metrics stay bottom-anchored; trim the bottom padding to ~16px */
+.page-index .dash-profile{ padding-bottom: var(--s-module); }
+.page-index .dash-stats{ margin-top: auto; }
+
+/* MIDDLE: portrait fills the column width; metadata pinned to the bottom */
+.page-index .idcard--col{
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+.page-index .idcard--col .frame{ max-width: none; }        /* fill the column */
+.page-index .idcard--col .idmeta{ margin-top: auto; }
+.page-index .idcard--col .meta{ gap: .55rem; }
+.page-index .idcard--col .meta > div{ display: block; }     /* label over value */
+.page-index .idcard--col .meta dt{ margin-bottom: 2px; }
+
+/* RIGHT: three equal-width action buttons in one row, pinned to the bottom */
+.page-index .sys--col .sys-acts{
+  margin-top: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .4rem;
+  /* trim the bottom so the button boxes' bottom edge lands on the same rail as
+     the (text-baseline) metrics and metadata in the other two columns */
+  padding-bottom: 8px;
+}
+.page-index .sys--col .sys-acts .act{
+  padding-left: .4rem;
+  padding-right: .4rem;
+  white-space: nowrap;   /* keep each label on one line inside its cell */
+}
+
 /* ---------- Dense project grid ---------- */
 .proj-grid{
   display: grid;
@@ -1387,6 +1425,9 @@ details.fold .fold-body{ padding: var(--s-module); }
   .page-index .dash-main{ grid-template-columns: 1fr; }
   .page-index .dash-profile{ border-right: 0; border-bottom: 1px solid var(--border); }
   .page-index .idcard--col{ border-right: 0; border-bottom: 1px solid var(--border); }
+  /* stacked flow: cap the portrait; the pinned footers become natural (columns
+     are content-height here, so margin-top:auto no longer anchors anything) */
+  .page-index .idcard--col .frame{ max-width: 200px; }
 }
 
 /* project grid: 3 -> 2 columns on mid displays */
