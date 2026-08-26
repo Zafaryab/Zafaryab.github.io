@@ -26,47 +26,32 @@
       <div class="wrap">
         <div class="dash">
           <div class="dash-bar">
-            <span><span class="n">00</span> / RESEARCH</span>
-            <span class="r">RESEARCH RECORD</span>
+            <span><span class="n">00</span> / RESEARCH RECORD</span>
+            <span class="r">WEB CV</span>
           </div>
 
-          <div class="dash-main dash-main--research">
-            <div class="dash-cell">
-              <h1 class="cv-title">RESEARCH</h1>
-              <div class="cv-sub">AI SECURITY &amp; TRUSTWORTHY MACHINE LEARNING</div>
-              <p class="cv-interest">
-                Adversarial and bit-level attacks on multimodal and speech models, RLHF training-signal
-                integrity, trust estimation under corrupted majorities, LLM reliability, and secure
-                intelligent systems.
-              </p>
-              <div class="acts">
-                <a class="act act--primary" href="assets/pdf/Zafaryab_Haider_Resume.pdf" target="_blank" rel="noopener">Resume PDF <span class="arw">↓</span></a>
-                <a class="act" href="#publications">Publications <span class="arw">↗</span></a>
-                <a class="act" href="#current">Current Research <span class="arw">↗</span></a>
-              </div>
-            </div>
-
-            <div class="research-record">
-              <div class="ds-col">
-                <div class="ds-head">// Core</div>
-                <div class="ds-row"><span class="lab">BLADE / SMASH</span><span class="val cyan">Bit-Level AI Security</span></div>
-                <div class="ds-row"><span class="lab">COBRA / ACT</span><span class="val green">Trustworthy ML</span></div>
-                <div class="ds-row"><span class="lab">HARP</span><span class="val magenta">Multi-Agent AI Safety</span></div>
-              </div>
-              <div class="ds-col">
-                <div class="ds-head">// Current</div>
-                <div class="ds-row"><span class="lab">REWIRE</span><span class="val green">● Active</span></div>
-                <div class="ds-row"><span class="lab">INTACT</span><span class="val cyan">Sep 2026</span></div>
-              </div>
-              <div class="ds-col">
-                <div class="ds-head">// Record</div>
-                <div class="ds-row"><span class="lab">07</span><span class="val">Published / Accepted</span></div>
-                <div class="ds-row"><span class="lab">05</span><span class="val amber">Under Review</span></div>
-                <div class="ds-row"><span class="lab">04</span><span class="val">Patent Families</span></div>
-                <div class="ds-row"><span class="lab">$25K</span><span class="val amber">Funded</span></div>
-              </div>
+          <div class="dash-cell">
+            <h1 class="cv-title">RESEARCH &amp; PROFESSIONAL RECORD</h1>
+            <p class="cv-interest">
+              Current research, publications, intellectual property, funded work, appointments,
+              teaching and academic service.
+            </p>
+            <div class="acts">
+              <a class="act act--primary" href="assets/pdf/Zafaryab_Haider_Resume.pdf" target="_blank" rel="noopener">Resume PDF <span class="arw">↓</span></a>
+              <a class="act" href="https://scholar.google.com/citations?user=7rECzEYAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar <span class="arw">↗</span></a>
+              <a class="act" href="https://github.com/ZafaryabMaine" target="_blank" rel="noopener">GitHub <span class="arw">↗</span></a>
             </div>
           </div>
+
+          <nav class="jump-nav" aria-label="Sections">
+            <a href="#current">Current</a>
+            <a href="#publications">Publications</a>
+            <a href="#patents">IP</a>
+            <a href="#appointments">Experience</a>
+            <a href="#talks">Talks</a>
+            <a href="#teaching">Teaching</a>
+            <a href="#service">Service</a>
+          </nav>
         </div>
       </div>
     </section>
@@ -137,6 +122,7 @@
                 <h4 class="pub-title">A framework for mitigating malicious RLHF feedback in LLM training using consensus-based reward (COBRA)</h4>
                 <div class="pub-authors"><span class="me">Haider, Z.</span>, Rahman, M. H., Devabhaktuni, V., Moeykens, S., &amp; Chakraborty, P.</div>
                 <div class="pub-tags">Trustworthy ML / RLHF Integrity</div>
+                <p class="pub-contrib"><span class="k">Contribution</span>Consensus-based reward that negates malicious human-in-the-loop RLHF feedback by aggregating across a mixed-trust expert pool rather than rejecting updates outright.</p>
               </div>
               <div class="pub-aside">
                 <span class="status status--pub">Published</span>
@@ -208,6 +194,7 @@
                 <h4 class="pub-title">ACT: Anchor-calibrated trust estimation when corrupted sources form the majority</h4>
                 <div class="pub-authors"><span class="me">Haider, Z.</span>, Rahman, M. H., Glatter, S., &amp; Chakraborty, P.</div>
                 <div class="pub-tags">Trustworthy ML / Trust Estimation</div>
+                <p class="pub-contrib"><span class="k">Contribution</span>Anchor-calibrated trust estimation that recovers trusted and corrupted source cohorts when agreement-based methods become directionally ambiguous under corrupted majorities.</p>
               </div>
               <div class="pub-aside"><span class="status status--accepted">Accepted</span></div>
             </div>
@@ -222,6 +209,7 @@
                 <h4 class="pub-title">BLADE: Bit-flip attacks for semantic misdirection in quantized image captioning</h4>
                 <div class="pub-authors"><span class="me">Haider, Z.</span>, Rahman, M. H., Moeykens, S., Devabhaktuni, V., &amp; Chakraborty, P.</div>
                 <div class="pub-tags">AI Model Security / Bit-Level VLM Faults</div>
+                <p class="pub-contrib"><span class="k">Contribution</span>Differentiable bit-level fault analysis for quantized vision–language models, showing controlled semantic steering under sparse parameter faults (BLIP, BLIP-2, GIT).</p>
                 <div class="pub-note"><span class="k">Preprint v1:</span> “How a Bit Becomes a Story: Semantic Steering via Differentiable Fault Injection” · arXiv:2512.14715 (earlier version; manuscript substantially revised)</div>
               </div>
               <div class="pub-aside">
@@ -238,6 +226,7 @@
                 <h4 class="pub-title">SMASH: Probing speech recognition robustness via semantically targeted bit flips</h4>
                 <div class="pub-authors"><span class="me">Haider, Z.</span>, Rahman, M. H., Bumin, A., &amp; Chakraborty, P.</div>
                 <div class="pub-tags">AI Model Security / Bit-Level Speech Faults</div>
+                <p class="pub-contrib"><span class="k">Contribution</span>Probes speech-recognition robustness via sparse, semantically targeted parameter bit-flips, characterizing controlled output changes and transferability.</p>
               </div>
               <div class="pub-aside"><span class="status status--submitted">Under Review</span></div>
             </div>
@@ -418,60 +407,25 @@
       </div>
     </section>
 
-    <!-- 06 / SELECTED_RESEARCH_SYSTEMS -->
+    <!-- 06 / ENGINEERING_SYSTEMS (non-paper work only) -->
     <section class="section--tight" id="systems">
       <div class="wrap">
         <div class="sec-head">
-          <div class="sec-label"><i class="fa-solid fa-diagram-project"></i><span class="n">06</span><span class="slash">/</span>SELECTED_RESEARCH_SYSTEMS</div>
+          <div class="sec-label"><i class="fa-solid fa-diagram-project"></i><span class="n">06</span><span class="slash">/</span>ENGINEERING_SYSTEMS</div>
           <span class="line"></span>
-          <span class="tag">08 SYSTEMS</span>
+          <span class="tag">02 SYSTEMS</span>
         </div>
-        <div class="proj-grid">
+        <div class="proj-grid proj-grid--2">
           <div class="proj">
-            <div class="proj-top"><span class="proj-id">SMASH</span><span class="status status--submitted">Review</span></div>
-            <div class="proj-cat">Bit-Level Speech Faults</div>
-            <p class="proj-desc">Framework probing speech-recognition robustness via sparse, semantically targeted parameter bit flips — controlled output changes, reliability, transferability and collateral effects. Under review at NeurIPS.</p>
+            <div class="proj-top"><span class="proj-id">Adversarial Evaluation Tooling</span><span class="tag">2025</span></div>
+            <div class="proj-cat">Internal Systems / Streamlit</div>
+            <p class="proj-desc">Full-stack experimental tooling for structured review and downstream analysis of adversarial studies — repeatable AI-evaluation workflows via a Streamlit interface and Python export pipelines: structured scoring, diff-based review, and CSV export.</p>
           </div>
           <div class="proj">
-            <div class="proj-top"><span class="proj-id">ACT</span><span class="status status--accepted">Accepted</span></div>
-            <div class="proj-cat">Trust Estimation</div>
-            <p class="proj-desc">Anchor-calibrated trust estimation for recovering trusted and corrupted source cohorts when agreement-based methods become directionally ambiguous under corrupted majorities; targets binary cohort recovery. Accepted at IEEE CARS 2026.</p>
+            <div class="proj-top"><span class="proj-id">Distributed / Edge LLM Inference</span><span class="tag">2024</span></div>
+            <div class="proj-cat">Heterogeneous NVIDIA Hardware</div>
+            <p class="proj-desc">Resource-aware LLM execution across heterogeneous NVIDIA hardware, partitioning models layer-by-layer across Jetson Orin Nano, Xavier NX, AGX Orin and an RTX A6000, with models up to the 15B scale (StarCoder).</p>
           </div>
-          <div class="proj">
-            <div class="proj-top"><span class="proj-id">HARP</span><span class="status status--submitted">Review</span></div>
-            <div class="proj-cat">Multi-Agent AI Safety</div>
-            <p class="proj-desc">Studies how malicious or compromised agents in multi-agent LLM systems propagate local failures into system-level harm, and how that harm amplifies relative to a single agent. Under review at IEEE S&amp;P.</p>
-          </div>
-          <div class="proj">
-            <div class="proj-top"><span class="proj-id">DASH</span><span class="status status--pub">Published</span></div>
-            <div class="proj-cat">Adversarial ML / Meta-Attack</div>
-            <p class="proj-desc">Meta-attack framework composing existing attack primitives to synthesize adversarial examples that are both effective and stealthy, rather than optimizing either property alone. Published at CVPR 2026.</p>
-          </div>
-          <div class="proj">
-            <div class="proj-top"><span class="proj-id">BLADE</span><span class="status status--submitted">Review</span></div>
-            <div class="proj-cat">Bit-Level VLM Faults</div>
-            <p class="proj-desc">Differentiable bit-level fault-analysis for quantized vision-language models, studying controlled semantic steering under sparse parameter faults. Evaluated on BLIP, BLIP-2 and GIT; basis of US Provisional 63/930,131 and an IEEE TIFS submission.</p>
-          </div>
-          <div class="proj">
-            <div class="proj-top"><span class="proj-id">COBRA</span><span class="status status--pub">Published</span></div>
-            <div class="proj-cat">RLHF Integrity</div>
-            <p class="proj-desc">Consensus-based reward pipeline that negates malicious human-in-the-loop feedback during RLHF, aggregating across a mixed-trust expert pool instead of rejecting updates outright. Published in Nature Scientific Reports; PCT filed.</p>
-          </div>
-          <div class="proj">
-            <div class="proj-top"><span class="proj-id">Adversarial Eval Tooling</span></div>
-            <div class="proj-cat">Internal Systems</div>
-            <p class="proj-desc">Full-stack experimental tooling for structured review and downstream analysis of adversarial studies — repeatable AI evaluation workflows via a Streamlit interface and Python export pipelines: structured scoring, diff-based review, CSV export.</p>
-          </div>
-          <div class="proj">
-            <div class="proj-top"><span class="proj-id">Edge LLM Inference</span></div>
-            <div class="proj-cat">Heterogeneous Hardware</div>
-            <p class="proj-desc">Prototype for resource-aware LLM execution across heterogeneous NVIDIA hardware, partitioning models layer-by-layer across Jetson Orin Nano, Xavier NX, AGX Orin and an RTX A6000, with models up to the 15B scale (StarCoder).</p>
-          </div>
-          <a class="proj" href="#earlier" style="display:flex;flex-direction:column;justify-content:center;">
-            <div class="proj-cat" style="margin:0 0 6px;">Archive</div>
-            <span class="proj-id" style="margin-bottom:8px;">Earlier Research →</span>
-            <p class="proj-desc" style="margin:0;">Whale-call classification, BEiTv2 imaging, HAR, and earlier systems &amp; software work.</p>
-          </a>
         </div>
       </div>
     </section>
@@ -483,7 +437,7 @@
           <div class="sec-label"><i class="fa-solid fa-microphone-lines"></i><span class="n">07</span><span class="slash">/</span>TALKS_AND_PRESENTATIONS</div>
           <span class="line"></span>
         </div>
-        <div class="cv-cols">
+        <div class="col2">
           <section class="card">
             <div class="card-head"><span class="num"><i class="fa-solid fa-microphone"></i></span><h3 class="hx">Invited Talks &amp; Guest Lectures</h3></div>
             <div class="card-body">
@@ -511,17 +465,17 @@
               </ul>
             </div>
           </section>
-          <section class="card">
-            <div class="card-head"><span class="num"><i class="fa-solid fa-bullhorn"></i></span><h3 class="hx">Outreach &amp; Training</h3></div>
-            <div class="card-body">
-              <ul>
-                <li><strong>AI-Driven Tools for Decision-Making in Forest Management</strong> — Co-presenter, SELF 3.0 Summer Camp, UMaine <span class="tag">Jun 26, 2026</span></li>
-                <li>Trainer for lecturers of Sayid Hamid Senior Secondary School on Google Tech</li>
-                <li>Delivered educational lectures for the SWAYAM course</li>
-              </ul>
-            </div>
-          </section>
         </div>
+        <section class="card" style="margin-top: var(--s-module);">
+          <div class="card-head"><span class="num"><i class="fa-solid fa-bullhorn"></i></span><h3 class="hx">Outreach &amp; Training</h3></div>
+          <div class="card-body">
+            <ul>
+              <li><strong>AI-Driven Tools for Decision-Making in Forest Management</strong> — Co-presenter, SELF 3.0 Summer Camp, UMaine <span class="tag">Jun 26, 2026</span></li>
+              <li>Trainer for lecturers of Sayid Hamid Senior Secondary School on Google Tech</li>
+              <li>Delivered educational lectures for the SWAYAM course</li>
+            </ul>
+          </div>
+        </section>
       </div>
     </section>
 
@@ -538,9 +492,9 @@
           <li><span class="k">ECE473</span> Microprocessor Lab — UMaine (TA)</li>
           <li><span class="k">COC4010</span> Information Security — 2020–2021</li>
           <li><span class="k">COA3600</span> Data Structures — 2020–2022</li>
-          <li><span class="k">COE0431</span> Internet Tools (networking, sockets) — 2015–2022</li>
+          <li><span class="k">COE0431</span> Internet Tools (networking, sockets) — 2015–2019</li>
           <li><span class="k">COA1910</span> C Programming — 2015–2022</li>
-          <li><span class="k">COA446N</span> Selected Topics in CE-I (OS, DS) — 2015–2022</li>
+          <li><span class="k">COA446N</span> Selected Topics in CE-I (OS, DS) — 2015–2019</li>
           <li><span class="k">COA447N</span> Selected Topics in CE-II (Networking, DB) — 2013</li>
           <li><span class="k">COC0203</span> Object-Oriented Programming — 2013</li>
         </ul>
