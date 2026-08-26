@@ -122,7 +122,10 @@
         "homepage": { "order": 6, "code": "BLADE", "summary": "Sparse bit-level fault analysis and semantic steering in quantized vision-language models." },
         "contribution": "Differentiable bit-level fault analysis for quantized vision–language models, studying controlled semantic steering under sparse parameter faults (BLIP, BLIP-2, GIT).",
         "note": { "k": "Preprint v1:", "text": "“How a Bit Becomes a Story: Semantic Steering via Differentiable Fault Injection” · arXiv:2512.14715 (earlier version; manuscript substantially revised)", "hidden": true },
-        "links": [{ "label": "arXiv", "href": "https://arxiv.org/abs/2512.14715" }]
+        "links": [
+          { "label": "arXiv", "href": "https://arxiv.org/abs/2512.14715" },
+          { "label": "Demo", "href": "https://zafaryab.github.io/demos/blade/index.html" }
+        ]
       },
       {
         "year": null, "venue": "NeurIPS",
