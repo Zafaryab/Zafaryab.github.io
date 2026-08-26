@@ -158,5 +158,26 @@
       "inventors": "Haider, Z., Rahman, M. H., Moeykens, S., & Chakraborty, P.", "me": "Haider, Z.",
       "detail": "US Provisional 63/930,131"
     }
+  ],
+
+  "engineering": [
+    {
+      "title": "Adversarial Evaluation Tooling",
+      "year": "2025",
+      "cat": "Internal Systems / Streamlit",
+      "desc": "Full-stack experimental tooling for structured review and downstream analysis of adversarial studies — repeatable AI-evaluation workflows via a Streamlit interface and Python export pipelines: structured scoring, diff-based review, and CSV export."
+    },
+    {
+      "title": "Distributed / Edge LLM Inference",
+      "year": "2024",
+      "cat": "Heterogeneous NVIDIA Hardware",
+      "desc": "Resource-aware LLM execution across heterogeneous NVIDIA hardware, partitioning models layer-by-layer across Jetson Orin Nano, Xavier NX, AGX Orin and an RTX A6000, with models up to the 15B scale (StarCoder)."
+    },
+    {
+      "title": "Human Evaluation & AI Assessment Platform",
+      "year": "2026",
+      "cat": "Streamlit · Supabase · Python",
+      "desc": "Private blinded multi-rater evaluation platform built for human validation of LLM-as-judge metrics in multi-agent AI-security experiments, with controlled rater assignment, randomized presentation, autosave/resume, structured annotation, and reproducible exports."
+    }
   ]
 }

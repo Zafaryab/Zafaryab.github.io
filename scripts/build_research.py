@@ -163,11 +163,26 @@ def render_patents(d) -> str:
     return "\n\n".join(cells)
 
 
+def render_engineering(d) -> str:
+    cells = []
+    for s in d["engineering"]:
+        cells.append(
+            f'<div class="proj">\n'
+            f'  <div class="proj-top"><span class="proj-id">{esc(s["title"])}</span>'
+            f'<span class="tag">{esc(s["year"])}</span></div>\n'
+            f'  <div class="proj-cat">{esc(s["cat"])}</div>\n'
+            f'  <p class="proj-desc">{esc(s["desc"])}</p>\n'
+            f'</div>'
+        )
+    return "\n\n".join(cells)
+
+
 SECTIONS = {
     INDEX: {"index-focus": render_focus, "index-counters": render_counters},
     RESUME: {"resume-current": render_current,
              "resume-publications": render_publications,
-             "resume-patents": render_patents},
+             "resume-patents": render_patents,
+             "resume-engineering": render_engineering},
 }
 
 
@@ -235,6 +250,15 @@ def validate(d: dict) -> list[str]:
     fnums = [f["n"] for f in d["focus"]]
     if len(fnums) != len(set(fnums)):
         errs.append("duplicate focus numbers")
+
+    eng_titles = set()
+    for s in d.get("engineering", []):
+        for field in ("title", "year", "cat", "desc"):
+            if not s.get(field):
+                errs.append(f"engineering system missing '{field}': {s.get('title', '?')}")
+        if s.get("title") in eng_titles:
+            errs.append(f"duplicate engineering system: {s['title']}")
+        eng_titles.add(s.get("title"))
     return errs
 
 
