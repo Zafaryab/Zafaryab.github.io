@@ -71,7 +71,10 @@
         "me": "Haider, Z.", "tags": "Trustworthy ML / RLHF Integrity", "status": "published",
         "homepage": { "order": 7, "code": "COBRA", "summary": "Consensus-based reward mitigating malicious human-in-the-loop feedback during RLHF training of LLMs." },
         "contribution": "Consensus-based reward that negates malicious human-in-the-loop RLHF feedback by aggregating across a mixed-trust expert pool rather than rejecting updates outright.",
-        "links": [{ "label": "Paper", "href": "https://doi.org/10.1038/s41598-025-92889-7" }]
+        "links": [
+          { "label": "Paper", "href": "https://doi.org/10.1038/s41598-025-92889-7" },
+          { "label": "Demo", "href": "https://zafaryab.github.io/demos/cobra/index.html" }
+        ]
       },
       {
         "year": "2025", "venue": "IEEE Access",
