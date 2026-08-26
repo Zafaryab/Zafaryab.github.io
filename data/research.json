@@ -10,7 +10,7 @@
   "focus": [
     { "n": "01", "label": "Bit-Level AI Security", "anchor": "BLADE / SMASH", "accent": "cyan" },
     { "n": "02", "label": "RLHF & Trust Estimation", "anchor": "COBRA / ACT", "accent": "green" },
-    { "n": "03", "label": "Multi-Agent AI Safety", "anchor": "HARP", "accent": "magenta" },
+    { "n": "03", "label": "Multi-Agent LLM Harm", "anchor": "HARP", "accent": "magenta" },
     { "n": "04", "label": "LLM Reliability", "anchor": "INTACT", "accent": "cyan" },
     { "n": "05", "label": "Grid World Models", "anchor": "REWIRE", "accent": "green" }
   ],
@@ -19,10 +19,10 @@
     { "id": "INTACT", "area": "LLM Reliability", "topic": "Generation-Time Signals", "status": "upcoming", "status_label": "Starting Sep 2026", "since": "Sep 2026", "role": "current_project" },
     { "id": "SMASH", "area": "AI Model Security", "topic": "Bit-Level Speech Faults", "status": "under_review", "venue": "NeurIPS", "role": "first_author" },
     { "id": "ACT", "area": "Trustworthy ML", "topic": "Trust Estimation", "status": "accepted", "venue": "IEEE CARS 2026", "role": "first_author" },
-    { "id": "HARP", "area": "Multi-Agent AI Safety", "topic": "Harm Amplification", "status": "under_review", "venue": "IEEE S&P", "role": "coauthor" },
+    { "id": "HARP", "area": "Multi-Agent LLM Harm", "topic": "Harm Amplification", "status": "under_review", "venue": "IEEE S&P", "role": "coauthor" },
     { "id": "BLADE", "area": "AI Model Security", "topic": "Bit-Level VLM Faults", "status": "under_review", "venue": "IEEE TIFS", "role": "first_author" },
     { "id": "COBRA", "area": "Trustworthy ML", "topic": "RLHF Integrity", "status": "published", "venue": "Nature Scientific Reports", "year": 2025, "role": "first_author" },
-    { "id": "DASH", "area": "Adversarial ML", "topic": "Meta-Attack", "status": "published", "venue": "CVPR 2026", "year": 2026, "role": "coauthor" }
+    { "id": "DASH", "area": "Adversarial ML", "topic": "Meta-Attack", "status": "published", "venue": "CVPR 2026", "year": 2026, "role": "coauthor", "link": "https://openaccess.thecvf.com/content/CVPR2026/html/Al_Nomaan_Nafi_DASH_A_Meta-Attack_Framework_for_Synthesizing_Effective_and_Stealthy_Adversarial_CVPR_2026_paper.html" }
   ],
   "membership": "MEMBER // IEEE"
 }
