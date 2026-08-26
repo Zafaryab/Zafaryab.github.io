@@ -12,10 +12,10 @@
   --surface: #0c1011;
   --surface-hover: #121718;
 
-  /* text */
+  /* text (muted lifted to ~5:1 on the matte canvas for WCAG AA) */
   --text-primary: #e5ece8;
   --text-secondary: #a5afab;
-  --text-muted: #66736d;
+  --text-muted: #838e88;
 
   /* accents — original ZH://RESEARCH palette */
   --green: #32f5b4;
