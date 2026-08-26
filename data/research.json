@@ -128,7 +128,7 @@
         "year": null, "venue": "NeurIPS",
         "title": "SMASH: Probing speech recognition robustness via semantically targeted bit flips",
         "authors": "Haider, Z., Rahman, M. H., Bumin, A., & Chakraborty, P.",
-        "me": "Haider, Z.", "tags": "AI Model Security / Bit-Level Speech Faults", "status": "under_review",
+        "me": "Haider, Z.", "tags": "AI Model Security / Targeted Speech Faults", "status": "under_review",
         "homepage": { "order": 3, "code": "SMASH", "summary": "Semantically targeted sparse parameter bit flips in speech-recognition models, with robustness and failure analysis." },
         "contribution": "Probes speech-recognition robustness via sparse, semantically targeted parameter bit-flips, characterizing controlled output changes and transferability."
       },
