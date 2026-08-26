@@ -652,12 +652,13 @@ p:last-child{ margin-bottom: 0; }
    pin each column's footer block to the bottom so the bottoms line up,
    leaving the flexible space between the upper content and the rail.
    ============================================================ */
-/* middle column sized to fit the widest metadata line (ROLE ...) — this also
-   shrinks the portrait that fills it, pulling the hero height (and the
-   left/right whitespace) down */
+/* columns: portrait (left, sized to the widest metadata line) | identity
+   (middle, wide) | research.focus (right). Order swaps the portrait ahead of
+   identity visually while the DOM keeps the name first. */
 .page-index .dash-main{
-  grid-template-columns: minmax(0, 1.85fr) minmax(230px, 0.5fr) minmax(230px, 1fr);
+  grid-template-columns: minmax(230px, 0.5fr) minmax(0, 1.85fr) minmax(230px, 1fr);
 }
+.page-index .idcard--col{ order: -1; }
 
 /* LEFT: metrics stay bottom-anchored; trim the bottom padding to ~16px */
 .page-index .dash-profile{ padding-bottom: var(--s-module); }
@@ -1430,7 +1431,7 @@ details.fold .fold-body{ padding: var(--s-module); }
 @media (max-width: 1180px){
   .page-index .dash-main{ grid-template-columns: 1fr; }
   .page-index .dash-profile{ border-right: 0; border-bottom: 1px solid var(--border); }
-  .page-index .idcard--col{ border-right: 0; border-bottom: 1px solid var(--border); }
+  .page-index .idcard--col{ order: 0; border-right: 0; border-bottom: 1px solid var(--border); }
   /* stacked flow: cap the portrait; the pinned footers become natural (columns
      are content-height here, so margin-top:auto no longer anchors anything) */
   .page-index .idcard--col .frame{ max-width: 200px; }
