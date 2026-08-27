@@ -17,3 +17,6 @@ one_page_resume.pdf
 *.cr2
 *.nef
 data/photos.json.bak
+
+# original camera files — generated thumbs/large are served instead; keep locally for update_gallery.py
+images/gallery/full/
