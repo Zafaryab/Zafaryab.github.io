@@ -252,26 +252,6 @@
     "orientation": "landscape"
   },
   {
-    "id": "fall_001",
-    "title": "Fall Colors",
-    "subtitle": "Autumn tones in the leaves.",
-    "primary_collection": "",
-    "collections": [],
-    "tags": [
-      "fall"
-    ],
-    "location": "",
-    "date": "",
-    "featured": false,
-    "order": 1,
-    "thumb": "images/gallery/thumbs/fall_001.JPG",
-    "large": "images/gallery/large/fall_001.webp",
-    "full": "images/gallery/full/fall_001.JPG",
-    "width": 5568,
-    "height": 3712,
-    "orientation": "landscape"
-  },
-  {
     "id": "frame-0001",
     "title": "Brick Hall at Winter Dusk",
     "subtitle": "A snow-topped brick campus building beneath a pink winter sunset.",
