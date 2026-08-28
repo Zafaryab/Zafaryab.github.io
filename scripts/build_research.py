@@ -128,10 +128,16 @@ def _pub_article(p) -> str:
     aside = f'<span class="status status--{STATUS_CLASS[p["status"]]}">{STATUS_LABEL[p["status"]]}</span>'
     aside += links_html(p.get("links"))
     year = p.get("year") or "—"
+    # under-review work hides its target venue (kept in source as a comment) —
+    # naming a venue before acceptance reads as presumptuous
+    if p["status"] == "under_review":
+        venue_html = f'<!-- target venue: {esc(p["venue"])} -->'
+    else:
+        venue_html = f'<div class="pub-venue">{esc(p["venue"])}</div>'
     return (
         f'<article class="pub">\n'
         f'  <div class="pub-side"><div class="pub-year">{esc(year)}</div>'
-        f'<div class="pub-venue">{esc(p["venue"])}</div></div>\n'
+        f'{venue_html}</div>\n'
         f'  <div class="pub-body">\n'
         f'    <div>\n{body}\n    </div>\n'
         f'    <div class="pub-aside">\n      {aside}\n    </div>\n'
