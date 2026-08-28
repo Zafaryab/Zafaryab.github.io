@@ -117,6 +117,13 @@
         "links": [
           { "label": "Demo", "href": "https://zafaryab.github.io/demos/act/index.html" }
         ]
+      },
+      {
+        "year": "2026", "venue": "ACM CCS",
+        "title": "(A)iSpy: Parasitic trojans for machine learning infrastructure",
+        "authors": "Rahaman, H., Xu, Q., Haider, Z., Chakraborty, P., Bhunia, S., & Suya, F.",
+        "me": "Haider, Z.", "tags": "ML Infrastructure Security", "status": "accepted",
+        "links": [{ "label": "arXiv", "href": "https://arxiv.org/abs/2607.17550" }]
       }
     ],
     "under_review": [
@@ -148,13 +155,6 @@
         "me": "Haider, Z.", "tags": "Multi-Agent LLM Harm / Harm Amplification", "status": "under_review",
         "homepage": { "order": 5, "code": "HARP", "summary": "Local-to-system harm amplification in multi-agent LLM systems — how compromised agents propagate failures." },
         "links": [{ "label": "arXiv", "href": "https://arxiv.org/abs/2605.27489" }]
-      },
-      {
-        "year": null, "venue": "ACM CCS",
-        "title": "(A)iSpy: Parasitic trojans for machine learning infrastructure",
-        "authors": "Rahaman, H., Xu, Q., Haider, Z., Chakraborty, P., Bhunia, S., & Suya, F.",
-        "me": "Haider, Z.", "tags": "ML Infrastructure Security", "status": "under_review",
-        "links": [{ "label": "arXiv", "href": "https://arxiv.org/abs/2607.17550" }]
       },
       {
         "year": null, "venue": "AAAI",
