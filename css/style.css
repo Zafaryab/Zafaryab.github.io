@@ -257,6 +257,23 @@ p:last-child{ margin-bottom: 0; }
 /* primary control */
 .act--primary{ color: var(--green); border-color: var(--green-muted); }
 .act--primary:hover{ border-color: var(--green); }
+.act--primary .arw{ color: var(--green); }
+
+/* primary CTA: restrained green fill + brighter border + subtle STATIC glow.
+   No padding/border-width change -> button height is unchanged, so the three
+   hero columns keep their shared bottom rail. No animation. */
+.act--cta{
+  color: var(--green);
+  background: rgba(50, 245, 180, .08);
+  border-color: var(--border-bright);
+  box-shadow: 0 0 10px rgba(50, 245, 180, .12);
+}
+.act--cta .arw{ color: var(--green); }
+.act--cta:hover{
+  background: rgba(50, 245, 180, .12);
+  border-color: var(--green);
+  box-shadow: 0 0 14px rgba(50, 245, 180, .18);
+}
 
 /* inline text link with underline grow */
 .link-u{
