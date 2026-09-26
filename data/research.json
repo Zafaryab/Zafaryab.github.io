@@ -46,11 +46,19 @@
       "desc": "Topology-aware world model for electricity-grid reconfiguration that evaluates line-switching candidates through learned imagined rollouts and verifies promising actions using exact AC power-flow simulation — covering topology-changing actions, ranking of candidates, and identification of unsafe or poor candidates. Experiments are ongoing; no performance claims are made."
     },
     {
-      "n": "02", "id": "INTACT", "status": "upcoming", "status_label": "Starting Sep 2026",
+      "n": "02", "id": "INTACT", "status": "upcoming", "status_label": "Starting Oct 2026",
       "cat": "LLM Reliability",
-      "meta": [["Start", "Sep 2026", "amber"], ["Signal", "Generation-Time", ""]],
+      "meta": [["Start", "Oct 2026", "amber"], ["Signal", "Generation-Time", ""]],
       "homepage": { "order": 2, "summary": "Whether token-level logits, probabilities and generation-time signals from autoregressive LLMs give reliable evidence of incorrect or unsupported outputs." },
       "desc": "Investigating whether generation-time signals from autoregressive language models — particularly token-level logit and probability structure — can provide reliable evidence of output correctness, whether these signals distinguish reliable from incorrect or unsupported outputs, and how robust they are across models, tasks and decoding conditions."
+    },
+    {
+      "n": "03", "id": "HARP", "status": "active", "status_label": "Active",
+      "cat": "Multi-Agent LLM Harm / Harm Amplification",
+      "meta": [["Preprint", "arXiv 2605.27489", "amber"], ["Scope", "Multi-Agent LLM", ""]],
+      "homepage": { "order": 5, "summary": "Local-to-system harm amplification in multi-agent LLM systems — how compromised agents propagate failures." },
+      "desc": "Measuring harm amplification in multi-agent LLM systems — how harm introduced locally by a compromised or misaligned agent propagates and is amplified at the system level. Work is ongoing; an earlier preprint is available on arXiv. Co-authored with Rahman, M. H., Mahfuz, T., and Chakraborty, P.",
+      "links": [{ "label": "arXiv", "href": "https://arxiv.org/abs/2605.27489" }]
     }
   ],
 
@@ -108,6 +116,14 @@
     ],
     "accepted": [
       {
+        "year": "2026", "venue": "NeurIPS",
+        "title": "SMASH: Probing speech recognition robustness via semantically targeted bit flips",
+        "authors": "Haider, Z., Rahman, M. H., Bumin, A., & Chakraborty, P.",
+        "me": "Haider, Z.", "tags": "AI Model Security / Targeted Speech Faults", "status": "accepted",
+        "homepage": { "order": 3, "code": "SMASH", "summary": "Semantically targeted sparse parameter bit flips in speech-recognition models, with robustness and failure analysis." },
+        "contribution": "Probes speech-recognition robustness via sparse, semantically targeted parameter bit-flips, characterizing controlled output changes and transferability."
+      },
+      {
         "year": "2026", "venue": "IEEE CARS",
         "title": "ACT: Anchor-calibrated trust estimation when corrupted sources form the majority",
         "authors": "Haider, Z., Rahman, M. H., Glatter, S., & Chakraborty, P.",
@@ -139,22 +155,6 @@
           { "label": "arXiv", "href": "https://arxiv.org/abs/2512.14715" },
           { "label": "Demo", "href": "https://zafaryab.github.io/demos/blade/index.html" }
         ]
-      },
-      {
-        "year": null, "venue": "NeurIPS",
-        "title": "SMASH: Probing speech recognition robustness via semantically targeted bit flips",
-        "authors": "Haider, Z., Rahman, M. H., Bumin, A., & Chakraborty, P.",
-        "me": "Haider, Z.", "tags": "AI Model Security / Targeted Speech Faults", "status": "under_review",
-        "homepage": { "order": 3, "code": "SMASH", "summary": "Semantically targeted sparse parameter bit flips in speech-recognition models, with robustness and failure analysis." },
-        "contribution": "Probes speech-recognition robustness via sparse, semantically targeted parameter bit-flips, characterizing controlled output changes and transferability."
-      },
-      {
-        "year": null, "venue": "IEEE S&P",
-        "title": "HARP: Measuring harm amplification in multi-agent LLM systems",
-        "authors": "Rahman, M. H., Haider, Z., Mahfuz, T., & Chakraborty, P.",
-        "me": "Haider, Z.", "tags": "Multi-Agent LLM Harm / Harm Amplification", "status": "under_review",
-        "homepage": { "order": 5, "code": "HARP", "summary": "Local-to-system harm amplification in multi-agent LLM systems — how compromised agents propagate failures." },
-        "links": [{ "label": "arXiv", "href": "https://arxiv.org/abs/2605.27489" }]
       },
       {
         "year": null, "venue": "AAAI",

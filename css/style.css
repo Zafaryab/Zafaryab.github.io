@@ -773,6 +773,7 @@ p:last-child{ margin-bottom: 0; }
 .proj-meta .kv b{ color: var(--text-muted); font-weight: 500; }
 .proj-meta .kv .amber{ color: var(--amber); }
 .proj-desc{ font-size: .86rem; color: var(--text-secondary); margin-bottom: 10px; }
+.proj-links{ display: flex; flex-wrap: wrap; gap: 6px 14px; margin-bottom: 4px; }
 .proj .acts{ gap: 6px; }
 .proj .act{ padding: .35rem .6rem; font-size: .68rem; }
 

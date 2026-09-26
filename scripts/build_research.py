@@ -96,6 +96,9 @@ def render_current(d) -> str:
             cls = f' class="{vc}"' if vc else ""
             meta += (f'\n      <span class="kv"><b>{esc(k)}</b>'
                      f'<span{cls}>{esc(v)}</span></span>')
+        links = ""
+        if p.get("links"):
+            links = f'\n  <div class="proj-links">{links_html(p["links"])}\n  </div>'
         cells.append(
             f'<div class="proj proj-lead">\n'
             f'  <div class="proj-top"><span class="proj-id"><span class="n">{esc(p["n"])}</span>'
@@ -103,7 +106,7 @@ def render_current(d) -> str:
             f'<span class="status status--{STATUS_CLASS[p["status"]]}">{esc(p["status_label"])}</span></div>\n'
             f'  <div class="proj-cat">{esc(p["cat"])}</div>\n'
             f'  <div class="proj-meta">{meta}\n  </div>\n'
-            f'  <p class="proj-desc">{esc(p["desc"])}</p>\n'
+            f'  <p class="proj-desc">{esc(p["desc"])}</p>{links}\n'
             f'</div>'
         )
     return "\n\n".join(cells)
