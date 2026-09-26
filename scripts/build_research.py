@@ -36,6 +36,7 @@ STATUS_CLASS = {
     "filed": "pub",
 }
 STATUS_LABEL = {"published": "Published", "accepted": "Accepted", "under_review": "Under Review"}
+MIDDOT = chr(183)   # the · separator used in resume section tags
 PUB_GROUPS = [("published", "Published", ""), ("accepted", "Accepted", " magenta"),
               ("under_review", "Under Review", " amber")]
 
@@ -312,11 +313,38 @@ def render_resume_jsonld(d) -> str:
         }
         if p.get("year"):
             art["datePublished"] = str(p["year"])
-        links = p.get("links") or []
+        # cite the paper itself - a Demo link is about the work, not the article,
+        # so it is not a valid ScholarlyArticle url
+        links = [l for l in (p.get("links") or []) if l["label"] != "Demo"]
         if links:
             art["url"] = links[0]["href"]
         graph.append(art)
     return _jsonld_script({"@context": "https://schema.org", "@graph": graph})
+
+
+# ------------------------------------------------ section-head count tags
+# These sit in the section headers and used to be hand-typed, so they drifted
+# out of step with the data (e.g. "6 PUB / 1 ACC / 5 REVIEW"). Generated now.
+def render_pub_count(d) -> str:
+    p = d['publications']
+    parts = [f"{len(p['published'])} PUB", f"{len(p['accepted'])} ACC",
+             f"{len(p['under_review'])} REVIEW"]
+    sep = ' ' + MIDDOT + ' '
+    return f'<span class="tag">{sep.join(parts)}</span>'
+
+
+def render_current_count(d) -> str:
+    def n(status):
+        return sum(1 for c in d['current'] if c['status'] == status)
+    return f'<span class="tag">{n("active"):02d} ACTIVE / {n("upcoming"):02d} UPCOMING</span>'
+
+
+def render_patent_count(d) -> str:
+    return f'<span class="tag">{len(d["patents"]):02d} FAMILIES</span>'
+
+
+def render_engineering_count(d) -> str:
+    return f'<span class="tag">{len(d["engineering"]):02d} SYSTEMS</span>'
 
 
 SECTIONS = {
@@ -325,6 +353,10 @@ SECTIONS = {
             "index-engineering": render_engineering_home,
             "index-jsonld": render_index_jsonld},
     RESUME: {"resume-current": render_current,
+             "resume-current-count": render_current_count,
+             "resume-pub-count": render_pub_count,
+             "resume-patent-count": render_patent_count,
+             "resume-engineering-count": render_engineering_count,
              "resume-publications": render_publications,
              "resume-patents": render_patents,
              "resume-engineering": render_engineering,
@@ -450,8 +482,10 @@ def main() -> None:
 
     if args.check:
         print("Research data check")
-        print(f"  Publications: {sum(len(v) for v in data['publications'].values())}"
-              f"  Patents: {len(data['patents'])}")
+        shelved = len(data["publications"].get("_shelved", []))
+        print(f"  Publications: {sum(len(data['publications'][k]) for k, _, _ in PUB_GROUPS)}"
+              f"  Patents: {len(data['patents'])}"
+              + (f"  Shelved (not rendered): {shelved}" if shelved else ""))
         print(f"  Validation errors: {len(errs)}")
         for e in errs:
             print(f"    ERROR: {e}")

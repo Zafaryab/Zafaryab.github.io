@@ -57,7 +57,7 @@
       "cat": "Multi-Agent LLM Harm / Harm Amplification",
       "meta": [["Preprint", "arXiv 2605.27489", "amber"], ["Scope", "Multi-Agent LLM", ""]],
       "homepage": { "order": 5, "summary": "Local-to-system harm amplification in multi-agent LLM systems — how compromised agents propagate failures." },
-      "desc": "Measuring harm amplification in multi-agent LLM systems — how harm introduced locally by a compromised or misaligned agent propagates and is amplified at the system level. Work is ongoing; an earlier preprint is available on arXiv. Co-authored with Rahman, M. H., Mahfuz, T., and Chakraborty, P.",
+      "desc": "Measuring harm amplification in multi-agent LLM systems — how harm introduced locally by a compromised or misaligned agent propagates and is amplified at the system level. A preprint is available on arXiv; the study is currently being expanded to additional tasks, with submission planned once that work is complete. Co-authored with Rahman, M. H., Mahfuz, T., and Chakraborty, P.",
       "links": [{ "label": "arXiv", "href": "https://arxiv.org/abs/2605.27489" }]
     }
   ],
@@ -121,7 +121,10 @@
         "authors": "Haider, Z., Rahman, M. H., Bumin, A., & Chakraborty, P.",
         "me": "Haider, Z.", "tags": "AI Model Security / Targeted Speech Faults", "status": "accepted",
         "homepage": { "order": 3, "code": "SMASH", "summary": "Semantically targeted sparse parameter bit flips in speech-recognition models, with robustness and failure analysis." },
-        "contribution": "Probes speech-recognition robustness via sparse, semantically targeted parameter bit-flips, characterizing controlled output changes and transferability."
+        "contribution": "Probes speech-recognition robustness via sparse, semantically targeted parameter bit-flips, characterizing controlled output changes and transferability.",
+        "links": [
+          { "label": "Demo", "href": "https://zafaryab.github.io/demos/smash/index.html" }
+        ]
       },
       {
         "year": "2026", "venue": "IEEE CARS",
@@ -155,8 +158,12 @@
           { "label": "arXiv", "href": "https://arxiv.org/abs/2512.14715" },
           { "label": "Demo", "href": "https://zafaryab.github.io/demos/blade/index.html" }
         ]
-      },
+      }
+    ],
+    "_shelved_comment": "Records parked here are ignored by scripts/build_research.py - they render nowhere and count toward nothing. Kept in source so the work is not lost.",
+    "_shelved": [
       {
+        "_note": "Rejected at AAAI (noted Sep 2026); hidden from the site for now. To restore: move the record back into under_review with its new target venue, or into published/accepted once it lands.",
         "year": null, "venue": "AAAI",
         "title": "Frontier AI releases should publish signed security manifests",
         "authors": "Bumin, A., Haider, Z., & Chakraborty, P.",
