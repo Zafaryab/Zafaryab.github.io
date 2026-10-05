@@ -153,11 +153,22 @@ def _pub_article(p) -> str:
     )
 
 
+def _peer_reviewed(d) -> list:
+    """Published + accepted as one list: newest year first, then ICORE A*
+    venues, then first-author papers. Each record keeps its own status badge."""
+    p = d["publications"]
+    return sorted(p["published"] + p["accepted"], key=lambda x: (
+        -int(x["year"]),
+        x.get("rank") != "ICORE A*",
+        not x["authors"].startswith(x["me"]),
+    ))
+
+
 def render_publications(d) -> str:
-    parts = []
-    for key, label, cls in PUB_GROUPS:
-        parts.append(f'<div class="pub-group{cls}">{label}</div>')
-        parts.extend(_pub_article(p) for p in d["publications"][key])
+    parts = ['<div class="pub-group">Published &amp; Accepted</div>']
+    parts.extend(_pub_article(p) for p in _peer_reviewed(d))
+    parts.append('<div class="pub-group amber">Under Review</div>')
+    parts.extend(_pub_article(p) for p in d["publications"]["under_review"])
     return "\n\n".join(parts)
 
 
