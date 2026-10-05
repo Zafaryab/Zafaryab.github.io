@@ -73,6 +73,7 @@ def counts(d) -> dict:
     p = d["publications"]
     return {
         "published_accepted": len(p["published"]) + len(p["accepted"]),
+        "a_star": sum(1 for x in p["published"] + p["accepted"] if x.get("rank") == "ICORE A*"),
         "under_review": len(p["under_review"]),
         "patents": len(d["patents"]),
     }
@@ -138,6 +139,8 @@ def _pub_article(p) -> str:
         venue_html = f'<!-- target venue: {esc(p["venue"])} -->'
     else:
         venue_html = f'<div class="pub-venue">{esc(p["venue"])}</div>'
+        if p.get("rank"):
+            venue_html += f'<div class="pub-rank">{esc(p["rank"])}</div>'
     return (
         f'<article class="pub">\n'
         f'  <div class="pub-side"><div class="pub-year">{esc(year)}</div>'

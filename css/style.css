@@ -1099,6 +1099,13 @@ details.fold .fold-body{ padding: var(--s-module); }
   margin-top: .3rem;
   line-height: 1.3;
 }
+.pub-rank{
+  font-size: .62rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-top: .2rem;
+}
 /* body splits into main text + right-aligned status/actions */
 .pub-body{
   display: grid;

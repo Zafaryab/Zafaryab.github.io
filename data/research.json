@@ -11,7 +11,8 @@
     "affiliation": "University of Maine",
     "sameAs": [
       "https://scholar.google.com/citations?user=7rECzEYAAAAJ&hl=en",
-      "https://linkedin.com/in/zafaryab"
+      "https://linkedin.com/in/zafaryab",
+      "https://orcid.org/0000-0003-1849-5817"
     ],
     "knowsAbout": [
       "AI Security",
@@ -24,6 +25,7 @@
 
   "counters": [
     { "source": "published_accepted", "label": "Published/Accepted" },
+    { "source": "a_star", "label": "ICORE A* Papers" },
     { "source": "under_review", "label": "Under Review", "accent": "amber" },
     { "source": "patents", "label": "Patents Filed" },
     { "value": "$25K", "label": "Funded", "accent": "amber" }
@@ -46,9 +48,9 @@
       "desc": "Topology-aware world model for electricity-grid reconfiguration that evaluates line-switching candidates through learned imagined rollouts and verifies promising actions using exact AC power-flow simulation — covering topology-changing actions, ranking of candidates, and identification of unsafe or poor candidates. Experiments are ongoing; no performance claims are made."
     },
     {
-      "n": "02", "id": "INTACT", "status": "upcoming", "status_label": "Starting Oct 2026",
+      "n": "02", "id": "INTACT", "status": "active", "status_label": "Active",
       "cat": "LLM Reliability",
-      "meta": [["Start", "Oct 2026", "amber"], ["Signal", "Generation-Time", ""]],
+      "meta": [["Since", "Oct 2026", "amber"], ["Signal", "Generation-Time", ""]],
       "homepage": { "order": 2, "summary": "Whether token-level logits, probabilities and generation-time signals from autoregressive LLMs give reliable evidence of incorrect or unsupported outputs." },
       "desc": "Investigating whether generation-time signals from autoregressive language models — particularly token-level logit and probability structure — can provide reliable evidence of output correctness, whether these signals distinguish reliable from incorrect or unsupported outputs, and how robust they are across models, tasks and decoding conditions."
     },
@@ -57,7 +59,7 @@
       "cat": "Multi-Agent LLM Harm / Harm Amplification",
       "meta": [["Preprint", "arXiv 2605.27489", "amber"], ["Scope", "Multi-Agent LLM", ""]],
       "homepage": { "order": 5, "summary": "Local-to-system harm amplification in multi-agent LLM systems — how compromised agents propagate failures." },
-      "desc": "Measuring harm amplification in multi-agent LLM systems — how harm introduced locally by a compromised or misaligned agent propagates and is amplified at the system level. A preprint is available on arXiv; the study is currently being expanded to additional tasks, with submission planned once that work is complete. Co-authored with Rahman, M. H., Mahfuz, T., and Chakraborty, P.",
+      "desc": "Measuring harm amplification in multi-agent LLM systems — how harm introduced locally by a compromised or misaligned agent propagates and is amplified at the system level. A preprint is available on arXiv; the study is currently being expanded to additional tasks, with submission planned once that work is complete. Second lead on the project (with Rahman, M. H., Mahfuz, T., and Chakraborty, P.) — research ideation, experimental design and execution, and benchmark and evaluation methodology for robustness, controllability and adversarial failure modes.",
       "links": [{ "label": "arXiv", "href": "https://arxiv.org/abs/2605.27489" }]
     }
   ],
@@ -65,10 +67,11 @@
   "publications": {
     "published": [
       {
-        "year": "2026", "venue": "CVPR",
+        "year": "2026", "venue": "CVPR", "rank": "ICORE A*",
         "title": "DASH: A meta-attack framework for synthesizing effective and stealthy adversarial examples",
         "authors": "Nafi, A. A. N., Rahaman, H., Haider, Z., Mahfuz, T., Suya, F., Bhunia, S., & Chakraborty, P.",
         "me": "Haider, Z.", "tags": "Adversarial ML / Meta-Attack", "status": "published",
+        "note": { "k": "Role:", "text": "contributed to project ideation and methodology formulation, and to the project's ongoing technical discussions." },
         "homepage": { "order": 8, "code": "DASH", "summary": "Meta-attack framework composing existing attack primitives to synthesize effective and stealthy adversarial examples." },
         "links": [{ "label": "Paper", "href": "https://openaccess.thecvf.com/content/CVPR2026/html/Al_Nomaan_Nafi_DASH_A_Meta-Attack_Framework_for_Synthesizing_Effective_and_Stealthy_Adversarial_CVPR_2026_paper.html" }]
       },
@@ -78,7 +81,7 @@
         "authors": "Haider, Z., Rahman, M. H., Devabhaktuni, V., Moeykens, S., & Chakraborty, P.",
         "me": "Haider, Z.", "tags": "Trustworthy ML / RLHF Integrity", "status": "published",
         "homepage": { "order": 7, "code": "COBRA", "summary": "Consensus-based reward mitigating malicious human-in-the-loop feedback during RLHF training of LLMs." },
-        "contribution": "Consensus-based reward that negates malicious human-in-the-loop RLHF feedback by aggregating across a mixed-trust expert pool rather than rejecting updates outright.",
+        "contribution": "Consensus-based reward that negates malicious human-in-the-loop RLHF feedback by aggregating across a mixed-trust expert pool rather than rejecting updates outright — raising reward accuracy to ~73% from 48.78%, about 23% above prior work at DF = 10.",
         "links": [
           { "label": "Paper", "href": "https://doi.org/10.1038/s41598-025-92889-7" },
           { "label": "Demo", "href": "https://zafaryab.github.io/demos/cobra/index.html" }
@@ -116,7 +119,7 @@
     ],
     "accepted": [
       {
-        "year": "2026", "venue": "NeurIPS",
+        "year": "2026", "venue": "NeurIPS", "rank": "ICORE A*",
         "title": "SMASH: Probing speech recognition robustness via semantically targeted bit flips",
         "authors": "Haider, Z., Rahman, M. H., Bumin, A., & Chakraborty, P.",
         "me": "Haider, Z.", "tags": "AI Model Security / Targeted Speech Faults", "status": "accepted",
@@ -138,10 +141,11 @@
         ]
       },
       {
-        "year": "2026", "venue": "ACM CCS",
+        "year": "2026", "venue": "ACM CCS", "rank": "ICORE A*",
         "title": "(A)iSpy: Parasitic trojans for machine learning infrastructure",
         "authors": "Rahaman, H., Xu, Q., Haider, Z., Chakraborty, P., Bhunia, S., & Suya, F.",
         "me": "Haider, Z.", "tags": "ML Infrastructure Security", "status": "accepted",
+        "note": { "k": "Role:", "text": "contributed to early project ideation and built the malware-detection evaluation — how existing security tools respond to ML-specific attack behavior." },
         "links": [{ "label": "arXiv", "href": "https://arxiv.org/abs/2607.17550" }]
       }
     ],
@@ -152,7 +156,7 @@
         "authors": "Haider, Z., Rahman, M. H., Moeykens, S., Devabhaktuni, V., & Chakraborty, P.",
         "me": "Haider, Z.", "tags": "AI Model Security / Bit-Level VLM Faults", "status": "under_review",
         "homepage": { "order": 6, "code": "BLADE", "summary": "Sparse bit-level fault analysis and semantic steering in quantized vision-language models." },
-        "contribution": "Differentiable bit-level fault analysis for quantized vision–language models, studying controlled semantic steering under sparse parameter faults (BLIP, BLIP-2, GIT).",
+        "contribution": "Differentiable bit-level fault analysis for quantized vision–language models, studying controlled semantic steering under sparse parameter faults (BLIP, BLIP-2, GIT) — about 2.4× higher attack success than a prior baseline under a 20-bit budget.",
         "note": { "k": "Preprint v1:", "text": "“How a Bit Becomes a Story: Semantic Steering via Differentiable Fault Injection” · arXiv:2512.14715 (earlier version; manuscript substantially revised)", "hidden": true },
         "links": [
           { "label": "arXiv", "href": "https://arxiv.org/abs/2512.14715" },
@@ -204,6 +208,12 @@
   ],
 
   "engineering": [
+    {
+      "title": "Edge-AI Research Testbed",
+      "year": "2025",
+      "cat": "Lab Infrastructure / 45 Devices",
+      "desc": "Remotely accessible heterogeneous Edge-AI testbed for AI, cybersecurity, edge-computing and resilience experiments — 21 NVIDIA Jetsons, 10 Raspberry Pis and 14 other single-board computers across two rack cabinets, with shared NAS storage, networking and rack/KVM infrastructure. Planned most of the architecture and led the deployment with another graduate researcher while guiding an undergraduate student."
+    },
     {
       "title": "Adversarial Evaluation Tooling",
       "year": "2025",
