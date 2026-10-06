@@ -1590,6 +1590,14 @@ details.fold .fold-body{ padding: var(--s-module); }
 }
 .act--primary{ background: transparent; box-shadow: none; }
 
+/* desktop bottom rail: give the actions the same 16px bottom inset as the
+   identity and portrait columns (production uses 8px, which left the button
+   boxes ~8px below the metrics/metadata). Three-column layout only; the
+   stacked layout at <=1180px is unchanged. */
+@media (min-width: 1181px){
+  .page-index .sys--col .sys-acts{ padding-bottom: var(--s-module); }
+}
+
 /* LENS: the photographs carry the colour — captions and chrome recede */
 .shot .cap-m .cat,
 .shot .cap-m .loc{ color: var(--text-muted); }
