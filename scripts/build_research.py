@@ -3,7 +3,7 @@
 build_research.py — generate static research HTML from the canonical data.
 
 data/research.json is the single source of truth for publications, patents,
-current research, research-focus areas and the homepage counters. This script
+current research, research-focus areas, the homepage counters and venue line. This script
 renders those into plain static HTML between <!-- build:NAME:start/end -->
 markers in index.html and resume.html, so the deployed pages stay ordinary
 static HTML (no client-side fetch / JS dependency for content).
@@ -88,6 +88,19 @@ def render_counters(d) -> str:
         rows.append(f'<div class="dash-stat{amber}"><b>{esc(value)}</b>'
                     f'<span>{esc(item["label"])}</span></div>')
     return "\n".join(rows)
+
+
+def render_venues(d) -> str:
+    """Homepage venue line: ICORE A* venues of published/accepted work, in
+    _peer_reviewed() order, de-duplicated. Under-review targets never appear."""
+    venues = []
+    for p in _peer_reviewed(d):
+        if p.get("rank") == "ICORE A*" and p["venue"] not in venues:
+            venues.append(p["venue"])
+    if not venues:
+        return ""
+    sep = f' <span class="sep">{MIDDOT}</span> '
+    return f'<p class="dash-venues">{sep.join(esc(v) for v in venues)}</p>'
 
 
 def render_current(d) -> str:
@@ -363,6 +376,7 @@ def render_engineering_count(d) -> str:
 
 SECTIONS = {
     INDEX: {"index-focus": render_focus, "index-counters": render_counters,
+            "index-venues": render_venues,
             "index-selected": render_selected, "index-selected-count": render_selected_count,
             "index-engineering": render_engineering_home,
             "index-jsonld": render_index_jsonld},
