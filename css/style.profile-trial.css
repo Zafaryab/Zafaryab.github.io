@@ -1590,11 +1590,6 @@ details.fold .fold-body{ padding: var(--s-module); }
 }
 .act--primary{ background: transparent; box-shadow: none; }
 
-/* accent semantics: green = positive state, amber = review/upcoming/date,
-   cyan = secondary technical info, magenta = rare category only.
-   Accepted is a positive peer-review state, so it joins Published in green. */
-.status--accepted{ color: var(--green); border-color: var(--green-muted); }
-
 /* LENS: the photographs carry the colour — captions and chrome recede */
 .shot .cap-m .cat,
 .shot .cap-m .loc{ color: var(--text-muted); }
