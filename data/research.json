@@ -204,6 +204,12 @@
       "title": "Bit-flip induced semantic drift in multimodal transformer models",
       "inventors": "Haider, Z., Rahman, M. H., Moeykens, S., & Chakraborty, P.", "me": "Haider, Z.",
       "detail": "US Provisional 63/930,131"
+    },
+    {
+      "n": "05", "kind": "US Prov.",
+      "title": "Measuring harm amplification in multi-agent LLM systems",
+      "inventors": "Chakraborty, P., Haider, Z., Mahfuz, T., & Rahman, M. H.", "me": "Haider, Z.",
+      "detail": "US Provisional 64/148,848 · filed Sep 5, 2026"
     }
   ],
 
