@@ -76,7 +76,7 @@
         "links": [{ "label": "Paper", "href": "https://openaccess.thecvf.com/content/CVPR2026/html/Al_Nomaan_Nafi_DASH_A_Meta-Attack_Framework_for_Synthesizing_Effective_and_Stealthy_Adversarial_CVPR_2026_paper.html" }]
       },
       {
-        "year": "2025", "venue": "Nature Sci. Reports",
+        "year": "2025", "venue": "Scientific Reports",
         "title": "A framework for mitigating malicious RLHF feedback in LLM training using consensus-based reward (COBRA)",
         "authors": "Haider, Z., Rahman, M. H., Devabhaktuni, V., Moeykens, S., & Chakraborty, P.",
         "me": "Haider, Z.", "tags": "Trustworthy ML / RLHF Integrity", "status": "published",
@@ -95,7 +95,7 @@
         "links": [{ "label": "Paper", "href": "https://doi.org/10.1109/ACCESS.2025.3592039" }]
       },
       {
-        "year": "2025", "venue": "Nature Sci. Reports",
+        "year": "2025", "venue": "Scientific Reports",
         "title": "An automated multi-parameter neural architecture discovery framework using ChatGPT in the backend",
         "authors": "Rahman, M. H., Haider, Z., & Chakraborty, P.",
         "me": "Haider, Z.", "tags": "NAS / LLM Tooling", "status": "published",
