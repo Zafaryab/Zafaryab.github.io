@@ -31,7 +31,7 @@ INDEX = ROOT / "index.html"
 RESUME = ROOT / "resume.html"
 
 STATUS_CLASS = {
-    "active": "active", "upcoming": "upcoming",
+    "active": "active", "upcoming": "upcoming", "concluded": "pub",
     "published": "pub", "accepted": "accepted", "under_review": "submitted",
     "filed": "pub",
 }
@@ -73,7 +73,8 @@ def counts(d) -> dict:
     p = d["publications"]
     return {
         "published_accepted": len(p["published"]) + len(p["accepted"]),
-        "a_star": sum(1 for x in p["published"] + p["accepted"] if x.get("rank") == "ICORE A*"),
+        # ICORE A* is a venue-level ranking, so count distinct venues, not papers
+        "a_star": len({x["venue"] for x in p["published"] + p["accepted"] if x.get("rank") == "ICORE A*"}),
         "under_review": len(p["under_review"]),
         "patents": len(d["patents"]),
     }
@@ -350,7 +351,11 @@ def render_pub_count(d) -> str:
 def render_current_count(d) -> str:
     def n(status):
         return sum(1 for c in d['current'] if c['status'] == status)
-    return f'<span class="tag">{n("active"):02d} ACTIVE / {n("upcoming"):02d} UPCOMING</span>'
+    parts = [f'{n("active"):02d} ACTIVE']
+    for status in ("upcoming", "concluded"):
+        if n(status):
+            parts.append(f'{n(status):02d} {status.upper()}')
+    return f'<span class="tag">{" / ".join(parts)}</span>'
 
 
 def render_patent_count(d) -> str:

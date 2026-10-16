@@ -802,11 +802,10 @@ a.btn{text-decoration:none;display:inline-block}
                 <div class="failtag" style="color:var(--faint)">preserves the sentence almost perfectly — because it mostly leaves it alone</div>
               </div>
               <div class="ratio" id="ratiobar">
-                <div class="rl">attack success rate, averaged across the full evaluation</div>
+                <div class="rl">penalized attack success rate · BLIP2-OPT-6.7B / MS-COCO · 20-bit budget</div>
                 <div class="rg">
-                  <span class="r1"><b>2.4×</b> over PBS</span>
-                  <span class="r1"><b>2.37×</b> over AttentionBreaker</span>
-                  <span class="r1"><b>1.6×</b> over random flips</span>
+                  <span class="r1"><b>48.80</b> BLADE</span>
+                  <span class="r1"><b>20.95</b> random-proposal baseline</span>
                 </div>
               </div>
             </div>
@@ -836,7 +835,7 @@ a.btn{text-decoration:none;display:inline-block}
         <div class="rule"></div>
         <div class="k2" style="color:var(--dim);letter-spacing:.16em;max-width:760px;line-height:1.9;text-transform:none;font-size:11px">
           16 bit flips out of a 20-bit budget. No input perturbation, no retraining, no data poisoning.<br>
-          2.4× the attack success rate of Progressive Bit Search — while the sentence still holds together.
+          Penalized attack success rate 48.80 vs. 20.95 for a random-proposal baseline — while the sentence still holds together.
         </div>
         <div class="meta">
           <span>HAIDER · RAHMAN · MOEYKENS · DEVABHAKTUNI · CHAKRABORTY</span>
