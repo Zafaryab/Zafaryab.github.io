@@ -53,14 +53,6 @@
       "meta": [["Since", "Oct 2026", "amber"], ["Signal", "Generation-Time", ""]],
       "homepage": { "order": 2, "summary": "Whether token-level logits, probabilities and generation-time signals from autoregressive LLMs give reliable evidence of incorrect or unsupported outputs." },
       "desc": "Investigating whether generation-time signals from autoregressive language models — particularly token-level logit and probability structure — can provide reliable evidence of output correctness, whether these signals distinguish reliable from incorrect or unsupported outputs, and how robust they are across models, tasks and decoding conditions."
-    },
-    {
-      "n": "03", "id": "HARP", "status": "concluded", "status_label": "Concluded",
-      "cat": "Multi-Agent LLM Harm / Harm Amplification",
-      "meta": [["Period", "Sep 2025 – Oct 2026", "amber"], ["Preprint", "arXiv 2605.27489", ""]],
-      "homepage": { "order": 5, "summary": "Local-to-system harm amplification in multi-agent LLM systems — how compromised agents propagate failures." },
-      "desc": "Studied how malicious or compromised agents in multi-agent LLM systems propagate local failures into system-level harm, and how that harm is amplified relative to a single agent. Built the benchmark and evaluation methodology covering robustness, controllability and adversarial failure modes. Second-lead contributor (with Rahman, M. H., Mahfuz, T., and Chakraborty, P.) — research ideation, experimental design, experiment execution and weekly technical discussions.",
-      "links": [{ "label": "arXiv", "href": "https://arxiv.org/abs/2605.27489" }]
     }
   ],
 
@@ -69,7 +61,7 @@
       {
         "year": "2026", "venue": "CVPR", "rank": "ICORE A*",
         "title": "DASH: A meta-attack framework for synthesizing effective and stealthy adversarial examples",
-        "authors": "Nafi, A. A. N., Rahaman, H., Haider, Z., Mahfuz, T., Suya, F., Bhunia, S., & Chakraborty, P.",
+        "authors": "Al Nomaan Nafi, A., Rahaman, H., Haider, Z., Mahfuz, T., Suya, F., Bhunia, S., & Chakraborty, P.",
         "me": "Haider, Z.", "tags": "Adversarial ML / Meta-Attack", "status": "published",
         "note": { "k": "Role:", "text": "contributed to project ideation and methodology formulation, and to the project's ongoing technical discussions." },
         "homepage": { "order": 8, "code": "DASH", "summary": "Meta-attack framework composing existing attack primitives to synthesize effective and stealthy adversarial examples." },
@@ -162,6 +154,14 @@
           { "label": "arXiv", "href": "https://arxiv.org/abs/2512.14715" },
           { "label": "Demo", "href": "https://zafaryab.github.io/demos/blade/index.html" }
         ]
+      },
+      {
+        "_note": "Venue deliberately absent: under review at a venue that must never be named (source_of_truth.md section 4 R2).",
+        "year": null,
+        "title": "Evaluating agent behavior after compromises in multi-agent systems",
+        "authors": "Rahman, M. H., Haider, Z., Mahfuz, T., Al Nomaan Nafi, A., & Chakraborty, P.",
+        "me": "Haider, Z.", "tags": "Multi-Agent LLM Harm / Harm Amplification", "status": "under_review",
+        "homepage": { "order": 5, "code": "HARP", "summary": "How agents in multi-agent LLM systems behave after a compromise — and how local failures propagate into system-level harm." }
       }
     ],
     "_shelved_comment": "Records parked here are ignored by scripts/build_research.py - they render nowhere and count toward nothing. Kept in source so the work is not lost.",

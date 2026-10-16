@@ -136,8 +136,9 @@ def _pub_article(p) -> str:
     year = p.get("year") or "—"
     # under-review work hides its target venue (kept in source as a comment) —
     # naming a venue before acceptance reads as presumptuous
+    # (some under-review records carry no venue at all, when it must not be named)
     if p["status"] == "under_review":
-        venue_html = f'<!-- target venue: {esc(p["venue"])} -->'
+        venue_html = f'<!-- target venue: {esc(p["venue"])} -->' if p.get("venue") else ""
     else:
         venue_html = f'<div class="pub-venue">{esc(p["venue"])}</div>'
         if p.get("rank"):
@@ -242,7 +243,7 @@ def _selected_card(kind, rec) -> str:
         status_label = STATUS_LABEL[rec["status"]]
         status_cls = STATUS_CLASS[rec["status"]]
         href = "resume.html#publications"
-        meta_pairs = [("Venue", rec["venue"])]
+        meta_pairs = [("Venue", rec["venue"])] if rec.get("venue") else []
         if rec.get("year"):
             meta_pairs.append(("Year", rec["year"]))
 
@@ -251,12 +252,13 @@ def _selected_card(kind, rec) -> str:
         f'  <div class="proj-top"><span class="proj-id"><span class="n">{num}</span>'
         f'{esc(name)}</span><span class="status status--{status_cls}">{esc(status_label)}</span></div>',
         f'  <div class="proj-cat">{esc(cat)}</div>',
-        f'  <div class="proj-meta">',
     ]
-    for k, v in meta_pairs:
-        lines.append(f'    <span class="kv"><b>{esc(k)}</b><span class="amber">{esc(v)}</span></span>')
+    if meta_pairs:
+        lines.append(f'  <div class="proj-meta">')
+        for k, v in meta_pairs:
+            lines.append(f'    <span class="kv"><b>{esc(k)}</b><span class="amber">{esc(v)}</span></span>')
+        lines.append(f'  </div>')
     lines += [
-        f'  </div>',
         f'  <p class="proj-desc">{esc(hp["summary"])}</p>',
         f'</a>',
     ]
@@ -410,6 +412,9 @@ def validate(d: dict) -> list[str]:
     titles = set()
     for p in all_pubs:
         for field in ("venue", "title", "authors", "me", "tags", "status"):
+            # an under-review venue may be withheld on purpose
+            if field == "venue" and p.get("status") == "under_review":
+                continue
             if not p.get(field):
                 errs.append(f"publication missing '{field}': {p.get('title', '?')}")
         # year required for published/accepted; may be null (dash) while under review
