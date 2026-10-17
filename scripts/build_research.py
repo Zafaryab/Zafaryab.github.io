@@ -396,10 +396,20 @@ def inject(text: str, name: str, content0: str) -> str:
     return text[:si] + s + "\n" + body + "\n" + indent + e + text[ei + len(e):]
 
 
+def fit_current_grid(text: str, data: dict) -> str:
+    # Two current projects in the default 3-column grid leave an empty third
+    # column, so the wrapper just outside the markers follows the count.
+    cls = "proj-grid proj-grid--2" if len(data["current"]) == 2 else "proj-grid"
+    return re.sub(r'<div class="proj-grid[^"]*">(\s*<!-- build:resume-current:start -->)',
+                  lambda m: f'<div class="{cls}">{m.group(1)}', text, count=1)
+
+
 def apply_file(path: Path, data: dict) -> str:
     text = path.read_text(encoding="utf-8")
     for name, fn in SECTIONS[path].items():
         text = inject(text, name, fn(data))
+    if path == RESUME:
+        text = fit_current_grid(text, data)
     return text
 
 
