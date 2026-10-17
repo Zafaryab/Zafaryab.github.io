@@ -243,7 +243,9 @@ def _selected_card(kind, rec) -> str:
         status_label = STATUS_LABEL[rec["status"]]
         status_cls = STATUS_CLASS[rec["status"]]
         href = "resume.html#publications"
-        meta_pairs = [("Venue", rec["venue"])] if rec.get("venue") else []
+        # under-review work never shows its target venue (same rule as resume.html)
+        show_venue = rec.get("venue") and rec["status"] != "under_review"
+        meta_pairs = [("Venue", rec["venue"])] if show_venue else []
         if rec.get("year"):
             meta_pairs.append(("Year", rec["year"]))
 
