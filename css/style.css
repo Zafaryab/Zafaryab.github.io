@@ -978,7 +978,7 @@ details.fold .fold-body{ padding: var(--s-module); }
   appearance: none;
   cursor: pointer;
 }
-.lens-ctrl select:focus{ outline: none; border-color: var(--border-bright); }
+.lens-ctrl select:focus{ border-color: var(--border-bright); }   /* keeps the global :focus-visible outline */
 .lens-ctrl .val{ font-size: .82rem; color: var(--text-primary); letter-spacing: .04em; }
 .lens-ctrl .val b{ color: var(--green); font-weight: 500; }
 .lens-ctrl .act{ justify-self: start; }
@@ -1293,7 +1293,7 @@ details.fold .fold-body{ padding: var(--s-module); }
   appearance: none;
   cursor: pointer;
 }
-.filter-item select:focus{ outline: none; border-color: var(--border-bright); }
+.filter-item select:focus{ border-color: var(--border-bright); }
 .filter-meta{
   margin-left: auto;
   font-family: var(--mono);
