@@ -775,7 +775,7 @@ p:last-child{ margin-bottom: 0; }
 .proj-meta .kv{ display: inline-flex; gap: .5ch; }
 .proj-meta .kv b{ color: var(--text-muted); font-weight: 500; }
 .proj-meta .kv .amber{ color: var(--amber); }
-.proj-desc{ font-size: .86rem; color: var(--text-secondary); margin-bottom: 10px; }
+.proj-desc{ font-size: .86rem; color: var(--text-secondary); margin-bottom: 10px; max-width: 65ch; }
 .proj-links{ display: flex; flex-wrap: wrap; gap: 6px 14px; margin-bottom: 4px; }
 .proj .acts{ gap: 6px; }
 .proj .act{ padding: .35rem .6rem; font-size: .75rem; }
@@ -883,7 +883,7 @@ p:last-child{ margin-bottom: 0; }
   font-size: .86rem;
   color: var(--text-secondary);
   margin: 8px 0 0;
-  max-width: 74ch;
+  max-width: 65ch;   /* ~75 characters per line */
   line-height: 1.45;
 }
 .pub-contrib .k{
@@ -1140,6 +1140,7 @@ details.fold .fold-body{ padding: var(--s-module); }
   color: var(--text-muted);
   margin: 6px 0 0;
   line-height: 1.4;
+  max-width: 75ch;
 }
 .pub-note .k{ color: var(--amber); }
 
@@ -1182,6 +1183,7 @@ details.fold .fold-body{ padding: var(--s-module); }
 .card-body{ padding: 1.1rem; }
 .card-body ul{ margin: 0; padding-left: 1.1rem; }
 .card-body li{ margin-bottom: .5rem; color: var(--text-secondary); }
+.card-body li, .card-body p{ max-width: 70ch; }   /* ~75 characters per line in full-width cards */
 .card-body li:last-child{ margin-bottom: 0; }
 .card-body li strong, .card-body strong{ color: var(--text-primary); font-weight: 600; }
 .card-body a{ font-family: var(--mono); font-size: .92em; }
