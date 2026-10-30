@@ -143,8 +143,9 @@
     ],
     "under_review": [
       {
-        "year": null, "venue": "IEEE TIFS",
-        "title": "BLADE: Bit-flip attacks for semantic misdirection in quantized image captioning",
+        "_note": "Venue deliberately absent: no under-review venue is shown or kept on the portal (source_of_truth.md section 20 #37).",
+        "year": null,
+        "title": "BLADE:Bit-flip attacks for semantic misdirection in quantized image captioning",
         "authors": "Haider, Z., Rahman, M. H., Moeykens, S., Devabhaktuni, V., & Chakraborty, P.",
         "me": "Haider, Z.", "tags": "AI Model Security / Bit-Level VLM Faults", "status": "under_review",
         "homepage": { "order": 7, "code": "BLADE", "summary": "Sparse bit-level fault analysis and semantic steering in quantized vision-language models." },
@@ -215,28 +216,22 @@
 
   "engineering": [
     {
+      "title": "Research Interfaces for SMASH and HARP",
+      "year": "2025–26",
+      "cat": "Streamlit · Python",
+      "desc": "Purpose-specific Streamlit/Python research interfaces for individual studies: the blinded human-annotation app for SMASH, used by 13 annotators for human validation, and a separate review and evaluation tool for HARP, used by 4 annotators."
+    },
+    {
       "title": "Edge-AI Research Testbed",
       "year": "2025",
       "cat": "Lab Infrastructure / 45 Compute Devices",
       "desc": "Remotely accessible heterogeneous Edge-AI testbed for AI, cybersecurity, edge-computing and resilience experiments — 45 compute devices (50+ in total): 21 NVIDIA Jetsons, 10 Raspberry Pis and 14 other single-board computers across two rack cabinets, with shared NAS storage, networking and rack/KVM infrastructure. Planned most of the architecture and led the deployment with another graduate researcher while guiding an undergraduate student."
     },
     {
-      "title": "Adversarial Evaluation Tooling",
-      "year": "2025",
-      "cat": "Internal Systems / Streamlit",
-      "desc": "Full-stack experimental tooling for structured review and downstream analysis of adversarial studies — repeatable AI-evaluation workflows via a Streamlit interface and Python export pipelines: structured scoring, diff-based review, and CSV export."
-    },
-    {
       "title": "Distributed / Edge LLM Inference",
       "year": "2024",
       "cat": "Heterogeneous NVIDIA Hardware",
       "desc": "Resource-aware LLM execution across heterogeneous NVIDIA hardware, partitioning models layer-by-layer across Jetson Orin Nano, Xavier NX, AGX Orin and an RTX A6000, with models up to the 15B scale (StarCoder)."
-    },
-    {
-      "title": "Human Evaluation & AI Assessment Platform",
-      "year": "2026",
-      "cat": "Streamlit · Supabase · Python",
-      "desc": "Private blinded multi-rater evaluation platform built for human validation of LLM-as-judge metrics in multi-agent AI-security experiments, with controlled rater assignment, randomized presentation, autosave/resume, structured annotation, and reproducible exports."
     }
   ]
 }
