@@ -109,11 +109,11 @@ p:last-child{ margin-bottom: 0; }
 .sec-label{
   margin: 0;
   font-family: var(--mono);
-  font-size: .78rem;
+  font-size: 1rem;
   font-weight: 600;
   letter-spacing: .18em;
   text-transform: uppercase;
-  color: var(--text-secondary);
+  color: var(--text-primary);
   white-space: nowrap;
 }
 .sec-label .n{ color: var(--green); }
@@ -1480,6 +1480,7 @@ details.fold .fold-body{ padding: var(--s-module); }
 }
 @media (max-width: 640px){
   body{ font-size: 14.5px; }
+  .sec-label{ font-size: .875rem; }   /* longest label still fits on one line at 390px */
   .pub{ grid-template-columns: 5rem 1fr; gap: var(--s-module); }
   .pub-body{ grid-template-columns: 1fr; gap: 8px; }
   .pub-aside{ align-items: flex-start; flex-direction: row; flex-wrap: wrap; text-align: left; }
