@@ -709,23 +709,22 @@ p:last-child{ margin-bottom: 0; }
   white-space: nowrap;   /* keep each label on one line inside its cell */
 }
 
-/* ---------- Dense project grid ---------- */
+/* ---------- Project grid: separate cards with a visible gap ---------- */
 .proj-grid{
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  border: 1px solid var(--border);
-  border-top: 0;
-  border-radius: 0 0 var(--r) var(--r);
-  overflow: hidden;
+  gap: var(--s-related);
 }
 .proj{
   display: block;
   padding: var(--s-module);
-  border-right: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  transition: background var(--t);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  background: var(--surface);
+  min-width: 0;   /* columns stay equal even when a no-wrap line is long */
+  transition: background var(--t), border-color var(--t);
 }
-.proj:hover{ background: var(--surface); }
+.proj:hover{ background: var(--surface-hover); border-color: var(--border-bright); }
 .proj-top{
   display: flex;
   align-items: baseline;
@@ -752,6 +751,7 @@ p:last-child{ margin-bottom: 0; }
 /* homepage cards: keep the category on a single line so card heights match */
 .page-index .proj-grid .proj-cat{
   font-size: .66rem;
+  letter-spacing: .04em;   /* the longest category still fits the narrower gapped column */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -780,19 +780,16 @@ p:last-child{ margin-bottom: 0; }
 .proj .acts{ gap: 6px; }
 .proj .act{ padding: .35rem .6rem; font-size: .75rem; }
 
-/* homepage: 8-card grid squares its bottom so the archive bar attaches below */
-.page-index #projects .proj-grid{ border-radius: 0; }
-
 /* slim full-width archive bar below the selected-research grid */
 .arch-bar{
   display: flex;
   align-items: center;
   gap: var(--s-module);
   flex-wrap: wrap;
+  margin-top: var(--s-related);
   padding: .8rem var(--s-module);
   border: 1px solid var(--border);
-  border-top: 0;
-  border-radius: 0 0 var(--r) var(--r);
+  border-radius: var(--r);
   font-family: var(--mono);
   transition: background var(--t);
 }
@@ -1441,6 +1438,9 @@ details.fold .fold-body{ padding: var(--s-module); }
 /* gallery: densify on very wide displays */
 @media (min-width: 1400px){
   .gallery{ grid-template-columns: repeat(4, 1fr); }
+}
+/* 4 gapped homepage cards need ~1440px for the longest category line to fit */
+@media (min-width: 1440px){
   .page-index #projects .proj-grid{ grid-template-columns: repeat(4, 1fr); }
 }
 
