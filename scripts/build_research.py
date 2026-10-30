@@ -116,7 +116,7 @@ def render_current(d) -> str:
 
 
 def _pub_article(p) -> str:
-    body = f'      <h4 class="pub-title">{esc(p["title"])}</h4>\n'
+    body = f'      <h3 class="pub-title">{esc(p["title"])}</h3>\n'
     body += f'      <div class="pub-authors">{authors_html(p["authors"], p["me"])}</div>\n'
     body += f'      <div class="pub-tags">{esc(p["tags"])}</div>'
     if p.get("contribution"):
@@ -184,7 +184,7 @@ def render_patents(d) -> str:
             f'<div class="pub-venue">{esc(p["kind"])}</div></div>\n'
             f'  <div class="pub-body">\n'
             f'    <div>\n'
-            f'      <h4 class="pub-title">{esc(p["title"])}</h4>\n'
+            f'      <h3 class="pub-title">{esc(p["title"])}</h3>\n'
             f'      <div class="pub-authors">{authors_html(p["inventors"], p["me"])}</div>\n'
             f'      <div class="pub-tags">{esc(p["detail"])}</div>\n'
             f'    </div>\n'
