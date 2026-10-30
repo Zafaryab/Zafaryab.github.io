@@ -55,7 +55,7 @@
 /* ---------- Reset / base ---------- */
 *, *::before, *::after{ box-sizing: border-box; }
 
-html{ scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html{ scroll-behavior: smooth; scroll-padding-top: 64px; -webkit-text-size-adjust: 100%; }   /* jump links and keyboard focus land below the 55px sticky header */
 
 body{
   margin: 0;
@@ -337,6 +337,8 @@ p:last-child{ margin-bottom: 0; }
 /* ============================================================
    HEADER
    ============================================================ */
+/* the header partial loads into this wrapper; without contents it is exactly the header's height and the sticky header scrolls away */
+#header-placeholder{ display: contents; }
 .site-header{
   position: sticky;
   top: 0;
