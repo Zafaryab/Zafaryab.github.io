@@ -145,7 +145,7 @@
       {
         "_note": "Venue deliberately absent: no under-review venue is shown or kept on the portal (source_of_truth.md section 20 #37).",
         "year": null,
-        "title": "BLADE:Bit-flip attacks for semantic misdirection in quantized image captioning",
+        "title": "BLADE: Bit-flip attacks for semantic misdirection in quantized image captioning",
         "authors": "Haider, Z., Rahman, M. H., Moeykens, S., Devabhaktuni, V., & Chakraborty, P.",
         "me": "Haider, Z.", "tags": "AI Model Security / Bit-Level VLM Faults", "status": "under_review",
         "homepage": { "order": 7, "code": "BLADE", "summary": "Sparse bit-level fault analysis and semantic steering in quantized vision-language models." },
