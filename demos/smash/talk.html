@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Recorded NeurIPS 2026 presentation of SMASH: probing speech recognition robustness via semantically targeted bit flips.">
+  <title>SMASH · NeurIPS 2026 talk</title>
+  <link rel="canonical" href="https://zafaryab.github.io/demos/smash/talk.html">
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="video.other">
+  <meta property="og:title" content="SMASH · NeurIPS 2026 talk">
+  <meta property="og:description" content="Recorded presentation: probing speech recognition robustness via semantically targeted bit flips.">
+  <meta property="og:image" content="https://zafaryab.github.io/demos/smash/talk-poster.jpg">
+  <meta property="og:url" content="https://zafaryab.github.io/demos/smash/talk.html">
+  <style>
+    :root { --ink:#25333b; --muted:#67767e; --line:#d5dee3; --bg:#f7f9fc; --teal:#117f79; --blue:#23599b; }
+    * { box-sizing:border-box; }
+    html, body { margin:0; }
+    body { min-width:320px; background:var(--bg); color:var(--ink); font-family:Inter,"Segoe UI",Arial,sans-serif; line-height:1.5; }
+    a:focus-visible { outline:3px solid var(--blue); outline-offset:2px; }
+    /* narrower column on short screens so the whole 16:9 player stays in view */
+    .page { width:min(100% - 32px, 1040px, max(560px, (100dvh - 280px) * 16 / 9)); margin:0 auto; padding:20px 0 32px; }
+    .links { display:flex; justify-content:space-between; gap:8px; flex-wrap:wrap; }
+    .pill { border:1px solid #d5dee5; background:#fff; border-radius:999px; color:var(--ink); padding:.45em .95em; font-size:.85rem; text-decoration:none; box-shadow:0 1px 2px #2439430c; }
+    .pill:hover { border-color:var(--teal); background:#f2fbf9; }
+    .heading { margin:24px 0 16px; }
+    .eyebrow { margin:0; color:var(--teal); font-size:.75rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
+    h1 { margin:.3em 0 .35em; font-size:clamp(1.4rem, 1rem + 1.4vw, 1.9rem); line-height:1.2; }
+    .authors { margin:0; color:var(--muted); }
+    .authors strong { color:var(--ink); font-weight:650; }
+    .player { margin:0; border:1px solid var(--line); border-radius:10px; overflow:hidden; background:#000; box-shadow:0 10px 30px #2439431a; }
+    .player video { display:block; width:100%; height:auto; aspect-ratio:16 / 9; }
+    .meta { margin:10px 0 0; color:var(--muted); font-size:.85rem; }
+    .foot { margin-top:32px; padding-top:12px; border-top:1px solid #cbd8de; color:#6c7e85; font-size:.8rem; }
+    .foot strong { color:#314b54; }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <nav class="links" aria-label="SMASH pages">
+      <a class="pill" href="../../demos.html">← All demos</a>
+      <a class="pill" href="index.html">Interactive demo →</a>
+    </nav>
+
+    <header class="heading">
+      <p class="eyebrow">NeurIPS 2026 · Recorded talk</p>
+      <h1>SMASH: Probing speech recognition robustness via semantically targeted bit flips</h1>
+      <p class="authors"><strong>Zafaryab Haider</strong>, Md Hafizur Rahman, Ayşegül Bumin, Prabuddha Chakraborty</p>
+    </header>
+
+    <figure class="player">
+      <video controls preload="metadata" playsinline poster="talk-poster.jpg" width="1920" height="1080" aria-label="SMASH NeurIPS 2026 talk recording">
+        <source src="smash-talk.mp4" type="video/mp4">
+        Your browser cannot play this video. <a href="smash-talk.mp4">Open the MP4 file</a>.
+      </video>
+    </figure>
+    <p class="meta">Narrated slides</p>
+
+    <footer class="foot">University of Maine, Electrical and Computer Engineering · Funded by the <strong>U.S. Department of Energy</strong></footer>
+  </main>
+</body>
+</html>

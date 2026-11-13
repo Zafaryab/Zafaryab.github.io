@@ -43,6 +43,12 @@
     <priority>0.4</priority>
   </url>
   <url>
+    <loc>https://zafaryab.github.io/demos/smash/talk.html</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
     <loc>https://zafaryab.github.io/demos/blade/index.html</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>yearly</changefreq>

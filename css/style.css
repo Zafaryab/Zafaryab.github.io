@@ -1006,6 +1006,10 @@ details.fold .fold-body{ padding: var(--s-module); }
 .module-row .mlaunch{ font-family: var(--mono); font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; color: var(--green); white-space: nowrap; }
 .module-row .mlaunch .arw{ display: inline-block; transition: transform var(--t); }
 .module-row:hover .mlaunch .arw{ transform: translateX(3px); }
+/* companion link (e.g. recorded talk) attached under a module row */
+.module-row--lead{ border-bottom: 0; }
+.module-row--sub{ padding-block: var(--s-related); border-top: 1px dashed var(--border); }
+.module-row--sub .mtime{ margin-top: 0; }
 
 /* two-column technical list (courses, teaching, skills) */
 .tlist{
